@@ -1,9 +1,10 @@
-import { Navbar } from "@/components/organisms/navbar";
+import { MainTemplate } from "@/template/MainTemplate";
 
 export default function Home() {
   return (
-    <div className="container mx-auto max-w-[1440px]">
-    <Navbar />
-    </div>
+    <MainTemplate>
+      <p>HomePage</p>
+    </MainTemplate>
+
   );
 }
