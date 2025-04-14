@@ -66,7 +66,7 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
         {/* Scrollable list */}
         <div
           ref={scrollRef}
-          className="flex flex-nowrap overflow-x-auto space-x-[24px] scrollbar-hide scroll-smooth">
+          className="flex justify-center flex-nowrap overflow-x-auto space-x-[24px] scrollbar-hide scroll-smooth">
           {dataDummy.map((item, index) => (
             <div key={index} className="flex-shrink-0">
               <ArtisCard image={item.image} />
