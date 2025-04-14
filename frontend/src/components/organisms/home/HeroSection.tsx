@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="hidden min-[1440px]:block relative mt-[96px]">
+    <section className="relative mt-[96px]">
       <div className="ml-[108px]">
         <HeroContent />
       </div>

@@ -119,14 +119,87 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   email: 'email',
   password: 'password',
-  username: 'username',
-  fullname: 'fullname',
-  avatar: 'avatar',
-  isVerify: 'isVerify',
+  role: 'role',
+  referralCode: 'referralCode',
+  referredById: 'referredById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  organizerId: 'organizerId',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  date: 'date',
+  time: 'time',
+  isFree: 'isFree',
+  price: 'price',
+  seats: 'seats',
+  category: 'category',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TicketTypeScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  name: 'name',
+  price: 'price',
+  stock: 'stock'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventId: 'eventId',
+  ticketTypeId: 'ticketTypeId',
+  quantity: 'quantity',
+  totalPrice: 'totalPrice',
+  usedPoints: 'usedPoints',
+  discount: 'discount',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PromotionScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  type: 'type',
+  code: 'code',
+  discountValue: 'discountValue',
+  maxUsage: 'maxUsage',
+  usageCount: 'usageCount',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  rating: 'rating',
+  comment: 'comment',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReferralPointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -143,10 +216,25 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Role = exports.$Enums.Role = {
+  CUSTOMER: 'CUSTOMER',
+  ORGANIZER: 'ORGANIZER'
+};
 
+exports.PromotionType = exports.$Enums.PromotionType = {
+  REFERRAL: 'REFERRAL',
+  DATE_BASED: 'DATE_BASED'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Point: 'Point',
+  Event: 'Event',
+  TicketType: 'TicketType',
+  Transaction: 'Transaction',
+  Promotion: 'Promotion',
+  Review: 'Review',
+  ReferralPoint: 'ReferralPoint'
 };
 
 /**

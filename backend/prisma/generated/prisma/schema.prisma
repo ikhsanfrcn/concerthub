@@ -15,14 +15,122 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Role {
+  CUSTOMER
+  ORGANIZER
+}
+
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  password  String
-  username  String   @unique
-  fullname  String?
-  avatar    String?
-  isVerify  Boolean  @default(false)
+  id               String          @id @default(uuid())
+  name             String
+  email            String          @unique
+  password         String
+  role             Role            @default(CUSTOMER)
+  referralCode     String          @unique
+  usedReferralBy   User?           @relation("ReferralUsed", fields: [usedReferralById], references: [id])
+  usedReferralById String?
+  referralUsed     User[]          @relation("ReferralUsed")
+  referralPoints   ReferralPoint[]
+  points           Point[]
+  tickets          Transaction[]
+  events           Event[]         @relation("CreatedEvents")
+
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+  updatedAt DateTime @updatedAt
+  Review    Review[]
+}
+
+model Point {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  amount    Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  organizer   User     @relation("CreatedEvents", fields: [organizerId], references: [id])
+  organizerId String
+  title       String
+  description String
+  location    String
+  date        DateTime
+  time        String
+  isFree      Boolean  @default(false)
+  price       Int      @default(0)
+  seats       Int
+  category    String
+
+  ticketTypes  TicketType[]
+  transactions Transaction[]
+  reviews      Review[]
+  promotions   Promotion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TicketType {
+  id          String        @id @default(uuid())
+  event       Event         @relation(fields: [eventId], references: [id])
+  eventId     String
+  name        String
+  price       Int
+  stock       Int
+  Transaction Transaction[]
+}
+
+model Transaction {
+  id           String      @id @default(uuid())
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String
+  event        Event       @relation(fields: [eventId], references: [id])
+  eventId      String
+  ticketType   TicketType? @relation(fields: [ticketTypeId], references: [id])
+  ticketTypeId String?
+  quantity     Int
+  totalPrice   Int
+  usedPoints   Int         @default(0)
+  discount     Int         @default(0)
+  createdAt    DateTime    @default(now())
+}
+
+model Promotion {
+  id            String        @id @default(uuid())
+  event         Event         @relation(fields: [eventId], references: [id])
+  eventId       String
+  type          PromotionType
+  code          String        @unique
+  discountValue Int
+  maxUsage      Int?
+  usageCount    Int           @default(0)
+  expiresAt     DateTime
+  createdAt     DateTime      @default(now())
+}
+
+enum PromotionType {
+  REFERRAL
+  DATE_BASED
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+model ReferralPoint {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  points    Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
