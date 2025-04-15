@@ -138,6 +138,18 @@ exports.Prisma.PointScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PromotionScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  type: 'type',
+  code: 'code',
+  discountValue: 'discountValue',
+  maxUsage: 'maxUsage',
+  usageCount: 'usageCount',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   organizerId: 'organizerId',
@@ -174,16 +186,21 @@ exports.Prisma.TransactionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.PromotionScalarFieldEnum = {
+exports.Prisma.VoucherScalarFieldEnum = {
   id: 'id',
-  eventId: 'eventId',
-  type: 'type',
-  code: 'code',
-  discountValue: 'discountValue',
-  maxUsage: 'maxUsage',
-  usageCount: 'usageCount',
+  voucherType: 'voucherType',
+  userId: 'userId',
+  discountPercent: 'discountPercent',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ReferralUsageScalarFieldEnum = {
+  id: 'id',
+  referrerId: 'referrerId',
+  referredId: 'referredId',
+  createdAt: 'createdAt',
+  voucherId: 'voucherId'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
@@ -215,17 +232,22 @@ exports.Role = exports.$Enums.Role = {
 };
 
 exports.PromotionType = exports.$Enums.PromotionType = {
-  REFERRAL: 'REFERRAL',
   DATE_BASED: 'DATE_BASED'
+};
+
+exports.voucherType = exports.$Enums.voucherType = {
+  REFERRAL: 'REFERRAL'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
   Point: 'Point',
+  Promotion: 'Promotion',
   Event: 'Event',
   TicketType: 'TicketType',
   Transaction: 'Transaction',
-  Promotion: 'Promotion',
+  Voucher: 'Voucher',
+  ReferralUsage: 'ReferralUsage',
   Review: 'Review'
 };
 

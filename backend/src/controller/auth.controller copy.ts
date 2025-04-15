@@ -15,10 +15,9 @@ export class AuthController {
       const existingUser = await prisma.user.findUnique({ where: { email } });
       if (existingUser) {
         res.status(400).json({ message: "Email already registered" });
-        return;
       }
 
-      const salt = await genSalt(10);
+      const salt = await genSalt(10)
       const hashedPassword = await bcrypt.hash(password, salt);
       const generatedReferralCode = Math.random()
         .toString(36)
@@ -31,13 +30,19 @@ export class AuthController {
         const referrer = await prisma.user.findUnique({
           where: { referralCode },
         });
-
-        if (!referrer) {
+        if (!referrer)
           res.status(400).json({ message: "Invalid referral code" });
-          return;
-        }
 
         usedReferralById = referrer?.id;
+
+        // Beri point ke yang memberi referral
+        await prisma.point.create({
+          data: {
+            userId: referrer!.id,
+            amount: 10000,
+            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 hari
+          },
+        });
       }
 
       const user = await prisma.user.create({
@@ -45,6 +50,7 @@ export class AuthController {
           name,
           email,
           password: hashedPassword,
+          //   role: "CUSTOMER",
           referralCode: generatedReferralCode,
           usedReferralById,
         },
@@ -75,55 +81,16 @@ export class AuthController {
       res.status(500).json({ message: "Internal server error" });
     }
   }
-
   async verify(req: Request, res: Response) {
     try {
-      const userId = req.user?.id;
-
-      if (!userId) {
-        res.status(401).json({ message: "Unauthorized" });
-      }
-
-      const user = await prisma.user.update({
+      await prisma.user.update({
         data: { isVerify: true },
-        where: { id: userId },
+        where: { id: req.user?.id },
       });
-
-      if (user.usedReferralById) {
-        const referrer = await prisma.user.findUnique({
-          where: { id: user.usedReferralById },
-        });
-
-        await prisma.point.create({
-          data: {
-            userId: user.usedReferralById,
-            amount: 10000,
-            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90),
-          },
-        });
-
-        const voucher = await prisma.voucher.create({
-          data: {
-            userId: user.id,
-            voucherType: "REFERRAL",
-            discountPercent: 10,
-            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90),
-          },
-        });
-
-        await prisma.referralUsage.create({
-          data: {
-            referrerId: referrer!.id,
-            referredId: user.id,
-            voucherId: voucher.id
-          }
-        })
-      }
-
       res.status(200).json({ message: "Verification Success" });
     } catch (error) {
-      console.log("Verify error:", error);
-      res.status(500).json({ message: "Internal server error" });
+      console.log(error);
+      res.status(500).json(error);
     }
   }
 }

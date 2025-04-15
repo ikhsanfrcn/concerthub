@@ -21,15 +21,15 @@ enum Role {
 }
 
 model User {
-  id               String  @id @default(uuid())
+  id               String          @id @default(uuid())
   name             String
-  email            String  @unique
+  email            String          @unique
   password         String
-  role             Role    @default(CUSTOMER)
-  referralCode     String  @unique
-  usedReferralBy   User?   @relation("ReferralUsed", fields: [usedReferralById], references: [id])
+  role             Role            @default(CUSTOMER)
+  referralCode     String          @unique
   usedReferralById String?
-  referralUsed     User[]  @relation("ReferralUsed")
+  referrer         ReferralUsage[] @relation("ReferralsGiven")
+  referred         ReferralUsage[] @relation("ReferralsReceived")
 
   points  Point[]
   tickets Transaction[]
@@ -39,7 +39,8 @@ model User {
   updatedAt DateTime @updatedAt
   Review    Review[]
 
-  isVerify Boolean @default(false)
+  isVerify Boolean   @default(false)
+  Voucher  Voucher[]
 }
 
 model Point {
@@ -49,6 +50,23 @@ model Point {
   amount    Int
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+model Promotion {
+  id            String        @id @default(uuid())
+  event         Event         @relation(fields: [eventId], references: [id])
+  eventId       String
+  type          PromotionType
+  code          String        @unique
+  discountValue Int
+  maxUsage      Int?
+  usageCount    Int           @default(0)
+  expiresAt     DateTime
+  createdAt     DateTime      @default(now())
+}
+
+enum PromotionType {
+  DATE_BASED
 }
 
 model Event {
@@ -99,22 +117,30 @@ model Transaction {
   createdAt    DateTime    @default(now())
 }
 
-model Promotion {
-  id            String        @id @default(uuid())
-  event         Event         @relation(fields: [eventId], references: [id])
-  eventId       String
-  type          PromotionType
-  code          String        @unique
-  discountValue Int
-  maxUsage      Int?
-  usageCount    Int           @default(0)
-  expiresAt     DateTime
-  createdAt     DateTime      @default(now())
+model Voucher {
+  id              String          @id @default(uuid())
+  voucherType     voucherType     @default(REFERRAL)
+  user            User            @relation(fields: [userId], references: [id])
+  userId          String
+  discountPercent Int
+  expiresAt       DateTime
+  createdAt       DateTime        @default(now())
+  ReferralUsage   ReferralUsage[]
 }
 
-enum PromotionType {
+enum voucherType {
   REFERRAL
-  DATE_BASED
+}
+
+model ReferralUsage {
+  id         String   @id @default(uuid())
+  referrer   User     @relation("ReferralsGiven", fields: [referrerId], references: [id])
+  referrerId String
+  referred   User     @relation("ReferralsReceived", fields: [referredId], references: [id])
+  referredId String
+  createdAt  DateTime @default(now())
+  Voucher    Voucher? @relation(fields: [voucherId], references: [id])
+  voucherId  String?
 }
 
 model Review {
