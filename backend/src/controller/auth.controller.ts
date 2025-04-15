@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
-import bcrypt, { genSalt } from "bcrypt";
+import bcrypt, { compare, genSalt } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { transporter } from "../helpers/mailer";
 import fs from "fs";
@@ -115,15 +115,40 @@ export class AuthController {
           data: {
             referrerId: referrer!.id,
             referredId: user.id,
-            voucherId: voucher.id
-          }
-        })
+            voucherId: voucher.id,
+          },
+        });
       }
 
       res.status(200).json({ message: "Verification Success" });
     } catch (error) {
       console.log("Verify error:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  async login(req: Request, res: Response) {
+    try {
+      const { email, password } = req.body;
+      const user = await prisma.user.findUnique({ where: { email } });
+
+      if (!user) throw { message: "User not found" };
+      if (!user.isVerify) throw { message: "Account is not verified" };
+
+      const isValidPass = await compare(password, user.password);
+      if (!isValidPass) throw { message: "Invalid password" };
+
+      const payload = { id: user.id, role: user.role };
+      const access_token = sign(payload, process.env.JWT_SECRET!, {
+        expiresIn: "1h",
+      });
+
+      res
+        .status(200)
+        .json({ message: "Login success", data: user, access_token });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
     }
   }
 }

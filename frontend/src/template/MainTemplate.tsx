@@ -1,18 +1,20 @@
-
-import { Footer } from "@/components/footer/Footer"
-import { Navbar } from "@/components/navbar/Navbar"
-import { ReactNode } from "react"
+import { Footer } from "@/components/footer/Footer";
+import { Navbar } from "@/components/navbar/Navbar";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
 interface MainTemplateProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
 export const MainTemplate = ({ children }: MainTemplateProps) => {
-    return (
-        <>
-            <Navbar />
-            {children}
-            <Footer />
-        </>
-    )
-}
+  return (
+    <>
+      <SessionProvider>
+        <Navbar />
+        {children}
+        <Footer />
+      </SessionProvider>
+    </>
+  );
+};

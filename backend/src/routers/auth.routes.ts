@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { AuthController } from "../controller/auth.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { validateRegister } from "../middleware/validation";
@@ -18,7 +18,7 @@ export class AuthRouter {
   private initializeRoute() {
     this.router.post("/register", validateRegister, this.authController.register);
     this.router.patch("/verify", this.authMiddleware.verifyToken, this.authController.verify);
-    // this.router.post("/login", this.authController.login);
+    this.router.post("/login", this.authController.login);
   }
 
   getRouter(): Router {

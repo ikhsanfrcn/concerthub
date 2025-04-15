@@ -6,6 +6,7 @@ import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutlin
 import { TiDocumentText } from "react-icons/ti"
 import { Icon } from "../atoms/Icon"
 import DropdownMenu from "./DropdownMenu"
+import LoginRegister from "./LoginRegister"
 
 export const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -30,10 +31,7 @@ export const Navbar: React.FC = () => {
                     <Icon Component={IoTicketOutline} link="#" label="Tickets" />
                     <Icon Component={TiDocumentText} link="#" label="Blogs" />
                     <DropdownMenu />
-                    <button className="flex px-5 py-3 items-center bg-secondary-500 rounded-2xl text-white space-x-2">
-                        <IoPersonOutline className="text-[24px]" />
-                        <span className="text-[20px]">Login</span>
-                    </button>
+                    <LoginRegister />
                 </div>
 
                 {/* burger icon */}
@@ -58,7 +56,7 @@ export const Navbar: React.FC = () => {
 
             {/* mobile menu */}
             {isMobileMenuOpen && (
-                <div className="md:hidden px-6 pb-4 space-y-4">
+                <div className="min-[1024px]:hidden px-6 pb-4 space-y-4">
                     <div className="flex flex-col gap-y-4">
                         <Icon Component={BsTelephone} link="#" label="Contact" />
                         <Icon Component={IoTicketOutline} link="#" label="Tickets" />
