@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "react-to-print": "^3.0.6"
+  }
+}

@@ -1,6 +1,7 @@
 import { FaFacebook, FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa"
-import { Icon } from "../atoms/Icon"
+
 import { FaXTwitter } from "react-icons/fa6"
+import { Icon } from "../atoms/icon"
 
 export const SocialIcons: React.FC = () => {
     return (

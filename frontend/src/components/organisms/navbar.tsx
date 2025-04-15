@@ -5,8 +5,9 @@ import { BsTelephone } from "react-icons/bs"
 import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutline } from "react-icons/io5"
 import { TiDocumentText } from "react-icons/ti"
 import { Bonheur_Royale } from "next/font/google"
-import DropdownMenu from "../molecules/DropdownMenu"
-import { Icon } from "../atoms/Icon"
+
+import { Icon } from "../atoms/icon"
+import DropdownMenu from "../molecules/dropdownMenu"
 
 const bonheur = Bonheur_Royale({
     subsets: ["latin"],
@@ -34,7 +35,7 @@ export const Navbar: React.FC = () => {
                 </div>
                 <div className="max-[1024px]:hidden flex items-center gap-x-6">
                     <Icon Component={BsTelephone} link="#" label="Contact" />
-                    <Icon Component={IoTicketOutline} link="#" label="Tickets" />
+                    <Icon Component={IoTicketOutline} link="location" label="Tickets" />
                     <Icon Component={TiDocumentText} link="#" label="Blogs" />
                     <DropdownMenu />
                     <button className="flex px-5 py-3 items-center bg-secondary-500 rounded-2xl text-white space-x-2">
@@ -68,7 +69,7 @@ export const Navbar: React.FC = () => {
                 <div className="md:hidden px-6 pb-4 space-y-4">
                     <div className="flex flex-col gap-y-4">
                         <Icon Component={BsTelephone} link="#" label="Contact" />
-                        <Icon Component={IoTicketOutline} link="#" label="Tickets" />
+                        <Icon Component={IoTicketOutline} link="location" label="Tickets" />
                         <Icon Component={TiDocumentText} link="#" label="Blogs" />
                         <DropdownMenu />
                         <button className="flex w-full justify-center px-4 py-3 bg-secondary-500 rounded-2xl text-white items-center space-x-2">

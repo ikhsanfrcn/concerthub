@@ -1,5 +1,6 @@
 import { Footer } from "@/components/footer/Footer"
-import { Navbar } from "@/components/organisms/Navbar"
+import { Navbar } from "@/components/organisms/navbar"
+
 import { ReactNode } from "react"
 
 interface MainTemplateProps {

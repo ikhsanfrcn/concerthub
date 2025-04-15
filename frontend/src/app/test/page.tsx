@@ -1,10 +1,14 @@
-// import { ArtisCard } from "@/components/molecules/ArtisCard";
+import TicketCategoryPage from "@/components/tiket/category.tsx/category";
+import OrderSummary from "@/components/tiket/orderandoverview/ordersummary";
+import TicketCard from "@/components/tiket/ticketcard";
+import Stepper from "@/components/tiket/stepper";
+import { MainTemplate } from "@/template/MainTemplate";
 
-// export default function Test () {
-//     return (
-//         <div className="bg-black">
-
-//         <ArtisCard />
-//         </div>
-//     )
-// }
+export default function orderPage() {
+  return (
+    <MainTemplate>
+      <Stepper />
+      <TicketCategoryPage />
+    </MainTemplate>
+  );
+}
