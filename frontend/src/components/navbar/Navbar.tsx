@@ -4,9 +4,10 @@ import { useState } from "react"
 import { BsTelephone } from "react-icons/bs"
 import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutline } from "react-icons/io5"
 import { TiDocumentText } from "react-icons/ti"
+import { Icon } from "../atoms/Icon"
 import DropdownMenu from "./DropdownMenu"
 import LoginRegister from "./LoginRegister"
-import { Icon } from "../atoms/icon"
+
 
 export const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
