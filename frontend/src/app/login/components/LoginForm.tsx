@@ -45,6 +45,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
         id: user.id,
         email: user.email,
         name: user.name,
+        role: user.role,
         accessToken: data.access_token,
       });
       console.log(data);

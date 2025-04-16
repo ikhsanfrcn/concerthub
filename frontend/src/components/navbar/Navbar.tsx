@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
     }
 
     return (
-        <nav>
+        <nav className="z-index-50">
             <div className="flex justify-between items-center max-[1288px]:px-[16px] py-[10.5px] px-[108px]">
                 <p className="font-bonheur text-primary-500 text-3xl md:text-[48px]">ConcertHub</p>
                 <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">

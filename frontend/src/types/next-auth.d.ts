@@ -6,6 +6,7 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
+      role?: ORGANIZER | CUSTOMER;
     };
     accessToken?: string;
   }
@@ -14,6 +15,7 @@ declare module "next-auth" {
     id: string;
     name: string;
     email: string;
+    role?: ORGANIZER | CUSTOMER;
     accessToken?: string;
   }
 
@@ -21,6 +23,7 @@ declare module "next-auth" {
     id: string;
     name: string;
     email: string;
+    role?: ORGANIZER | CUSTOMER;
     accessToken?: string;
   }
 }

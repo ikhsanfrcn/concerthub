@@ -9,7 +9,7 @@ export const HeroSection: React.FC = () => {
       <div className="ml-[108px]">
         <HeroContent />
       </div>
-      <div className="mt-[48px] bg-neutral-700 h-[256px]">
+      <div className="relative -z-[2] mt-[48px] bg-neutral-700 h-[256px]">
         <div className="flex flex-col pl-[108px] pt-[32px] space-y-[16px] text-white">
           <p className="text-[20px] text-neutral-200">Find your favorite concert</p>
           <SearchBox />
@@ -34,7 +34,7 @@ export const HeroSection: React.FC = () => {
         width={624}
         height={705}
         alt=""
-        className="absolute right-[108px] bottom-0 object-fill"
+        className="absolute -z-[1] right-[108px] bottom-0 object-fill"
       />
     </section>
   );
