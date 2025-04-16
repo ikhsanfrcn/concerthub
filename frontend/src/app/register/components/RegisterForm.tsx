@@ -27,7 +27,7 @@ interface IRegisterForm {
   name: string;
   email: string;
   password: string;
-  referralCode: string;
+  referralCode?: string;
 }
 
 export const RegisterForm: React.FC<Props> = ({ className }) => {
@@ -140,13 +140,12 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
                       ) : null}
                     </div>
                   </div>
-
                   <div>
                     <label
                       htmlFor="referralCode"
                       className="block text-sm/6 font-medium text-gray-900"
                     >
-                      Refferal Code
+                      Referral Code
                     </label>
                     <div className="mt-2">
                       <Field
