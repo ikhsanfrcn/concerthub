@@ -2,9 +2,9 @@
 
 // export default function Test () {
 //     return (
-//         <div className="bg-black">
-
-//         <ArtisCard />
+//         <div className="flex justify-between">
+//             <p>ChatGPT</p>
+//             <p>Temporary</p>
 //         </div>
 //     )
 // }
