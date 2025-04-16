@@ -5,6 +5,7 @@ import { PopularSection } from "@/components/organisms/home/PopularSection";
 import { UpcomingSection } from "@/components/organisms/home/UpcomingSection";
 import { MainTemplate } from "@/template/MainTemplate";
 
+
 export default function Home() {
   return (
     <div className="">

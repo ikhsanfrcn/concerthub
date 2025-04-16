@@ -43,8 +43,16 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
-        email: user.email,
         name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        zipCode: user.zipCode,
+        state: user.state,
+        city: user.city,
+        street: user.street,
+        houseNumber: user.houseNumber,
+        dob: user.dob,
+        role: user.role,
         accessToken: data.access_token,
       });
       console.log(data);

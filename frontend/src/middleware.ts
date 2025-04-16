@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+// console.log(token);
 
   if (!token) {
     if (req.nextUrl.pathname == "/dashboard") {
@@ -13,7 +14,7 @@ export async function middleware(req: NextRequest) {
 
   const userRole = token.role;
 
-  if (req.nextUrl.pathname == "/dashboard" && userRole == "ORGANIZER") {
+  if (req.nextUrl.pathname == "/dashboard" && userRole !== "ORGANIZER") {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
