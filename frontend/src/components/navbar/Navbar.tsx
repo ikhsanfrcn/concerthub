@@ -4,9 +4,9 @@ import { useState } from "react"
 import { BsTelephone } from "react-icons/bs"
 import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutline } from "react-icons/io5"
 import { TiDocumentText } from "react-icons/ti"
-import { Icon } from "../atoms/Icon"
 import DropdownMenu from "./DropdownMenu"
 import LoginRegister from "./LoginRegister"
+import { Icon } from "../atoms/icon"
 
 export const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
                 </div>
                 <div className="max-[1024px]:hidden flex items-center gap-x-6">
                     <Icon Component={BsTelephone} link="#" label="Contact" />
-                    <Icon Component={IoTicketOutline} link="#" label="Tickets" />
+                    <Icon Component={IoTicketOutline} link="location" label="Tickets" />
                     <Icon Component={TiDocumentText} link="#" label="Blogs" />
                     <DropdownMenu />
                     <LoginRegister />
@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
                 <div className="min-[1024px]:hidden px-6 pb-4 space-y-4">
                     <div className="flex flex-col gap-y-4">
                         <Icon Component={BsTelephone} link="#" label="Contact" />
-                        <Icon Component={IoTicketOutline} link="#" label="Tickets" />
+                        <Icon Component={IoTicketOutline} link="location" label="Tickets" />
                         <Icon Component={TiDocumentText} link="#" label="Blogs" />
                         <DropdownMenu />
                         <button className="flex w-full justify-center px-4 py-3 bg-secondary-500 rounded-2xl text-white items-center space-x-2">
