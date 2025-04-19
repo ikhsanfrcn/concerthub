@@ -7,6 +7,7 @@ import { TiDocumentText } from "react-icons/ti"
 import { Icon } from "../atoms/icon"
 import DropdownMenu from "./DropdownMenu"
 import LoginRegister from "./LoginRegister"
+import Link from "next/link"
 
 export const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -16,9 +17,9 @@ export const Navbar: React.FC = () => {
     }
 
     return (
-        <nav className="z-index-50">
+        <nav className="">
             <div className="flex justify-between items-center max-[1288px]:px-[16px] py-[10.5px] px-[108px]">
-                <p className="font-bonheur text-primary-500 text-3xl md:text-[48px]">ConcertHub</p>
+                <Link href={'/'} className="font-bonheur text-primary-500 text-3xl md:text-[48px]">ConcertHub</Link>
                 <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
                     <input
                         type="text"

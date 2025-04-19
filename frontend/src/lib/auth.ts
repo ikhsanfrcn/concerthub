@@ -31,6 +31,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.city = user.city;
         token.street = user.street;
         token.houseNumber = user.houseNumber;
+        token.phoneNumber = user.phoneNumber;
         token.dob = user.dob;
         token.role = user.role;
         token.accessToken = user.accessToken;
@@ -48,6 +49,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         city: token.city as string,
         street: token.street as string,
         houseNumber: token.houseNumber as string,
+        phoneNumber: token.phoneNumber as string,
         dob: token.dob as string,
         role: token.role as string,
       };

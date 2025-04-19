@@ -47,9 +47,9 @@ const Dropdown: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (status === "loading") return null;
-
   const user = session?.user;
+
+  if (status === "loading") return null;
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -75,7 +75,7 @@ const Dropdown: React.FC = () => {
             <p className="flex items-center ml-[10px]">{user?.name}</p>
           </button>
           {isOpen && (
-            <div className="origin-top-right absolute z-index-20 right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               <DropdownItem
                 href="/dashboard"
                 icon={GrDashboard}
@@ -88,7 +88,7 @@ const Dropdown: React.FC = () => {
       ) : (
         <Link
           href="/login"
-          className="flex px-5 py-3 items-center bg-secondary-500 rounded-2xl text-white space-x-2"
+          className="flex px-[15px] py-[16px] items-center bg-secondary-500 rounded-2xl text-white space-x-[8px]"
         >
           <IoPersonOutline className="text-[24px]" />
           <span className="text-[20px]">Login</span>

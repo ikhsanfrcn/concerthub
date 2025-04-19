@@ -1,21 +1,20 @@
-import { MainTemplate } from "@/template/MainTemplate";
-import { SidebarDashboard } from "./components/Sidebar";
-import { MyProfile } from "./components/MyProfile";
-import { MyProfileMobile } from "./components/MyProfileMobile";
+import { DesktopDashboard } from "./components/DesktopDashboard";
 import { SessionProvider } from "next-auth/react";
+import { Navbar } from "@/components/navbar/Navbar";
+import { MobileDashboard } from "./components/MobileDashboard";
 
 export default function Dashboard() {
   return (
-    <MainTemplate>
-      <SessionProvider>
-        <div className="hidden lg:block flex justify-between max-w-[1224px] mx-auto bg-neutral-300">
-          <SidebarDashboard />
-          <MyProfile />
+    <SessionProvider>
+      <Navbar />
+      <div className="bg-neutral-50 min-h-screen">
+        <div className="hidden min-[1024px]:block p-[24px] min-[1440px]:mx-[108px]">
+          <DesktopDashboard />
         </div>
-        <div className="bg-neutral-100 h-screen">
-          <MyProfileMobile />
+        <div className="block min-[1024px]:hidden">
+          <MobileDashboard />
         </div>
-      </SessionProvider>
-    </MainTemplate>
+      </div>
+    </SessionProvider>
   );
 }

@@ -12,6 +12,7 @@ declare module "next-auth" {
       city?: string;
       street?: string;
       houseNumber?: string;
+      phoneNumber?: string;
       dob?: string;
       role?: ORGANIZER | CUSTOMER;
     };
@@ -28,6 +29,7 @@ declare module "next-auth" {
     city?: string;
     street?: string;
     houseNumber?: string;
+    phoneNumber?: string;
     dob?: string;
     role?: ORGANIZER | CUSTOMER;
     accessToken?: string;
@@ -43,6 +45,7 @@ declare module "next-auth" {
     city?: string;
     street?: string;
     houseNumber?: string;
+    phoneNumber?: string;
     dob?: string;
     role?: ORGANIZER | CUSTOMER;
     accessToken?: string;

@@ -16,6 +16,8 @@
   --color-primary-500: var(--primary-500);
   --color-secondary: var(--secondary);
   --color-secondary-500: var(--secondary-500);
+  --color-secondary-800: var(--secondary-800);
+  --color-neutral-50: var(--neutral-50);
   --color-neutral-100: var(--neutral-100);
   --color-neutral-200: var(--neutral-200);
   --color-neutral-300: var(--neutral-300);
@@ -32,6 +34,8 @@
     --primary-500: #FF0082;
     --secondary: #262880;
     --secondary-500: #4651C9;
+    --secondary-800: #2F32A6;
+    --neutral-50: #F0F0F2;
     --neutral-100: #E0E0E4;
     --neutral-200: #C1C1CA;
     --neutral-300: #A3A3AF;
