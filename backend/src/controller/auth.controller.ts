@@ -151,4 +151,54 @@ export class AuthController {
       res.status(500).json(error);
     }
   }
+
+  async updateProfile(req: Request, res: Response) {
+    const userId = req.user?.id;
+    const {
+      name,
+      lastName,
+      email,
+      zipCode,
+      state,
+      city,
+      street,
+      houseNumber,
+      phoneNumber,
+      dob,
+      regionNumber,
+    } = req.body;
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) throw { message: "User not found" };
+
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: {
+          name,
+          lastName,
+          email,
+          zipCode,
+          state,
+          city,
+          street,
+          houseNumber,
+          dob,
+          phoneNumber: Number(phoneNumber),
+          regionNumber: Number(regionNumber),
+        },
+      });
+
+      // Return response sukses
+      res.json({
+        message: "Profile updated successfully",
+        user: updatedUser,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error });
+      console.log(error);
+    }
+  }
 }
