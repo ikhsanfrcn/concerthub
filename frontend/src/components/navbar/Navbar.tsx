@@ -27,8 +27,8 @@ export const Navbar: React.FC = () => {
                     />
                 </div>
                 <div className="max-[1024px]:hidden flex items-center gap-x-6">
-                    <Icon Component={BsTelephone} link="#" label="Contact" />
-                    <Icon Component={IoTicketOutline} link="location" label="Tickets" />
+                    <Icon Component={BsTelephone} link="contact" label="Contact" />
+                    <Icon Component={IoTicketOutline} link="transactionticket" label="Tickets" />
                     <Icon Component={TiDocumentText} link="#" label="Blogs" />
                     <DropdownMenu />
                     <LoginRegister />

@@ -39,6 +39,15 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
     try {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
+
+      localStorage.setItem("userProfile", JSON.stringify({
+        name: user.name,
+        email: user.email,
+        phone: user.phone || "",     // optional fallback
+        address: user.address || ""  // optional fallback
+      }));
+
+
       action.resetForm();
       await signIn("credentials", {
         redirectTo: "/",
