@@ -66,7 +66,7 @@ const LoginRegister: React.FC = () => {
             onClick={toggleDropdown}
           >
             <Image
-              src={"https://randomuser.me/api/portraits/men/1.jpg"}
+              src={session.user.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
               alt=""
               width={50}
               height={50}

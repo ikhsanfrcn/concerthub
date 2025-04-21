@@ -31,7 +31,7 @@ model User {
   street           String?
   houseNumber      String?
   regionNumber     Int?
-  phoneNumber      BigInt?
+  phoneNumber      Int?
   dob              String?
   password         String
   role             Role            @default(CUSTOMER)
@@ -50,6 +50,7 @@ model User {
 
   isVerify Boolean   @default(false)
   Voucher  Voucher[]
+  avatar    String?  @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
 }
 
 model Point {

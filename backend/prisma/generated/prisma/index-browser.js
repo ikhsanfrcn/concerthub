@@ -136,7 +136,8 @@ exports.Prisma.UserScalarFieldEnum = {
   usedReferralById: 'usedReferralById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  isVerify: 'isVerify'
+  isVerify: 'isVerify',
+  avatar: 'avatar'
 };
 
 exports.Prisma.PointScalarFieldEnum = {

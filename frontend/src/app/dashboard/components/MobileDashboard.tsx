@@ -34,7 +34,10 @@ export const MobileDashboard: React.FC = () => {
       {/* Avatar & Name */}
       <div className="flex flex-col items-center">
         <Image
-          src="/adele.png"
+          src={
+            session?.user.avatar ||
+            "https://randomuser.me/api/portraits/men/1.jpg"
+          }
           width={70}
           height={70}
           alt="User"

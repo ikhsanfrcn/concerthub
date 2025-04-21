@@ -54,17 +54,8 @@ const Stepper = () => {
         })}
       </div>
 
-<<<<<<< HEAD
-      <button
-        onClick={handleNext}
-        className="mt-6 bg-pink-600 text-white px-4 py-2 rounded-lg"
-      >
-        {currentStep === steps.length - 1 ? "Finish" : "Next"}
-      </button>
-=======
  
    
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
     </div>
   );
 };

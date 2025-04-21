@@ -1,9 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-=======
 import { useRouter } from "next/navigation"; // 👈 import router
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
 
 interface ConcertData {
   date: string;
@@ -15,10 +12,7 @@ interface ConcertData {
 }
 
 const TicketCard = () => {
-<<<<<<< HEAD
-=======
   const router = useRouter(); // 👈 inisialisasi
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
   const [timeLeft, setTimeLeft] = useState(321);
   const [concert, setConcert] = useState<ConcertData | null>(null);
 
@@ -50,8 +44,6 @@ const TicketCard = () => {
     return `${m}:${s}`;
   };
 
-<<<<<<< HEAD
-=======
   const handleChangeDate = () => {
     // Kosongkan pilihan sebelumnya jika perlu:
     localStorage.removeItem("selectedConcert");
@@ -59,7 +51,6 @@ const TicketCard = () => {
     router.push("/transactionticket"); // Atau "/category" jika itu step sebelumnya
   };
 
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
   if (!concert) return null;
 
   const [day, month, year] = concert.date.split(" ");
@@ -85,14 +76,10 @@ const TicketCard = () => {
           <span className="text-red-600 font-bold ml-2">{formatTime(timeLeft)}</span>
         </div>
 
-<<<<<<< HEAD
-        <button className="absolute bottom-4 right-4 border border-gray-400 text-sm px-4 py-1 rounded-lg hover:bg-gray-100">
-=======
         <button
           onClick={handleChangeDate}
           className="absolute bottom-4 right-4 border border-gray-400 text-sm px-4 py-1 rounded-lg hover:bg-gray-100"
         >
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
           Change Date
         </button>
       </div>

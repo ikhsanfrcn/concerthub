@@ -26,11 +26,7 @@ export default function SuccessPage() {
             Back to Homepage
           </button>
           <button
-<<<<<<< HEAD
-            onClick={() => router.push("/download")}
-=======
             onClick={() => router.push("/unduh")}
->>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
             className="w-full sm:w-auto bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700 transition"
           >
             Download Your Tickets

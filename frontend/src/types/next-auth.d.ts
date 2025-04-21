@@ -15,6 +15,8 @@ declare module "next-auth" {
       phoneNumber?: string;
       dob?: string;
       role?: ORGANIZER | CUSTOMER;
+      referralCode?: string;
+      avatar?: string;
     };
     accessToken?: string;
   }
@@ -32,6 +34,8 @@ declare module "next-auth" {
     phoneNumber?: string;
     dob?: string;
     role?: ORGANIZER | CUSTOMER;
+    referralCode?: string;
+    avatar?: string;
     accessToken?: string;
   }
 
@@ -48,6 +52,8 @@ declare module "next-auth" {
     phoneNumber?: string;
     dob?: string;
     role?: ORGANIZER | CUSTOMER;
+    referralCode?: string;
+    avatar?: string;
     accessToken?: string;
   }
 }
