@@ -6,8 +6,8 @@ import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutlin
 import { TiDocumentText } from "react-icons/ti"
 import { Icon } from "../atoms/icon"
 import DropdownMenu from "./DropdownMenu"
-import LoginRegister from "./LoginRegister"
 import Link from "next/link"
+import LoginRegister from "./LoginRegister"
 
 export const Navbar: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -28,8 +28,8 @@ export const Navbar: React.FC = () => {
                     />
                 </div>
                 <div className="max-[1024px]:hidden flex items-center gap-x-6">
-                    <Icon Component={BsTelephone} link="#" label="Contact" />
-                    <Icon Component={IoTicketOutline} link="location" label="Tickets" />
+                    <Icon Component={BsTelephone} link="contact" label="Contact" />
+                    <Icon Component={IoTicketOutline} link="transactionticket" label="Tickets" />
                     <Icon Component={TiDocumentText} link="#" label="Blogs" />
                     <DropdownMenu />
                     <LoginRegister />

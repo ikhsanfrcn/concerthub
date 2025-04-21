@@ -43,7 +43,7 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
   );
 };
 
-const Dropdown: React.FC = () => {
+const LoginRegister: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -98,4 +98,4 @@ const Dropdown: React.FC = () => {
   );
 };
 
-export default Dropdown;
+export default LoginRegister;
