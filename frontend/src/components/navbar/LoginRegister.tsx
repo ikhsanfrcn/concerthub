@@ -43,13 +43,13 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
   );
 };
 
-const Dropdown: React.FC = () => {
+const LoginRegister: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (status === "loading") return null;
-
   const user = session?.user;
+
+  if (status === "loading") return null;
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -60,7 +60,7 @@ const Dropdown: React.FC = () => {
   return (
     <div>
       {session ? (
-        <div className="relative inline-block flex items-center">
+        <div className="relative inline-block items-center">
           <button
             className="inline-flex justify-center w-full rounded-2xl text-[16px] px-[16px] py-[6.5px] border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
             onClick={toggleDropdown}
@@ -75,7 +75,7 @@ const Dropdown: React.FC = () => {
             <p className="flex items-center ml-[10px]">{user?.name}</p>
           </button>
           {isOpen && (
-            <div className="origin-top-right absolute z-index-20 right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               <DropdownItem
                 href="/dashboard"
                 icon={GrDashboard}
@@ -88,7 +88,7 @@ const Dropdown: React.FC = () => {
       ) : (
         <Link
           href="/login"
-          className="flex px-5 py-3 items-center bg-secondary-500 rounded-2xl text-white space-x-2"
+          className="flex px-[15px] py-[16px] items-center bg-secondary-500 rounded-2xl text-white space-x-[8px]"
         >
           <IoPersonOutline className="text-[24px]" />
           <span className="text-[20px]">Login</span>
@@ -98,4 +98,4 @@ const Dropdown: React.FC = () => {
   );
 };
 
-export default Dropdown;
+export default LoginRegister;

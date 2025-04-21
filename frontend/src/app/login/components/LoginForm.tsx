@@ -39,21 +39,20 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
     try {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
-
-      localStorage.setItem("userProfile", JSON.stringify({
-        name: user.name,
-        email: user.email,
-        phone: user.phone || "",     // optional fallback
-        address: user.address || ""  // optional fallback
-      }));
-
-
       action.resetForm();
       await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
-        email: user.email,
         name: user.name,
+        lastName: user.lastName || "",
+        email: user.email,
+        zipCode: user.zipCode || "",
+        state: user.state || "",
+        city: user.city || "",
+        street: user.street || "",
+        houseNumber: user.houseNumber || "",
+        phoneNumber: user.phoneNumber || "",
+        dob: user.dob || "",
         role: user.role,
         accessToken: data.access_token,
       });
