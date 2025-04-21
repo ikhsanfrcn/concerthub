@@ -1846,20 +1846,8 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
-  }
-
-  export type UserAvgAggregateOutputType = {
-    regionNumber: number | null
-    phoneNumber: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    regionNumber: number | null
-    phoneNumber: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1872,8 +1860,8 @@ export namespace Prisma {
     city: string | null
     street: string | null
     houseNumber: string | null
-    regionNumber: number | null
-    phoneNumber: number | null
+    regionNumber: string | null
+    phoneNumber: string | null
     dob: string | null
     password: string | null
     role: $Enums.Role | null
@@ -1895,8 +1883,8 @@ export namespace Prisma {
     city: string | null
     street: string | null
     houseNumber: string | null
-    regionNumber: number | null
-    phoneNumber: number | null
+    regionNumber: string | null
+    phoneNumber: string | null
     dob: string | null
     password: string | null
     role: $Enums.Role | null
@@ -1932,16 +1920,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    regionNumber?: true
-    phoneNumber?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    regionNumber?: true
-    phoneNumber?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -2051,18 +2029,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2093,8 +2059,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -2109,8 +2073,8 @@ export namespace Prisma {
     city: string | null
     street: string | null
     houseNumber: string | null
-    regionNumber: number | null
-    phoneNumber: number | null
+    regionNumber: string | null
+    phoneNumber: string | null
     dob: string | null
     password: string
     role: $Enums.Role
@@ -2121,8 +2085,6 @@ export namespace Prisma {
     isVerify: boolean
     avatar: string | null
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2276,8 +2238,8 @@ export namespace Prisma {
       city: string | null
       street: string | null
       houseNumber: string | null
-      regionNumber: number | null
-      phoneNumber: number | null
+      regionNumber: string | null
+      phoneNumber: string | null
       dob: string | null
       password: string
       role: $Enums.Role
@@ -2726,8 +2688,8 @@ export namespace Prisma {
     readonly city: FieldRef<"User", 'String'>
     readonly street: FieldRef<"User", 'String'>
     readonly houseNumber: FieldRef<"User", 'String'>
-    readonly regionNumber: FieldRef<"User", 'Int'>
-    readonly phoneNumber: FieldRef<"User", 'Int'>
+    readonly regionNumber: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
     readonly dob: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
@@ -12717,20 +12679,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -12762,6 +12710,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -12823,8 +12785,8 @@ export namespace Prisma {
     city?: StringNullableFilter<"User"> | string | null
     street?: StringNullableFilter<"User"> | string | null
     houseNumber?: StringNullableFilter<"User"> | string | null
-    regionNumber?: IntNullableFilter<"User"> | number | null
-    phoneNumber?: IntNullableFilter<"User"> | number | null
+    regionNumber?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     dob?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
@@ -12887,8 +12849,8 @@ export namespace Prisma {
     city?: StringNullableFilter<"User"> | string | null
     street?: StringNullableFilter<"User"> | string | null
     houseNumber?: StringNullableFilter<"User"> | string | null
-    regionNumber?: IntNullableFilter<"User"> | number | null
-    phoneNumber?: IntNullableFilter<"User"> | number | null
+    regionNumber?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     dob?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
@@ -12928,10 +12890,8 @@ export namespace Prisma {
     isVerify?: SortOrder
     avatar?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -12947,8 +12907,8 @@ export namespace Prisma {
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
     street?: StringNullableWithAggregatesFilter<"User"> | string | null
     houseNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    regionNumber?: IntNullableWithAggregatesFilter<"User"> | number | null
-    phoneNumber?: IntNullableWithAggregatesFilter<"User"> | number | null
+    regionNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     dob?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
@@ -13547,8 +13507,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -13577,8 +13537,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -13607,8 +13567,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -13637,8 +13597,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -13667,8 +13627,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -13690,8 +13650,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -13713,8 +13673,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -14341,17 +14301,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -14463,11 +14412,6 @@ export namespace Prisma {
     avatar?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    regionNumber?: SortOrder
-    phoneNumber?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -14514,11 +14458,6 @@ export namespace Prisma {
     avatar?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
-    regionNumber?: SortOrder
-    phoneNumber?: SortOrder
-  }
-
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -14553,22 +14492,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14674,6 +14597,17 @@ export namespace Prisma {
     not?: NestedEnumPromotionTypeFilter<$PrismaModel> | $Enums.PromotionType
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EventScalarRelationFilter = {
     is?: EventWhereInput
     isNot?: EventWhereInput
@@ -14735,6 +14669,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPromotionTypeFilter<$PrismaModel>
     _max?: NestedEnumPromotionTypeFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type TicketTypeListRelationFilter = {
@@ -15126,14 +15076,6 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
   }
@@ -15372,6 +15314,14 @@ export namespace Prisma {
 
   export type EnumPromotionTypeFieldUpdateOperationsInput = {
     set?: $Enums.PromotionType
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EventUpdateOneRequiredWithoutPromotionsNestedInput = {
@@ -15824,17 +15774,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15903,7 +15842,7 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -15911,23 +15850,7 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -16004,6 +15927,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPromotionTypeFilter<$PrismaModel>
     _max?: NestedEnumPromotionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumvoucherTypeFilter<$PrismaModel = never> = {
@@ -16431,8 +16381,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -16460,8 +16410,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -16505,8 +16455,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -16534,8 +16484,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -16655,8 +16605,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -16684,8 +16634,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -16845,8 +16795,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -16874,8 +16824,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17133,8 +17083,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17162,8 +17112,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17271,8 +17221,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17300,8 +17250,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17405,8 +17355,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17434,8 +17384,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17503,8 +17453,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17532,8 +17482,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17577,8 +17527,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17606,8 +17556,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17640,8 +17590,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17669,8 +17619,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17737,8 +17687,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17766,8 +17716,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17806,8 +17756,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17835,8 +17785,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -17936,8 +17886,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -17965,8 +17915,8 @@ export namespace Prisma {
     city?: string | null
     street?: string | null
     houseNumber?: string | null
-    regionNumber?: number | null
-    phoneNumber?: number | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     dob?: string | null
     password: string
     role?: $Enums.Role
@@ -18059,8 +18009,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -18088,8 +18038,8 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     street?: NullableStringFieldUpdateOperationsInput | string | null
     houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableIntFieldUpdateOperationsInput | number | null
-    phoneNumber?: NullableIntFieldUpdateOperationsInput | number | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role

@@ -30,8 +30,8 @@ model User {
   city             String?
   street           String?
   houseNumber      String?
-  regionNumber     Int?
-  phoneNumber      Int?
+  regionNumber     String?
+  phoneNumber      String?
   dob              String?
   password         String
   role             Role            @default(CUSTOMER)
