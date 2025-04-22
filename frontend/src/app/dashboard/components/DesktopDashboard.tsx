@@ -5,7 +5,6 @@ import { CiSettings } from "react-icons/ci";
 import { FiHelpCircle } from "react-icons/fi";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
 import { TbGiftCard } from "react-icons/tb";
-import { ProfileForm } from "./ProfileForm";
 import { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
@@ -13,6 +12,7 @@ import { OrderHistory } from "./OrderHistory";
 import { GrDashboard } from "react-icons/gr";
 import { OrganizerDashboard } from "./OrganizerDashboard";
 import { RegisterAsOrganizer } from "./RegisterAsOrganizer";
+import { ProfileForm } from "./ProfileForm";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -101,7 +101,7 @@ export const DesktopDashboard: React.FC = () => {
         {/* PROFILE FORM */}
         {activeSection === "profile" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
-            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name} ${user?.lastName},`}</p>
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
             <p>Here you can find all information about your profile </p>
             <p className="mt-[48px] text-[20px]">Edit your profile</p>
             <ProfileForm isVisible={activeSection === "profile"} />
@@ -110,7 +110,7 @@ export const DesktopDashboard: React.FC = () => {
         {/* ORDER HISTORY */}
         {activeSection === "orderHistory" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
-            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name} ${user?.lastName},`}</p>
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
             <p>Here you can find all your orders history</p>
             <OrderHistory isVisible={activeSection === "orderHistory"} />
           </div>
@@ -118,7 +118,7 @@ export const DesktopDashboard: React.FC = () => {
         {/* ORGANIZER */}
         {activeSection === "organizerDashboard" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
-            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name} ${user?.lastName},`}</p>
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
             <p>Here you can manage events</p>
             <OrganizerDashboard
               isVisible={activeSection === "organizerDashboard"}
@@ -128,7 +128,7 @@ export const DesktopDashboard: React.FC = () => {
         {/* REGISTER AS ORGANIZER */}
         {activeSection === "registerAsOrganizer" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
-            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name} ${user?.lastName},`}</p>
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
             <p>you are a customer, want to register as an Organizer?</p>
             <RegisterAsOrganizer
               isVisible={activeSection === "registerAsOrganizer"}

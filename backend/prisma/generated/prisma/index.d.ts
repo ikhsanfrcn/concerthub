@@ -1650,22 +1650,22 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    referrer: number
-    referred: number
-    points: number
-    tickets: number
     events: number
+    points: number
+    referred: number
+    referrer: number
     Review: number
+    tickets: number
     Voucher: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | UserCountOutputTypeCountReferrerArgs
-    referred?: boolean | UserCountOutputTypeCountReferredArgs
-    points?: boolean | UserCountOutputTypeCountPointsArgs
-    tickets?: boolean | UserCountOutputTypeCountTicketsArgs
     events?: boolean | UserCountOutputTypeCountEventsArgs
+    points?: boolean | UserCountOutputTypeCountPointsArgs
+    referred?: boolean | UserCountOutputTypeCountReferredArgs
+    referrer?: boolean | UserCountOutputTypeCountReferrerArgs
     Review?: boolean | UserCountOutputTypeCountReviewArgs
+    tickets?: boolean | UserCountOutputTypeCountTicketsArgs
     Voucher?: boolean | UserCountOutputTypeCountVoucherArgs
   }
 
@@ -1683,15 +1683,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountReferrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReferralUsageWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReferredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReferralUsageWhereInput
+  export type UserCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventWhereInput
   }
 
   /**
@@ -1704,15 +1697,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
+  export type UserCountOutputTypeCountReferredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralUsageWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EventWhereInput
+  export type UserCountOutputTypeCountReferrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReferralUsageWhereInput
   }
 
   /**
@@ -1720,6 +1713,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
   /**
@@ -1735,17 +1735,17 @@ export namespace Prisma {
    */
 
   export type EventCountOutputType = {
+    promotions: number
+    reviews: number
     ticketTypes: number
     transactions: number
-    reviews: number
-    promotions: number
   }
 
   export type EventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    promotions?: boolean | EventCountOutputTypeCountPromotionsArgs
+    reviews?: boolean | EventCountOutputTypeCountReviewsArgs
     ticketTypes?: boolean | EventCountOutputTypeCountTicketTypesArgs
     transactions?: boolean | EventCountOutputTypeCountTransactionsArgs
-    reviews?: boolean | EventCountOutputTypeCountReviewsArgs
-    promotions?: boolean | EventCountOutputTypeCountPromotionsArgs
   }
 
   // Custom InputTypes
@@ -1762,15 +1762,8 @@ export namespace Prisma {
   /**
    * EventCountOutputType without action
    */
-  export type EventCountOutputTypeCountTicketTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TicketTypeWhereInput
-  }
-
-  /**
-   * EventCountOutputType without action
-   */
-  export type EventCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TransactionWhereInput
+  export type EventCountOutputTypeCountPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PromotionWhereInput
   }
 
   /**
@@ -1783,8 +1776,15 @@ export namespace Prisma {
   /**
    * EventCountOutputType without action
    */
-  export type EventCountOutputTypeCountPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PromotionWhereInput
+  export type EventCountOutputTypeCountTicketTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketTypeWhereInput
+  }
+
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -1867,69 +1867,69 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     name: string | null
-    lastName: string | null
     email: string | null
-    zipCode: string | null
-    state: string | null
-    city: string | null
-    street: string | null
-    houseNumber: string | null
-    regionNumber: string | null
-    phoneNumber: string | null
-    dob: string | null
     password: string | null
     role: $Enums.Role | null
     referralCode: string | null
-    usedReferralById: string | null
     createdAt: Date | null
     updatedAt: Date | null
     isVerify: boolean | null
+    usedReferralById: string | null
+    city: string | null
+    dob: string | null
+    houseNumber: string | null
+    lastName: string | null
+    state: string | null
+    street: string | null
+    zipCode: string | null
+    regionNumber: string | null
+    phoneNumber: string | null
     avatar: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    lastName: string | null
     email: string | null
-    zipCode: string | null
-    state: string | null
-    city: string | null
-    street: string | null
-    houseNumber: string | null
-    regionNumber: string | null
-    phoneNumber: string | null
-    dob: string | null
     password: string | null
     role: $Enums.Role | null
     referralCode: string | null
-    usedReferralById: string | null
     createdAt: Date | null
     updatedAt: Date | null
     isVerify: boolean | null
+    usedReferralById: string | null
+    city: string | null
+    dob: string | null
+    houseNumber: string | null
+    lastName: string | null
+    state: string | null
+    street: string | null
+    zipCode: string | null
+    regionNumber: string | null
+    phoneNumber: string | null
     avatar: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     name: number
-    lastName: number
     email: number
-    zipCode: number
-    state: number
-    city: number
-    street: number
-    houseNumber: number
-    regionNumber: number
-    phoneNumber: number
-    dob: number
     password: number
     role: number
     referralCode: number
-    usedReferralById: number
     createdAt: number
     updatedAt: number
     isVerify: number
+    usedReferralById: number
+    city: number
+    dob: number
+    houseNumber: number
+    lastName: number
+    state: number
+    street: number
+    zipCode: number
+    regionNumber: number
+    phoneNumber: number
     avatar: number
     _all: number
   }
@@ -1938,69 +1938,69 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     name?: true
-    lastName?: true
     email?: true
-    zipCode?: true
-    state?: true
-    city?: true
-    street?: true
-    houseNumber?: true
-    regionNumber?: true
-    phoneNumber?: true
-    dob?: true
     password?: true
     role?: true
     referralCode?: true
-    usedReferralById?: true
     createdAt?: true
     updatedAt?: true
     isVerify?: true
+    usedReferralById?: true
+    city?: true
+    dob?: true
+    houseNumber?: true
+    lastName?: true
+    state?: true
+    street?: true
+    zipCode?: true
+    regionNumber?: true
+    phoneNumber?: true
     avatar?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     name?: true
-    lastName?: true
     email?: true
-    zipCode?: true
-    state?: true
-    city?: true
-    street?: true
-    houseNumber?: true
-    regionNumber?: true
-    phoneNumber?: true
-    dob?: true
     password?: true
     role?: true
     referralCode?: true
-    usedReferralById?: true
     createdAt?: true
     updatedAt?: true
     isVerify?: true
+    usedReferralById?: true
+    city?: true
+    dob?: true
+    houseNumber?: true
+    lastName?: true
+    state?: true
+    street?: true
+    zipCode?: true
+    regionNumber?: true
+    phoneNumber?: true
     avatar?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     name?: true
-    lastName?: true
     email?: true
-    zipCode?: true
-    state?: true
-    city?: true
-    street?: true
-    houseNumber?: true
-    regionNumber?: true
-    phoneNumber?: true
-    dob?: true
     password?: true
     role?: true
     referralCode?: true
-    usedReferralById?: true
     createdAt?: true
     updatedAt?: true
     isVerify?: true
+    usedReferralById?: true
+    city?: true
+    dob?: true
+    houseNumber?: true
+    lastName?: true
+    state?: true
+    street?: true
+    zipCode?: true
+    regionNumber?: true
+    phoneNumber?: true
     avatar?: true
     _all?: true
   }
@@ -2080,23 +2080,23 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     name: string
-    lastName: string | null
     email: string
-    zipCode: string | null
-    state: string | null
-    city: string | null
-    street: string | null
-    houseNumber: string | null
-    regionNumber: string | null
-    phoneNumber: string | null
-    dob: string | null
     password: string
     role: $Enums.Role
     referralCode: string
-    usedReferralById: string | null
     createdAt: Date
     updatedAt: Date
     isVerify: boolean
+    usedReferralById: string | null
+    city: string | null
+    dob: string | null
+    houseNumber: string | null
+    lastName: string | null
+    state: string | null
+    street: string | null
+    zipCode: string | null
+    regionNumber: string | null
+    phoneNumber: string | null
     avatar: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -2120,30 +2120,30 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    lastName?: boolean
     email?: boolean
-    zipCode?: boolean
-    state?: boolean
-    city?: boolean
-    street?: boolean
-    houseNumber?: boolean
-    regionNumber?: boolean
-    phoneNumber?: boolean
-    dob?: boolean
     password?: boolean
     role?: boolean
     referralCode?: boolean
-    usedReferralById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     isVerify?: boolean
+    usedReferralById?: boolean
+    city?: boolean
+    dob?: boolean
+    houseNumber?: boolean
+    lastName?: boolean
+    state?: boolean
+    street?: boolean
+    zipCode?: boolean
+    regionNumber?: boolean
+    phoneNumber?: boolean
     avatar?: boolean
-    referrer?: boolean | User$referrerArgs<ExtArgs>
-    referred?: boolean | User$referredArgs<ExtArgs>
-    points?: boolean | User$pointsArgs<ExtArgs>
-    tickets?: boolean | User$ticketsArgs<ExtArgs>
     events?: boolean | User$eventsArgs<ExtArgs>
+    points?: boolean | User$pointsArgs<ExtArgs>
+    referred?: boolean | User$referredArgs<ExtArgs>
+    referrer?: boolean | User$referrerArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
     Voucher?: boolean | User$VoucherArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2151,80 +2151,80 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    lastName?: boolean
     email?: boolean
-    zipCode?: boolean
-    state?: boolean
-    city?: boolean
-    street?: boolean
-    houseNumber?: boolean
-    regionNumber?: boolean
-    phoneNumber?: boolean
-    dob?: boolean
     password?: boolean
     role?: boolean
     referralCode?: boolean
-    usedReferralById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     isVerify?: boolean
+    usedReferralById?: boolean
+    city?: boolean
+    dob?: boolean
+    houseNumber?: boolean
+    lastName?: boolean
+    state?: boolean
+    street?: boolean
+    zipCode?: boolean
+    regionNumber?: boolean
+    phoneNumber?: boolean
     avatar?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    lastName?: boolean
     email?: boolean
-    zipCode?: boolean
-    state?: boolean
-    city?: boolean
-    street?: boolean
-    houseNumber?: boolean
-    regionNumber?: boolean
-    phoneNumber?: boolean
-    dob?: boolean
     password?: boolean
     role?: boolean
     referralCode?: boolean
-    usedReferralById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     isVerify?: boolean
+    usedReferralById?: boolean
+    city?: boolean
+    dob?: boolean
+    houseNumber?: boolean
+    lastName?: boolean
+    state?: boolean
+    street?: boolean
+    zipCode?: boolean
+    regionNumber?: boolean
+    phoneNumber?: boolean
     avatar?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
     name?: boolean
-    lastName?: boolean
     email?: boolean
-    zipCode?: boolean
-    state?: boolean
-    city?: boolean
-    street?: boolean
-    houseNumber?: boolean
-    regionNumber?: boolean
-    phoneNumber?: boolean
-    dob?: boolean
     password?: boolean
     role?: boolean
     referralCode?: boolean
-    usedReferralById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     isVerify?: boolean
+    usedReferralById?: boolean
+    city?: boolean
+    dob?: boolean
+    houseNumber?: boolean
+    lastName?: boolean
+    state?: boolean
+    street?: boolean
+    zipCode?: boolean
+    regionNumber?: boolean
+    phoneNumber?: boolean
     avatar?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lastName" | "email" | "zipCode" | "state" | "city" | "street" | "houseNumber" | "regionNumber" | "phoneNumber" | "dob" | "password" | "role" | "referralCode" | "usedReferralById" | "createdAt" | "updatedAt" | "isVerify" | "avatar", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "referralCode" | "createdAt" | "updatedAt" | "isVerify" | "usedReferralById" | "city" | "dob" | "houseNumber" | "lastName" | "state" | "street" | "zipCode" | "regionNumber" | "phoneNumber" | "avatar", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | User$referrerArgs<ExtArgs>
-    referred?: boolean | User$referredArgs<ExtArgs>
-    points?: boolean | User$pointsArgs<ExtArgs>
-    tickets?: boolean | User$ticketsArgs<ExtArgs>
     events?: boolean | User$eventsArgs<ExtArgs>
+    points?: boolean | User$pointsArgs<ExtArgs>
+    referred?: boolean | User$referredArgs<ExtArgs>
+    referrer?: boolean | User$referrerArgs<ExtArgs>
     Review?: boolean | User$ReviewArgs<ExtArgs>
+    tickets?: boolean | User$ticketsArgs<ExtArgs>
     Voucher?: boolean | User$VoucherArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2234,34 +2234,34 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      referrer: Prisma.$ReferralUsagePayload<ExtArgs>[]
-      referred: Prisma.$ReferralUsagePayload<ExtArgs>[]
-      points: Prisma.$PointPayload<ExtArgs>[]
-      tickets: Prisma.$TransactionPayload<ExtArgs>[]
       events: Prisma.$EventPayload<ExtArgs>[]
+      points: Prisma.$PointPayload<ExtArgs>[]
+      referred: Prisma.$ReferralUsagePayload<ExtArgs>[]
+      referrer: Prisma.$ReferralUsagePayload<ExtArgs>[]
       Review: Prisma.$ReviewPayload<ExtArgs>[]
+      tickets: Prisma.$TransactionPayload<ExtArgs>[]
       Voucher: Prisma.$VoucherPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      lastName: string | null
       email: string
-      zipCode: string | null
-      state: string | null
-      city: string | null
-      street: string | null
-      houseNumber: string | null
-      regionNumber: string | null
-      phoneNumber: string | null
-      dob: string | null
       password: string
       role: $Enums.Role
       referralCode: string
-      usedReferralById: string | null
       createdAt: Date
       updatedAt: Date
       isVerify: boolean
+      usedReferralById: string | null
+      city: string | null
+      dob: string | null
+      houseNumber: string | null
+      lastName: string | null
+      state: string | null
+      street: string | null
+      zipCode: string | null
+      regionNumber: string | null
+      phoneNumber: string | null
       avatar: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -2657,12 +2657,12 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    referrer<T extends User$referrerArgs<ExtArgs> = {}>(args?: Subset<T, User$referrerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    referred<T extends User$referredArgs<ExtArgs> = {}>(args?: Subset<T, User$referredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    points<T extends User$pointsArgs<ExtArgs> = {}>(args?: Subset<T, User$pointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     events<T extends User$eventsArgs<ExtArgs> = {}>(args?: Subset<T, User$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    points<T extends User$pointsArgs<ExtArgs> = {}>(args?: Subset<T, User$pointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referred<T extends User$referredArgs<ExtArgs> = {}>(args?: Subset<T, User$referredArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referrer<T extends User$referrerArgs<ExtArgs> = {}>(args?: Subset<T, User$referrerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Review<T extends User$ReviewArgs<ExtArgs> = {}>(args?: Subset<T, User$ReviewArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tickets<T extends User$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, User$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Voucher<T extends User$VoucherArgs<ExtArgs> = {}>(args?: Subset<T, User$VoucherArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoucherPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2695,23 +2695,23 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
-    readonly lastName: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly zipCode: FieldRef<"User", 'String'>
-    readonly state: FieldRef<"User", 'String'>
-    readonly city: FieldRef<"User", 'String'>
-    readonly street: FieldRef<"User", 'String'>
-    readonly houseNumber: FieldRef<"User", 'String'>
-    readonly regionNumber: FieldRef<"User", 'String'>
-    readonly phoneNumber: FieldRef<"User", 'String'>
-    readonly dob: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly referralCode: FieldRef<"User", 'String'>
-    readonly usedReferralById: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly isVerify: FieldRef<"User", 'Boolean'>
+    readonly usedReferralById: FieldRef<"User", 'String'>
+    readonly city: FieldRef<"User", 'String'>
+    readonly dob: FieldRef<"User", 'String'>
+    readonly houseNumber: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
+    readonly state: FieldRef<"User", 'String'>
+    readonly street: FieldRef<"User", 'String'>
+    readonly zipCode: FieldRef<"User", 'String'>
+    readonly regionNumber: FieldRef<"User", 'String'>
+    readonly phoneNumber: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
   }
     
@@ -3101,51 +3101,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.referrer
+   * User.events
    */
-  export type User$referrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ReferralUsage
+     * Select specific fields to fetch from the Event
      */
-    select?: ReferralUsageSelect<ExtArgs> | null
+    select?: EventSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ReferralUsage
+     * Omit specific fields from the Event
      */
-    omit?: ReferralUsageOmit<ExtArgs> | null
+    omit?: EventOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ReferralUsageInclude<ExtArgs> | null
-    where?: ReferralUsageWhereInput
-    orderBy?: ReferralUsageOrderByWithRelationInput | ReferralUsageOrderByWithRelationInput[]
-    cursor?: ReferralUsageWhereUniqueInput
+    include?: EventInclude<ExtArgs> | null
+    where?: EventWhereInput
+    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
+    cursor?: EventWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ReferralUsageScalarFieldEnum | ReferralUsageScalarFieldEnum[]
-  }
-
-  /**
-   * User.referred
-   */
-  export type User$referredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ReferralUsage
-     */
-    select?: ReferralUsageSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ReferralUsage
-     */
-    omit?: ReferralUsageOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReferralUsageInclude<ExtArgs> | null
-    where?: ReferralUsageWhereInput
-    orderBy?: ReferralUsageOrderByWithRelationInput | ReferralUsageOrderByWithRelationInput[]
-    cursor?: ReferralUsageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReferralUsageScalarFieldEnum | ReferralUsageScalarFieldEnum[]
+    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
   }
 
   /**
@@ -3173,51 +3149,51 @@ export namespace Prisma {
   }
 
   /**
-   * User.tickets
+   * User.referred
    */
-  export type User$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$referredArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Transaction
+     * Select specific fields to fetch from the ReferralUsage
      */
-    select?: TransactionSelect<ExtArgs> | null
+    select?: ReferralUsageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Transaction
+     * Omit specific fields from the ReferralUsage
      */
-    omit?: TransactionOmit<ExtArgs> | null
+    omit?: ReferralUsageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TransactionInclude<ExtArgs> | null
-    where?: TransactionWhereInput
-    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
-    cursor?: TransactionWhereUniqueInput
+    include?: ReferralUsageInclude<ExtArgs> | null
+    where?: ReferralUsageWhereInput
+    orderBy?: ReferralUsageOrderByWithRelationInput | ReferralUsageOrderByWithRelationInput[]
+    cursor?: ReferralUsageWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+    distinct?: ReferralUsageScalarFieldEnum | ReferralUsageScalarFieldEnum[]
   }
 
   /**
-   * User.events
+   * User.referrer
    */
-  export type User$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$referrerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Event
+     * Select specific fields to fetch from the ReferralUsage
      */
-    select?: EventSelect<ExtArgs> | null
+    select?: ReferralUsageSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Event
+     * Omit specific fields from the ReferralUsage
      */
-    omit?: EventOmit<ExtArgs> | null
+    omit?: ReferralUsageOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EventInclude<ExtArgs> | null
-    where?: EventWhereInput
-    orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
-    cursor?: EventWhereUniqueInput
+    include?: ReferralUsageInclude<ExtArgs> | null
+    where?: ReferralUsageWhereInput
+    orderBy?: ReferralUsageOrderByWithRelationInput | ReferralUsageOrderByWithRelationInput[]
+    cursor?: ReferralUsageWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
+    distinct?: ReferralUsageScalarFieldEnum | ReferralUsageScalarFieldEnum[]
   }
 
   /**
@@ -3242,6 +3218,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
+   * User.tickets
+   */
+  export type User$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
@@ -5559,7 +5559,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     location: string | null
-    date: Date | null
+    date: string | null
     time: string | null
     isFree: boolean | null
     price: number | null
@@ -5575,7 +5575,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     location: string | null
-    date: Date | null
+    date: string | null
     time: string | null
     isFree: boolean | null
     price: number | null
@@ -5754,7 +5754,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date
+    date: string
     time: string
     isFree: boolean
     price: number
@@ -5798,10 +5798,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     organizer?: boolean | UserDefaultArgs<ExtArgs>
+    promotions?: boolean | Event$promotionsArgs<ExtArgs>
+    reviews?: boolean | Event$reviewsArgs<ExtArgs>
     ticketTypes?: boolean | Event$ticketTypesArgs<ExtArgs>
     transactions?: boolean | Event$transactionsArgs<ExtArgs>
-    reviews?: boolean | Event$reviewsArgs<ExtArgs>
-    promotions?: boolean | Event$promotionsArgs<ExtArgs>
     _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -5858,10 +5858,10 @@ export namespace Prisma {
   export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizerId" | "title" | "description" | "location" | "date" | "time" | "isFree" | "price" | "seats" | "category" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | UserDefaultArgs<ExtArgs>
+    promotions?: boolean | Event$promotionsArgs<ExtArgs>
+    reviews?: boolean | Event$reviewsArgs<ExtArgs>
     ticketTypes?: boolean | Event$ticketTypesArgs<ExtArgs>
     transactions?: boolean | Event$transactionsArgs<ExtArgs>
-    reviews?: boolean | Event$reviewsArgs<ExtArgs>
-    promotions?: boolean | Event$promotionsArgs<ExtArgs>
     _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5875,10 +5875,10 @@ export namespace Prisma {
     name: "Event"
     objects: {
       organizer: Prisma.$UserPayload<ExtArgs>
+      promotions: Prisma.$PromotionPayload<ExtArgs>[]
+      reviews: Prisma.$ReviewPayload<ExtArgs>[]
       ticketTypes: Prisma.$TicketTypePayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
-      reviews: Prisma.$ReviewPayload<ExtArgs>[]
-      promotions: Prisma.$PromotionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5886,7 +5886,7 @@ export namespace Prisma {
       title: string
       description: string
       location: string
-      date: Date
+      date: string
       time: string
       isFree: boolean
       price: number
@@ -6289,10 +6289,10 @@ export namespace Prisma {
   export interface Prisma__EventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     organizer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    promotions<T extends Event$promotionsArgs<ExtArgs> = {}>(args?: Subset<T, Event$promotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends Event$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Event$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketTypes<T extends Event$ticketTypesArgs<ExtArgs> = {}>(args?: Subset<T, Event$ticketTypesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends Event$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Event$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    reviews<T extends Event$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Event$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    promotions<T extends Event$promotionsArgs<ExtArgs> = {}>(args?: Subset<T, Event$promotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6327,7 +6327,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Event", 'String'>
     readonly description: FieldRef<"Event", 'String'>
     readonly location: FieldRef<"Event", 'String'>
-    readonly date: FieldRef<"Event", 'DateTime'>
+    readonly date: FieldRef<"Event", 'String'>
     readonly time: FieldRef<"Event", 'String'>
     readonly isFree: FieldRef<"Event", 'Boolean'>
     readonly price: FieldRef<"Event", 'Int'>
@@ -6731,6 +6731,54 @@ export namespace Prisma {
   }
 
   /**
+   * Event.promotions
+   */
+  export type Event$promotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Promotion
+     */
+    select?: PromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Promotion
+     */
+    omit?: PromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PromotionInclude<ExtArgs> | null
+    where?: PromotionWhereInput
+    orderBy?: PromotionOrderByWithRelationInput | PromotionOrderByWithRelationInput[]
+    cursor?: PromotionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PromotionScalarFieldEnum | PromotionScalarFieldEnum[]
+  }
+
+  /**
+   * Event.reviews
+   */
+  export type Event$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Review
+     */
+    select?: ReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Review
+     */
+    omit?: ReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReviewInclude<ExtArgs> | null
+    where?: ReviewWhereInput
+    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
+    cursor?: ReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
+  }
+
+  /**
    * Event.ticketTypes
    */
   export type Event$ticketTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6776,54 +6824,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
-  }
-
-  /**
-   * Event.reviews
-   */
-  export type Event$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Review
-     */
-    select?: ReviewSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Review
-     */
-    omit?: ReviewOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ReviewInclude<ExtArgs> | null
-    where?: ReviewWhereInput
-    orderBy?: ReviewOrderByWithRelationInput | ReviewOrderByWithRelationInput[]
-    cursor?: ReviewWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ReviewScalarFieldEnum | ReviewScalarFieldEnum[]
-  }
-
-  /**
-   * Event.promotions
-   */
-  export type Event$promotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Promotion
-     */
-    select?: PromotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Promotion
-     */
-    omit?: PromotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PromotionInclude<ExtArgs> | null
-    where?: PromotionWhereInput
-    orderBy?: PromotionOrderByWithRelationInput | PromotionOrderByWithRelationInput[]
-    cursor?: PromotionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PromotionScalarFieldEnum | PromotionScalarFieldEnum[]
   }
 
   /**
@@ -8006,10 +8006,10 @@ export namespace Prisma {
     totalPrice: number | null
     usedPoints: number | null
     discount: number | null
-    status: $Enums.statusTransaction | null
     createdAt: Date | null
-    updatedAt: Date | null
     expireAt: Date | null
+    status: $Enums.statusTransaction | null
+    updatedAt: Date | null
   }
 
   export type TransactionMaxAggregateOutputType = {
@@ -8021,10 +8021,10 @@ export namespace Prisma {
     totalPrice: number | null
     usedPoints: number | null
     discount: number | null
-    status: $Enums.statusTransaction | null
     createdAt: Date | null
-    updatedAt: Date | null
     expireAt: Date | null
+    status: $Enums.statusTransaction | null
+    updatedAt: Date | null
   }
 
   export type TransactionCountAggregateOutputType = {
@@ -8036,10 +8036,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints: number
     discount: number
-    status: number
     createdAt: number
-    updatedAt: number
     expireAt: number
+    status: number
+    updatedAt: number
     _all: number
   }
 
@@ -8067,10 +8067,10 @@ export namespace Prisma {
     totalPrice?: true
     usedPoints?: true
     discount?: true
-    status?: true
     createdAt?: true
-    updatedAt?: true
     expireAt?: true
+    status?: true
+    updatedAt?: true
   }
 
   export type TransactionMaxAggregateInputType = {
@@ -8082,10 +8082,10 @@ export namespace Prisma {
     totalPrice?: true
     usedPoints?: true
     discount?: true
-    status?: true
     createdAt?: true
-    updatedAt?: true
     expireAt?: true
+    status?: true
+    updatedAt?: true
   }
 
   export type TransactionCountAggregateInputType = {
@@ -8097,10 +8097,10 @@ export namespace Prisma {
     totalPrice?: true
     usedPoints?: true
     discount?: true
-    status?: true
     createdAt?: true
-    updatedAt?: true
     expireAt?: true
+    status?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -8199,10 +8199,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints: number
     discount: number
-    status: $Enums.statusTransaction
     createdAt: Date
-    updatedAt: Date
     expireAt: Date
+    status: $Enums.statusTransaction
+    updatedAt: Date
     _count: TransactionCountAggregateOutputType | null
     _avg: TransactionAvgAggregateOutputType | null
     _sum: TransactionSumAggregateOutputType | null
@@ -8233,13 +8233,13 @@ export namespace Prisma {
     totalPrice?: boolean
     usedPoints?: boolean
     discount?: boolean
-    status?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
     expireAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    status?: boolean
+    updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8251,13 +8251,13 @@ export namespace Prisma {
     totalPrice?: boolean
     usedPoints?: boolean
     discount?: boolean
-    status?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
     expireAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    status?: boolean
+    updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8269,13 +8269,13 @@ export namespace Prisma {
     totalPrice?: boolean
     usedPoints?: boolean
     discount?: boolean
-    status?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
     expireAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    status?: boolean
+    updatedAt?: boolean
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
@@ -8287,35 +8287,35 @@ export namespace Prisma {
     totalPrice?: boolean
     usedPoints?: boolean
     discount?: boolean
-    status?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
     expireAt?: boolean
+    status?: boolean
+    updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "ticketTypeId" | "quantity" | "totalPrice" | "usedPoints" | "discount" | "status" | "createdAt" | "updatedAt" | "expireAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "ticketTypeId" | "quantity" | "totalPrice" | "usedPoints" | "discount" | "createdAt" | "expireAt" | "status" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventDefaultArgs<ExtArgs>
     ticketType?: boolean | Transaction$ticketTypeArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       event: Prisma.$EventPayload<ExtArgs>
       ticketType: Prisma.$TicketTypePayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8326,10 +8326,10 @@ export namespace Prisma {
       totalPrice: number
       usedPoints: number
       discount: number
-      status: $Enums.statusTransaction
       createdAt: Date
-      updatedAt: Date
       expireAt: Date
+      status: $Enums.statusTransaction
+      updatedAt: Date
     }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
@@ -8724,9 +8724,9 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     event<T extends EventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventDefaultArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     ticketType<T extends Transaction$ticketTypeArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$ticketTypeArgs<ExtArgs>>): Prisma__TicketTypeClient<$Result.GetResult<Prisma.$TicketTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8764,10 +8764,10 @@ export namespace Prisma {
     readonly totalPrice: FieldRef<"Transaction", 'Int'>
     readonly usedPoints: FieldRef<"Transaction", 'Int'>
     readonly discount: FieldRef<"Transaction", 'Int'>
-    readonly status: FieldRef<"Transaction", 'statusTransaction'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
-    readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
     readonly expireAt: FieldRef<"Transaction", 'DateTime'>
+    readonly status: FieldRef<"Transaction", 'statusTransaction'>
+    readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
     
 
@@ -9407,8 +9407,8 @@ export namespace Prisma {
     discountPercent?: boolean
     expiresAt?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     ReferralUsage?: boolean | Voucher$ReferralUsageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | VoucherCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["voucher"]>
 
@@ -9443,8 +9443,8 @@ export namespace Prisma {
 
   export type VoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "voucherType" | "userId" | "discountPercent" | "expiresAt" | "createdAt", ExtArgs["result"]["voucher"]>
   export type VoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     ReferralUsage?: boolean | Voucher$ReferralUsageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | VoucherCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VoucherIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9457,8 +9457,8 @@ export namespace Prisma {
   export type $VoucherPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Voucher"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       ReferralUsage: Prisma.$ReferralUsagePayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9861,8 +9861,8 @@ export namespace Prisma {
    */
   export interface Prisma__VoucherClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     ReferralUsage<T extends Voucher$ReferralUsageArgs<ExtArgs> = {}>(args?: Subset<T, Voucher$ReferralUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReferralUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10500,8 +10500,8 @@ export namespace Prisma {
     referredId?: boolean
     createdAt?: boolean
     voucherId?: boolean
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }, ExtArgs["result"]["referralUsage"]>
 
@@ -10511,8 +10511,8 @@ export namespace Prisma {
     referredId?: boolean
     createdAt?: boolean
     voucherId?: boolean
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }, ExtArgs["result"]["referralUsage"]>
 
@@ -10522,8 +10522,8 @@ export namespace Prisma {
     referredId?: boolean
     createdAt?: boolean
     voucherId?: boolean
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }, ExtArgs["result"]["referralUsage"]>
 
@@ -10537,26 +10537,26 @@ export namespace Prisma {
 
   export type ReferralUsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "referrerId" | "referredId" | "createdAt" | "voucherId", ExtArgs["result"]["referralUsage"]>
   export type ReferralUsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }
   export type ReferralUsageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }
   export type ReferralUsageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    referrer?: boolean | UserDefaultArgs<ExtArgs>
     referred?: boolean | UserDefaultArgs<ExtArgs>
+    referrer?: boolean | UserDefaultArgs<ExtArgs>
     Voucher?: boolean | ReferralUsage$VoucherArgs<ExtArgs>
   }
 
   export type $ReferralUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ReferralUsage"
     objects: {
-      referrer: Prisma.$UserPayload<ExtArgs>
       referred: Prisma.$UserPayload<ExtArgs>
+      referrer: Prisma.$UserPayload<ExtArgs>
       Voucher: Prisma.$VoucherPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -10959,8 +10959,8 @@ export namespace Prisma {
    */
   export interface Prisma__ReferralUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    referrer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     referred<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    referrer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Voucher<T extends ReferralUsage$VoucherArgs<ExtArgs> = {}>(args?: Subset<T, ReferralUsage$VoucherArgs<ExtArgs>>): Prisma__VoucherClient<$Result.GetResult<Prisma.$VoucherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12559,23 +12559,23 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    lastName: 'lastName',
     email: 'email',
-    zipCode: 'zipCode',
-    state: 'state',
-    city: 'city',
-    street: 'street',
-    houseNumber: 'houseNumber',
-    regionNumber: 'regionNumber',
-    phoneNumber: 'phoneNumber',
-    dob: 'dob',
     password: 'password',
     role: 'role',
     referralCode: 'referralCode',
-    usedReferralById: 'usedReferralById',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     isVerify: 'isVerify',
+    usedReferralById: 'usedReferralById',
+    city: 'city',
+    dob: 'dob',
+    houseNumber: 'houseNumber',
+    lastName: 'lastName',
+    state: 'state',
+    street: 'street',
+    zipCode: 'zipCode',
+    regionNumber: 'regionNumber',
+    phoneNumber: 'phoneNumber',
     avatar: 'avatar'
   };
 
@@ -12647,10 +12647,10 @@ export namespace Prisma {
     totalPrice: 'totalPrice',
     usedPoints: 'usedPoints',
     discount: 'discount',
-    status: 'status',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    expireAt: 'expireAt'
+    expireAt: 'expireAt',
+    status: 'status',
+    updatedAt: 'updatedAt'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -12848,60 +12848,60 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    lastName?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
-    zipCode?: StringNullableFilter<"User"> | string | null
-    state?: StringNullableFilter<"User"> | string | null
-    city?: StringNullableFilter<"User"> | string | null
-    street?: StringNullableFilter<"User"> | string | null
-    houseNumber?: StringNullableFilter<"User"> | string | null
-    regionNumber?: StringNullableFilter<"User"> | string | null
-    phoneNumber?: StringNullableFilter<"User"> | string | null
-    dob?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     referralCode?: StringFilter<"User"> | string
-    usedReferralById?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isVerify?: BoolFilter<"User"> | boolean
+    usedReferralById?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    dob?: StringNullableFilter<"User"> | string | null
+    houseNumber?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    state?: StringNullableFilter<"User"> | string | null
+    street?: StringNullableFilter<"User"> | string | null
+    zipCode?: StringNullableFilter<"User"> | string | null
+    regionNumber?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
-    referrer?: ReferralUsageListRelationFilter
-    referred?: ReferralUsageListRelationFilter
-    points?: PointListRelationFilter
-    tickets?: TransactionListRelationFilter
     events?: EventListRelationFilter
+    points?: PointListRelationFilter
+    referred?: ReferralUsageListRelationFilter
+    referrer?: ReferralUsageListRelationFilter
     Review?: ReviewListRelationFilter
+    tickets?: TransactionListRelationFilter
     Voucher?: VoucherListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    lastName?: SortOrderInput | SortOrder
     email?: SortOrder
-    zipCode?: SortOrderInput | SortOrder
-    state?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
-    street?: SortOrderInput | SortOrder
-    houseNumber?: SortOrderInput | SortOrder
-    regionNumber?: SortOrderInput | SortOrder
-    phoneNumber?: SortOrderInput | SortOrder
-    dob?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
-    usedReferralById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerify?: SortOrder
+    usedReferralById?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    dob?: SortOrderInput | SortOrder
+    houseNumber?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    street?: SortOrderInput | SortOrder
+    zipCode?: SortOrderInput | SortOrder
+    regionNumber?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
-    referrer?: ReferralUsageOrderByRelationAggregateInput
-    referred?: ReferralUsageOrderByRelationAggregateInput
-    points?: PointOrderByRelationAggregateInput
-    tickets?: TransactionOrderByRelationAggregateInput
     events?: EventOrderByRelationAggregateInput
+    points?: PointOrderByRelationAggregateInput
+    referred?: ReferralUsageOrderByRelationAggregateInput
+    referrer?: ReferralUsageOrderByRelationAggregateInput
     Review?: ReviewOrderByRelationAggregateInput
+    tickets?: TransactionOrderByRelationAggregateInput
     Voucher?: VoucherOrderByRelationAggregateInput
   }
 
@@ -12913,51 +12913,51 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    lastName?: StringNullableFilter<"User"> | string | null
-    zipCode?: StringNullableFilter<"User"> | string | null
-    state?: StringNullableFilter<"User"> | string | null
-    city?: StringNullableFilter<"User"> | string | null
-    street?: StringNullableFilter<"User"> | string | null
-    houseNumber?: StringNullableFilter<"User"> | string | null
-    regionNumber?: StringNullableFilter<"User"> | string | null
-    phoneNumber?: StringNullableFilter<"User"> | string | null
-    dob?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
-    usedReferralById?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     isVerify?: BoolFilter<"User"> | boolean
+    usedReferralById?: StringNullableFilter<"User"> | string | null
+    city?: StringNullableFilter<"User"> | string | null
+    dob?: StringNullableFilter<"User"> | string | null
+    houseNumber?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
+    state?: StringNullableFilter<"User"> | string | null
+    street?: StringNullableFilter<"User"> | string | null
+    zipCode?: StringNullableFilter<"User"> | string | null
+    regionNumber?: StringNullableFilter<"User"> | string | null
+    phoneNumber?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
-    referrer?: ReferralUsageListRelationFilter
-    referred?: ReferralUsageListRelationFilter
-    points?: PointListRelationFilter
-    tickets?: TransactionListRelationFilter
     events?: EventListRelationFilter
+    points?: PointListRelationFilter
+    referred?: ReferralUsageListRelationFilter
+    referrer?: ReferralUsageListRelationFilter
     Review?: ReviewListRelationFilter
+    tickets?: TransactionListRelationFilter
     Voucher?: VoucherListRelationFilter
   }, "id" | "email" | "referralCode">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    lastName?: SortOrderInput | SortOrder
     email?: SortOrder
-    zipCode?: SortOrderInput | SortOrder
-    state?: SortOrderInput | SortOrder
-    city?: SortOrderInput | SortOrder
-    street?: SortOrderInput | SortOrder
-    houseNumber?: SortOrderInput | SortOrder
-    regionNumber?: SortOrderInput | SortOrder
-    phoneNumber?: SortOrderInput | SortOrder
-    dob?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
-    usedReferralById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerify?: SortOrder
+    usedReferralById?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    dob?: SortOrderInput | SortOrder
+    houseNumber?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    street?: SortOrderInput | SortOrder
+    zipCode?: SortOrderInput | SortOrder
+    regionNumber?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -12970,23 +12970,23 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
-    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
-    zipCode?: StringNullableWithAggregatesFilter<"User"> | string | null
-    state?: StringNullableWithAggregatesFilter<"User"> | string | null
-    city?: StringNullableWithAggregatesFilter<"User"> | string | null
-    street?: StringNullableWithAggregatesFilter<"User"> | string | null
-    houseNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    regionNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    dob?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     referralCode?: StringWithAggregatesFilter<"User"> | string
-    usedReferralById?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isVerify?: BoolWithAggregatesFilter<"User"> | boolean
+    usedReferralById?: StringNullableWithAggregatesFilter<"User"> | string | null
+    city?: StringNullableWithAggregatesFilter<"User"> | string | null
+    dob?: StringNullableWithAggregatesFilter<"User"> | string | null
+    houseNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    state?: StringNullableWithAggregatesFilter<"User"> | string | null
+    street?: StringNullableWithAggregatesFilter<"User"> | string | null
+    zipCode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    regionNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
@@ -13133,7 +13133,7 @@ export namespace Prisma {
     title?: StringFilter<"Event"> | string
     description?: StringFilter<"Event"> | string
     location?: StringFilter<"Event"> | string
-    date?: DateTimeFilter<"Event"> | Date | string
+    date?: StringFilter<"Event"> | string
     time?: StringFilter<"Event"> | string
     isFree?: BoolFilter<"Event"> | boolean
     price?: IntFilter<"Event"> | number
@@ -13142,10 +13142,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
     organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    promotions?: PromotionListRelationFilter
+    reviews?: ReviewListRelationFilter
     ticketTypes?: TicketTypeListRelationFilter
     transactions?: TransactionListRelationFilter
-    reviews?: ReviewListRelationFilter
-    promotions?: PromotionListRelationFilter
   }
 
   export type EventOrderByWithRelationInput = {
@@ -13163,10 +13163,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     organizer?: UserOrderByWithRelationInput
+    promotions?: PromotionOrderByRelationAggregateInput
+    reviews?: ReviewOrderByRelationAggregateInput
     ticketTypes?: TicketTypeOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
-    reviews?: ReviewOrderByRelationAggregateInput
-    promotions?: PromotionOrderByRelationAggregateInput
   }
 
   export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -13178,7 +13178,7 @@ export namespace Prisma {
     title?: StringFilter<"Event"> | string
     description?: StringFilter<"Event"> | string
     location?: StringFilter<"Event"> | string
-    date?: DateTimeFilter<"Event"> | Date | string
+    date?: StringFilter<"Event"> | string
     time?: StringFilter<"Event"> | string
     isFree?: BoolFilter<"Event"> | boolean
     price?: IntFilter<"Event"> | number
@@ -13187,10 +13187,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
     organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
+    promotions?: PromotionListRelationFilter
+    reviews?: ReviewListRelationFilter
     ticketTypes?: TicketTypeListRelationFilter
     transactions?: TransactionListRelationFilter
-    reviews?: ReviewListRelationFilter
-    promotions?: PromotionListRelationFilter
   }, "id">
 
   export type EventOrderByWithAggregationInput = {
@@ -13223,7 +13223,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Event"> | string
     description?: StringWithAggregatesFilter<"Event"> | string
     location?: StringWithAggregatesFilter<"Event"> | string
-    date?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    date?: StringWithAggregatesFilter<"Event"> | string
     time?: StringWithAggregatesFilter<"Event"> | string
     isFree?: BoolWithAggregatesFilter<"Event"> | boolean
     price?: IntWithAggregatesFilter<"Event"> | number
@@ -13305,13 +13305,13 @@ export namespace Prisma {
     totalPrice?: IntFilter<"Transaction"> | number
     usedPoints?: IntFilter<"Transaction"> | number
     discount?: IntFilter<"Transaction"> | number
-    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     expireAt?: DateTimeFilter<"Transaction"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
     ticketType?: XOR<TicketTypeNullableScalarRelationFilter, TicketTypeWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type TransactionOrderByWithRelationInput = {
@@ -13323,13 +13323,13 @@ export namespace Prisma {
     totalPrice?: SortOrder
     usedPoints?: SortOrder
     discount?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     expireAt?: SortOrder
-    user?: UserOrderByWithRelationInput
+    status?: SortOrder
+    updatedAt?: SortOrder
     event?: EventOrderByWithRelationInput
     ticketType?: TicketTypeOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -13344,13 +13344,13 @@ export namespace Prisma {
     totalPrice?: IntFilter<"Transaction"> | number
     usedPoints?: IntFilter<"Transaction"> | number
     discount?: IntFilter<"Transaction"> | number
-    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     expireAt?: DateTimeFilter<"Transaction"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     event?: XOR<EventScalarRelationFilter, EventWhereInput>
     ticketType?: XOR<TicketTypeNullableScalarRelationFilter, TicketTypeWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
@@ -13362,10 +13362,10 @@ export namespace Prisma {
     totalPrice?: SortOrder
     usedPoints?: SortOrder
     discount?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     expireAt?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
     _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
@@ -13385,10 +13385,10 @@ export namespace Prisma {
     totalPrice?: IntWithAggregatesFilter<"Transaction"> | number
     usedPoints?: IntWithAggregatesFilter<"Transaction"> | number
     discount?: IntWithAggregatesFilter<"Transaction"> | number
-    status?: EnumstatusTransactionWithAggregatesFilter<"Transaction"> | $Enums.statusTransaction
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     expireAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    status?: EnumstatusTransactionWithAggregatesFilter<"Transaction"> | $Enums.statusTransaction
+    updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   }
 
   export type VoucherWhereInput = {
@@ -13401,8 +13401,8 @@ export namespace Prisma {
     discountPercent?: IntFilter<"Voucher"> | number
     expiresAt?: DateTimeFilter<"Voucher"> | Date | string
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     ReferralUsage?: ReferralUsageListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type VoucherOrderByWithRelationInput = {
@@ -13412,8 +13412,8 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     ReferralUsage?: ReferralUsageOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type VoucherWhereUniqueInput = Prisma.AtLeast<{
@@ -13426,8 +13426,8 @@ export namespace Prisma {
     discountPercent?: IntFilter<"Voucher"> | number
     expiresAt?: DateTimeFilter<"Voucher"> | Date | string
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     ReferralUsage?: ReferralUsageListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type VoucherOrderByWithAggregationInput = {
@@ -13465,8 +13465,8 @@ export namespace Prisma {
     referredId?: StringFilter<"ReferralUsage"> | string
     createdAt?: DateTimeFilter<"ReferralUsage"> | Date | string
     voucherId?: StringNullableFilter<"ReferralUsage"> | string | null
-    referrer?: XOR<UserScalarRelationFilter, UserWhereInput>
     referred?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referrer?: XOR<UserScalarRelationFilter, UserWhereInput>
     Voucher?: XOR<VoucherNullableScalarRelationFilter, VoucherWhereInput> | null
   }
 
@@ -13476,8 +13476,8 @@ export namespace Prisma {
     referredId?: SortOrder
     createdAt?: SortOrder
     voucherId?: SortOrderInput | SortOrder
-    referrer?: UserOrderByWithRelationInput
     referred?: UserOrderByWithRelationInput
+    referrer?: UserOrderByWithRelationInput
     Voucher?: VoucherOrderByWithRelationInput
   }
 
@@ -13490,8 +13490,8 @@ export namespace Prisma {
     referredId?: StringFilter<"ReferralUsage"> | string
     createdAt?: DateTimeFilter<"ReferralUsage"> | Date | string
     voucherId?: StringNullableFilter<"ReferralUsage"> | string | null
-    referrer?: XOR<UserScalarRelationFilter, UserWhereInput>
     referred?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referrer?: XOR<UserScalarRelationFilter, UserWhereInput>
     Voucher?: XOR<VoucherNullableScalarRelationFilter, VoucherWhereInput> | null
   }, "id">
 
@@ -13585,189 +13585,189 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
     events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
     Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
     Voucher?: VoucherCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
     events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -13914,7 +13914,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -13923,10 +13923,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organizer: UserCreateNestedOneWithoutEventsInput
+    promotions?: PromotionCreateNestedManyWithoutEventInput
+    reviews?: ReviewCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
     transactions?: TransactionCreateNestedManyWithoutEventInput
-    reviews?: ReviewCreateNestedManyWithoutEventInput
-    promotions?: PromotionCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateInput = {
@@ -13935,7 +13935,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -13943,10 +13943,10 @@ export namespace Prisma {
     category: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
-    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventUpdateInput = {
@@ -13954,7 +13954,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -13963,10 +13963,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
+    promotions?: PromotionUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
     transactions?: TransactionUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateInput = {
@@ -13975,7 +13975,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -13983,10 +13983,10 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventCreateManyInput = {
@@ -13995,7 +13995,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -14010,7 +14010,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -14026,7 +14026,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -14101,13 +14101,13 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
-    user: UserCreateNestedOneWithoutTicketsInput
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
     event: EventCreateNestedOneWithoutTransactionsInput
     ticketType?: TicketTypeCreateNestedOneWithoutTransactionInput
+    user: UserCreateNestedOneWithoutTicketsInput
   }
 
   export type TransactionUncheckedCreateInput = {
@@ -14119,10 +14119,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
   }
 
   export type TransactionUpdateInput = {
@@ -14131,13 +14131,13 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: EventUpdateOneRequiredWithoutTransactionsNestedInput
     ticketType?: TicketTypeUpdateOneWithoutTransactionNestedInput
+    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
@@ -14149,10 +14149,10 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateManyInput = {
@@ -14164,10 +14164,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
   }
 
   export type TransactionUpdateManyMutationInput = {
@@ -14176,10 +14176,10 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyInput = {
@@ -14191,10 +14191,10 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoucherCreateInput = {
@@ -14203,8 +14203,8 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutVoucherInput
     ReferralUsage?: ReferralUsageCreateNestedManyWithoutVoucherInput
+    user: UserCreateNestedOneWithoutVoucherInput
   }
 
   export type VoucherUncheckedCreateInput = {
@@ -14223,8 +14223,8 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutVoucherNestedInput
     ReferralUsage?: ReferralUsageUpdateManyWithoutVoucherNestedInput
+    user?: UserUpdateOneRequiredWithoutVoucherNestedInput
   }
 
   export type VoucherUncheckedUpdateInput = {
@@ -14266,8 +14266,8 @@ export namespace Prisma {
   export type ReferralUsageCreateInput = {
     id?: string
     createdAt?: Date | string
-    referrer: UserCreateNestedOneWithoutReferrerInput
     referred: UserCreateNestedOneWithoutReferredInput
+    referrer: UserCreateNestedOneWithoutReferrerInput
     Voucher?: VoucherCreateNestedOneWithoutReferralUsageInput
   }
 
@@ -14282,8 +14282,8 @@ export namespace Prisma {
   export type ReferralUsageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
     referred?: UserUpdateOneRequiredWithoutReferredNestedInput
+    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
     Voucher?: VoucherUpdateOneWithoutReferralUsageNestedInput
   }
 
@@ -14392,21 +14392,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -14430,22 +14415,19 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type ReferralUsageListRelationFilter = {
-    every?: ReferralUsageWhereInput
-    some?: ReferralUsageWhereInput
-    none?: ReferralUsageWhereInput
-  }
-
-  export type PointListRelationFilter = {
-    every?: PointWhereInput
-    some?: PointWhereInput
-    none?: PointWhereInput
-  }
-
-  export type TransactionListRelationFilter = {
-    every?: TransactionWhereInput
-    some?: TransactionWhereInput
-    none?: TransactionWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type EventListRelationFilter = {
@@ -14454,10 +14436,28 @@ export namespace Prisma {
     none?: EventWhereInput
   }
 
+  export type PointListRelationFilter = {
+    every?: PointWhereInput
+    some?: PointWhereInput
+    none?: PointWhereInput
+  }
+
+  export type ReferralUsageListRelationFilter = {
+    every?: ReferralUsageWhereInput
+    some?: ReferralUsageWhereInput
+    none?: ReferralUsageWhereInput
+  }
+
   export type ReviewListRelationFilter = {
     every?: ReviewWhereInput
     some?: ReviewWhereInput
     none?: ReviewWhereInput
+  }
+
+  export type TransactionListRelationFilter = {
+    every?: TransactionWhereInput
+    some?: TransactionWhereInput
+    none?: TransactionWhereInput
   }
 
   export type VoucherListRelationFilter = {
@@ -14471,7 +14471,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type ReferralUsageOrderByRelationAggregateInput = {
+  export type EventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14479,15 +14479,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type TransactionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type EventOrderByRelationAggregateInput = {
+  export type ReferralUsageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14498,69 +14498,69 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    lastName?: SortOrder
     email?: SortOrder
-    zipCode?: SortOrder
-    state?: SortOrder
-    city?: SortOrder
-    street?: SortOrder
-    houseNumber?: SortOrder
-    regionNumber?: SortOrder
-    phoneNumber?: SortOrder
-    dob?: SortOrder
     password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
-    usedReferralById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerify?: SortOrder
+    usedReferralById?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    houseNumber?: SortOrder
+    lastName?: SortOrder
+    state?: SortOrder
+    street?: SortOrder
+    zipCode?: SortOrder
+    regionNumber?: SortOrder
+    phoneNumber?: SortOrder
     avatar?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    lastName?: SortOrder
     email?: SortOrder
-    zipCode?: SortOrder
-    state?: SortOrder
-    city?: SortOrder
-    street?: SortOrder
-    houseNumber?: SortOrder
-    regionNumber?: SortOrder
-    phoneNumber?: SortOrder
-    dob?: SortOrder
     password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
-    usedReferralById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerify?: SortOrder
+    usedReferralById?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    houseNumber?: SortOrder
+    lastName?: SortOrder
+    state?: SortOrder
+    street?: SortOrder
+    zipCode?: SortOrder
+    regionNumber?: SortOrder
+    phoneNumber?: SortOrder
     avatar?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    lastName?: SortOrder
     email?: SortOrder
-    zipCode?: SortOrder
-    state?: SortOrder
-    city?: SortOrder
-    street?: SortOrder
-    houseNumber?: SortOrder
-    regionNumber?: SortOrder
-    phoneNumber?: SortOrder
-    dob?: SortOrder
     password?: SortOrder
     role?: SortOrder
     referralCode?: SortOrder
-    usedReferralById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerify?: SortOrder
+    usedReferralById?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    houseNumber?: SortOrder
+    lastName?: SortOrder
+    state?: SortOrder
+    street?: SortOrder
+    zipCode?: SortOrder
+    regionNumber?: SortOrder
+    phoneNumber?: SortOrder
     avatar?: SortOrder
   }
 
@@ -14580,24 +14580,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14630,6 +14612,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -14793,23 +14793,23 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type TicketTypeListRelationFilter = {
-    every?: TicketTypeWhereInput
-    some?: TicketTypeWhereInput
-    none?: TicketTypeWhereInput
-  }
-
   export type PromotionListRelationFilter = {
     every?: PromotionWhereInput
     some?: PromotionWhereInput
     none?: PromotionWhereInput
   }
 
-  export type TicketTypeOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type TicketTypeListRelationFilter = {
+    every?: TicketTypeWhereInput
+    some?: TicketTypeWhereInput
+    none?: TicketTypeWhereInput
   }
 
   export type PromotionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TicketTypeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14926,10 +14926,10 @@ export namespace Prisma {
     totalPrice?: SortOrder
     usedPoints?: SortOrder
     discount?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     expireAt?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
@@ -14948,10 +14948,10 @@ export namespace Prisma {
     totalPrice?: SortOrder
     usedPoints?: SortOrder
     discount?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     expireAt?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
@@ -14963,10 +14963,10 @@ export namespace Prisma {
     totalPrice?: SortOrder
     usedPoints?: SortOrder
     discount?: SortOrder
-    status?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
     expireAt?: SortOrder
+    status?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {
@@ -15102,18 +15102,11 @@ export namespace Prisma {
     rating?: SortOrder
   }
 
-  export type ReferralUsageCreateNestedManyWithoutReferrerInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
-    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-  }
-
-  export type ReferralUsageCreateNestedManyWithoutReferredInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
-    createMany?: ReferralUsageCreateManyReferredInputEnvelope
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+  export type EventCreateNestedManyWithoutOrganizerInput = {
+    create?: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput> | EventCreateWithoutOrganizerInput[] | EventUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutOrganizerInput | EventCreateOrConnectWithoutOrganizerInput[]
+    createMany?: EventCreateManyOrganizerInputEnvelope
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
   export type PointCreateNestedManyWithoutUserInput = {
@@ -15123,18 +15116,18 @@ export namespace Prisma {
     connect?: PointWhereUniqueInput | PointWhereUniqueInput[]
   }
 
-  export type TransactionCreateNestedManyWithoutUserInput = {
-    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
-    createMany?: TransactionCreateManyUserInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  export type ReferralUsageCreateNestedManyWithoutReferredInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
+    createMany?: ReferralUsageCreateManyReferredInputEnvelope
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
   }
 
-  export type EventCreateNestedManyWithoutOrganizerInput = {
-    create?: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput> | EventCreateWithoutOrganizerInput[] | EventUncheckedCreateWithoutOrganizerInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutOrganizerInput | EventCreateOrConnectWithoutOrganizerInput[]
-    createMany?: EventCreateManyOrganizerInputEnvelope
-    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+  export type ReferralUsageCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
+    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
   }
 
   export type ReviewCreateNestedManyWithoutUserInput = {
@@ -15144,39 +15137,18 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type TransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type VoucherCreateNestedManyWithoutUserInput = {
     create?: XOR<VoucherCreateWithoutUserInput, VoucherUncheckedCreateWithoutUserInput> | VoucherCreateWithoutUserInput[] | VoucherUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VoucherCreateOrConnectWithoutUserInput | VoucherCreateOrConnectWithoutUserInput[]
     createMany?: VoucherCreateManyUserInputEnvelope
     connect?: VoucherWhereUniqueInput | VoucherWhereUniqueInput[]
-  }
-
-  export type ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
-    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-  }
-
-  export type ReferralUsageUncheckedCreateNestedManyWithoutReferredInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
-    createMany?: ReferralUsageCreateManyReferredInputEnvelope
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-  }
-
-  export type PointUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<PointCreateWithoutUserInput, PointUncheckedCreateWithoutUserInput> | PointCreateWithoutUserInput[] | PointUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PointCreateOrConnectWithoutUserInput | PointCreateOrConnectWithoutUserInput[]
-    createMany?: PointCreateManyUserInputEnvelope
-    connect?: PointWhereUniqueInput | PointWhereUniqueInput[]
-  }
-
-  export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
-    createMany?: TransactionCreateManyUserInputEnvelope
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type EventUncheckedCreateNestedManyWithoutOrganizerInput = {
@@ -15186,11 +15158,39 @@ export namespace Prisma {
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
+  export type PointUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PointCreateWithoutUserInput, PointUncheckedCreateWithoutUserInput> | PointCreateWithoutUserInput[] | PointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointCreateOrConnectWithoutUserInput | PointCreateOrConnectWithoutUserInput[]
+    createMany?: PointCreateManyUserInputEnvelope
+    connect?: PointWhereUniqueInput | PointWhereUniqueInput[]
+  }
+
+  export type ReferralUsageUncheckedCreateNestedManyWithoutReferredInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
+    createMany?: ReferralUsageCreateManyReferredInputEnvelope
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+  }
+
+  export type ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
+    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+  }
+
   export type ReviewUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ReviewCreateWithoutUserInput, ReviewUncheckedCreateWithoutUserInput> | ReviewCreateWithoutUserInput[] | ReviewUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutUserInput | ReviewCreateOrConnectWithoutUserInput[]
     createMany?: ReviewCreateManyUserInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type VoucherUncheckedCreateNestedManyWithoutUserInput = {
@@ -15202,10 +15202,6 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -15220,60 +15216,8 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type ReferralUsageUpdateManyWithoutReferrerNestedInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
-    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput | ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput[]
-    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
-    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput | ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput[]
-    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferrerInput | ReferralUsageUpdateManyWithWhereWithoutReferrerInput[]
-    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
-  }
-
-  export type ReferralUsageUpdateManyWithoutReferredNestedInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
-    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferredInput | ReferralUsageUpsertWithWhereUniqueWithoutReferredInput[]
-    createMany?: ReferralUsageCreateManyReferredInputEnvelope
-    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferredInput | ReferralUsageUpdateWithWhereUniqueWithoutReferredInput[]
-    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferredInput | ReferralUsageUpdateManyWithWhereWithoutReferredInput[]
-    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
-  }
-
-  export type PointUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PointCreateWithoutUserInput, PointUncheckedCreateWithoutUserInput> | PointCreateWithoutUserInput[] | PointUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PointCreateOrConnectWithoutUserInput | PointCreateOrConnectWithoutUserInput[]
-    upsert?: PointUpsertWithWhereUniqueWithoutUserInput | PointUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PointCreateManyUserInputEnvelope
-    set?: PointWhereUniqueInput | PointWhereUniqueInput[]
-    disconnect?: PointWhereUniqueInput | PointWhereUniqueInput[]
-    delete?: PointWhereUniqueInput | PointWhereUniqueInput[]
-    connect?: PointWhereUniqueInput | PointWhereUniqueInput[]
-    update?: PointUpdateWithWhereUniqueWithoutUserInput | PointUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PointUpdateManyWithWhereWithoutUserInput | PointUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PointScalarWhereInput | PointScalarWhereInput[]
-  }
-
-  export type TransactionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TransactionCreateManyUserInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type EventUpdateManyWithoutOrganizerNestedInput = {
@@ -15290,6 +15234,48 @@ export namespace Prisma {
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
+  export type PointUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PointCreateWithoutUserInput, PointUncheckedCreateWithoutUserInput> | PointCreateWithoutUserInput[] | PointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PointCreateOrConnectWithoutUserInput | PointCreateOrConnectWithoutUserInput[]
+    upsert?: PointUpsertWithWhereUniqueWithoutUserInput | PointUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PointCreateManyUserInputEnvelope
+    set?: PointWhereUniqueInput | PointWhereUniqueInput[]
+    disconnect?: PointWhereUniqueInput | PointWhereUniqueInput[]
+    delete?: PointWhereUniqueInput | PointWhereUniqueInput[]
+    connect?: PointWhereUniqueInput | PointWhereUniqueInput[]
+    update?: PointUpdateWithWhereUniqueWithoutUserInput | PointUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PointUpdateManyWithWhereWithoutUserInput | PointUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PointScalarWhereInput | PointScalarWhereInput[]
+  }
+
+  export type ReferralUsageUpdateManyWithoutReferredNestedInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
+    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferredInput | ReferralUsageUpsertWithWhereUniqueWithoutReferredInput[]
+    createMany?: ReferralUsageCreateManyReferredInputEnvelope
+    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferredInput | ReferralUsageUpdateWithWhereUniqueWithoutReferredInput[]
+    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferredInput | ReferralUsageUpdateManyWithWhereWithoutReferredInput[]
+    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
+  }
+
+  export type ReferralUsageUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
+    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput | ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
+    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput | ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferrerInput | ReferralUsageUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
+  }
+
   export type ReviewUpdateManyWithoutUserNestedInput = {
     create?: XOR<ReviewCreateWithoutUserInput, ReviewUncheckedCreateWithoutUserInput> | ReviewCreateWithoutUserInput[] | ReviewUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutUserInput | ReviewCreateOrConnectWithoutUserInput[]
@@ -15302,6 +15288,20 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutUserInput | ReviewUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutUserInput | ReviewUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type TransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type VoucherUpdateManyWithoutUserNestedInput = {
@@ -15318,32 +15318,18 @@ export namespace Prisma {
     deleteMany?: VoucherScalarWhereInput | VoucherScalarWhereInput[]
   }
 
-  export type ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
-    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput | ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput[]
-    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
-    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput | ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput[]
-    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferrerInput | ReferralUsageUpdateManyWithWhereWithoutReferrerInput[]
-    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
-  }
-
-  export type ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput = {
-    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
-    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
-    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferredInput | ReferralUsageUpsertWithWhereUniqueWithoutReferredInput[]
-    createMany?: ReferralUsageCreateManyReferredInputEnvelope
-    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
-    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferredInput | ReferralUsageUpdateWithWhereUniqueWithoutReferredInput[]
-    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferredInput | ReferralUsageUpdateManyWithWhereWithoutReferredInput[]
-    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
+  export type EventUncheckedUpdateManyWithoutOrganizerNestedInput = {
+    create?: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput> | EventCreateWithoutOrganizerInput[] | EventUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutOrganizerInput | EventCreateOrConnectWithoutOrganizerInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutOrganizerInput | EventUpsertWithWhereUniqueWithoutOrganizerInput[]
+    createMany?: EventCreateManyOrganizerInputEnvelope
+    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
+    update?: EventUpdateWithWhereUniqueWithoutOrganizerInput | EventUpdateWithWhereUniqueWithoutOrganizerInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutOrganizerInput | EventUpdateManyWithWhereWithoutOrganizerInput[]
+    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
   export type PointUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15360,32 +15346,32 @@ export namespace Prisma {
     deleteMany?: PointScalarWhereInput | PointScalarWhereInput[]
   }
 
-  export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TransactionCreateManyUserInputEnvelope
-    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  export type ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput> | ReferralUsageCreateWithoutReferredInput[] | ReferralUsageUncheckedCreateWithoutReferredInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferredInput | ReferralUsageCreateOrConnectWithoutReferredInput[]
+    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferredInput | ReferralUsageUpsertWithWhereUniqueWithoutReferredInput[]
+    createMany?: ReferralUsageCreateManyReferredInputEnvelope
+    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferredInput | ReferralUsageUpdateWithWhereUniqueWithoutReferredInput[]
+    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferredInput | ReferralUsageUpdateManyWithWhereWithoutReferredInput[]
+    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
   }
 
-  export type EventUncheckedUpdateManyWithoutOrganizerNestedInput = {
-    create?: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput> | EventCreateWithoutOrganizerInput[] | EventUncheckedCreateWithoutOrganizerInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutOrganizerInput | EventCreateOrConnectWithoutOrganizerInput[]
-    upsert?: EventUpsertWithWhereUniqueWithoutOrganizerInput | EventUpsertWithWhereUniqueWithoutOrganizerInput[]
-    createMany?: EventCreateManyOrganizerInputEnvelope
-    set?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    update?: EventUpdateWithWhereUniqueWithoutOrganizerInput | EventUpdateWithWhereUniqueWithoutOrganizerInput[]
-    updateMany?: EventUpdateManyWithWhereWithoutOrganizerInput | EventUpdateManyWithWhereWithoutOrganizerInput[]
-    deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
+  export type ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput = {
+    create?: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput> | ReferralUsageCreateWithoutReferrerInput[] | ReferralUsageUncheckedCreateWithoutReferrerInput[]
+    connectOrCreate?: ReferralUsageCreateOrConnectWithoutReferrerInput | ReferralUsageCreateOrConnectWithoutReferrerInput[]
+    upsert?: ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput | ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput[]
+    createMany?: ReferralUsageCreateManyReferrerInputEnvelope
+    set?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    disconnect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    delete?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+    update?: ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput | ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput[]
+    updateMany?: ReferralUsageUpdateManyWithWhereWithoutReferrerInput | ReferralUsageUpdateManyWithWhereWithoutReferrerInput[]
+    deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
   }
 
   export type ReviewUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15400,6 +15386,20 @@ export namespace Prisma {
     update?: ReviewUpdateWithWhereUniqueWithoutUserInput | ReviewUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ReviewUpdateManyWithWhereWithoutUserInput | ReviewUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type VoucherUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15470,6 +15470,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PromotionCreateNestedManyWithoutEventInput = {
+    create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
+    createMany?: PromotionCreateManyEventInputEnvelope
+    connect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+  }
+
+  export type ReviewCreateNestedManyWithoutEventInput = {
+    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
+    createMany?: ReviewCreateManyEventInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
   export type TicketTypeCreateNestedManyWithoutEventInput = {
     create?: XOR<TicketTypeCreateWithoutEventInput, TicketTypeUncheckedCreateWithoutEventInput> | TicketTypeCreateWithoutEventInput[] | TicketTypeUncheckedCreateWithoutEventInput[]
     connectOrCreate?: TicketTypeCreateOrConnectWithoutEventInput | TicketTypeCreateOrConnectWithoutEventInput[]
@@ -15484,18 +15498,18 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type ReviewCreateNestedManyWithoutEventInput = {
-    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
-    createMany?: ReviewCreateManyEventInputEnvelope
-    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-  }
-
-  export type PromotionCreateNestedManyWithoutEventInput = {
+  export type PromotionUncheckedCreateNestedManyWithoutEventInput = {
     create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
     connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
     createMany?: PromotionCreateManyEventInputEnvelope
     connect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+  }
+
+  export type ReviewUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
+    createMany?: ReviewCreateManyEventInputEnvelope
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
   export type TicketTypeUncheckedCreateNestedManyWithoutEventInput = {
@@ -15512,26 +15526,40 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type ReviewUncheckedCreateNestedManyWithoutEventInput = {
-    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
-    createMany?: ReviewCreateManyEventInputEnvelope
-    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-  }
-
-  export type PromotionUncheckedCreateNestedManyWithoutEventInput = {
-    create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
-    createMany?: PromotionCreateManyEventInputEnvelope
-    connect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
-  }
-
   export type UserUpdateOneRequiredWithoutEventsNestedInput = {
     create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
     connectOrCreate?: UserCreateOrConnectWithoutEventsInput
     upsert?: UserUpsertWithoutEventsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEventsInput, UserUpdateWithoutEventsInput>, UserUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type PromotionUpdateManyWithoutEventNestedInput = {
+    create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
+    upsert?: PromotionUpsertWithWhereUniqueWithoutEventInput | PromotionUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: PromotionCreateManyEventInputEnvelope
+    set?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+    disconnect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+    delete?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+    connect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
+    update?: PromotionUpdateWithWhereUniqueWithoutEventInput | PromotionUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: PromotionUpdateManyWithWhereWithoutEventInput | PromotionUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
+  }
+
+  export type ReviewUpdateManyWithoutEventNestedInput = {
+    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutEventInput | ReviewUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: ReviewCreateManyEventInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutEventInput | ReviewUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutEventInput | ReviewUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
   export type TicketTypeUpdateManyWithoutEventNestedInput = {
@@ -15562,21 +15590,7 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type ReviewUpdateManyWithoutEventNestedInput = {
-    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
-    upsert?: ReviewUpsertWithWhereUniqueWithoutEventInput | ReviewUpsertWithWhereUniqueWithoutEventInput[]
-    createMany?: ReviewCreateManyEventInputEnvelope
-    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    update?: ReviewUpdateWithWhereUniqueWithoutEventInput | ReviewUpdateWithWhereUniqueWithoutEventInput[]
-    updateMany?: ReviewUpdateManyWithWhereWithoutEventInput | ReviewUpdateManyWithWhereWithoutEventInput[]
-    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-  }
-
-  export type PromotionUpdateManyWithoutEventNestedInput = {
+  export type PromotionUncheckedUpdateManyWithoutEventNestedInput = {
     create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
     connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
     upsert?: PromotionUpsertWithWhereUniqueWithoutEventInput | PromotionUpsertWithWhereUniqueWithoutEventInput[]
@@ -15588,6 +15602,20 @@ export namespace Prisma {
     update?: PromotionUpdateWithWhereUniqueWithoutEventInput | PromotionUpdateWithWhereUniqueWithoutEventInput[]
     updateMany?: PromotionUpdateManyWithWhereWithoutEventInput | PromotionUpdateManyWithWhereWithoutEventInput[]
     deleteMany?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
+    upsert?: ReviewUpsertWithWhereUniqueWithoutEventInput | ReviewUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: ReviewCreateManyEventInputEnvelope
+    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+    update?: ReviewUpdateWithWhereUniqueWithoutEventInput | ReviewUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: ReviewUpdateManyWithWhereWithoutEventInput | ReviewUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
   export type TicketTypeUncheckedUpdateManyWithoutEventNestedInput = {
@@ -15616,34 +15644,6 @@ export namespace Prisma {
     update?: TransactionUpdateWithWhereUniqueWithoutEventInput | TransactionUpdateWithWhereUniqueWithoutEventInput[]
     updateMany?: TransactionUpdateManyWithWhereWithoutEventInput | TransactionUpdateManyWithWhereWithoutEventInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
-  }
-
-  export type ReviewUncheckedUpdateManyWithoutEventNestedInput = {
-    create?: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput> | ReviewCreateWithoutEventInput[] | ReviewUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: ReviewCreateOrConnectWithoutEventInput | ReviewCreateOrConnectWithoutEventInput[]
-    upsert?: ReviewUpsertWithWhereUniqueWithoutEventInput | ReviewUpsertWithWhereUniqueWithoutEventInput[]
-    createMany?: ReviewCreateManyEventInputEnvelope
-    set?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    disconnect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    delete?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
-    update?: ReviewUpdateWithWhereUniqueWithoutEventInput | ReviewUpdateWithWhereUniqueWithoutEventInput[]
-    updateMany?: ReviewUpdateManyWithWhereWithoutEventInput | ReviewUpdateManyWithWhereWithoutEventInput[]
-    deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-  }
-
-  export type PromotionUncheckedUpdateManyWithoutEventNestedInput = {
-    create?: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput> | PromotionCreateWithoutEventInput[] | PromotionUncheckedCreateWithoutEventInput[]
-    connectOrCreate?: PromotionCreateOrConnectWithoutEventInput | PromotionCreateOrConnectWithoutEventInput[]
-    upsert?: PromotionUpsertWithWhereUniqueWithoutEventInput | PromotionUpsertWithWhereUniqueWithoutEventInput[]
-    createMany?: PromotionCreateManyEventInputEnvelope
-    set?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
-    disconnect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
-    delete?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
-    connect?: PromotionWhereUniqueInput | PromotionWhereUniqueInput[]
-    update?: PromotionUpdateWithWhereUniqueWithoutEventInput | PromotionUpdateWithWhereUniqueWithoutEventInput[]
-    updateMany?: PromotionUpdateManyWithWhereWithoutEventInput | PromotionUpdateManyWithWhereWithoutEventInput[]
-    deleteMany?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
   }
 
   export type EventCreateNestedOneWithoutTicketTypesInput = {
@@ -15702,12 +15702,6 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutTicketsInput = {
-    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type EventCreateNestedOneWithoutTransactionsInput = {
     create?: XOR<EventCreateWithoutTransactionsInput, EventUncheckedCreateWithoutTransactionsInput>
     connectOrCreate?: EventCreateOrConnectWithoutTransactionsInput
@@ -15720,16 +15714,14 @@ export namespace Prisma {
     connect?: TicketTypeWhereUniqueInput
   }
 
-  export type EnumstatusTransactionFieldUpdateOperationsInput = {
-    set?: $Enums.statusTransaction
-  }
-
-  export type UserUpdateOneRequiredWithoutTicketsNestedInput = {
+  export type UserCreateNestedOneWithoutTicketsInput = {
     create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
-    upsert?: UserUpsertWithoutTicketsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketsInput, UserUpdateWithoutTicketsInput>, UserUncheckedUpdateWithoutTicketsInput>
+  }
+
+  export type EnumstatusTransactionFieldUpdateOperationsInput = {
+    set?: $Enums.statusTransaction
   }
 
   export type EventUpdateOneRequiredWithoutTransactionsNestedInput = {
@@ -15750,10 +15742,12 @@ export namespace Prisma {
     update?: XOR<XOR<TicketTypeUpdateToOneWithWhereWithoutTransactionInput, TicketTypeUpdateWithoutTransactionInput>, TicketTypeUncheckedUpdateWithoutTransactionInput>
   }
 
-  export type UserCreateNestedOneWithoutVoucherInput = {
-    create?: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVoucherInput
+  export type UserUpdateOneRequiredWithoutTicketsNestedInput = {
+    create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
+    upsert?: UserUpsertWithoutTicketsInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketsInput, UserUpdateWithoutTicketsInput>, UserUncheckedUpdateWithoutTicketsInput>
   }
 
   export type ReferralUsageCreateNestedManyWithoutVoucherInput = {
@@ -15761,6 +15755,12 @@ export namespace Prisma {
     connectOrCreate?: ReferralUsageCreateOrConnectWithoutVoucherInput | ReferralUsageCreateOrConnectWithoutVoucherInput[]
     createMany?: ReferralUsageCreateManyVoucherInputEnvelope
     connect?: ReferralUsageWhereUniqueInput | ReferralUsageWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutVoucherInput = {
+    create?: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVoucherInput
+    connect?: UserWhereUniqueInput
   }
 
   export type ReferralUsageUncheckedCreateNestedManyWithoutVoucherInput = {
@@ -15772,14 +15772,6 @@ export namespace Prisma {
 
   export type EnumvoucherTypeFieldUpdateOperationsInput = {
     set?: $Enums.voucherType
-  }
-
-  export type UserUpdateOneRequiredWithoutVoucherNestedInput = {
-    create?: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVoucherInput
-    upsert?: UserUpsertWithoutVoucherInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVoucherInput, UserUpdateWithoutVoucherInput>, UserUncheckedUpdateWithoutVoucherInput>
   }
 
   export type ReferralUsageUpdateManyWithoutVoucherNestedInput = {
@@ -15796,6 +15788,14 @@ export namespace Prisma {
     deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
   }
 
+  export type UserUpdateOneRequiredWithoutVoucherNestedInput = {
+    create?: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVoucherInput
+    upsert?: UserUpsertWithoutVoucherInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVoucherInput, UserUpdateWithoutVoucherInput>, UserUncheckedUpdateWithoutVoucherInput>
+  }
+
   export type ReferralUsageUncheckedUpdateManyWithoutVoucherNestedInput = {
     create?: XOR<ReferralUsageCreateWithoutVoucherInput, ReferralUsageUncheckedCreateWithoutVoucherInput> | ReferralUsageCreateWithoutVoucherInput[] | ReferralUsageUncheckedCreateWithoutVoucherInput[]
     connectOrCreate?: ReferralUsageCreateOrConnectWithoutVoucherInput | ReferralUsageCreateOrConnectWithoutVoucherInput[]
@@ -15810,15 +15810,15 @@ export namespace Prisma {
     deleteMany?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutReferrerInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutReferredInput = {
     create?: XOR<UserCreateWithoutReferredInput, UserUncheckedCreateWithoutReferredInput>
     connectOrCreate?: UserCreateOrConnectWithoutReferredInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReferrerInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput
     connect?: UserWhereUniqueInput
   }
 
@@ -15828,20 +15828,20 @@ export namespace Prisma {
     connect?: VoucherWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutReferrerNestedInput = {
-    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput
-    upsert?: UserUpsertWithoutReferrerInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferrerInput, UserUpdateWithoutReferrerInput>, UserUncheckedUpdateWithoutReferrerInput>
-  }
-
   export type UserUpdateOneRequiredWithoutReferredNestedInput = {
     create?: XOR<UserCreateWithoutReferredInput, UserUncheckedCreateWithoutReferredInput>
     connectOrCreate?: UserCreateOrConnectWithoutReferredInput
     upsert?: UserUpsertWithoutReferredInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferredInput, UserUpdateWithoutReferredInput>, UserUncheckedUpdateWithoutReferredInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReferrerNestedInput = {
+    create?: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferrerInput
+    upsert?: UserUpsertWithoutReferrerInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferrerInput, UserUpdateWithoutReferrerInput>, UserUncheckedUpdateWithoutReferrerInput>
   }
 
   export type VoucherUpdateOneWithoutReferralUsageNestedInput = {
@@ -15896,20 +15896,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15931,6 +15917,20 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -15959,34 +15959,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -16019,6 +15991,34 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -16126,51 +16126,51 @@ export namespace Prisma {
     _max?: NestedEnumvoucherTypeFilter<$PrismaModel>
   }
 
-  export type ReferralUsageCreateWithoutReferrerInput = {
+  export type EventCreateWithoutOrganizerInput = {
     id?: string
+    title: string
+    description: string
+    location: string
+    date: string
+    time: string
+    isFree?: boolean
+    price?: number
+    seats: number
+    category: string
     createdAt?: Date | string
-    referred: UserCreateNestedOneWithoutReferredInput
-    Voucher?: VoucherCreateNestedOneWithoutReferralUsageInput
+    updatedAt?: Date | string
+    promotions?: PromotionCreateNestedManyWithoutEventInput
+    reviews?: ReviewCreateNestedManyWithoutEventInput
+    ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
+    transactions?: TransactionCreateNestedManyWithoutEventInput
   }
 
-  export type ReferralUsageUncheckedCreateWithoutReferrerInput = {
+  export type EventUncheckedCreateWithoutOrganizerInput = {
     id?: string
-    referredId: string
+    title: string
+    description: string
+    location: string
+    date: string
+    time: string
+    isFree?: boolean
+    price?: number
+    seats: number
+    category: string
     createdAt?: Date | string
-    voucherId?: string | null
+    updatedAt?: Date | string
+    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
+    ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
   }
 
-  export type ReferralUsageCreateOrConnectWithoutReferrerInput = {
-    where: ReferralUsageWhereUniqueInput
-    create: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput>
+  export type EventCreateOrConnectWithoutOrganizerInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput>
   }
 
-  export type ReferralUsageCreateManyReferrerInputEnvelope = {
-    data: ReferralUsageCreateManyReferrerInput | ReferralUsageCreateManyReferrerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReferralUsageCreateWithoutReferredInput = {
-    id?: string
-    createdAt?: Date | string
-    referrer: UserCreateNestedOneWithoutReferrerInput
-    Voucher?: VoucherCreateNestedOneWithoutReferralUsageInput
-  }
-
-  export type ReferralUsageUncheckedCreateWithoutReferredInput = {
-    id?: string
-    referrerId: string
-    createdAt?: Date | string
-    voucherId?: string | null
-  }
-
-  export type ReferralUsageCreateOrConnectWithoutReferredInput = {
-    where: ReferralUsageWhereUniqueInput
-    create: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput>
-  }
-
-  export type ReferralUsageCreateManyReferredInputEnvelope = {
-    data: ReferralUsageCreateManyReferredInput | ReferralUsageCreateManyReferredInput[]
+  export type EventCreateManyOrganizerInputEnvelope = {
+    data: EventCreateManyOrganizerInput | EventCreateManyOrganizerInput[]
     skipDuplicates?: boolean
   }
 
@@ -16198,89 +16198,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TransactionCreateWithoutUserInput = {
+  export type ReferralUsageCreateWithoutReferredInput = {
     id?: string
-    quantity: number
-    totalPrice: number
-    usedPoints?: number
-    discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
-    expireAt: Date | string
-    event: EventCreateNestedOneWithoutTransactionsInput
-    ticketType?: TicketTypeCreateNestedOneWithoutTransactionInput
+    referrer: UserCreateNestedOneWithoutReferrerInput
+    Voucher?: VoucherCreateNestedOneWithoutReferralUsageInput
   }
 
-  export type TransactionUncheckedCreateWithoutUserInput = {
+  export type ReferralUsageUncheckedCreateWithoutReferredInput = {
     id?: string
-    eventId: string
-    ticketTypeId?: string | null
-    quantity: number
-    totalPrice: number
-    usedPoints?: number
-    discount?: number
-    status: $Enums.statusTransaction
+    referrerId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    expireAt: Date | string
+    voucherId?: string | null
   }
 
-  export type TransactionCreateOrConnectWithoutUserInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  export type ReferralUsageCreateOrConnectWithoutReferredInput = {
+    where: ReferralUsageWhereUniqueInput
+    create: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput>
   }
 
-  export type TransactionCreateManyUserInputEnvelope = {
-    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
+  export type ReferralUsageCreateManyReferredInputEnvelope = {
+    data: ReferralUsageCreateManyReferredInput | ReferralUsageCreateManyReferredInput[]
     skipDuplicates?: boolean
   }
 
-  export type EventCreateWithoutOrganizerInput = {
+  export type ReferralUsageCreateWithoutReferrerInput = {
     id?: string
-    title: string
-    description: string
-    location: string
-    date: Date | string
-    time: string
-    isFree?: boolean
-    price?: number
-    seats: number
-    category: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
-    transactions?: TransactionCreateNestedManyWithoutEventInput
-    reviews?: ReviewCreateNestedManyWithoutEventInput
-    promotions?: PromotionCreateNestedManyWithoutEventInput
+    referred: UserCreateNestedOneWithoutReferredInput
+    Voucher?: VoucherCreateNestedOneWithoutReferralUsageInput
   }
 
-  export type EventUncheckedCreateWithoutOrganizerInput = {
+  export type ReferralUsageUncheckedCreateWithoutReferrerInput = {
     id?: string
-    title: string
-    description: string
-    location: string
-    date: Date | string
-    time: string
-    isFree?: boolean
-    price?: number
-    seats: number
-    category: string
+    referredId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
-    transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
-    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
+    voucherId?: string | null
   }
 
-  export type EventCreateOrConnectWithoutOrganizerInput = {
-    where: EventWhereUniqueInput
-    create: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput>
+  export type ReferralUsageCreateOrConnectWithoutReferrerInput = {
+    where: ReferralUsageWhereUniqueInput
+    create: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput>
   }
 
-  export type EventCreateManyOrganizerInputEnvelope = {
-    data: EventCreateManyOrganizerInput | EventCreateManyOrganizerInput[]
+  export type ReferralUsageCreateManyReferrerInputEnvelope = {
+    data: ReferralUsageCreateManyReferrerInput | ReferralUsageCreateManyReferrerInput[]
     skipDuplicates?: boolean
   }
 
@@ -16307,6 +16269,44 @@ export namespace Prisma {
 
   export type ReviewCreateManyUserInputEnvelope = {
     data: ReviewCreateManyUserInput | ReviewCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutUserInput = {
+    id?: string
+    quantity: number
+    totalPrice: number
+    usedPoints?: number
+    discount?: number
+    createdAt?: Date | string
+    expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
+    event: EventCreateNestedOneWithoutTransactionsInput
+    ticketType?: TicketTypeCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    eventId: string
+    ticketTypeId?: string | null
+    quantity: number
+    totalPrice: number
+    usedPoints?: number
+    discount?: number
+    createdAt?: Date | string
+    expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
+  }
+
+  export type TransactionCreateOrConnectWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionCreateManyUserInputEnvelope = {
+    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -16338,47 +16338,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput = {
-    where: ReferralUsageWhereUniqueInput
-    update: XOR<ReferralUsageUpdateWithoutReferrerInput, ReferralUsageUncheckedUpdateWithoutReferrerInput>
-    create: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput>
+  export type EventUpsertWithWhereUniqueWithoutOrganizerInput = {
+    where: EventWhereUniqueInput
+    update: XOR<EventUpdateWithoutOrganizerInput, EventUncheckedUpdateWithoutOrganizerInput>
+    create: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput>
   }
 
-  export type ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput = {
-    where: ReferralUsageWhereUniqueInput
-    data: XOR<ReferralUsageUpdateWithoutReferrerInput, ReferralUsageUncheckedUpdateWithoutReferrerInput>
+  export type EventUpdateWithWhereUniqueWithoutOrganizerInput = {
+    where: EventWhereUniqueInput
+    data: XOR<EventUpdateWithoutOrganizerInput, EventUncheckedUpdateWithoutOrganizerInput>
   }
 
-  export type ReferralUsageUpdateManyWithWhereWithoutReferrerInput = {
-    where: ReferralUsageScalarWhereInput
-    data: XOR<ReferralUsageUpdateManyMutationInput, ReferralUsageUncheckedUpdateManyWithoutReferrerInput>
+  export type EventUpdateManyWithWhereWithoutOrganizerInput = {
+    where: EventScalarWhereInput
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutOrganizerInput>
   }
 
-  export type ReferralUsageScalarWhereInput = {
-    AND?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
-    OR?: ReferralUsageScalarWhereInput[]
-    NOT?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
-    id?: StringFilter<"ReferralUsage"> | string
-    referrerId?: StringFilter<"ReferralUsage"> | string
-    referredId?: StringFilter<"ReferralUsage"> | string
-    createdAt?: DateTimeFilter<"ReferralUsage"> | Date | string
-    voucherId?: StringNullableFilter<"ReferralUsage"> | string | null
-  }
-
-  export type ReferralUsageUpsertWithWhereUniqueWithoutReferredInput = {
-    where: ReferralUsageWhereUniqueInput
-    update: XOR<ReferralUsageUpdateWithoutReferredInput, ReferralUsageUncheckedUpdateWithoutReferredInput>
-    create: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput>
-  }
-
-  export type ReferralUsageUpdateWithWhereUniqueWithoutReferredInput = {
-    where: ReferralUsageWhereUniqueInput
-    data: XOR<ReferralUsageUpdateWithoutReferredInput, ReferralUsageUncheckedUpdateWithoutReferredInput>
-  }
-
-  export type ReferralUsageUpdateManyWithWhereWithoutReferredInput = {
-    where: ReferralUsageScalarWhereInput
-    data: XOR<ReferralUsageUpdateManyMutationInput, ReferralUsageUncheckedUpdateManyWithoutReferredInput>
+  export type EventScalarWhereInput = {
+    AND?: EventScalarWhereInput | EventScalarWhereInput[]
+    OR?: EventScalarWhereInput[]
+    NOT?: EventScalarWhereInput | EventScalarWhereInput[]
+    id?: StringFilter<"Event"> | string
+    organizerId?: StringFilter<"Event"> | string
+    title?: StringFilter<"Event"> | string
+    description?: StringFilter<"Event"> | string
+    location?: StringFilter<"Event"> | string
+    date?: StringFilter<"Event"> | string
+    time?: StringFilter<"Event"> | string
+    isFree?: BoolFilter<"Event"> | boolean
+    price?: IntFilter<"Event"> | number
+    seats?: IntFilter<"Event"> | number
+    category?: StringFilter<"Event"> | string
+    createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
   }
 
   export type PointUpsertWithWhereUniqueWithoutUserInput = {
@@ -16406,6 +16398,77 @@ export namespace Prisma {
     amount?: IntFilter<"Point"> | number
     expiresAt?: DateTimeFilter<"Point"> | Date | string
     createdAt?: DateTimeFilter<"Point"> | Date | string
+  }
+
+  export type ReferralUsageUpsertWithWhereUniqueWithoutReferredInput = {
+    where: ReferralUsageWhereUniqueInput
+    update: XOR<ReferralUsageUpdateWithoutReferredInput, ReferralUsageUncheckedUpdateWithoutReferredInput>
+    create: XOR<ReferralUsageCreateWithoutReferredInput, ReferralUsageUncheckedCreateWithoutReferredInput>
+  }
+
+  export type ReferralUsageUpdateWithWhereUniqueWithoutReferredInput = {
+    where: ReferralUsageWhereUniqueInput
+    data: XOR<ReferralUsageUpdateWithoutReferredInput, ReferralUsageUncheckedUpdateWithoutReferredInput>
+  }
+
+  export type ReferralUsageUpdateManyWithWhereWithoutReferredInput = {
+    where: ReferralUsageScalarWhereInput
+    data: XOR<ReferralUsageUpdateManyMutationInput, ReferralUsageUncheckedUpdateManyWithoutReferredInput>
+  }
+
+  export type ReferralUsageScalarWhereInput = {
+    AND?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
+    OR?: ReferralUsageScalarWhereInput[]
+    NOT?: ReferralUsageScalarWhereInput | ReferralUsageScalarWhereInput[]
+    id?: StringFilter<"ReferralUsage"> | string
+    referrerId?: StringFilter<"ReferralUsage"> | string
+    referredId?: StringFilter<"ReferralUsage"> | string
+    createdAt?: DateTimeFilter<"ReferralUsage"> | Date | string
+    voucherId?: StringNullableFilter<"ReferralUsage"> | string | null
+  }
+
+  export type ReferralUsageUpsertWithWhereUniqueWithoutReferrerInput = {
+    where: ReferralUsageWhereUniqueInput
+    update: XOR<ReferralUsageUpdateWithoutReferrerInput, ReferralUsageUncheckedUpdateWithoutReferrerInput>
+    create: XOR<ReferralUsageCreateWithoutReferrerInput, ReferralUsageUncheckedCreateWithoutReferrerInput>
+  }
+
+  export type ReferralUsageUpdateWithWhereUniqueWithoutReferrerInput = {
+    where: ReferralUsageWhereUniqueInput
+    data: XOR<ReferralUsageUpdateWithoutReferrerInput, ReferralUsageUncheckedUpdateWithoutReferrerInput>
+  }
+
+  export type ReferralUsageUpdateManyWithWhereWithoutReferrerInput = {
+    where: ReferralUsageScalarWhereInput
+    data: XOR<ReferralUsageUpdateManyMutationInput, ReferralUsageUncheckedUpdateManyWithoutReferrerInput>
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutUserInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutUserInput, ReviewUncheckedUpdateWithoutUserInput>
+    create: XOR<ReviewCreateWithoutUserInput, ReviewUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutUserInput, ReviewUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutUserInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ReviewScalarWhereInput = {
+    AND?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    OR?: ReviewScalarWhereInput[]
+    NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
+    id?: StringFilter<"Review"> | string
+    eventId?: StringFilter<"Review"> | string
+    userId?: StringFilter<"Review"> | string
+    rating?: IntFilter<"Review"> | number
+    comment?: StringFilter<"Review"> | string
+    createdAt?: DateTimeFilter<"Review"> | Date | string
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
@@ -16436,73 +16499,10 @@ export namespace Prisma {
     totalPrice?: IntFilter<"Transaction"> | number
     usedPoints?: IntFilter<"Transaction"> | number
     discount?: IntFilter<"Transaction"> | number
-    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
     expireAt?: DateTimeFilter<"Transaction"> | Date | string
-  }
-
-  export type EventUpsertWithWhereUniqueWithoutOrganizerInput = {
-    where: EventWhereUniqueInput
-    update: XOR<EventUpdateWithoutOrganizerInput, EventUncheckedUpdateWithoutOrganizerInput>
-    create: XOR<EventCreateWithoutOrganizerInput, EventUncheckedCreateWithoutOrganizerInput>
-  }
-
-  export type EventUpdateWithWhereUniqueWithoutOrganizerInput = {
-    where: EventWhereUniqueInput
-    data: XOR<EventUpdateWithoutOrganizerInput, EventUncheckedUpdateWithoutOrganizerInput>
-  }
-
-  export type EventUpdateManyWithWhereWithoutOrganizerInput = {
-    where: EventScalarWhereInput
-    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutOrganizerInput>
-  }
-
-  export type EventScalarWhereInput = {
-    AND?: EventScalarWhereInput | EventScalarWhereInput[]
-    OR?: EventScalarWhereInput[]
-    NOT?: EventScalarWhereInput | EventScalarWhereInput[]
-    id?: StringFilter<"Event"> | string
-    organizerId?: StringFilter<"Event"> | string
-    title?: StringFilter<"Event"> | string
-    description?: StringFilter<"Event"> | string
-    location?: StringFilter<"Event"> | string
-    date?: DateTimeFilter<"Event"> | Date | string
-    time?: StringFilter<"Event"> | string
-    isFree?: BoolFilter<"Event"> | boolean
-    price?: IntFilter<"Event"> | number
-    seats?: IntFilter<"Event"> | number
-    category?: StringFilter<"Event"> | string
-    createdAt?: DateTimeFilter<"Event"> | Date | string
-    updatedAt?: DateTimeFilter<"Event"> | Date | string
-  }
-
-  export type ReviewUpsertWithWhereUniqueWithoutUserInput = {
-    where: ReviewWhereUniqueInput
-    update: XOR<ReviewUpdateWithoutUserInput, ReviewUncheckedUpdateWithoutUserInput>
-    create: XOR<ReviewCreateWithoutUserInput, ReviewUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReviewUpdateWithWhereUniqueWithoutUserInput = {
-    where: ReviewWhereUniqueInput
-    data: XOR<ReviewUpdateWithoutUserInput, ReviewUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ReviewUpdateManyWithWhereWithoutUserInput = {
-    where: ReviewScalarWhereInput
-    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ReviewScalarWhereInput = {
-    AND?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-    OR?: ReviewScalarWhereInput[]
-    NOT?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
-    id?: StringFilter<"Review"> | string
-    eventId?: StringFilter<"Review"> | string
-    userId?: StringFilter<"Review"> | string
-    rating?: IntFilter<"Review"> | number
-    comment?: StringFilter<"Review"> | string
-    createdAt?: DateTimeFilter<"Review"> | Date | string
+    status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
+    updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }
 
   export type VoucherUpsertWithWhereUniqueWithoutUserInput = {
@@ -16536,58 +16536,58 @@ export namespace Prisma {
   export type UserCreateWithoutPointsInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
     events?: EventCreateNestedManyWithoutOrganizerInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
     Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
     Voucher?: VoucherCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPointsInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16610,58 +16610,58 @@ export namespace Prisma {
   export type UserUpdateWithoutPointsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
     events?: EventUpdateManyWithoutOrganizerNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPointsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16670,7 +16670,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -16679,9 +16679,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organizer: UserCreateNestedOneWithoutEventsInput
+    reviews?: ReviewCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
     transactions?: TransactionCreateNestedManyWithoutEventInput
-    reviews?: ReviewCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutPromotionsInput = {
@@ -16690,7 +16690,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -16698,9 +16698,9 @@ export namespace Prisma {
     category: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutPromotionsInput = {
@@ -16724,7 +16724,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -16733,9 +16733,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
+    reviews?: ReviewUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
     transactions?: TransactionUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutPromotionsInput = {
@@ -16744,7 +16744,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -16752,162 +16752,72 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type UserCreateWithoutEventsInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
     points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
     Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
     Voucher?: VoucherCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEventsInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
     points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEventsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
-  }
-
-  export type TicketTypeCreateWithoutEventInput = {
-    id?: string
-    name: string
-    price: number
-    stock: number
-    Transaction?: TransactionCreateNestedManyWithoutTicketTypeInput
-  }
-
-  export type TicketTypeUncheckedCreateWithoutEventInput = {
-    id?: string
-    name: string
-    price: number
-    stock: number
-    Transaction?: TransactionUncheckedCreateNestedManyWithoutTicketTypeInput
-  }
-
-  export type TicketTypeCreateOrConnectWithoutEventInput = {
-    where: TicketTypeWhereUniqueInput
-    create: XOR<TicketTypeCreateWithoutEventInput, TicketTypeUncheckedCreateWithoutEventInput>
-  }
-
-  export type TicketTypeCreateManyEventInputEnvelope = {
-    data: TicketTypeCreateManyEventInput | TicketTypeCreateManyEventInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TransactionCreateWithoutEventInput = {
-    id?: string
-    quantity: number
-    totalPrice: number
-    usedPoints?: number
-    discount?: number
-    status: $Enums.statusTransaction
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    expireAt: Date | string
-    user: UserCreateNestedOneWithoutTicketsInput
-    ticketType?: TicketTypeCreateNestedOneWithoutTransactionInput
-  }
-
-  export type TransactionUncheckedCreateWithoutEventInput = {
-    id?: string
-    userId: string
-    ticketTypeId?: string | null
-    quantity: number
-    totalPrice: number
-    usedPoints?: number
-    discount?: number
-    status: $Enums.statusTransaction
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    expireAt: Date | string
-  }
-
-  export type TransactionCreateOrConnectWithoutEventInput = {
-    where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutEventInput, TransactionUncheckedCreateWithoutEventInput>
-  }
-
-  export type TransactionCreateManyEventInputEnvelope = {
-    data: TransactionCreateManyEventInput | TransactionCreateManyEventInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReviewCreateWithoutEventInput = {
-    id?: string
-    rating: number
-    comment: string
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutReviewInput
-  }
-
-  export type ReviewUncheckedCreateWithoutEventInput = {
-    id?: string
-    userId: string
-    rating: number
-    comment: string
-    createdAt?: Date | string
-  }
-
-  export type ReviewCreateOrConnectWithoutEventInput = {
-    where: ReviewWhereUniqueInput
-    create: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput>
-  }
-
-  export type ReviewCreateManyEventInputEnvelope = {
-    data: ReviewCreateManyEventInput | ReviewCreateManyEventInput[]
-    skipDuplicates?: boolean
   }
 
   export type PromotionCreateWithoutEventInput = {
@@ -16942,6 +16852,96 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReviewCreateWithoutEventInput = {
+    id?: string
+    rating: number
+    comment: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutReviewInput
+  }
+
+  export type ReviewUncheckedCreateWithoutEventInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment: string
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateOrConnectWithoutEventInput = {
+    where: ReviewWhereUniqueInput
+    create: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput>
+  }
+
+  export type ReviewCreateManyEventInputEnvelope = {
+    data: ReviewCreateManyEventInput | ReviewCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TicketTypeCreateWithoutEventInput = {
+    id?: string
+    name: string
+    price: number
+    stock: number
+    Transaction?: TransactionCreateNestedManyWithoutTicketTypeInput
+  }
+
+  export type TicketTypeUncheckedCreateWithoutEventInput = {
+    id?: string
+    name: string
+    price: number
+    stock: number
+    Transaction?: TransactionUncheckedCreateNestedManyWithoutTicketTypeInput
+  }
+
+  export type TicketTypeCreateOrConnectWithoutEventInput = {
+    where: TicketTypeWhereUniqueInput
+    create: XOR<TicketTypeCreateWithoutEventInput, TicketTypeUncheckedCreateWithoutEventInput>
+  }
+
+  export type TicketTypeCreateManyEventInputEnvelope = {
+    data: TicketTypeCreateManyEventInput | TicketTypeCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutEventInput = {
+    id?: string
+    quantity: number
+    totalPrice: number
+    usedPoints?: number
+    discount?: number
+    createdAt?: Date | string
+    expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
+    ticketType?: TicketTypeCreateNestedOneWithoutTransactionInput
+    user: UserCreateNestedOneWithoutTicketsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutEventInput = {
+    id?: string
+    userId: string
+    ticketTypeId?: string | null
+    quantity: number
+    totalPrice: number
+    usedPoints?: number
+    discount?: number
+    createdAt?: Date | string
+    expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
+  }
+
+  export type TransactionCreateOrConnectWithoutEventInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutEventInput, TransactionUncheckedCreateWithoutEventInput>
+  }
+
+  export type TransactionCreateManyEventInputEnvelope = {
+    data: TransactionCreateManyEventInput | TransactionCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutEventsInput = {
     update: XOR<UserUpdateWithoutEventsInput, UserUncheckedUpdateWithoutEventsInput>
     create: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
@@ -16956,59 +16956,106 @@ export namespace Prisma {
   export type UserUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
     points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEventsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
     points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PromotionUpsertWithWhereUniqueWithoutEventInput = {
+    where: PromotionWhereUniqueInput
+    update: XOR<PromotionUpdateWithoutEventInput, PromotionUncheckedUpdateWithoutEventInput>
+    create: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput>
+  }
+
+  export type PromotionUpdateWithWhereUniqueWithoutEventInput = {
+    where: PromotionWhereUniqueInput
+    data: XOR<PromotionUpdateWithoutEventInput, PromotionUncheckedUpdateWithoutEventInput>
+  }
+
+  export type PromotionUpdateManyWithWhereWithoutEventInput = {
+    where: PromotionScalarWhereInput
+    data: XOR<PromotionUpdateManyMutationInput, PromotionUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type PromotionScalarWhereInput = {
+    AND?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
+    OR?: PromotionScalarWhereInput[]
+    NOT?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
+    id?: StringFilter<"Promotion"> | string
+    eventId?: StringFilter<"Promotion"> | string
+    type?: EnumPromotionTypeFilter<"Promotion"> | $Enums.PromotionType
+    code?: StringFilter<"Promotion"> | string
+    discountValue?: IntFilter<"Promotion"> | number
+    maxUsage?: IntNullableFilter<"Promotion"> | number | null
+    usageCount?: IntFilter<"Promotion"> | number
+    expiresAt?: DateTimeFilter<"Promotion"> | Date | string
+    createdAt?: DateTimeFilter<"Promotion"> | Date | string
+  }
+
+  export type ReviewUpsertWithWhereUniqueWithoutEventInput = {
+    where: ReviewWhereUniqueInput
+    update: XOR<ReviewUpdateWithoutEventInput, ReviewUncheckedUpdateWithoutEventInput>
+    create: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput>
+  }
+
+  export type ReviewUpdateWithWhereUniqueWithoutEventInput = {
+    where: ReviewWhereUniqueInput
+    data: XOR<ReviewUpdateWithoutEventInput, ReviewUncheckedUpdateWithoutEventInput>
+  }
+
+  export type ReviewUpdateManyWithWhereWithoutEventInput = {
+    where: ReviewScalarWhereInput
+    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutEventInput>
   }
 
   export type TicketTypeUpsertWithWhereUniqueWithoutEventInput = {
@@ -17054,59 +17101,12 @@ export namespace Prisma {
     data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutEventInput>
   }
 
-  export type ReviewUpsertWithWhereUniqueWithoutEventInput = {
-    where: ReviewWhereUniqueInput
-    update: XOR<ReviewUpdateWithoutEventInput, ReviewUncheckedUpdateWithoutEventInput>
-    create: XOR<ReviewCreateWithoutEventInput, ReviewUncheckedCreateWithoutEventInput>
-  }
-
-  export type ReviewUpdateWithWhereUniqueWithoutEventInput = {
-    where: ReviewWhereUniqueInput
-    data: XOR<ReviewUpdateWithoutEventInput, ReviewUncheckedUpdateWithoutEventInput>
-  }
-
-  export type ReviewUpdateManyWithWhereWithoutEventInput = {
-    where: ReviewScalarWhereInput
-    data: XOR<ReviewUpdateManyMutationInput, ReviewUncheckedUpdateManyWithoutEventInput>
-  }
-
-  export type PromotionUpsertWithWhereUniqueWithoutEventInput = {
-    where: PromotionWhereUniqueInput
-    update: XOR<PromotionUpdateWithoutEventInput, PromotionUncheckedUpdateWithoutEventInput>
-    create: XOR<PromotionCreateWithoutEventInput, PromotionUncheckedCreateWithoutEventInput>
-  }
-
-  export type PromotionUpdateWithWhereUniqueWithoutEventInput = {
-    where: PromotionWhereUniqueInput
-    data: XOR<PromotionUpdateWithoutEventInput, PromotionUncheckedUpdateWithoutEventInput>
-  }
-
-  export type PromotionUpdateManyWithWhereWithoutEventInput = {
-    where: PromotionScalarWhereInput
-    data: XOR<PromotionUpdateManyMutationInput, PromotionUncheckedUpdateManyWithoutEventInput>
-  }
-
-  export type PromotionScalarWhereInput = {
-    AND?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
-    OR?: PromotionScalarWhereInput[]
-    NOT?: PromotionScalarWhereInput | PromotionScalarWhereInput[]
-    id?: StringFilter<"Promotion"> | string
-    eventId?: StringFilter<"Promotion"> | string
-    type?: EnumPromotionTypeFilter<"Promotion"> | $Enums.PromotionType
-    code?: StringFilter<"Promotion"> | string
-    discountValue?: IntFilter<"Promotion"> | number
-    maxUsage?: IntNullableFilter<"Promotion"> | number | null
-    usageCount?: IntFilter<"Promotion"> | number
-    expiresAt?: DateTimeFilter<"Promotion"> | Date | string
-    createdAt?: DateTimeFilter<"Promotion"> | Date | string
-  }
-
   export type EventCreateWithoutTicketTypesInput = {
     id?: string
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -17115,9 +17115,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organizer: UserCreateNestedOneWithoutEventsInput
-    transactions?: TransactionCreateNestedManyWithoutEventInput
-    reviews?: ReviewCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
+    reviews?: ReviewCreateNestedManyWithoutEventInput
+    transactions?: TransactionCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutTicketTypesInput = {
@@ -17126,7 +17126,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -17134,9 +17134,9 @@ export namespace Prisma {
     category: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutTicketTypesInput = {
@@ -17150,12 +17150,12 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
-    user: UserCreateNestedOneWithoutTicketsInput
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
     event: EventCreateNestedOneWithoutTransactionsInput
+    user: UserCreateNestedOneWithoutTicketsInput
   }
 
   export type TransactionUncheckedCreateWithoutTicketTypeInput = {
@@ -17166,10 +17166,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
   }
 
   export type TransactionCreateOrConnectWithoutTicketTypeInput = {
@@ -17198,7 +17198,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -17207,9 +17207,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
-    transactions?: TransactionUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUpdateManyWithoutEventNestedInput
+    transactions?: TransactionUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutTicketTypesInput = {
@@ -17218,7 +17218,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -17226,9 +17226,9 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutTicketTypeInput = {
@@ -17247,75 +17247,12 @@ export namespace Prisma {
     data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutTicketTypeInput>
   }
 
-  export type UserCreateWithoutTicketsInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    points?: PointCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewCreateNestedManyWithoutUserInput
-    Voucher?: VoucherCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutTicketsInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutTicketsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
-  }
-
   export type EventCreateWithoutTransactionsInput = {
     id?: string
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -17324,9 +17261,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organizer: UserCreateNestedOneWithoutEventsInput
-    ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
-    reviews?: ReviewCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
+    reviews?: ReviewCreateNestedManyWithoutEventInput
+    ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutTransactionsInput = {
@@ -17335,7 +17272,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -17343,9 +17280,9 @@ export namespace Prisma {
     category: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
-    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
+    reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
+    ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutTransactionsInput = {
@@ -17374,73 +17311,67 @@ export namespace Prisma {
     create: XOR<TicketTypeCreateWithoutTransactionInput, TicketTypeUncheckedCreateWithoutTransactionInput>
   }
 
-  export type UserUpsertWithoutTicketsInput = {
-    update: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+  export type UserCreateWithoutTicketsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+    Voucher?: VoucherCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTicketsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTicketsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutTicketsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
-  }
-
-  export type UserUpdateWithoutTicketsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUpdateManyWithoutUserNestedInput
-    Voucher?: VoucherUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTicketsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EventUpsertWithoutTransactionsInput = {
@@ -17459,7 +17390,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -17468,9 +17399,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
-    ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUpdateManyWithoutEventNestedInput
+    ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutTransactionsInput = {
@@ -17479,7 +17410,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -17487,9 +17418,9 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
+    ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type TicketTypeUpsertWithoutTransactionInput = {
@@ -17519,74 +17450,80 @@ export namespace Prisma {
     stock?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserCreateWithoutVoucherInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewCreateNestedManyWithoutUserInput
+  export type UserUpsertWithoutTicketsInput = {
+    update: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
+    create: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
+    where?: UserWhereInput
   }
 
-  export type UserUncheckedCreateWithoutVoucherInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+  export type UserUpdateToOneWithWhereWithoutTicketsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTicketsInput, UserUncheckedUpdateWithoutTicketsInput>
   }
 
-  export type UserCreateOrConnectWithoutVoucherInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
+  export type UserUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+    Voucher?: VoucherUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTicketsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReferralUsageCreateWithoutVoucherInput = {
     id?: string
     createdAt?: Date | string
-    referrer: UserCreateNestedOneWithoutReferrerInput
     referred: UserCreateNestedOneWithoutReferredInput
+    referrer: UserCreateNestedOneWithoutReferrerInput
   }
 
   export type ReferralUsageUncheckedCreateWithoutVoucherInput = {
@@ -17606,73 +17543,67 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutVoucherInput = {
-    update: XOR<UserUpdateWithoutVoucherInput, UserUncheckedUpdateWithoutVoucherInput>
+  export type UserCreateWithoutVoucherInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutVoucherInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutVoucherInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutVoucherInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutVoucherInput, UserUncheckedUpdateWithoutVoucherInput>
-  }
-
-  export type UserUpdateWithoutVoucherInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutVoucherInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReferralUsageUpsertWithWhereUniqueWithoutVoucherInput = {
@@ -17691,130 +17622,199 @@ export namespace Prisma {
     data: XOR<ReferralUsageUpdateManyMutationInput, ReferralUsageUncheckedUpdateManyWithoutVoucherInput>
   }
 
-  export type UserCreateWithoutReferrerInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewCreateNestedManyWithoutUserInput
-    Voucher?: VoucherCreateNestedManyWithoutUserInput
+  export type UserUpsertWithoutVoucherInput = {
+    update: XOR<UserUpdateWithoutVoucherInput, UserUncheckedUpdateWithoutVoucherInput>
+    create: XOR<UserCreateWithoutVoucherInput, UserUncheckedCreateWithoutVoucherInput>
+    where?: UserWhereInput
   }
 
-  export type UserUncheckedCreateWithoutReferrerInput = {
-    id?: string
-    name: string
-    lastName?: string | null
-    email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
-    password: string
-    role?: $Enums.Role
-    referralCode: string
-    usedReferralById?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    isVerify?: boolean
-    avatar?: string | null
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
-    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
-    Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
+  export type UserUpdateToOneWithWhereWithoutVoucherInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVoucherInput, UserUncheckedUpdateWithoutVoucherInput>
   }
 
-  export type UserCreateOrConnectWithoutReferrerInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+  export type UserUpdateWithoutVoucherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVoucherInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReferredInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
     events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
     Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
     Voucher?: VoucherCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReferredInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
     Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReferredInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutReferredInput, UserUncheckedCreateWithoutReferredInput>
+  }
+
+  export type UserCreateWithoutReferrerInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    Review?: ReviewCreateNestedManyWithoutUserInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
+    Voucher?: VoucherCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReferrerInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    referralCode: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
+    avatar?: string | null
+    events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    Review?: ReviewUncheckedCreateNestedManyWithoutUserInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReferrerInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
   }
 
   export type VoucherCreateWithoutReferralUsageInput = {
@@ -17840,75 +17840,6 @@ export namespace Prisma {
     create: XOR<VoucherCreateWithoutReferralUsageInput, VoucherUncheckedCreateWithoutReferralUsageInput>
   }
 
-  export type UserUpsertWithoutReferrerInput = {
-    update: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
-    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutReferrerInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
-  }
-
-  export type UserUpdateWithoutReferrerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUpdateManyWithoutUserNestedInput
-    Voucher?: VoucherUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutReferrerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isVerify?: BoolFieldUpdateOperationsInput | boolean
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
-    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
-    Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type UserUpsertWithoutReferredInput = {
     update: XOR<UserUpdateWithoutReferredInput, UserUncheckedUpdateWithoutReferredInput>
     create: XOR<UserCreateWithoutReferredInput, UserUncheckedCreateWithoutReferredInput>
@@ -17923,58 +17854,127 @@ export namespace Prisma {
   export type UserUpdateWithoutReferredInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
     events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReferredInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
     Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutReferrerInput = {
+    update: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
+    create: XOR<UserCreateWithoutReferrerInput, UserUncheckedCreateWithoutReferrerInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReferrerInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReferrerInput, UserUncheckedUpdateWithoutReferrerInput>
+  }
+
+  export type UserUpdateWithoutReferrerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    Review?: ReviewUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
+    Voucher?: VoucherUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReferrerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    referralCode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    Review?: ReviewUncheckedUpdateManyWithoutUserNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -18012,7 +18012,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -18021,9 +18021,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     organizer: UserCreateNestedOneWithoutEventsInput
+    promotions?: PromotionCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeCreateNestedManyWithoutEventInput
     transactions?: TransactionCreateNestedManyWithoutEventInput
-    promotions?: PromotionCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutReviewsInput = {
@@ -18032,7 +18032,7 @@ export namespace Prisma {
     title: string
     description: string
     location: string
-    date: Date | string
+    date: string
     time: string
     isFree?: boolean
     price?: number
@@ -18040,9 +18040,9 @@ export namespace Prisma {
     category: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     ticketTypes?: TicketTypeUncheckedCreateNestedManyWithoutEventInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutEventInput
-    promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutReviewsInput = {
@@ -18053,58 +18053,58 @@ export namespace Prisma {
   export type UserCreateWithoutReviewInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
-    points?: PointCreateNestedManyWithoutUserInput
-    tickets?: TransactionCreateNestedManyWithoutUserInput
     events?: EventCreateNestedManyWithoutOrganizerInput
+    points?: PointCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageCreateNestedManyWithoutReferrerInput
+    tickets?: TransactionCreateNestedManyWithoutUserInput
     Voucher?: VoucherCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewInput = {
     id?: string
     name: string
-    lastName?: string | null
     email: string
-    zipCode?: string | null
-    state?: string | null
-    city?: string | null
-    street?: string | null
-    houseNumber?: string | null
-    regionNumber?: string | null
-    phoneNumber?: string | null
-    dob?: string | null
     password: string
     role?: $Enums.Role
     referralCode: string
-    usedReferralById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     isVerify?: boolean
+    usedReferralById?: string | null
+    city?: string | null
+    dob?: string | null
+    houseNumber?: string | null
+    lastName?: string | null
+    state?: string | null
+    street?: string | null
+    zipCode?: string | null
+    regionNumber?: string | null
+    phoneNumber?: string | null
     avatar?: string | null
-    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
-    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
-    points?: PointUncheckedCreateNestedManyWithoutUserInput
-    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     events?: EventUncheckedCreateNestedManyWithoutOrganizerInput
+    points?: PointUncheckedCreateNestedManyWithoutUserInput
+    referred?: ReferralUsageUncheckedCreateNestedManyWithoutReferredInput
+    referrer?: ReferralUsageUncheckedCreateNestedManyWithoutReferrerInput
+    tickets?: TransactionUncheckedCreateNestedManyWithoutUserInput
     Voucher?: VoucherUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -18129,7 +18129,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -18138,9 +18138,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
+    promotions?: PromotionUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
     transactions?: TransactionUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutReviewsInput = {
@@ -18149,7 +18149,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     isFree?: BoolFieldUpdateOperationsInput | boolean
     price?: IntFieldUpdateOperationsInput | number
@@ -18157,9 +18157,9 @@ export namespace Prisma {
     category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type UserUpsertWithoutReviewInput = {
@@ -18176,66 +18176,81 @@ export namespace Prisma {
   export type UserUpdateWithoutReviewInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
-    points?: PointUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUpdateManyWithoutUserNestedInput
     events?: EventUpdateManyWithoutOrganizerNestedInput
+    points?: PointUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUpdateManyWithoutReferrerNestedInput
+    tickets?: TransactionUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    state?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: NullableStringFieldUpdateOperationsInput | string | null
-    street?: NullableStringFieldUpdateOperationsInput | string | null
-    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dob?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     referralCode?: StringFieldUpdateOperationsInput | string
-    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isVerify?: BoolFieldUpdateOperationsInput | boolean
+    usedReferralById?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableStringFieldUpdateOperationsInput | string | null
+    houseNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    street?: NullableStringFieldUpdateOperationsInput | string | null
+    zipCode?: NullableStringFieldUpdateOperationsInput | string | null
+    regionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
-    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
-    points?: PointUncheckedUpdateManyWithoutUserNestedInput
-    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     events?: EventUncheckedUpdateManyWithoutOrganizerNestedInput
+    points?: PointUncheckedUpdateManyWithoutUserNestedInput
+    referred?: ReferralUsageUncheckedUpdateManyWithoutReferredNestedInput
+    referrer?: ReferralUsageUncheckedUpdateManyWithoutReferrerNestedInput
+    tickets?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     Voucher?: VoucherUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ReferralUsageCreateManyReferrerInput = {
+  export type EventCreateManyOrganizerInput = {
     id?: string
-    referredId: string
+    title: string
+    description: string
+    location: string
+    date: string
+    time: string
+    isFree?: boolean
+    price?: number
+    seats: number
+    category: string
     createdAt?: Date | string
-    voucherId?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type PointCreateManyUserInput = {
+    id?: string
+    amount: number
+    expiresAt: Date | string
+    createdAt?: Date | string
   }
 
   export type ReferralUsageCreateManyReferredInput = {
@@ -18245,10 +18260,18 @@ export namespace Prisma {
     voucherId?: string | null
   }
 
-  export type PointCreateManyUserInput = {
+  export type ReferralUsageCreateManyReferrerInput = {
     id?: string
-    amount: number
-    expiresAt: Date | string
+    referredId: string
+    createdAt?: Date | string
+    voucherId?: string | null
+  }
+
+  export type ReviewCreateManyUserInput = {
+    id?: string
+    eventId: string
+    rating: number
+    comment: string
     createdAt?: Date | string
   }
 
@@ -18260,33 +18283,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
-  }
-
-  export type EventCreateManyOrganizerInput = {
-    id?: string
-    title: string
-    description: string
-    location: string
-    date: Date | string
-    time: string
-    isFree?: boolean
-    price?: number
-    seats: number
-    category: string
-    createdAt?: Date | string
+    status: $Enums.statusTransaction
     updatedAt?: Date | string
-  }
-
-  export type ReviewCreateManyUserInput = {
-    id?: string
-    eventId: string
-    rating: number
-    comment: string
-    createdAt?: Date | string
   }
 
   export type VoucherCreateManyUserInput = {
@@ -18297,46 +18297,57 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ReferralUsageUpdateWithoutReferrerInput = {
+  export type EventUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    isFree?: BoolFieldUpdateOperationsInput | boolean
+    price?: IntFieldUpdateOperationsInput | number
+    seats?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    referred?: UserUpdateOneRequiredWithoutReferredNestedInput
-    Voucher?: VoucherUpdateOneWithoutReferralUsageNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotions?: PromotionUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUpdateManyWithoutEventNestedInput
+    ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
+    transactions?: TransactionUpdateManyWithoutEventNestedInput
   }
 
-  export type ReferralUsageUncheckedUpdateWithoutReferrerInput = {
+  export type EventUncheckedUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    referredId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    isFree?: BoolFieldUpdateOperationsInput | boolean
+    price?: IntFieldUpdateOperationsInput | number
+    seats?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
+    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
+    ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
   }
 
-  export type ReferralUsageUncheckedUpdateManyWithoutReferrerInput = {
+  export type EventUncheckedUpdateManyWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    referredId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    time?: StringFieldUpdateOperationsInput | string
+    isFree?: BoolFieldUpdateOperationsInput | boolean
+    price?: IntFieldUpdateOperationsInput | number
+    seats?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ReferralUsageUpdateWithoutReferredInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
-    Voucher?: VoucherUpdateOneWithoutReferralUsageNestedInput
-  }
-
-  export type ReferralUsageUncheckedUpdateWithoutReferredInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    referrerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ReferralUsageUncheckedUpdateManyWithoutReferredInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    referrerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PointUpdateWithoutUserInput = {
@@ -18360,99 +18371,46 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TransactionUpdateWithoutUserInput = {
+  export type ReferralUsageUpdateWithoutReferredInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    event?: EventUpdateOneRequiredWithoutTransactionsNestedInput
-    ticketType?: TicketTypeUpdateOneWithoutTransactionNestedInput
+    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
+    Voucher?: VoucherUpdateOneWithoutReferralUsageNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutUserInput = {
+  export type ReferralUsageUncheckedUpdateWithoutReferredInput = {
     id?: StringFieldUpdateOperationsInput | string
-    eventId?: StringFieldUpdateOperationsInput | string
-    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    referrerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TransactionUncheckedUpdateManyWithoutUserInput = {
+  export type ReferralUsageUncheckedUpdateManyWithoutReferredInput = {
     id?: StringFieldUpdateOperationsInput | string
-    eventId?: StringFieldUpdateOperationsInput | string
-    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    referrerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EventUpdateWithoutOrganizerInput = {
+  export type ReferralUsageUpdateWithoutReferrerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    time?: StringFieldUpdateOperationsInput | string
-    isFree?: BoolFieldUpdateOperationsInput | boolean
-    price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketTypes?: TicketTypeUpdateManyWithoutEventNestedInput
-    transactions?: TransactionUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUpdateManyWithoutEventNestedInput
+    referred?: UserUpdateOneRequiredWithoutReferredNestedInput
+    Voucher?: VoucherUpdateOneWithoutReferralUsageNestedInput
   }
 
-  export type EventUncheckedUpdateWithoutOrganizerInput = {
+  export type ReferralUsageUncheckedUpdateWithoutReferrerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    time?: StringFieldUpdateOperationsInput | string
-    isFree?: BoolFieldUpdateOperationsInput | boolean
-    price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    referredId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketTypes?: TicketTypeUncheckedUpdateManyWithoutEventNestedInput
-    transactions?: TransactionUncheckedUpdateManyWithoutEventNestedInput
-    reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
-    promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
+    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EventUncheckedUpdateManyWithoutOrganizerInput = {
+  export type ReferralUsageUncheckedUpdateManyWithoutReferrerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    time?: StringFieldUpdateOperationsInput | string
-    isFree?: BoolFieldUpdateOperationsInput | boolean
-    price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    referredId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    voucherId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReviewUpdateWithoutUserInput = {
@@ -18477,6 +18435,48 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: EventUpdateOneRequiredWithoutTransactionsNestedInput
+    ticketType?: TicketTypeUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VoucherUpdateWithoutUserInput = {
@@ -18505,6 +18505,25 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PromotionCreateManyEventInput = {
+    id?: string
+    type: $Enums.PromotionType
+    code: string
+    discountValue: number
+    maxUsage?: number | null
+    usageCount?: number
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ReviewCreateManyEventInput = {
+    id?: string
+    userId: string
+    rating: number
+    comment: string
+    createdAt?: Date | string
+  }
+
   export type TicketTypeCreateManyEventInput = {
     id?: string
     name: string
@@ -18520,118 +18539,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
-  }
-
-  export type ReviewCreateManyEventInput = {
-    id?: string
-    userId: string
-    rating: number
-    comment: string
-    createdAt?: Date | string
-  }
-
-  export type PromotionCreateManyEventInput = {
-    id?: string
-    type: $Enums.PromotionType
-    code: string
-    discountValue: number
-    maxUsage?: number | null
-    usageCount?: number
-    expiresAt: Date | string
-    createdAt?: Date | string
-  }
-
-  export type TicketTypeUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    stock?: IntFieldUpdateOperationsInput | number
-    Transaction?: TransactionUpdateManyWithoutTicketTypeNestedInput
-  }
-
-  export type TicketTypeUncheckedUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    stock?: IntFieldUpdateOperationsInput | number
-    Transaction?: TransactionUncheckedUpdateManyWithoutTicketTypeNestedInput
-  }
-
-  export type TicketTypeUncheckedUpdateManyWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    price?: IntFieldUpdateOperationsInput | number
-    stock?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type TransactionUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
-    ticketType?: TicketTypeUpdateOneWithoutTransactionNestedInput
-  }
-
-  export type TransactionUncheckedUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TransactionUncheckedUpdateManyWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    totalPrice?: IntFieldUpdateOperationsInput | number
-    usedPoints?: IntFieldUpdateOperationsInput | number
-    discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReviewUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutReviewNestedInput
-  }
-
-  export type ReviewUncheckedUpdateWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReviewUncheckedUpdateManyWithoutEventInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
   }
 
   export type PromotionUpdateWithoutEventInput = {
@@ -18667,6 +18578,95 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ReviewUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutReviewNestedInput
+  }
+
+  export type ReviewUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReviewUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    rating?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TicketTypeUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    Transaction?: TransactionUpdateManyWithoutTicketTypeNestedInput
+  }
+
+  export type TicketTypeUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+    Transaction?: TransactionUncheckedUpdateManyWithoutTicketTypeNestedInput
+  }
+
+  export type TicketTypeUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    stock?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TransactionUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticketType?: TicketTypeUpdateOneWithoutTransactionNestedInput
+    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    ticketTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    totalPrice?: IntFieldUpdateOperationsInput | number
+    usedPoints?: IntFieldUpdateOperationsInput | number
+    discount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionCreateManyTicketTypeInput = {
     id?: string
     userId: string
@@ -18675,10 +18675,10 @@ export namespace Prisma {
     totalPrice: number
     usedPoints?: number
     discount?: number
-    status: $Enums.statusTransaction
     createdAt?: Date | string
-    updatedAt?: Date | string
     expireAt: Date | string
+    status: $Enums.statusTransaction
+    updatedAt?: Date | string
   }
 
   export type TransactionUpdateWithoutTicketTypeInput = {
@@ -18687,12 +18687,12 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: EventUpdateOneRequiredWithoutTransactionsNestedInput
+    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
   }
 
   export type TransactionUncheckedUpdateWithoutTicketTypeInput = {
@@ -18703,10 +18703,10 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionUncheckedUpdateManyWithoutTicketTypeInput = {
@@ -18717,10 +18717,10 @@ export namespace Prisma {
     totalPrice?: IntFieldUpdateOperationsInput | number
     usedPoints?: IntFieldUpdateOperationsInput | number
     discount?: IntFieldUpdateOperationsInput | number
-    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReferralUsageCreateManyVoucherInput = {
@@ -18733,8 +18733,8 @@ export namespace Prisma {
   export type ReferralUsageUpdateWithoutVoucherInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
     referred?: UserUpdateOneRequiredWithoutReferredNestedInput
+    referrer?: UserUpdateOneRequiredWithoutReferrerNestedInput
   }
 
   export type ReferralUsageUncheckedUpdateWithoutVoucherInput = {

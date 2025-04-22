@@ -20,12 +20,13 @@ export class UserController {
           dob: true,
           phoneNumber: true,
           referralCode: true,
+          avatar: true,
         },
       });
       if (!user) {
         res.status(404).json({ message: "User not found" });
       }
-      res.status(200).json({ message: "Profile", user});
+      res.status(200).json({ message: "Profile", user });
     } catch (error) {
       res.status(500).json({ message: error });
       console.log(error);
@@ -46,6 +47,7 @@ export class UserController {
       phoneNumber,
       dob,
       regionNumber,
+      avatar,
     } = req.body;
     try {
       const user = await prisma.user.findUnique({
@@ -68,6 +70,7 @@ export class UserController {
           dob,
           phoneNumber,
           regionNumber,
+          avatar,
         },
       });
 

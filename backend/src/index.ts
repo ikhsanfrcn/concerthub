@@ -3,6 +3,7 @@ import cors from "cors";
 import { AuthRouter } from "./routers/auth.routes";
 import { ReviewRouter } from "./routers/review.routes";
 import { UserRouter } from "./routers/user.routes";
+import { EventRouter } from "./routers/event.routes";
 
 const PORT: number = 8000;
 
@@ -22,6 +23,9 @@ app.use('/api/reviews', reviewRouter.getRouter())
 
 const userRouter = new UserRouter();
 app.use('/api/users', userRouter.getRouter())
+
+const eventRouter = new EventRouter();
+app.use('/api/events', eventRouter.getRouter())
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);

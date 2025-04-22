@@ -6,25 +6,25 @@ const dataDummy = [
     image: "/jeniferlopez.png",
     name: "Jenifer Lopez",
     location: "Seattle",
-    dateTime: "Dec 12, 21:00",
+    date: "Dec 12, 21:00",
   },
   {
     image: "/zachbryan.png",
     name: "Zach Bryan",
     location: "Miami",
-    dateTime: "Dec 08, 22:00",
+    date: "Dec 08, 22:00",
   },
   {
     image: "/usher.png",
     name: "Usher",
     location: "Indonesia",
-    dateTime: "Dec 04, 21:00",
+    date: "Dec 04, 21:00",
   },
   {
     image: "/adele2.png",
     name: "Adele",
     location: "Indonesia",
-    dateTime: "Dec 03, 20:00",
+    date: "Dec 03, 20:00",
   }
 ];
 
@@ -51,9 +51,10 @@ export const PopularSection: React.FC<Props> = ({ className }) => {
             >
               <Card
                 image={item.image}
-                name={item.name}
+                title={item.name}
                 location={item.location}
-                dateTime={item.dateTime}
+                date={item.date}
+                time={item.time}
               />
             </div>
           ))}
