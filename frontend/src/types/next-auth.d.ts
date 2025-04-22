@@ -5,17 +5,8 @@ declare module "next-auth" {
     user: {
       id: string;
       name: string;
-      lastName?: string;
       email: string;
-      zipCode?: string;
-      state?: string;
-      city?: string;
-      street?: string;
-      houseNumber?: string;
-      phoneNumber?: string;
-      dob?: string;
       role?: ORGANIZER | CUSTOMER;
-      referralCode?: string;
       avatar?: string;
     };
     accessToken?: string;
@@ -24,17 +15,8 @@ declare module "next-auth" {
   interface JWT {
     id: string;
     name: string;
-    lastName?: string;
     email: string;
-    zipCode?: string;
-    state?: string;
-    city?: string;
-    street?: string;
-    houseNumber?: string;
-    phoneNumber?: string;
-    dob?: string;
     role?: ORGANIZER | CUSTOMER;
-    referralCode?: string;
     avatar?: string;
     accessToken?: string;
   }
@@ -42,17 +24,8 @@ declare module "next-auth" {
   interface User {
     id: string;
     name: string;
-    lastName?: string;
     email: string;
-    zipCode?: string;
-    state?: string;
-    city?: string;
-    street?: string;
-    houseNumber?: string;
-    phoneNumber?: string;
-    dob?: string;
     role?: ORGANIZER | CUSTOMER;
-    referralCode?: string;
     avatar?: string;
     accessToken?: string;
   }

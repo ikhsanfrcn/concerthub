@@ -193,7 +193,10 @@ exports.Prisma.TransactionScalarFieldEnum = {
   totalPrice: 'totalPrice',
   usedPoints: 'usedPoints',
   discount: 'discount',
-  createdAt: 'createdAt'
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  expireAt: 'expireAt'
 };
 
 exports.Prisma.VoucherScalarFieldEnum = {
@@ -243,6 +246,13 @@ exports.Role = exports.$Enums.Role = {
 
 exports.PromotionType = exports.$Enums.PromotionType = {
   DATE_BASED: 'DATE_BASED'
+};
+
+exports.statusTransaction = exports.$Enums.statusTransaction = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  CANCEL: 'CANCEL'
 };
 
 exports.voucherType = exports.$Enums.voucherType = {

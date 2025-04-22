@@ -4,20 +4,13 @@ import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "@/lib/axios";
-import useUserStore from "@/store/userStore";
 
 interface ProfileFormProps {
   isVisible: boolean;
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
-  // Ambil data session (untuk accessToken)
   const { data: session, status } = useSession();
-
-  const user = useUserStore((state) => state.data);
-  console.log("User from Zustand store:", user); 
-
-  console.log(user);
 
   const formik = useFormik({
     initialValues: {
@@ -70,31 +63,54 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
     enableReinitialize: true,
   });
 
+  // Populate form dari session user
   useEffect(() => {
-    if (user) {
-      formik.setValues({
-        name: user.name || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        zipCode: user.zipCode || "",
-        state: user.state || "",
-        city: user.city || "",
-        street: user.street || "",
-        houseNumber: user.houseNumber || "",
-        dob: user.dob || "",
-        phoneNumber: user.phoneNumber || "",
-        referralCode: user.referralCode || "",
-      });
+    // const name = session.user.name;
+    // const lastName = session.user.lastName;
+    // const email = session.user.email;
+    // const zipCode = session.user.zipCode;
+    // const state = session.user.state;
+    // const city = session.user.city;
+    // const street = session.user.street;
+    // const houseNumber = session.user.houseNumber;
+    // const dob = session.user.dob;
+    // const phoneNumber = session.user.phoneNumber;
+    // console.log(session.user.referralCode);
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        });
+        const { data } = response;
+
+        formik.setValues({
+          name: data.user.name || "",
+          lastName: data.user.lastName || "",
+          email: data.user.email || "",
+          zipCode: data.user.zipCode || "",
+          state: data.user.state || "",
+          city: data.user.city || "",
+          street: data.user.street || "",
+          houseNumber: data.user.houseNumber || "",
+          dob: data.user.dob || "",
+          phoneNumber: data.user.phoneNumber || "",
+          referralCode: data.user.referralCode || "",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (session?.accessToken) {
+      fetchUserProfile();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-  console.log("User in Zustand store:", user);
-  console.log("Session object:", session);
+  }, [session?.accessToken]);
 
   if (!isVisible) return null;
-  if (!user || !session?.accessToken) {
-    return <p>Loading...</p>;
-  }
+  if (status === "loading") return <p className="mt-4">Loading user data...</p>;
 
   return (
     <form

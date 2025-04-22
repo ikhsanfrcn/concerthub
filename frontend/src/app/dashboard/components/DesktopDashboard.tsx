@@ -46,7 +46,7 @@ export const DesktopDashboard: React.FC = () => {
             alt=""
             className="w-[48px] h-[48px] rounded-full"
           />
-          <p className="mt-[16px] font-semibold">{`${user?.name} ${user?.lastName}`}</p>
+          <p className="mt-[16px] font-semibold">{`${user?.name}`}</p>
         </div>
         <hr className="h-px bg-gray-200 border-0" />
         <div className="flex flex-col justify-between h-[calc(100%-170px)] mt-[16px] p-[32px]">

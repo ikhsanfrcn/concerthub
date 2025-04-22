@@ -1,5 +1,6 @@
 "use client";
 import axios from "@/lib/axios";
+import useUserStore from "@/store/userStore";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
@@ -32,6 +33,8 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
     password: "",
   };
 
+  const setUser = useUserStore((state) => state.setUser);
+
   const onLogin = async (
     value: ILoginForm,
     action: FormikHelpers<ILoginForm>
@@ -40,25 +43,24 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
       action.resetForm();
-      await signIn("credentials", {
-        redirectTo: "/",
-        id: user.id,
-        name: user.name,
-        lastName: user.lastName || "",
-        email: user.email,
-        zipCode: user.zipCode || "",
-        state: user.state || "",
-        city: user.city || "",
-        street: user.street || "",
-        houseNumber: user.houseNumber || "",
-        phoneNumber: user.phoneNumber || "",
-        dob: user.dob || "",
-        role: user.role,
-        referralCode: user.referralCode || "",
-        avatar: user.avatar || "",
-        accessToken: data.access_token,
-      });
-      console.log(data);
+
+      setUser(user);
+
+      console.log("User stored in Zustand:", useUserStore.getState().data);
+      
+      
+
+      // await signIn("credentials", {
+      //   redirectTo: "/",
+      //   id: user.id,
+      //   name: user.name,
+      //   email: user.email,
+      //   role: user.role,
+      //   avatar: user.avatar || "",
+      //   accessToken: data.access_token,
+      // });
+      // console.log(data);
+      
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message);
