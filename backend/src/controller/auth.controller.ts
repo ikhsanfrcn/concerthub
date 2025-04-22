@@ -186,8 +186,8 @@ export class AuthController {
           street,
           houseNumber,
           dob,
-          phoneNumber: Number(phoneNumber),
-          regionNumber: Number(regionNumber),
+          phoneNumber,
+          regionNumber,
         },
       });
 

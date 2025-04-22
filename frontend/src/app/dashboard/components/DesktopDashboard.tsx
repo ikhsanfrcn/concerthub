@@ -12,6 +12,7 @@ import { signOut, useSession } from "next-auth/react";
 import { OrderHistory } from "./OrderHistory";
 import { GrDashboard } from "react-icons/gr";
 import { OrganizerDashboard } from "./OrganizerDashboard";
+import { RegisterAsOrganizer } from "./RegisterAsOrganizer";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -35,7 +36,10 @@ export const DesktopDashboard: React.FC = () => {
       <aside className="rounded-2xl bg-white shadow-md min-w-[250px] min-h-[916px]">
         <div className="p-[32px]">
           <Image
-            src={"/adele.png"}
+            src={
+              session?.user.avatar ||
+              "https://randomuser.me/api/portraits/men/1.jpg"
+            }
             width={0}
             height={0}
             sizes="100"
@@ -118,6 +122,16 @@ export const DesktopDashboard: React.FC = () => {
             <p>Here you can manage events</p>
             <OrganizerDashboard
               isVisible={activeSection === "organizerDashboard"}
+            />
+          </div>
+        )}
+        {/* REGISTER AS ORGANIZER */}
+        {activeSection === "registerAsOrganizer" && (
+          <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name} ${user?.lastName},`}</p>
+            <p>you are a customer, want to register as an Organizer?</p>
+            <RegisterAsOrganizer
+              isVisible={activeSection === "registerAsOrganizer"}
             />
           </div>
         )}

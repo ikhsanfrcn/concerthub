@@ -1,15 +1,29 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const OrderSummary = () => {
-  const [concert, setConcert] = useState<{ date: string; location: string } | null>(null);
+  const { data: session, status } = useSession();
+  const [concert, setConcert] = useState<{
+    date: string;
+    location: string;
+  } | null>(null);
   const [category, setCategory] = useState<string | null>(null);
   const [ticketPrice, setTicketPrice] = useState<number>(0);
   const [seatQty, setSeatQty] = useState<number>(1);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   const [user, setUser] = useState<{ name: string; email: string; phone: string; address: string } | null>(null);
+=======
+  const [user, setUser] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+  } | null>(null);
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
   const [deliveryMethod, setDeliveryMethod] = useState<string>("E-ticket");
 
   // Gift card state
@@ -36,11 +50,10 @@ const OrderSummary = () => {
 
     if (storedConcert) setConcert(JSON.parse(storedConcert));
     if (storedQty) setSeatQty(parseInt(storedQty));
-    if (storedUser) setUser(JSON.parse(storedUser));
-    else {
-      alert("Please login first.");
-      router.push("/login");
-    }
+    // if (storedUser) setUser(JSON.parse(storedUser)); {
+    //   alert("Please login first.");
+    //    router.push("/login");
+    // }
 
     if (storedGift) setAppliedGiftCard(parseInt(storedGift));
 >>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
@@ -49,6 +62,9 @@ const OrderSummary = () => {
       setCategory(storedCategory);
       switch (storedCategory) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
         case "VIP":
           setTicketPrice(600);
           break;
@@ -60,16 +76,20 @@ const OrderSummary = () => {
           break;
         default:
           setTicketPrice(0);
+<<<<<<< HEAD
 =======
         case "VIP": setTicketPrice(600); break;
         case "Premium": setTicketPrice(400); break;
         case "Regular": setTicketPrice(200); break;
         default: setTicketPrice(0);
 >>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
+=======
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
       }
     }
   }, []);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   const router = useRouter();
 
@@ -85,6 +105,10 @@ const handleSubmit = () => {
   const giftCard = 100;
   const total = (ticketPrice * seatQty) + bookingFee - giftCard;
 =======
+=======
+  if (status === "loading") return null;
+
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
   const handleSubmit = () => {
     localStorage.setItem("bookingFee", "20.25");
     localStorage.setItem("giftCard", String(appliedGiftCard));
@@ -121,6 +145,7 @@ const handleSubmit = () => {
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
       <div className="bg-white p-6 rounded-xl shadow-md">
         <h2 className="text-lg font-semibold mb-4">1. Your Information</h2>
+<<<<<<< HEAD
         <div className="space-y-2 text-sm text-gray-700">
 <<<<<<< HEAD
           <p>👤 Sylvie Van Beek</p>
@@ -134,8 +159,22 @@ const handleSubmit = () => {
           <p>✉️ {user?.email || "—"}</p>
 >>>>>>> 59f0f24fcefb3a5240250758a37fcb0409d713e4
         </div>
+=======
+        {session ? (
+          <div className="space-y-2 text-sm text-gray-700">
+            <p>👤 {session?.user.name || "—"}</p>
+            <p>📞 {session?.user.phoneNumber || "—"}</p>
+            <p>📍 {session?.user.state || "—"}</p>
+            <p>✉️ {session?.user.email || "—"}</p>
+          </div>
+        ) : (
+          "Please log in first"
+        )}
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
 
-        <h2 className="text-lg font-semibold mt-6 mb-4">2. How do you want your tickets?</h2>
+        <h2 className="text-lg font-semibold mt-6 mb-4">
+          2. How do you want your tickets?
+        </h2>
         <div className="flex gap-4 mb-3">
 <<<<<<< HEAD
           <button className="border border-gray-400 px-4 py-2 rounded-full text-sm hover:bg-gray-100">E-ticket</button>
@@ -156,13 +195,21 @@ const handleSubmit = () => {
           </label>
 =======
           <button
-            className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === "E-ticket" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
+            className={`border px-4 py-2 rounded-full text-sm ${
+              deliveryMethod === "E-ticket"
+                ? "bg-gray-200 border-gray-500"
+                : "border-gray-400 hover:bg-gray-100"
+            }`}
             onClick={() => setDeliveryMethod("E-ticket")}
           >
             E-ticket
           </button>
           <button
-            className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === "Paper ticket" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
+            className={`border px-4 py-2 rounded-full text-sm ${
+              deliveryMethod === "Paper ticket"
+                ? "bg-gray-200 border-gray-500"
+                : "border-gray-400 hover:bg-gray-100"
+            }`}
             onClick={() => setDeliveryMethod("Paper ticket")}
           >
             Paper ticket
@@ -171,10 +218,15 @@ const handleSubmit = () => {
 
         <div className="text-xs text-gray-500 space-y-2">
           {deliveryMethod === "E-ticket" ? (
-            <p><strong>E-ticket:</strong> You can save it as a PDF on your mobile plus tickets will be saved in ConcertHub app.</p>
+            <p>
+              <strong>E-ticket:</strong> You can save it as a PDF on your mobile
+              plus tickets will be saved in ConcertHub app.
+            </p>
           ) : (
             <>
-              <p><strong>Paper ticket:</strong> Sent to your address by mail</p>
+              <p>
+                <strong>Paper ticket:</strong> Sent to your address by mail
+              </p>
               <p className="flex items-center gap-2">
                 <span>📦 $3.99</span> <span>🚚 3-5 workdays</span>
               </p>
@@ -187,11 +239,15 @@ const handleSubmit = () => {
       <div className="bg-white p-6 rounded-xl shadow-md">
         <h2 className="text-lg font-semibold mb-4">Payment details</h2>
         <div className="text-sm text-gray-700 space-y-1">
-          <p className="flex justify-between"><span>Order number</span><span>11458523</span></p>
+          <p className="flex justify-between">
+            <span>Order number</span>
+            <span>11458523</span>
+          </p>
           <p className="flex justify-between">
             <span>Ticket price: Taylor Swift, {concert?.date}</span>
             <span>${ticketPrice}</span>
           </p>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <p className="flex justify-between"><span>x {seatQty}</span><span>${ticketPrice * seatQty}</span></p>
           <p className="flex justify-between"><span>Booking fee</span><span>${bookingFee.toFixed(2)}</span></p>
@@ -201,10 +257,27 @@ const handleSubmit = () => {
           <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
           <p className="flex justify-between"><span>x {seatQty}</span><span>${ticketPrice * seatQty}</span></p>
           <p className="flex justify-between"><span>Booking fee</span><span>${bookingFee.toFixed(2)}</span></p>
+=======
+          <p className="flex justify-between">
+            <span>Category</span>
+            <span>{category}</span>
+          </p>
+          <p className="flex justify-between">
+            <span>x {seatQty}</span>
+            <span>${ticketPrice * seatQty}</span>
+          </p>
+          <p className="flex justify-between">
+            <span>Booking fee</span>
+            <span>${bookingFee.toFixed(2)}</span>
+          </p>
+>>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
 
           {/* Gift card input */}
           {!showGiftInput ? (
-            <p className="text-blue-500 text-sm cursor-pointer mt-2" onClick={() => setShowGiftInput(true)}>
+            <p
+              className="text-blue-500 text-sm cursor-pointer mt-2"
+              onClick={() => setShowGiftInput(true)}
+            >
               🎁 Add your gift card
             </p>
           ) : (
@@ -223,7 +296,9 @@ const handleSubmit = () => {
                 Apply
               </button>
               {giftError && <p className="text-red-500 text-xs">{giftError}</p>}
-              {giftSuccess && <p className="text-green-500 text-xs">{giftSuccess}</p>}
+              {giftSuccess && (
+                <p className="text-green-500 text-xs">{giftSuccess}</p>
+              )}
             </div>
           )}
 
@@ -236,7 +311,8 @@ const handleSubmit = () => {
 
         <div className="border-t mt-4 pt-4">
           <p className="flex justify-between text-xl font-semibold text-pink-600">
-            <span>Final price</span><span>${total.toFixed(2)}</span>
+            <span>Final price</span>
+            <span>${total.toFixed(2)}</span>
           </p>
         </div>
 

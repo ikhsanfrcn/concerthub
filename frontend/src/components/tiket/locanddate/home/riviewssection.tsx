@@ -58,9 +58,10 @@ export default function ReviewsSection() {
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Star } from 'lucide-react';
 import ReviewForm from '@/components/modal/riview';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 type Review = {
   name: string;
@@ -76,22 +77,25 @@ export default function ReviewsSection() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [user, setUser] = useState<{ name: string; email: string; avatar?: string } | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
+  const { data: session, status } = useSession()
 
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('userProfile');
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser({ ...parsed, avatar: '/avatars/default.png' });
     }
-
-    fetch('/api/reviews')
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
+    
+    // fetch('/api/reviews')
+    // .then((res) => res.json())
+    // .then((data) => setReviews(data));
   }, []);
-
+  
   const averageRating =
-    reviews.reduce((acc, cur) => acc + cur.rating, 0) / (reviews.length || 1);
+  reviews.reduce((acc, cur) => acc + cur.rating, 0) / (reviews.length || 1);
+  
+  if (status === "loading") return null
 
   return (
     <section className="py-10 max-w-4xl mx-auto relative">
@@ -124,7 +128,7 @@ export default function ReviewsSection() {
             <option>Sound</option>
 =======
 
-          {user ? (
+          {session ? (
             <button
               onClick={() => setShowModal(true)}
               className="mt-2 inline-flex items-center gap-1 text-sm text-pink-600 hover:underline"
@@ -154,7 +158,7 @@ export default function ReviewsSection() {
       {reviews.map((r, i) => (
         <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
           <div className="flex items-center mb-2">
-            <img src={r.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
+            <Image src={r.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
             <div>
               <p className="font-semibold text-sm">{r.name}</p>
               <p className="text-xs text-gray-400">{r.date}</p>

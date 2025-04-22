@@ -34,6 +34,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.phoneNumber = user.phoneNumber;
         token.dob = user.dob;
         token.role = user.role;
+        token.referralCode = user.referralCode;
+        token.avatar = user.avatar
         token.accessToken = user.accessToken;
       }
       return token;
@@ -52,6 +54,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         phoneNumber: token.phoneNumber as string,
         dob: token.dob as string,
         role: token.role as string,
+        referralCode: token.referralCode as string,
+        avatar: token.avatar as string,
       };
       session.accessToken = token.accessToken as string;
       return session;

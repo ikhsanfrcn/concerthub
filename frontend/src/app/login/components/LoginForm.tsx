@@ -54,6 +54,8 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
         phoneNumber: user.phoneNumber || "",
         dob: user.dob || "",
         role: user.role,
+        referralCode: user.referralCode || "",
+        avatar: user.avatar || "",
         accessToken: data.access_token,
       });
       console.log(data);
