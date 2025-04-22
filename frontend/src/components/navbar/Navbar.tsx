@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-"use client"
-
-import { useState } from "react"
-import { BsTelephone } from "react-icons/bs"
-import { IoPersonOutline, IoTicketOutline, IoMenu, IoClose, IoPersonCircleOutline } from "react-icons/io5"
-import { TiDocumentText } from "react-icons/ti"
-import { Icon } from "../atoms/icon"
-import DropdownMenu from "./DropdownMenu"
-import Link from "next/link"
-import LoginRegister from "./LoginRegister"
-=======
 "use client";
 import { useState } from "react";
 import { BsTelephone } from "react-icons/bs";
@@ -26,7 +14,6 @@ import Link from "next/link";
 import LoginRegister from "./LoginRegister";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
->>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
 
 export const Navbar: React.FC = () => {
   const { data: session, status } = useSession();
@@ -34,30 +21,9 @@ export const Navbar: React.FC = () => {
 
   if (status === "loading") return null;
 
-<<<<<<< HEAD
-    return (
-        <nav className="">
-            <div className="flex justify-between items-center max-[1288px]:px-[16px] py-[10.5px] px-[108px]">
-                <Link href={'/'} className="font-bonheur text-primary-500 text-3xl md:text-[48px]">ConcertHub</Link>
-                <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
-                    <input
-                        type="text"
-                        placeholder="Search concerts..."
-                        className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-500"
-                    />
-                </div>
-                <div className="max-[1024px]:hidden flex items-center gap-x-6">
-                    <Icon Component={BsTelephone} link="contact" label="Contact" />
-                    <Icon Component={IoTicketOutline} link="transactionticket" label="Tickets" />
-                    <Icon Component={TiDocumentText} link="#" label="Blogs" />
-                    <DropdownMenu />
-                    <LoginRegister />
-                </div>
-=======
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
->>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
 
   return (
     <nav className="">

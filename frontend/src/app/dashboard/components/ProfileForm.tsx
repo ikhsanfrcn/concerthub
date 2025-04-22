@@ -75,11 +75,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
       const houseNumber = session.user.houseNumber;
       const dob = session.user.dob;
       const phoneNumber = session.user.phoneNumber;
-<<<<<<< HEAD
-=======
       console.log(session.user.referralCode);
       
->>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
 
       formik.setValues({
         name: name || "",
@@ -209,12 +206,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
         />
       </div>
 
-<<<<<<< HEAD
-      <div className="min-[768px]:w-full flex justify-end items-center mb-[32px] min-[768px]:mb-0">
-=======
       <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">
         <p>Referral Code : <span>{session?.user.referralCode}</span></p>
->>>>>>> dc82485f2ec644baa0963699844ce6ab42b0c4e1
         <button
           type="submit"
           className="bg-primary-500 text-white px-4 py-2 rounded-2xl"
