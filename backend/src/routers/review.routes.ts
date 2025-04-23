@@ -5,20 +5,20 @@ import { ReviewController } from "../controller/review.controller";
 
 export class ReviewRouter {
   private router: Router;
-  private controller: ReviewController;
+  private reviewcontroller: ReviewController;
   private authMiddleware: AuthMiddleware;
 
   constructor() {
     this.router = Router();
-    this.controller = new ReviewController();
+    this.reviewcontroller = new ReviewController();
     this.authMiddleware = new AuthMiddleware();
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
     
-this.router.get("/", this.controller.getReview);
-this.router.post("/", this.authMiddleware.verifyToken, this.controller.createReview);
+this.router.get("/", this.reviewcontroller.getReview);
+this.router.post("/", this.authMiddleware.verifyToken, this.reviewcontroller.createReview);
 
   }
 
