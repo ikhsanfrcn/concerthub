@@ -30,9 +30,6 @@ export default function ReviewsSection() {
       setUser({ ...parsed, avatar: '/avatars/default.png' });
     }
     
-    // fetch('/api/reviews')
-    // .then((res) => res.json())
-    // .then((data) => setReviews(data));
   }, []);
   
   const averageRating =

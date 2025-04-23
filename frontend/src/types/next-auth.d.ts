@@ -3,6 +3,8 @@ import "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
+      state: string;
+      phoneNumber: string;
       id: string;
       name: string;
       email: string;

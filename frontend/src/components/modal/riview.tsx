@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios'; // Import axios
 
 export default function ReviewForm({ onClose }: { onClose: () => void }) {
   const [formData, setFormData] = useState({
@@ -45,16 +46,17 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
       email: userEmail,
     };
 
-    const res = await fetch('/api/reviews', {
-      method: 'POST',
-      body: JSON.stringify(newReview),
-    });
+    try {
+      // Send the POST request using axios
+      const res = await axios.post('/api/reviews', newReview);
 
-    if (res.ok) {
-      alert('Review submitted successfully!');
-      onClose(); // Close modal
-      router.refresh(); // Refresh page to show new review
-    } else {
+      if (res.status === 200) {
+        alert('Review submitted successfully!');
+        onClose(); // Close modal
+        router.refresh(); // Refresh page to show new review
+      }
+    } catch (error) {
+      console.error('Failed to submit review:', error);
       alert('Failed to submit review');
     }
   };

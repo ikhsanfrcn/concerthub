@@ -46,7 +46,9 @@ export default function Step2({ onComplete }: { onComplete: () => void }) {
             >
               <h3 className="text-xl font-bold mb-2">{ticket.category}</h3>
               <p className="text-sm text-gray-600 mb-2">{ticket.description}</p>
-              <p className="text-lg font-medium mb-4">${ticket.price}</p>
+              <p className="text-lg font-medium mb-4">
+                Rp {ticket.price.toLocaleString("id-ID")}
+              </p>
               <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
                 {selectedCategory === ticket.category ? "Selected" : "Select"}
               </button>
