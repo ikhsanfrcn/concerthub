@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
         <div className="min-[1024px]:hidden px-6 pb-4 space-y-4">
           <div className="flex flex-col gap-y-4">
             <Icon Component={BsTelephone} link="#" label="Contact" />
-            <Icon Component={IoTicketOutline} link="location" label="Tickets" />
+            <Icon Component={IoTicketOutline} link="transactionticket" label="Tickets" />
             <Icon Component={TiDocumentText} link="#" label="Blogs" />
             <DropdownMenu />
             <Link
