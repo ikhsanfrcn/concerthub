@@ -19,7 +19,7 @@ export class EventController {
       });
 
       if (concerts.length === 0) {
-        res.status(404).json({ message: "No upcoming concerts found" });
+        res.status(400).json({ message: "No upcoming concerts found" });
       }
 
       res.status(200).json(concerts);

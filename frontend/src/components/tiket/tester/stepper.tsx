@@ -1,28 +1,33 @@
+// components/tiket/tester/stepper.tsx
 "use client";
-import { useRouter, usePathname } from "next/navigation";
+import { JSX } from "react";
+import { useRouter } from "next/navigation";
 
 interface Step {
-  label: string;
-  path: string;
+  title: string;
+  component: JSX.Element;
 }
 
-const steps: Step[] = [
-  { label: "Location & Date", path: "/location" },
-  { label: "Seat", path: "/seat" },
-  { label: "Order Overview", path: "/order" },
-  { label: "Payment", path: "/payment" },
-  { label: "Download", path: "/download" },
-];
+interface StepperProps {
+  steps: Step[];
+  currentStep: number;
+  onStepChange: (stepIndex: number) => void;
+}
 
-const Stepper = () => {
+const Stepper = ({ steps, currentStep, onStepChange }: StepperProps) => {
   const router = useRouter();
-  const pathname = usePathname();
-
-  const currentStep = steps.findIndex((step) => step.path === pathname);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
-      router.push(steps[currentStep + 1].path);
+      onStepChange(currentStep + 1); // Move to next step
+      router.push(steps[currentStep + 1].title.toLowerCase().replace(/ /g, '').toLowerCase());
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      onStepChange(currentStep - 1); // Move to previous step
+      router.push(steps[currentStep - 1].title.toLowerCase().replace(/ /g, '').toLowerCase());
     }
   };
 
@@ -41,21 +46,16 @@ const Stepper = () => {
               >
                 {isComplete ? "✓" : index + 1}
               </div>
-              <span className="text-xs md:text-sm text-gray-700 whitespace-nowrap">{step.label}</span>
+              <span className="text-xs md:text-sm text-gray-700 whitespace-nowrap">{step.title}</span>
               {index < steps.length - 1 && (
-                <div
-                  className={`w-6 md:w-12 h-0.5 ${
-                    index + 1 <= currentStep ? "bg-pink-500" : "bg-gray-300"
-                  }`}
-                />
+                <div className={`w-6 md:w-12 h-0.5 ${index + 1 <= currentStep ? "bg-pink-500" : "bg-gray-300"}`} />
               )}
             </div>
           );
         })}
       </div>
 
- 
-   
+
     </div>
   );
 };

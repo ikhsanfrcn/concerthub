@@ -78,36 +78,36 @@ model Event {
   organizer    User          @relation("CreatedEvents", fields: [organizerId], references: [id])
   promotions   Promotion[]
   reviews      Review[]
-  ticket       Ticket[]
+  ticket  Ticket[]
   transactions Transaction[]
 }
 
 model Ticket {
-  id            String       @id @default(uuid())
-  eventId       String
-  name          String
-  price         Int
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id])
-  event         Event        @relation(fields: [eventId], references: [id])
+  id          String        @id @default(uuid())
+  eventId     String
+  name        String
+  price       Int
+  stock       Int
+  event       Event         @relation(fields: [eventId], references: [id])
+  Transaction Transaction[]
 }
 
 model Transaction {
-  id         String            @id @default(uuid())
-  userId     String
-  eventId    String
-  ticketId   String?
-  quantity   Int
-  totalPrice Int
-  usedPoints Int               @default(0)
-  discount   Int               @default(0)
-  createdAt  DateTime          @default(now())
-  expireAt   DateTime
-  status     statusTransaction
-  updatedAt  DateTime          @updatedAt
-  event      Event             @relation(fields: [eventId], references: [id])
-  ticket     Ticket[]
-  user       User              @relation(fields: [userId], references: [id])
+  id           String            @id @default(uuid())
+  userId       String
+  eventId      String
+  ticketId String?
+  quantity     Int
+  totalPrice   Int
+  usedPoints   Int               @default(0)
+  discount     Int               @default(0)
+  createdAt    DateTime          @default(now())
+  expireAt     DateTime
+  status       statusTransaction
+  updatedAt    DateTime          @updatedAt
+  event        Event             @relation(fields: [eventId], references: [id])
+  ticket   Ticket?           @relation(fields: [ticketId], references: [id])
+  user         User              @relation(fields: [userId], references: [id])
 }
 
 model Voucher {

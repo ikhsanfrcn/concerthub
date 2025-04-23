@@ -1,5 +1,5 @@
 import TicketCategoryPage from "@/components/tiket/category.tsx/category";
-import Stepper from "@/components/tiket/stepper";
+import Stepper from "@/components/tiket/tester/stepper";
 import { MainTemplate } from "@/template/MainTemplate";
 
 export default function orderPage() {
