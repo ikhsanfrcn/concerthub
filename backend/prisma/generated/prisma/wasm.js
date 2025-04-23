@@ -127,7 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isVerify: 'isVerify',
-  usedReferralById: 'usedReferralById',
+  ReferredById: 'ReferredById',
   city: 'city',
   dob: 'dob',
   houseNumber: 'houseNumber',
@@ -168,15 +168,15 @@ exports.Prisma.EventScalarFieldEnum = {
   location: 'location',
   date: 'date',
   time: 'time',
-  isFree: 'isFree',
   price: 'price',
   seats: 'seats',
   category: 'category',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.TicketTypeScalarFieldEnum = {
+exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
   name: 'name',
@@ -264,7 +264,7 @@ exports.Prisma.ModelName = {
   Point: 'Point',
   Promotion: 'Promotion',
   Event: 'Event',
-  TicketType: 'TicketType',
+  Ticket: 'Ticket',
   Transaction: 'Transaction',
   Voucher: 'Voucher',
   ReferralUsage: 'ReferralUsage',

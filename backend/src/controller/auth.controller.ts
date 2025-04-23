@@ -25,7 +25,7 @@ export class AuthController {
         .substring(2, 10)
         .toUpperCase();
 
-      let usedReferralById: string | undefined = undefined;
+      let ReferredById: string | undefined = undefined;
 
       if (referralCode) {
         const referrer = await prisma.user.findUnique({
@@ -37,7 +37,7 @@ export class AuthController {
           return;
         }
 
-        usedReferralById = referrer?.id;
+        ReferredById = referrer?.id;
       }
 
       const user = await prisma.user.create({
@@ -46,7 +46,7 @@ export class AuthController {
           email,
           password: hashedPassword,
           referralCode: generatedReferralCode,
-          usedReferralById,
+          ReferredById,
         },
       });
 
@@ -89,14 +89,14 @@ export class AuthController {
         where: { id: userId },
       });
 
-      if (user.usedReferralById) {
+      if (user.ReferredById) {
         const referrer = await prisma.user.findUnique({
-          where: { id: user.usedReferralById },
+          where: { id: user.ReferredById },
         });
 
         await prisma.point.create({
           data: {
-            userId: user.usedReferralById,
+            userId: user.ReferredById,
             amount: 10000,
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 90),
           },

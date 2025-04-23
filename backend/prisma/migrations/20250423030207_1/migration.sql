@@ -5,6 +5,9 @@ CREATE TYPE "Role" AS ENUM ('CUSTOMER', 'ORGANIZER');
 CREATE TYPE "PromotionType" AS ENUM ('DATE_BASED');
 
 -- CreateEnum
+CREATE TYPE "statusTransaction" AS ENUM ('PENDING', 'PAID', 'EXPIRED', 'CANCEL');
+
+-- CreateEnum
 CREATE TYPE "voucherType" AS ENUM ('REFERRAL');
 
 -- CreateTable
@@ -15,10 +18,20 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'CUSTOMER',
     "referralCode" TEXT NOT NULL,
-    "usedReferralById" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "isVerify" BOOLEAN NOT NULL DEFAULT false,
+    "ReferredById" TEXT,
+    "city" TEXT,
+    "dob" TEXT,
+    "houseNumber" TEXT,
+    "lastName" TEXT,
+    "state" TEXT,
+    "street" TEXT,
+    "zipCode" TEXT,
+    "regionNumber" TEXT,
+    "phoneNumber" TEXT,
+    "avatar" TEXT DEFAULT 'https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -56,12 +69,13 @@ CREATE TABLE "Event" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TEXT NOT NULL,
     "time" TEXT NOT NULL,
     "isFree" BOOLEAN NOT NULL DEFAULT false,
     "price" INTEGER NOT NULL DEFAULT 0,
     "seats" INTEGER NOT NULL,
     "category" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -69,14 +83,14 @@ CREATE TABLE "Event" (
 );
 
 -- CreateTable
-CREATE TABLE "TicketType" (
+CREATE TABLE "Ticket" (
     "id" TEXT NOT NULL,
     "eventId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "stock" INTEGER NOT NULL,
 
-    CONSTRAINT "TicketType_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Ticket_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -90,6 +104,9 @@ CREATE TABLE "Transaction" (
     "usedPoints" INTEGER NOT NULL DEFAULT 0,
     "discount" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expireAt" TIMESTAMP(3) NOT NULL,
+    "status" "statusTransaction" NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Transaction_pkey" PRIMARY KEY ("id")
 );
@@ -111,9 +128,7 @@ CREATE TABLE "ReferralUsage" (
     "id" TEXT NOT NULL,
     "referrerId" TEXT NOT NULL,
     "referredId" TEXT NOT NULL,
-    "promotionId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" TEXT,
     "voucherId" TEXT,
 
     CONSTRAINT "ReferralUsage_pkey" PRIMARY KEY ("id")
@@ -150,31 +165,25 @@ ALTER TABLE "Promotion" ADD CONSTRAINT "Promotion_eventId_fkey" FOREIGN KEY ("ev
 ALTER TABLE "Event" ADD CONSTRAINT "Event_organizerId_fkey" FOREIGN KEY ("organizerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TicketType" ADD CONSTRAINT "TicketType_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_ticketTypeId_fkey" FOREIGN KEY ("ticketTypeId") REFERENCES "TicketType"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_ticketTypeId_fkey" FOREIGN KEY ("ticketTypeId") REFERENCES "Ticket"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Voucher" ADD CONSTRAINT "Voucher_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_referrerId_fkey" FOREIGN KEY ("referrerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_referredId_fkey" FOREIGN KEY ("referredId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_promotionId_fkey" FOREIGN KEY ("promotionId") REFERENCES "Promotion"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_referrerId_fkey" FOREIGN KEY ("referrerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ReferralUsage" ADD CONSTRAINT "ReferralUsage_voucherId_fkey" FOREIGN KEY ("voucherId") REFERENCES "Voucher"("id") ON DELETE SET NULL ON UPDATE CASCADE;

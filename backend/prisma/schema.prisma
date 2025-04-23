@@ -10,33 +10,33 @@ datasource db {
 }
 
 model User {
-  id               String          @id @default(uuid())
-  name             String
-  email            String          @unique
-  password         String
-  role             Role            @default(CUSTOMER)
-  referralCode     String          @unique
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-  isVerify         Boolean         @default(false)
-  usedReferralById String?
-  city             String?
-  dob              String?
-  houseNumber      String?
-  lastName         String?
-  state            String?
-  street           String?
-  zipCode          String?
-  regionNumber     String?
-  phoneNumber      String?
-  avatar           String?         @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
-  events           Event[]         @relation("CreatedEvents")
-  points           Point[]
-  referred         ReferralUsage[] @relation("ReferralsReceived")
-  referrer         ReferralUsage[] @relation("ReferralsGiven")
-  Review           Review[]
-  tickets          Transaction[]
-  Voucher          Voucher[]
+  id           String          @id @default(uuid())
+  name         String
+  email        String          @unique
+  password     String
+  role         Role            @default(CUSTOMER)
+  referralCode String          @unique
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  isVerify     Boolean         @default(false)
+  ReferredById String?
+  city         String?
+  dob          String?
+  houseNumber  String?
+  lastName     String?
+  state        String?
+  street       String?
+  zipCode      String?
+  regionNumber String?
+  phoneNumber  String?
+  avatar       String?         @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+  events       Event[]         @relation("CreatedEvents")
+  points       Point[]
+  referred     ReferralUsage[] @relation("ReferralsReceived")
+  referrer     ReferralUsage[] @relation("ReferralsGiven")
+  Review       Review[]
+  tickets      Transaction[]
+  Voucher      Voucher[]
 }
 
 model Point {
@@ -69,20 +69,20 @@ model Event {
   location     String
   date         String
   time         String
-  isFree       Boolean       @default(false)
   price        Int           @default(0)
   seats        Int
   category     String
+  image        String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   organizer    User          @relation("CreatedEvents", fields: [organizerId], references: [id])
   promotions   Promotion[]
   reviews      Review[]
-  ticketTypes  TicketType[]
+  ticketTypes  Ticket[]
   transactions Transaction[]
 }
 
-model TicketType {
+model Ticket {
   id          String        @id @default(uuid())
   eventId     String
   name        String
@@ -106,7 +106,7 @@ model Transaction {
   status       statusTransaction
   updatedAt    DateTime          @updatedAt
   event        Event             @relation(fields: [eventId], references: [id])
-  ticketType   TicketType?       @relation(fields: [ticketTypeId], references: [id])
+  ticketType   Ticket?           @relation(fields: [ticketTypeId], references: [id])
   user         User              @relation(fields: [userId], references: [id])
 }
 
