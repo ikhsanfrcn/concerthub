@@ -19,6 +19,8 @@ export class AuthRouter {
     this.router.post("/register", validateRegister, this.authController.register);
     this.router.patch("/verify", this.authMiddleware.verifyToken, this.authController.verify);
     this.router.post("/login", this.authController.login);
+    this.router.post('/register/organizer',this.authMiddleware.verifyToken, this.authController.registerOrganizer);
+    this.router.patch("/verify/organizer", this.authMiddleware.verifyToken, this.authController.verifyOrganizer);
   }
 
   getRouter(): Router {

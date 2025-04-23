@@ -7,7 +7,7 @@ import {
 type Event = {
   id: string
   title: string
-  date: string // yyyy-mm-dd
+  date: string
   attendees: number
 }
 

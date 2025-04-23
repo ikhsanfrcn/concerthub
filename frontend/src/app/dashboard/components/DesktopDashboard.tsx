@@ -11,7 +11,7 @@ import { signOut, useSession } from "next-auth/react";
 import { OrderHistory } from "./OrderHistory";
 import { GrDashboard } from "react-icons/gr";
 import { OrganizerDashboard } from "./OrganizerDashboard";
-import { RegisterAsOrganizer } from "./RegisterAsOrganizer";
+import { CustomerDashboard } from "./CustomerDashboard";
 import { ProfileForm } from "./ProfileForm";
 
 export const DesktopDashboard: React.FC = () => {
@@ -84,7 +84,12 @@ export const DesktopDashboard: React.FC = () => {
                 >
                   <Icon Component={GrDashboard} link="#" label="Dashboard" />
                 </button>
-              ) : null}
+              ) : <button
+              onClick={() => handleActiveSection("registerAsOrganizer")}
+              className="w-full text-left"
+            >
+              <Icon Component={GrDashboard} link="#" label="Dashboard" />
+            </button>}
             </li>
           </ul>
           <ul className="flex flex-col space-y-[18.5px]">
@@ -130,7 +135,7 @@ export const DesktopDashboard: React.FC = () => {
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
             <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
             <p>you are a customer, want to register as an Organizer?</p>
-            <RegisterAsOrganizer
+            <CustomerDashboard
               isVisible={activeSection === "registerAsOrganizer"}
             />
           </div>
