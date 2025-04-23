@@ -1,12 +1,12 @@
-import TicketCategoryPage from "@/components/tiket/category.tsx/category";
-import Stepper from "@/components/tiket/tester/stepper";
-import { MainTemplate } from "@/template/MainTemplate";
+// import TicketCategoryPage from "@/components/tiket/category.tsx/category";
+// import Stepper from "@/components/tiket/tester/stepper";
+// import { MainTemplate } from "@/template/MainTemplate";
 
-export default function orderPage() {
-  return (
-    <MainTemplate>
-      <Stepper />
-      <TicketCategoryPage />
-    </MainTemplate>
-  );
-}
+// export default function orderPage() {
+//   return (
+//     <MainTemplate>
+//       <Stepper />
+//       <TicketCategoryPage />
+//     </MainTemplate>
+//   );
+// }

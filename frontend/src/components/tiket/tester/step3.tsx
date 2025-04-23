@@ -1,8 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
+'use client';
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -17,7 +13,7 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
   const [deliveryMethod, setDeliveryMethod] = useState<string>("E-ticket");
 
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
-  const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points">("voucher");
+  const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none"); // Add "none" for no discount
   const [voucher, setVoucher] = useState<any>(null);
   const [points, setPoints] = useState<number>(0);
 
@@ -31,9 +27,9 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
     if (storedCategory) {
       setCategory(storedCategory);
       switch (storedCategory) {
-        case "VIP": setTicketPrice(600); break;
-        case "Premium": setTicketPrice(400); break;
-        case "Regular": setTicketPrice(200); break;
+        case "VIP": setTicketPrice(600000); break; 
+        case "Premium": setTicketPrice(400000); break; 
+        case "Regular": setTicketPrice(200000); break; 
         default: setTicketPrice(0);
       }
     }
@@ -45,10 +41,10 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
       });
       if (res.status === 200 && res.data.vouchers.length > 0) {
-        const discount = res.data.vouchers[0].discountPercent;
+        const discountPercent = res.data.vouchers[0].discountPercent;
         setVoucher(res.data.vouchers[0]);
-        setAppliedDiscount(discount);
-        localStorage.setItem("giftCard", String(discount));
+        setAppliedDiscount(discountPercent); // Store discount as percentage
+        localStorage.setItem("giftCard", String(discountPercent)); // Store in local storage for later use
       }
     } catch (err) {
       console.error("Error fetching voucher:", err);
@@ -63,8 +59,8 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
       });
       if (res.status === 200) {
         setPoints(res.data.totalPoints);
-        setAppliedDiscount(res.data.totalPoints);
-        localStorage.setItem("giftCard", String(res.data.totalPoints));
+        setAppliedDiscount(res.data.totalPoints); // Points are used as the discount
+        localStorage.setItem("giftCard", String(res.data.totalPoints)); // Store in local storage for later use
       }   
     } catch (err) {
       console.error("Error fetching points:", err);
@@ -74,15 +70,21 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     if (session?.user) {
-      selectedDiscountType === "voucher" ? fetchUserVoucher() : fetchUserPoints();
+      if (selectedDiscountType === "voucher") {
+        fetchUserVoucher();
+      } else if (selectedDiscountType === "points") {
+        fetchUserPoints();
+      } else {
+        setAppliedDiscount(0); // No discount if 'none' is selected
+      }
     }
   }, [session, selectedDiscountType]);
 
   if (status === "loading") return null;
 
   const handleSubmit = async () => {
-    const bookingFee = 20.25;
-    const total = ticketPrice * seatQty + bookingFee - appliedDiscount;
+    const discountAmount = (ticketPrice * seatQty) * (appliedDiscount / 100);
+    const total = ticketPrice * seatQty + bookingFee - discountAmount;
 
     const transactionData = {
       concert,
@@ -90,7 +92,7 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
       ticketPrice,
       seatQty,
       deliveryMethod,
-      appliedDiscount,
+      appliedDiscount: discountAmount,
       totalPrice: total,
     };
 
@@ -112,9 +114,10 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
     }
   };
 
-  const bookingFee = 20.25;
+  const bookingFee = 0;
   const ticketTotal = ticketPrice * seatQty;
-  const total = ticketTotal + bookingFee - appliedDiscount;
+  const discountAmount = ticketTotal * (appliedDiscount / 100);
+  const total = ticketTotal + bookingFee - discountAmount;
 
   return (
     <div>
@@ -156,8 +159,8 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
             <p className="flex justify-between"><span>Order number</span><span>11458523</span></p>
             <p className="flex justify-between"><span>Ticket  </span><span> Taylor Swift, {concert?.date}</span></p>
             <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
-            <p className="flex justify-between"><span>x {seatQty}</span><span>${ticketTotal}</span></p>
-            <p className="flex justify-between"><span>Booking fee</span><span>${bookingFee.toFixed(2)}</span></p>
+            <p className="flex justify-between"><span>x {seatQty}</span><span>Rp {ticketTotal.toLocaleString("id-ID")}</span></p>
+            <p className="flex justify-between"><span>Booking fee</span><span>Rp {bookingFee.toFixed(2)}</span></p>
 
             <div className="flex gap-4 my-2">
               <button
@@ -172,18 +175,24 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
               >
                 Use Points
               </button>
+              <button
+                className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === "none" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
+                onClick={() => setSelectedDiscountType("none")}
+              >
+                No Discount
+              </button>
             </div>
 
             <p className="flex justify-between text-gray-500 mt-2">
               <span>Discount</span>
-              <span>- ${appliedDiscount}</span>
+              <span>- Rp {discountAmount.toLocaleString("id-ID")}</span>
             </p>
           </div>
 
           <div className="border-t mt-4 pt-4">
             <p className="flex justify-between text-xl font-semibold text-pink-600">
               <span>Final price</span>
-              <span>${total.toFixed(2)}</span>
+              <span>Rp {Number(total.toFixed(2)).toLocaleString("id-ID")}</span>
             </p>
           </div>
 

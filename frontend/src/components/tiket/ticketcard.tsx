@@ -30,7 +30,6 @@ const TicketCard = () => {
       setConcert({
         date: parsed.date,
         location: parsed.location,
-        price: parsed.price || "$400",
         time: parsed.time || "Fri 9:00 PM",
         quantity: parsed.quantity || 2,
         artist: "Taylor Swift",
