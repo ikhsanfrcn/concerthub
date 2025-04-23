@@ -24,6 +24,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
       houseNumber: "",
       dob: "",
       phoneNumber: "",
+      referralCode: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
@@ -36,63 +37,77 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
       houseNumber: Yup.string().required("Required"),
       dob: Yup.string().required("Required"),
       phoneNumber: Yup.string()
-      .matches(/^\d+$/, "Phone number must contain only numbers")
-      .required("Phone number is required"),
+        .matches(/^\d+$/, "Phone number must contain only numbers")
+        .required("Phone number is required"),
     }),
     onSubmit: async (values) => {
       console.log("add to backend:", values);
       const token = session?.accessToken;
-       try {
-        const response = await axios.patch("/auth/profile-update", values, {
+      try {
+        const response = await axios.patch("/users/profile-update", values, {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        })
+            "Content-Type": "application/json",
+          },
+        });
 
         if (response.status === 200) {
-          alert("Profile update successfully!")
+          alert("Profile update successfully!");
         } else {
-          alert("Failed to update profile")
+          alert("Failed to update profile");
         }
-       } catch (error) {
+      } catch (error) {
         console.log(error);
-       }
+      }
     },
     enableReinitialize: true,
   });
 
   // Populate form dari session user
   useEffect(() => {
-    if (session?.user) {
-      const name = session.user.name;
-      const lastName = session.user.lastName;
-      const email = session.user.email;
-      const zipCode = session.user.zipCode;
-      const state = session.user.state;
-      const city = session.user.city;
-      const street = session.user.street;
-      const houseNumber = session.user.houseNumber;
-      const dob = session.user.dob;
-      const phoneNumber = session.user.phoneNumber;
-      console.log(session.user.referralCode);
-      
+    // const name = session.user.name;
+    // const lastName = session.user.lastName;
+    // const email = session.user.email;
+    // const zipCode = session.user.zipCode;
+    // const state = session.user.state;
+    // const city = session.user.city;
+    // const street = session.user.street;
+    // const houseNumber = session.user.houseNumber;
+    // const dob = session.user.dob;
+    // const phoneNumber = session.user.phoneNumber;
+    // console.log(session.user.referralCode);
 
-      formik.setValues({
-        name: name || "",
-        lastName: lastName || "",
-        email: email || "",
-        zipCode: zipCode || "",
-        state: state || "",
-        city: city || "",
-        street: street || "",
-        houseNumber: houseNumber || "",
-        dob: dob || "",
-        phoneNumber: phoneNumber || "",
-      });
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        });
+        const { data } = response;
+
+        formik.setValues({
+          name: data.user.name || "",
+          lastName: data.user.lastName || "",
+          email: data.user.email || "",
+          zipCode: data.user.zipCode || "",
+          state: data.user.state || "",
+          city: data.user.city || "",
+          street: data.user.street || "",
+          houseNumber: data.user.houseNumber || "",
+          dob: data.user.dob || "",
+          phoneNumber: data.user.phoneNumber || "",
+          referralCode: data.user.referralCode || "",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (session?.accessToken) {
+      fetchUserProfile();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [session?.accessToken]);
 
   if (!isVisible) return null;
   if (status === "loading") return <p className="mt-4">Loading user data...</p>;
@@ -189,8 +204,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
           value={formik.values.phoneNumber}
           error={formik.touched.phoneNumber && formik.errors.phoneNumber}
           onChange={(e) => {
-            const cleanedValue = e.target.value.replace(/[^0-9]/g, '');
-            formik.setFieldValue('phoneNumber', cleanedValue);
+            const cleanedValue = e.target.value.replace(/[^0-9]/g, "");
+            formik.setFieldValue("phoneNumber", cleanedValue);
           }}
           onBlur={formik.handleBlur}
         />
@@ -207,7 +222,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
       </div>
 
       <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">
-        <p>Referral Code : <span>{session?.user.referralCode}</span></p>
+        <p>
+          Referral Code : <span>{formik.values.referralCode}</span>
+        </p>
         <button
           type="submit"
           className="bg-primary-500 text-white px-4 py-2 rounded-2xl"

@@ -120,23 +120,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  lastName: 'lastName',
   email: 'email',
-  zipCode: 'zipCode',
-  state: 'state',
-  city: 'city',
-  street: 'street',
-  houseNumber: 'houseNumber',
-  regionNumber: 'regionNumber',
-  phoneNumber: 'phoneNumber',
-  dob: 'dob',
   password: 'password',
   role: 'role',
   referralCode: 'referralCode',
-  usedReferralById: 'usedReferralById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   isVerify: 'isVerify',
+  usedReferralById: 'usedReferralById',
+  city: 'city',
+  dob: 'dob',
+  houseNumber: 'houseNumber',
+  lastName: 'lastName',
+  state: 'state',
+  street: 'street',
+  zipCode: 'zipCode',
+  regionNumber: 'regionNumber',
+  phoneNumber: 'phoneNumber',
   avatar: 'avatar'
 };
 
@@ -193,7 +193,10 @@ exports.Prisma.TransactionScalarFieldEnum = {
   totalPrice: 'totalPrice',
   usedPoints: 'usedPoints',
   discount: 'discount',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  expireAt: 'expireAt',
+  status: 'status',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.VoucherScalarFieldEnum = {
@@ -243,6 +246,13 @@ exports.Role = exports.$Enums.Role = {
 
 exports.PromotionType = exports.$Enums.PromotionType = {
   DATE_BASED: 'DATE_BASED'
+};
+
+exports.statusTransaction = exports.$Enums.statusTransaction = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  EXPIRED: 'EXPIRED',
+  CANCEL: 'CANCEL'
 };
 
 exports.voucherType = exports.$Enums.voucherType = {

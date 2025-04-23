@@ -40,25 +40,18 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
       action.resetForm();
-      await signIn("credentials", {
+
+await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
         name: user.name,
-        lastName: user.lastName || "",
         email: user.email,
-        zipCode: user.zipCode || "",
-        state: user.state || "",
-        city: user.city || "",
-        street: user.street || "",
-        houseNumber: user.houseNumber || "",
-        phoneNumber: user.phoneNumber || "",
-        dob: user.dob || "",
         role: user.role,
-        referralCode: user.referralCode || "",
         avatar: user.avatar || "",
         accessToken: data.access_token,
       });
-      console.log(data);
+      // console.log(data);
+      
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message);

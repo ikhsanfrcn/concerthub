@@ -2,12 +2,13 @@ import Image from "next/image";
 
 interface ICard{
     image: string;
-    name: string;
+    title: string;
     location: string;
-    dateTime: string;
+    date: string;
+    time: string;
 }
 
-export const Card: React.FC<ICard> = ( {image, name, location, dateTime} ) => {
+export const Card: React.FC<ICard> = ( {image, title, location, date, time} ) => {
     return (
         <div className="rounded-3xl overflow-hidden border border-gray-300">
             <Image
@@ -18,9 +19,9 @@ export const Card: React.FC<ICard> = ( {image, name, location, dateTime} ) => {
                 className="w-[242px] md:w-full shadow-2xl rounded-xl"
             />
             <div className="pb-[10px] space-y-[8px] flex flex-col items-center">
-                <div className="font-bold text-xl">{name}</div>
+                <div className="font-bold text-xl">{title}</div>
                 <p className="text-gray-700 text-base">{location}</p>
-                <p className="text-gray-700 text-base">{dateTime}</p>
+                <p className="text-gray-700 text-base">{date} <span>{` ${time}`}</span></p>
             </div>
         </div>
     );

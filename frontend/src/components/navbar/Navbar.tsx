@@ -16,10 +16,9 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 export const Navbar: React.FC = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  if (status === "loading") return null;
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

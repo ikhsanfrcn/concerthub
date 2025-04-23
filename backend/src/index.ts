@@ -4,6 +4,8 @@ import { AuthRouter } from "./routers/auth.routes";
 import { ReviewRouter } from "./routers/review.routes";
 import { TransactionRouter } from "./routers/transaksi.routes";
 import { VoucherRouter } from "./routers/voucher.routes";
+import { UserRouter } from "./routers/user.routes";
+import { EventRouter } from "./routers/event.routes";
 
 
 const PORT: number = 8000;
@@ -19,6 +21,7 @@ app.get("/api", (req: Request, res: Response) => {
 const authRouter = new AuthRouter();
 app.use('/api/auth', authRouter.getRouter())
 
+
 const reviewRoute = new ReviewRouter();
 app.use('/api/reviews', reviewRoute.getRouter())
 
@@ -27,6 +30,16 @@ app.use('/api/transactions', transactionRoute.getRouter())
 
 const voucherRoute = new VoucherRouter();
 app.use('/api/voucher', voucherRoute.getRouter())
+
+const reviewRouter = new ReviewRouter();
+app.use('/api/reviews', reviewRouter.getRouter())
+
+const userRouter = new UserRouter();
+app.use('/api/users', userRouter.getRouter())
+
+const eventRouter = new EventRouter();
+app.use('/api/events', eventRouter.getRouter())
+
 
 app.listen(PORT, () => {
   console.log(`Server running http://localhost:${PORT}/api`);
