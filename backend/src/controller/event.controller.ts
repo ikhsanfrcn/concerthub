@@ -7,6 +7,7 @@ export class EventController {
     try {
       const concerts = await prisma.event.findMany({
         select: {
+          id: true,
           title: true,
           description: true,
           location: true,
@@ -27,6 +28,16 @@ export class EventController {
     } catch (error) {
       console.error("Error fetching concerts:", error);
       res.status(500).json({ message: "Server error", error });
+    }
+  }
+
+  async getEventById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const event = await prisma.event.findUnique({ where: { id } });
+      res.status(200).json(event);
+    } catch (error) {
+      res.status(404).json({ message: "Event not found" });
     }
   }
 

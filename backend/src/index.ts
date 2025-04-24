@@ -6,6 +6,7 @@ import { TransactionRouter } from "./routers/transaksi.routes";
 import { VoucherRouter } from "./routers/voucher.routes";
 import { UserRouter } from "./routers/user.routes";
 import { EventRouter } from "./routers/event.routes";
+import { OrganizerRouter } from "./routers/organizer.routes";
 
 
 const PORT: number = 8000;
@@ -39,6 +40,9 @@ app.use('/api/users', userRouter.getRouter())
 
 const eventRouter = new EventRouter();
 app.use('/api/events', eventRouter.getRouter())
+
+const organizerRouter = new OrganizerRouter()
+app.use('/api/organizer', organizerRouter.getRouter())
 
 
 app.listen(PORT, () => {

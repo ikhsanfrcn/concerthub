@@ -15,6 +15,7 @@ import { CustomerDashboard } from "./CustomerDashboard";
 import { ProfileForm } from "./ProfileForm";
 import EventForm from "@/components/modal/event";
 import { IoMdAdd } from "react-icons/io";
+import { EventList } from "./EventList";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -81,24 +82,32 @@ export const DesktopDashboard: React.FC = () => {
             </li>
             <li>
               {session?.user.role === "ORGANIZER" ? (
-                <li className="space-y-[10px]">
+                <div className="space-y-[18.5px]">
                   <button
                     onClick={() => handleActiveSection("organizerDashboard")}
                     className="w-full text-left"
                   >
                     <Icon Component={GrDashboard} link="#" label="Dashboard" />
                   </button>
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="pl-[10px] w-full text-left"
+                  <div className="pl-[10px] space-y-[18.5px]">
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="w-full text-left"
+                    >
+                      <Icon Component={IoMdAdd} label="Create Event" />
+                    </button>
+                    <button
+                    onClick={() => handleActiveSection("eventList")}
+                    className="w-full text-left"
                   >
-                    <Icon Component={IoMdAdd} label="Create Event" />
+                    <Icon Component={GrDashboard} link="#" label="Event List" />
                   </button>
-                </li>
+                  </div>
+                </div>
               ) : (
                 <button
-                  onClick={() => handleActiveSection("registerAsOrganizer")}
-                  className="w-full text-left"
+                onClick={() => handleActiveSection("registerAsOrganizer")}
+                className="w-full text-left"
                 >
                   <Icon Component={GrDashboard} link="#" label="Dashboard" />
                 </button>
@@ -133,6 +142,16 @@ export const DesktopDashboard: React.FC = () => {
             <OrderHistory isVisible={activeSection === "orderHistory"} />
           </div>
         )}
+        {/* REGISTER AS ORGANIZER */}
+        {activeSection === "registerAsOrganizer" && (
+          <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
+            <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
+            <p>you are a customer, want to register as an Organizer?</p>
+            <CustomerDashboard
+              isVisible={activeSection === "registerAsOrganizer"}
+            />
+          </div>
+        )}
         {/* ORGANIZER */}
         {activeSection === "organizerDashboard" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
@@ -143,14 +162,12 @@ export const DesktopDashboard: React.FC = () => {
             />
           </div>
         )}
-        {/* REGISTER AS ORGANIZER */}
-        {activeSection === "registerAsOrganizer" && (
+        {/* EVENT LIST */}
+        {activeSection === "eventList" && (
           <div className="bg-white p-6 rounded-2xl shadow-md min-h-[916px]">
             <p className="text-[20px] text-neutral-800 font-semibold">{`Hello ${user?.name},`}</p>
-            <p>you are a customer, want to register as an Organizer?</p>
-            <CustomerDashboard
-              isVisible={activeSection === "registerAsOrganizer"}
-            />
+            <p>Here you can see your events</p>
+            <EventList isVisible={activeSection === "eventList"} />
           </div>
         )}
 
