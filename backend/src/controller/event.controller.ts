@@ -54,8 +54,8 @@ export class EventController {
           title,
           description,
           location,
-          date: String(date),
-          time: String(time),
+          date,
+          time,
           price,
           seats,
           category,
@@ -71,7 +71,6 @@ export class EventController {
   }
 
   async createEventCloud(req: Request, res: Response) {
-    console.log("Headers received:", req.headers);
     try {
       if (!req.file) throw { message: "image empty" };
       const {
@@ -100,8 +99,8 @@ export class EventController {
           title,
           description,
           location,
-          date: String(date),
-          time: String(time),
+          date,
+          time,
           price: priceInt,
           seats: seatsInt,
           category,
