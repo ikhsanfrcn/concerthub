@@ -4,33 +4,6 @@ import { Card } from "../../molecules/home/Card";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 
-const dataDummy = [
-  {
-    image: "/taylorswift2.png",
-    name: "Taylor Swift",
-    location: "San Diego",
-    dateTime: "Dec 14, 21:00",
-  },
-  {
-    image: "/celinedion.png",
-    name: "Celine Dion",
-    location: "New York City",
-    dateTime: "Dec 13, 21:00",
-  },
-  {
-    image: "/justinbieber.png",
-    name: "Justin Bieber",
-    location: "San Fransisco",
-    dateTime: "Dec 16, 20:00",
-  },
-  {
-    image: "/silagencoglu.png",
-    name: "Sila Gencoglu",
-    location: "Boston",
-    dateTime: "Dec 18, 22:00",
-  },
-];
-
 interface Event {
   image: string;
   title: string;
