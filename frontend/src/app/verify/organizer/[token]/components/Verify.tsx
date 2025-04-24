@@ -4,12 +4,12 @@
 import axios from "@/lib/axios";
 import { useEffect, useState } from "react";
 
-export default function VerifyPage({token}: { token: string}) {
+export default function VerifyOrganizerPage({token}: { token: string}) {
   const [msg, setMsg] = useState<string>("");
   const onVerify = async () => {
     try {
       setMsg("Waiting ...");
-      const { data } = await axios.patch("/auth/verify", {}, {
+      const { data } = await axios.patch("/auth/verify/organizer", {}, {
         headers: {
             Authorization: `Bearer ${token}`
         }

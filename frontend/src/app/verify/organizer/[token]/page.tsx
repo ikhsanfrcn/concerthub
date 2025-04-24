@@ -1,4 +1,5 @@
-import VerifyPage from "./components/Verify";
+import VerifyOrganizerPage from "./components/Verify";
+
 
 export default async function Page({
   params,
@@ -11,7 +12,7 @@ export default async function Page({
 
   return (
     <div>
-      <VerifyPage token={token} />
+      <VerifyOrganizerPage token={token} />
     </div>
   );
 }
