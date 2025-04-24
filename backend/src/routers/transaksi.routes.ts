@@ -15,13 +15,13 @@ export class TransactionRouter {
   }
 
   private initializeRoutes() {
-    this.router.post(
+    this.router.get(
       "/",
       this.auth.verifyToken,
-      this.transactionController.createTransaction
+      this.transactionController.getTransactions
     );
 
-    this.router.get(
+    this.router.post(
       "/",
       this.auth.verifyToken,
       this.transactionController.createTransaction

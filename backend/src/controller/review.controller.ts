@@ -41,26 +41,49 @@ export class ReviewController {
     try {
       const { eventId, rating, comment } = req.body;
       const userId = req.user?.id as string; 
-
-      if (!eventId || typeof rating !== "number" || !comment) {
-        throw { message: "Missing or invalid fields" };
+     
+      const purchasedTicket = await prisma.purchasedTicket.findFirst({
+        where: {
+          userId,
+          ticket: {
+            session: {
+              id: eventId ,
+            },
+          },
+        },
+      });
+      
+      if (!purchasedTicket) {
+        throw new Error("You must purchase a ticket before writing a review.");
       }
+  
+      const existingReview = await prisma.review.findFirst({
+        where: { userId, eventId },
+      });
+  
+      if (existingReview) {
+        throw new Error("You have already reviewed this event.");
+      }
+      if (!eventId || typeof rating !== "number" || !comment) {
+        throw new Error("Missing or invalid fields");
+      }      
 
       await prisma.review.create({
         data: {
           userId,
           eventId,
+          purchasedTicketId: purchasedTicket?.id,
           rating,
           comment,
         },
       });
 
       res.status(201).send({
-        message: "Review created",
+        message: "Review created successfully.",
       });
     } catch (err) {
       console.log("createReview error:", err);
-      res.status(400).send(err);
+      res.status(400).send({ message: "Failed to create review", error: err });
     }
   }
 
