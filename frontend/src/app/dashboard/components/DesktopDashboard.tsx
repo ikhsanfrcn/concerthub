@@ -13,10 +13,13 @@ import { GrDashboard } from "react-icons/gr";
 import { OrganizerDashboard } from "./OrganizerDashboard";
 import { CustomerDashboard } from "./CustomerDashboard";
 import { ProfileForm } from "./ProfileForm";
+import EventForm from "@/components/modal/event";
+import { IoMdAdd } from "react-icons/io";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const { data: session, status } = useSession();
+  const [showModal, setShowModal] = useState(false);
 
   if (status === "loading") return <p>Loading user data ...</p>;
 
@@ -78,18 +81,28 @@ export const DesktopDashboard: React.FC = () => {
             </li>
             <li>
               {session?.user.role === "ORGANIZER" ? (
+                <li className="space-y-[10px]">
+                  <button
+                    onClick={() => handleActiveSection("organizerDashboard")}
+                    className="w-full text-left"
+                  >
+                    <Icon Component={GrDashboard} link="#" label="Dashboard" />
+                  </button>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="pl-[10px] w-full text-left"
+                  >
+                    <Icon Component={IoMdAdd} label="Create Event" />
+                  </button>
+                </li>
+              ) : (
                 <button
-                  onClick={() => handleActiveSection("organizerDashboard")}
+                  onClick={() => handleActiveSection("registerAsOrganizer")}
                   className="w-full text-left"
                 >
                   <Icon Component={GrDashboard} link="#" label="Dashboard" />
                 </button>
-              ) : <button
-              onClick={() => handleActiveSection("registerAsOrganizer")}
-              className="w-full text-left"
-            >
-              <Icon Component={GrDashboard} link="#" label="Dashboard" />
-            </button>}
+              )}
             </li>
           </ul>
           <ul className="flex flex-col space-y-[18.5px]">
@@ -140,6 +153,8 @@ export const DesktopDashboard: React.FC = () => {
             />
           </div>
         )}
+
+        {showModal && <EventForm onClose={() => setShowModal(false)} />}
       </div>
     </div>
   );

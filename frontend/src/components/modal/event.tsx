@@ -1,46 +1,70 @@
-'use client';
-
-import { useState } from 'react';
+import axios from "@/lib/axios";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 export default function EventForm({ onClose }: { onClose: () => void }) {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    location: '',
-    date: '',
-    time: '',
+    title: "",
+    description: "",
+    location: "",
+    date: "",
+    time: "",
     price: 0,
     seats: 0,
-    category: '',
-    image: '',
+    category: "",
+    image: null as File | null,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFormData({ ...formData, image: e.target.files[0] });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const eventData = {
-      ...formData,
-      // Add more details like organizerId, etc. if needed
-      organizerId: "organizer-id-placeholder", // Assume you have an authenticated user and get their ID
-    };
+    // Membuat FormData baru untuk mengirim data dalam format multipart/form-data
+    const form = new FormData();
+    form.append("title", formData.title);
+    form.append("description", formData.description);
+    form.append("location", formData.location);
+    form.append("date", formData.date);
+    form.append("time", formData.time);
+    form.append("price", formData.price.toString());
+    form.append("seats", formData.seats.toString());
+    form.append("category", formData.category);
+    if (formData.image) form.append("image", formData.image);
 
-    const res = await fetch('/api/events', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(eventData),
-    });
+    // Menambahkan organizerId ke FormData
+    if (session?.user.id) {
+      form.append("organizerId", session.user.id);
+    }
 
-    if (res.ok) {
-      alert('Event created successfully!');
-      onClose(); // Close modal or form
-    } else {
-      alert('Failed to create event');
+    const token = session?.accessToken;
+
+    try {
+      const res = await axios.post("/events/create/cloud", form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // Tidak perlu JSON.stringify karena kita menggunakan FormData
+        },
+      });
+
+      // Jika sukses, tutup form dan beri tahu user
+      console.log("Event created:", res);
+      onClose();
+      alert("Event created successfully!");
+    } catch (error) {
+      console.error("Error creating event:", error);
+      alert("Failed to create event");
     }
   };
 
@@ -54,7 +78,6 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
           ✖
         </button>
         <h2 className="text-2xl font-semibold mb-4">Create a New Event</h2>
-        
         <form onSubmit={handleSubmit} className="space-y-4 text-left">
           <input
             type="text"
@@ -123,7 +146,7 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
             type="file"
             name="image"
             required
-            onChange={handleChange}
+            onChange={handleFileChange}
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
 
