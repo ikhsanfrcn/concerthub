@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState, useEffect } from "react";
 import Mapconcert from "@/components/tiket/locanddate/home/map";
@@ -43,7 +44,7 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
                   backgroundPositionY: "-0px",
                 }}
               >
-                <div className="flex justify-between w-full px-4 sm:px-6 pb-4 text-white hidden sm:block">
+                <div className="justify-between w-full px-4 sm:px-6 pb-4 text-white hidden sm:flex">
                   <div>
                     <h2 className="text-2xl md:text-3xl font-semibold">{concert.title}</h2>
                     <p className="text-base md:text-lg">{concert.description}</p>
