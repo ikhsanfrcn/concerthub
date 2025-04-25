@@ -2,56 +2,27 @@
 
 import { useEffect, useState } from 'react'
 import { Star } from 'lucide-react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
 import { useSession } from 'next-auth/react'
-import axios from '@/lib/axios'
 
 export default function ReviewForm({ onClose }: { onClose: () => void }) {
-  const { data: session } = useSession()
-  const router = useRouter()
+  const { data: session, status } = useSession() // Access session data from next-auth
   const [formData, setFormData] = useState({
     review: '',
     rating: 0,
   })
 
-    const params = useParams();
-    const id = params?.id as string;
+  const [eventId, setEventId] = useState('') // State for eventId
+  const router = useRouter()
 
-    const [purchasedTicketId, setPurchasedTicketId] = useState<string | null>(null)
-
-    useEffect(() => {
-      const fetchPurchasedTicket = async () => {
-        if (!session?.user?.id || !id) return
-    
-        try {
-          const res = await axios.get(`/tickets/mytickets`, {
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`
-            }
-          })
-    
-          const tickets = res.data.tickets || []
-    
-          // Cari tiket yang punya eventId sesuai
-          const matchedTicket = tickets.find((ticket: { ticket: { eventId: string } }) => ticket.ticket?.eventId === id)
-    
-          if (matchedTicket) {
-            setPurchasedTicketId(matchedTicket.id)
-          } else {
-            setPurchasedTicketId(null)
-          }
-    
-        } catch (error) {
-          console.error('Failed to fetch purchased ticket ID:', error)
-          setPurchasedTicketId(null)
-        }
-      }
-    
-      fetchPurchasedTicket()
-    }, [session?.user?.id, id])
-    
-
-  
+  useEffect(() => {
+    // Fetch eventId from localStorage (or pass it as a prop)
+    const storedEventId = localStorage.getItem('eventId') // Assuming eventId is stored in localStorage
+    if (storedEventId) {
+      setEventId(storedEventId)
+    }
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -70,31 +41,28 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
     }
 
     const newReview = {
-      eventId: id,
-      userId: session.user.id,
+      eventId: "b1c5625f-22eb-4154-865f-081236382f36",
+      userId: session.user.id, // Use the user ID from the session
       rating: formData.rating,
       comment: formData.review,
-      purchasedTicketId: purchasedTicketId
     }
-    
-    
 
     try {
-      const res = await axios.post('/reviews', newReview, {
+      const res = await axios.post('/api/reviews/', newReview, {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
       })
 
-      if (res.status === 201) {
+      if (res.status === 200) {
         alert('Review submitted successfully!')
-        onClose() 
-        router.refresh()
+        onClose() // Close the form
+        router.refresh() // Refresh the page to display new review
       }
-      // console.log(newReview)
     } catch (error) {
       console.error('Failed to submit review:', error)
       alert('Failed to submit review')
     }
 
+    console.log(newReview)
   }
 
   return (

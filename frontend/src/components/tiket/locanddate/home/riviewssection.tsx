@@ -1,41 +1,55 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { Star } from 'lucide-react';
-import ReviewForm from '@/components/modal/riview';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
+import { useEffect, useState } from 'react'
+import { Star } from 'lucide-react'
+
+import { useSession } from 'next-auth/react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import ReviewForm from '@/components/modal/riview'
+import axios from '@/lib/axios'
 
 type Review = {
-  name: string;
-  avatar: string;
-  date: string;
-  comment: string;
-  rating: number;
-  likes: number;
-  replies: number;
-};
+  name: string
+  avatar: string
+  date: string
+  comment: string
+  rating: number
+}
 
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [user, setUser] = useState<{ name: string; email: string; avatar?: string } | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession() // Access session data from next-auth
+  const [reviews, setReviews] = useState<Review[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const [averageRating, setAverageRating] = useState(0)
+  const router = useRouter()
 
   
   useEffect(() => {
-    const storedUser = localStorage.getItem('userProfile');
-    if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      setUser({ ...parsed, avatar: '/avatars/default.png' });
+    const fetchReviews = async () => {
+      try {
+        const res = await axios.get('/reviews') 
+        if (res.status === 200) {
+          const fetchedReviews = res.data.reviews
+          setReviews(fetchedReviews)
+
+
+          const totalRating = fetchedReviews.reduce((acc: number, review: Review) => acc + review.rating, 0)
+          setAverageRating(totalRating / (fetchedReviews.length || 1))
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error)
+      }
     }
-    
-  }, []);
-  
-  const averageRating =
-  reviews.reduce((acc, cur) => acc + cur.rating, 0) / (reviews.length || 1);
-  
-  if (status === "loading") return null
+
+    fetchReviews()
+  }, [router])
+
+  const handleNewReview = (newReview: Review) => {
+    setReviews([newReview, ...reviews]) // Add new review to the top
+  }
+
+  if (status === 'loading') return null
 
   return (
     <section className="py-10 max-w-4xl mx-auto relative">
@@ -61,18 +75,18 @@ export default function ReviewsSection() {
               onClick={() => setShowModal(true)}
               className="mt-2 inline-flex items-center gap-1 text-sm text-pink-600 hover:underline"
             >
-              ✏️ Write your view
+              ✏️ Write your review
             </button>
           ) : (
-            <p className="text-sm text-gray-500 mt-1">
-              Login to write your view.
-            </p>
+            <p className="text-sm text-gray-500 mt-1">Login to write your review.</p>
           )}
         </div>
 
         <div className="relative">
           <select className="border rounded-full px-4 py-2 text-sm text-gray-700">
-            <option>Sort Comment By</option>
+            <option>Sort Comments By</option>
+            <option>Latest</option>
+            <option>Oldest</option>
           </select>
         </div>
       </div>
@@ -81,10 +95,10 @@ export default function ReviewsSection() {
       {reviews.map((r, i) => (
         <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
           <div className="flex items-center mb-2">
-            <Image src={r.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
+            <Image src={session ? session.user?.avatar || '' : ''} width={40} height={40} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
             <div>
-              <p className="font-semibold text-sm">{r.name}</p>
-              <p className="text-xs text-gray-400">{r.date}</p>
+              <p className="font-semibold text-sm">{session?.user.name}</p>
+             <p className="text-xs text-gray-400">{session?.user.email}</p>
             </div>
           </div>
           <div className="flex mb-1">
@@ -108,5 +122,5 @@ export default function ReviewsSection() {
       {/* MODAL */}
       {showModal && <ReviewForm onClose={() => setShowModal(false)} />}
     </section>
-  );
+  )
 }
