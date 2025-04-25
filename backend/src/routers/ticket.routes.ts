@@ -22,6 +22,7 @@ export class TicketRouter {
       this.authMiddleware.verifyRole,
       this.ticketController.createTicket
     );
+    this.router.get('/mytickets', this.authMiddleware.verifyToken, this.ticketController.getPurchasedTicket)
   }
 
   getRouter(): Router {
