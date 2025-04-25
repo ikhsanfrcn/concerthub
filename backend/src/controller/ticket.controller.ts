@@ -69,4 +69,29 @@ export class TicketController {
         .json({ message: error.message ?? "Failed to create ticket" });
     }
   }
+
+  async getPurchasedTicket(req: Request, res: Response) {
+    try {
+      const userId = req.query
+
+      const tickets = await prisma.purchasedTicket.findMany({
+        where: { userId: userId },
+        include: {
+          ticket: {
+            select: {
+              eventId: true,
+            },
+          },
+        },
+      });
+
+      res.status(200).json({
+        message: "Ticket list fetched successfully",
+        tickets,
+      });
+    } catch (error) {
+      console.error("getTicket error:", error);
+      res.status(500).json({ message: "Failed to fetch tickets", error });
+    }
+  }
 }
