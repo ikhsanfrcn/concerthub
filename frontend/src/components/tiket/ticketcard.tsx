@@ -8,7 +8,7 @@ interface ConcertData {
   price?: string;
   time?: string;
   quantity?: number;
-  artist?: string;
+  title?: string;
 }
 
 const TicketCard = () => {
@@ -32,7 +32,7 @@ const TicketCard = () => {
         location: parsed.location,
         time: parsed.time || "Fri 9:00 PM",
         quantity: parsed.quantity || 2,
-        artist: "Taylor Swift",
+        title: parsed.title,
       });
     }
   }, []);
@@ -64,9 +64,9 @@ const TicketCard = () => {
       </div>
 
       <div className="relative flex-1 p-4">
-        <h3 className="text-lg font-semibold">{concert.artist}</h3>
-        <p className="text-sm text-gray-600 mt-1">🎟️ Seat quantity: {concert.quantity}</p>
-        <p className="text-sm text-gray-600">💲 Price: {concert.price}</p>
+        <h3 className="text-lg font-semibold">{concert.title}</h3>
+        <p className="text-sm text-gray-600 mt-1">{concert.quantity}</p>
+        <p className="text-sm text-gray-600">{concert.price}</p>
         <p className="text-sm text-gray-600">🕘 {concert.time}</p>
         <p className="text-sm text-gray-600">📍 {concert.location}</p>
 

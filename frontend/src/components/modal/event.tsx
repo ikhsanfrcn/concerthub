@@ -78,7 +78,6 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
           ✖
         </button>
         <h2 className="text-2xl font-semibold mb-4">Create a New Event</h2>
-
         <form onSubmit={handleSubmit} className="space-y-4 text-left">
           <input
             type="text"
