@@ -51,7 +51,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
           },
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           alert("Profile update successfully!");
         } else {
           alert("Failed to update profile");

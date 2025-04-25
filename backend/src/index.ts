@@ -7,6 +7,9 @@ import { VoucherRouter } from "./routers/voucher.routes";
 import { UserRouter } from "./routers/user.routes";
 import { EventRouter } from "./routers/event.routes";
 import { OrganizerRouter } from "./routers/organizer.routes";
+import { TicketRouter } from "./routers/ticket.routes";
+import { EventSessionRouter } from "./routers/eventSession.routes";
+import { WebhookRouter } from "./routers/webhook.routes";
 
 
 const PORT: number = 8000;
@@ -43,6 +46,15 @@ app.use('/api/events', eventRouter.getRouter())
 
 const organizerRouter = new OrganizerRouter()
 app.use('/api/organizer', organizerRouter.getRouter())
+
+const ticketRouter = new TicketRouter()
+app.use('/api/tickets', ticketRouter.getRouter())
+
+const eventSessionRouter = new EventSessionRouter()
+app.use('/api/event-session', eventSessionRouter.getRouter())
+
+const webhookRouter = new WebhookRouter()
+app.use('/api/xendit', webhookRouter.getRouter())
 
 
 app.listen(PORT, () => {

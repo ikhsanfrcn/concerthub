@@ -140,26 +140,6 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar'
 };
 
-exports.Prisma.PointScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  amount: 'amount',
-  expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.PromotionScalarFieldEnum = {
-  id: 'id',
-  eventId: 'eventId',
-  type: 'type',
-  code: 'code',
-  discountValue: 'discountValue',
-  maxUsage: 'maxUsage',
-  usageCount: 'usageCount',
-  expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   organizerId: 'organizerId',
@@ -176,12 +156,23 @@ exports.Prisma.EventScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.TicketScalarFieldEnum = {
+exports.Prisma.EventSessionScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
+  date: 'date',
+  time: 'time',
+  location: 'location'
+};
+
+exports.Prisma.TicketScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  eventId: 'eventId',
   name: 'name',
+  description: 'description',
   price: 'price',
-  transactionId: 'transactionId'
+  category: 'category',
+  seatAvailable: 'seatAvailable'
 };
 
 exports.Prisma.TransactionScalarFieldEnum = {
@@ -193,10 +184,41 @@ exports.Prisma.TransactionScalarFieldEnum = {
   totalPrice: 'totalPrice',
   usedPoints: 'usedPoints',
   discount: 'discount',
+  status: 'status',
+  referenceId: 'referenceId',
   createdAt: 'createdAt',
   expireAt: 'expireAt',
-  status: 'status',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchasedTicketScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  ticketId: 'ticketId',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  qrCode: 'qrCode',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PromotionScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  type: 'type',
+  code: 'code',
+  discountValue: 'discountValue',
+  maxUsage: 'maxUsage',
+  usageCount: 'usageCount',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.VoucherScalarFieldEnum = {
@@ -212,14 +234,16 @@ exports.Prisma.ReferralUsageScalarFieldEnum = {
   id: 'id',
   referrerId: 'referrerId',
   referredId: 'referredId',
+  voucherId: 'voucherId',
   createdAt: 'createdAt',
-  voucherId: 'voucherId'
+  pointGranted: 'pointGranted'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
   id: 'id',
   eventId: 'eventId',
   userId: 'userId',
+  purchasedTicketId: 'purchasedTicketId',
   rating: 'rating',
   comment: 'comment',
   createdAt: 'createdAt'
@@ -244,8 +268,10 @@ exports.Role = exports.$Enums.Role = {
   ORGANIZER: 'ORGANIZER'
 };
 
-exports.PromotionType = exports.$Enums.PromotionType = {
-  DATE_BASED: 'DATE_BASED'
+exports.TicketCategory = exports.$Enums.TicketCategory = {
+  REGULAR: 'REGULAR',
+  PREMIUM: 'PREMIUM',
+  VIP: 'VIP'
 };
 
 exports.statusTransaction = exports.$Enums.statusTransaction = {
@@ -255,17 +281,23 @@ exports.statusTransaction = exports.$Enums.statusTransaction = {
   CANCEL: 'CANCEL'
 };
 
+exports.PromotionType = exports.$Enums.PromotionType = {
+  DATE_BASED: 'DATE_BASED'
+};
+
 exports.voucherType = exports.$Enums.voucherType = {
   REFERRAL: 'REFERRAL'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Point: 'Point',
-  Promotion: 'Promotion',
   Event: 'Event',
+  EventSession: 'EventSession',
   Ticket: 'Ticket',
   Transaction: 'Transaction',
+  PurchasedTicket: 'PurchasedTicket',
+  Promotion: 'Promotion',
+  Point: 'Point',
   Voucher: 'Voucher',
   ReferralUsage: 'ReferralUsage',
   Review: 'Review'
