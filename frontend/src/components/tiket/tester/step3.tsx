@@ -1,4 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
+
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -24,6 +28,25 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   const [voucher, setVoucher] = useState<any>(null);
   const [points, setPoints] = useState<number>(0);
 
+  const [ticketId, setTicketId] = useState<string | null>(null);
+  const [tickets, setTickets] = useState<any[]>([]);
+
+  // Fetch ticket info
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const res = await axios.get(`/tickets/by-event?eventId=${eventId}`);
+        if (Array.isArray(res.data.tickets)) {
+          setTickets(res.data.tickets);
+        }
+      } catch (err) {
+        console.error("Failed to fetch tickets:", err);
+      }
+    };
+    fetchTickets();
+  }, [eventId]);
+
+  // Load localStorage data
   useEffect(() => {
     const storedCategory = localStorage.getItem("selectedCategory");
     const storedQty = localStorage.getItem("seatQuantity");
@@ -31,14 +54,25 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     if (storedQty) setQuantity(parseInt(storedQty));
     if (storedCategory) {
       setCategory(storedCategory);
-      switch (storedCategory) {
-        case "VIP": setTicketPrice(600000); break;
-        case "Premium": setTicketPrice(400000); break;
-        case "Regular": setTicketPrice(200000); break;
-        default: setTicketPrice(0);
+
+      const matchedTicket = tickets.find(ticket => ticket.category === storedCategory);
+      if (matchedTicket) {
+        setTicketPrice(matchedTicket.price);
+      } else {
+        setTicketPrice(0);
       }
     }
-  }, []);
+  }, [tickets]);
+
+  // Set ticketId based on selected category
+  useEffect(() => {
+    if (tickets.length > 0 && category) {
+      const matched = tickets.find((ticket) => ticket.category === category);
+      if (matched) {
+        setTicketId(matched.id);
+      }
+    }
+  }, [tickets, category]);
 
   const fetchUserVoucher = async () => {
     try {
@@ -62,10 +96,13 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       const res = await axios.get("/voucher/points", {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
       });
-      if (res.status === 200) {
-        setPoints(res.data.totalPoints);
-        setAppliedDiscount(res.data.totalPoints);
-        localStorage.setItem("giftCard", String(res.data.totalPoints));
+  
+      if (res.status === 200 && Array.isArray(res.data.points)) {
+        const pointList = res.data.points;
+        const totalAmount = pointList.reduce((acc: number, curr: any) => acc + (curr.amount || 0), 0);
+        setPoints(totalAmount);
+        setAppliedDiscount(totalAmount); // dipakai untuk perhitungan diskon nominal
+        localStorage.setItem("giftCard", String(totalAmount));
       }
     } catch (err) {
       console.error("Error fetching points:", err);
@@ -83,28 +120,35 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
 
   if (status === "loading") return null;
 
+  // --- Perhitungan Harga ---
   const bookingFee = 0;
-  const ticketTotal = ticketPrice * quantity;
-  const discountAmount = ticketTotal * (appliedDiscount / 100);
+  const ticketTotal = (ticketPrice || 0) * (quantity || 1);
+  const discountAmount =
+    selectedDiscountType === "voucher"
+      ? ticketTotal * (appliedDiscount / 100)
+      : selectedDiscountType === "points"
+      ? appliedDiscount
+      : 0;
+
   const total = ticketTotal + bookingFee - discountAmount;
 
   const handleSubmit = async () => {
     const transactionData = {
       userId: session?.user.id,
       eventId,
-      category,
+      ticketId,
       quantity,
       totalPrice: total,
     };
 
     try {
-      const res = await axios.post("/transactions", transactionData, {
-        headers: { Authorization: `Bearer ${session?.accessToken}` },
-      });
-      if (res.status === 201) {
-        localStorage.setItem("transactionId", res.data.transactionId);
+      // const res = await axios.post("/transactions", transactionData, {
+      //   headers: { Authorization: `Bearer ${session?.accessToken}` },
+      // });
+      // if (res.status === 201) {
+      //   localStorage.setItem("transactionId", res.data.transactionId);
         onComplete();
-      }
+      // }
       console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
@@ -140,6 +184,10 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
               </button>
             ))}
           </div>
+
+          {ticketId && (
+            <p className="mt-4 text-xs text-gray-500">🎟 Ticket ID: {ticketId}</p>
+          )}
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-md">
@@ -179,6 +227,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
           <button
             className="mt-6 w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 rounded-full"
             onClick={handleSubmit}
+            disabled={!ticketId || !session}
           >
             Submit & Pay
           </button>
