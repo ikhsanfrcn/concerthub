@@ -4,32 +4,37 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import TicketCard from "@/components/tiket/ticketcard";
 
-export default function Step3({ onComplete }: { onComplete: () => void }) {
+interface Step3Props {
+  eventId: string;
+  eventTitle: string;
+  eventDate: string;
+  onComplete: () => void;
+}
+
+export default function Step3({ eventId, eventTitle, eventDate, onComplete }: Step3Props) {
   const { data: session, status } = useSession();
-  const [concert, setConcert] = useState<{ date: string; location: string } | null>(null);
+
   const [category, setCategory] = useState<string | null>(null);
   const [ticketPrice, setTicketPrice] = useState<number>(0);
-  const [seatQty, setSeatQty] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(1);
   const [deliveryMethod, setDeliveryMethod] = useState<string>("E-ticket");
 
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
-  const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none"); // Add "none" for no discount
+  const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none");
   const [voucher, setVoucher] = useState<any>(null);
   const [points, setPoints] = useState<number>(0);
 
   useEffect(() => {
-    const storedConcert = localStorage.getItem("selectedConcert");
     const storedCategory = localStorage.getItem("selectedCategory");
     const storedQty = localStorage.getItem("seatQuantity");
 
-    if (storedConcert) setConcert(JSON.parse(storedConcert));
-    if (storedQty) setSeatQty(parseInt(storedQty));
+    if (storedQty) setQuantity(parseInt(storedQty));
     if (storedCategory) {
       setCategory(storedCategory);
       switch (storedCategory) {
-        case "VIP": setTicketPrice(600000); break; 
-        case "Premium": setTicketPrice(400000); break; 
-        case "Regular": setTicketPrice(200000); break; 
+        case "VIP": setTicketPrice(600000); break;
+        case "Premium": setTicketPrice(400000); break;
+        case "Regular": setTicketPrice(200000); break;
         default: setTicketPrice(0);
       }
     }
@@ -43,8 +48,8 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
       if (res.status === 200 && res.data.vouchers.length > 0) {
         const discountPercent = res.data.vouchers[0].discountPercent;
         setVoucher(res.data.vouchers[0]);
-        setAppliedDiscount(discountPercent); // Store discount as percentage
-        localStorage.setItem("giftCard", String(discountPercent)); // Store in local storage for later use
+        setAppliedDiscount(discountPercent);
+        localStorage.setItem("giftCard", String(discountPercent));
       }
     } catch (err) {
       console.error("Error fetching voucher:", err);
@@ -59,9 +64,9 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
       });
       if (res.status === 200) {
         setPoints(res.data.totalPoints);
-        setAppliedDiscount(res.data.totalPoints); // Points are used as the discount
-        localStorage.setItem("giftCard", String(res.data.totalPoints)); // Store in local storage for later use
-      }   
+        setAppliedDiscount(res.data.totalPoints);
+        localStorage.setItem("giftCard", String(res.data.totalPoints));
+      }
     } catch (err) {
       console.error("Error fetching points:", err);
       setAppliedDiscount(0);
@@ -70,54 +75,41 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     if (session?.user) {
-      if (selectedDiscountType === "voucher") {
-        fetchUserVoucher();
-      } else if (selectedDiscountType === "points") {
-        fetchUserPoints();
-      } else {
-        setAppliedDiscount(0); // No discount if 'none' is selected
-      }
+      if (selectedDiscountType === "voucher") fetchUserVoucher();
+      else if (selectedDiscountType === "points") fetchUserPoints();
+      else setAppliedDiscount(0);
     }
   }, [session, selectedDiscountType]);
 
   if (status === "loading") return null;
 
-  const handleSubmit = async () => {
-    const discountAmount = (ticketPrice * seatQty) * (appliedDiscount / 100);
-    const total = ticketPrice * seatQty + bookingFee - discountAmount;
+  const bookingFee = 0;
+  const ticketTotal = ticketPrice * quantity;
+  const discountAmount = ticketTotal * (appliedDiscount / 100);
+  const total = ticketTotal + bookingFee - discountAmount;
 
+  const handleSubmit = async () => {
     const transactionData = {
-      concert,
+      userId: session?.user.id,
+      eventId,
       category,
-      ticketPrice,
-      seatQty,
-      deliveryMethod,
-      appliedDiscount: discountAmount,
+      quantity,
       totalPrice: total,
     };
 
     try {
-      const response = await axios.post("/transactions", transactionData, {
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
+      const res = await axios.post("/transactions", transactionData, {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
       });
-
-      if (response.status === 201) {
-        localStorage.setItem("transactionId", response.data.transactionId);
-        onComplete(); // ✅ lanjut ke step 4
-      } else {
-        console.error("Transaction creation failed");
+      if (res.status === 201) {
+        localStorage.setItem("transactionId", res.data.transactionId);
+        onComplete();
       }
+      console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
     }
   };
-
-  const bookingFee = 0;
-  const ticketTotal = ticketPrice * seatQty;
-  const discountAmount = ticketTotal * (appliedDiscount / 100);
-  const total = ticketTotal + bookingFee - discountAmount;
 
   return (
     <div>
@@ -138,18 +130,15 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
 
           <h2 className="text-lg font-semibold mt-6 mb-4">2. How do you want your tickets?</h2>
           <div className="flex gap-4 mb-3">
-            <button
-              className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === "E-ticket" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-              onClick={() => setDeliveryMethod("E-ticket")}
-            >
-              E-ticket
-            </button>
-            <button
-              className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === "Paper ticket" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-              onClick={() => setDeliveryMethod("Paper ticket")}
-            >
-              Paper ticket
-            </button>
+            {["E-ticket", "Paper ticket"].map(method => (
+              <button
+                key={method}
+                className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === method ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
+                onClick={() => setDeliveryMethod(method)}
+              >
+                {method}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -157,30 +146,21 @@ export default function Step3({ onComplete }: { onComplete: () => void }) {
           <h2 className="text-lg font-semibold mb-4">Payment details</h2>
           <div className="text-sm text-gray-700 space-y-1">
             <p className="flex justify-between"><span>Order number</span><span>11458523</span></p>
-            <p className="flex justify-between"><span>Ticket  </span><span> Taylor Swift, {concert?.date}</span></p>
+            <p className="flex justify-between"><span>Ticket</span><span>{eventTitle}, {eventDate}</span></p>
             <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
-            <p className="flex justify-between"><span>x {seatQty}</span><span>Rp {ticketTotal.toLocaleString("id-ID")}</span></p>
+            <p className="flex justify-between"><span>x {quantity}</span><span>Rp {ticketTotal.toLocaleString("id-ID")}</span></p>
             <p className="flex justify-between"><span>Booking fee</span><span>Rp {bookingFee.toFixed(2)}</span></p>
 
             <div className="flex gap-4 my-2">
-              <button
-                className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === "voucher" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-                onClick={() => setSelectedDiscountType("voucher")}
-              >
-                Use Voucher
-              </button>
-              <button
-                className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === "points" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-                onClick={() => setSelectedDiscountType("points")}
-              >
-                Use Points
-              </button>
-              <button
-                className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === "none" ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-                onClick={() => setSelectedDiscountType("none")}
-              >
-                No Discount
-              </button>
+              {["voucher", "points", "none"].map(type => (
+                <button
+                  key={type}
+                  className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === type ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
+                  onClick={() => setSelectedDiscountType(type as any)}
+                >
+                  {type === "none" ? "No Discount" : `Use ${type.charAt(0).toUpperCase() + type.slice(1)}`}
+                </button>
+              ))}
             </div>
 
             <p className="flex justify-between text-gray-500 mt-2">

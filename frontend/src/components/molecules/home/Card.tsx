@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface ICard{
     image: string;
@@ -6,11 +7,12 @@ interface ICard{
     location: string;
     date: string;
     time: string;
+    event: string
 }
 
-export const Card: React.FC<ICard> = ( {image, title, location, date, time} ) => {
+export const Card: React.FC<ICard> = ( {event , image, title, location, date, time} ) => {
     return (
-        <div className="rounded-3xl overflow-hidden border border-gray-300">
+        <Link href={`/test/${event}`} className="rounded-3xl overflow-hidden border border-gray-300">
             <Image
                 width={288}
                 height={290}
@@ -23,6 +25,6 @@ export const Card: React.FC<ICard> = ( {image, title, location, date, time} ) =>
                 <p className="text-gray-700 text-base">{location}</p>
                 <p className="text-gray-700 text-base">{date} <span>{` ${time}`}</span></p>
             </div>
-        </div>
+        </Link>
     );
 };

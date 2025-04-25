@@ -1,65 +1,69 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { Star } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import axios from 'axios'; // Import axios
+import { useEffect, useState } from 'react'
+import { Star } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { useSession } from 'next-auth/react'
 
 export default function ReviewForm({ onClose }: { onClose: () => void }) {
+  const { data: session, status } = useSession() // Access session data from next-auth
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     review: '',
     rating: 0,
-  });
+  })
 
-  const [userEmail, setUserEmail] = useState('');
-  const router = useRouter();
+  const [eventId, setEventId] = useState('') // State for eventId
+  const router = useRouter()
 
   useEffect(() => {
-    const stored = localStorage.getItem('userProfile');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      setUserEmail(parsed?.email || '');
+    // Fetch eventId from localStorage (or pass it as a prop)
+    const storedEventId = localStorage.getItem('eventId') // Assuming eventId is stored in localStorage
+    if (storedEventId) {
+      setEventId(storedEventId)
     }
-  }, []);
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleRating = (rate: number) => {
-    setFormData({ ...formData, rating: rate });
-  };
+    setFormData({ ...formData, rating: rate })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+
+    if (!session?.user?.id) {
+      alert('User not logged in')
+      return
+    }
 
     const newReview = {
-      name: `${formData.firstName} ${formData.lastName}`,
-      avatar: '/avatars/default.png',
-      date: new Date().toLocaleDateString(),
-      comment: formData.review,
+      eventId: "b1c5625f-22eb-4154-865f-081236382f36",
+      userId: session.user.id, // Use the user ID from the session
       rating: formData.rating,
-      likes: 0,
-      replies: 0,
-      email: userEmail,
-    };
+      comment: formData.review,
+    }
 
     try {
-      // Send the POST request using axios
-      const res = await axios.post('/api/reviews', newReview);
+      const res = await axios.post('/api/reviews/', newReview, {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
+      })
 
       if (res.status === 200) {
-        alert('Review submitted successfully!');
-        onClose(); // Close modal
-        router.refresh(); // Refresh page to show new review
+        alert('Review submitted successfully!')
+        onClose() // Close the form
+        router.refresh() // Refresh the page to display new review
       }
     } catch (error) {
-      console.error('Failed to submit review:', error);
-      alert('Failed to submit review');
+      console.error('Failed to submit review:', error)
+      alert('Failed to submit review')
     }
-  };
+
+    console.log(newReview)
+  }
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -71,16 +75,14 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
           ✖
         </button>
         <h2 className="text-2xl font-semibold mb-4">Leave a Review for Concert Hub</h2>
-        <p className="mb-4 text-gray-600">How would you rate for ConcertHub?</p>
+        <p className="mb-4 text-gray-600">How would you rate ConcertHub?</p>
 
         {/* Rating */}
         <div className="flex justify-center mb-6">
           {[1, 2, 3, 4, 5].map((i) => (
             <button key={i} onClick={() => handleRating(i)} className="mx-1">
               <Star
-                className={`w-6 h-6 ${
-                  formData.rating >= i ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
-                }`}
+                className={`w-6 h-6 ${formData.rating >= i ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
               />
             </button>
           ))}
@@ -88,22 +90,6 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4 text-left">
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First name"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last name"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
           <textarea
             name="review"
             placeholder="Write your review"
@@ -126,5 +112,5 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
         </p>
       </div>
     </div>
-  );
+  )
 }

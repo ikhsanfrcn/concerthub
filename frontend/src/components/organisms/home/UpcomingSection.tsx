@@ -10,6 +10,7 @@ interface Event {
   location: string;
   date: string;
   time: string;
+  id: string
 }
 
 interface Props {
@@ -60,6 +61,7 @@ export const UpcomingSection: React.FC<Props> = ({ className }) => {
                   location={item.location}
                   date={item.date}
                   time={item.time}
+                  event={item.id}
                 />
               </div>
             ))}

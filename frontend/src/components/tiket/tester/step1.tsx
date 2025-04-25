@@ -1,56 +1,36 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Mapconcert from "@/components/tiket/locanddate/home/map";
 import ReviewsSection from "@/components/tiket/locanddate/home/riviewssection";
 import Suggestion from "@/components/tiket/locanddate/home/suggesstion";
+import axios from "@/lib/axios";
 
 export default function Step1({ onComplete }: { onComplete: () => void }) {
-  // Update the concerts data structure to include artist name
-  const concerts = [
-    {
-      artist: "Taylor Swift",  // Add artist name here
-      date: "25 June 2025",
-      status: "Available",
-      time: "Fri 9:00 PM",
-      location: "New York",
-      disabled: false,
-    },
-    {
-      artist: "Ed Sheeran",  // Example artist
-      date: "26 June 2025",
-      status: "Available",
-      time: "Fri 9:00 PM",
-      location: "New York",
-      disabled: false,
-    },
-    {
-      artist: "Ariana Grande",  // Example artist
-      date: "27 June 2025",
-      status: "Sold out",
-      time: "Fri 9:00 PM",
-      location: "Los Angeles",
-      disabled: true,
-    },
-    {
-      artist: "BTS",  // Example artist
-      date: "28 June 2025",
-      status: "Available",
-      time: "Fri 9:00 PM",
-      location: "Chicago",
-      disabled: false,
-    },
-  ];
-
-  // State to store the search query
+  const [concerts, setConcerts] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  
-  // Filter concerts based on the search query
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchConcerts = async () => {
+      try {
+        const res = await axios.get("/events");
+        setConcerts(res.data);
+      } catch (error) {
+        console.error("Failed to fetch concerts", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchConcerts();
+  }, []);
+
   const filteredConcerts = concerts.filter((concert) => {
     return (
-      concert.artist.toLowerCase().includes(searchQuery.toLowerCase()) ||  // Include artist name in the filter
+      concert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       concert.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
       concert.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      concert.status.toLowerCase().includes(searchQuery.toLowerCase())
+      concert.status?.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
@@ -87,20 +67,16 @@ export default function Step1({ onComplete }: { onComplete: () => void }) {
 
           {/* Concert Listings */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredConcerts.length > 0 ? (
+            {loading ? (
+              <p className="text-center text-gray-500">Loading concerts...</p>
+            ) : filteredConcerts.length > 0 ? (
               filteredConcerts.map((concert, idx) => (
                 <div
                   key={idx}
-                  className={`flex flex-col sm:flex-row bg-white border rounded-xl p-4 shadow-sm ${
-                    concert.disabled ? "opacity-60" : ""
-                  }`}
+                  className={`flex flex-col sm:flex-row bg-white border rounded-xl p-4 shadow-sm`}
                 >
                   <div
-                    className={`w-full sm:w-28 h-28 rounded-xl flex flex-col justify-center items-center font-semibold mb-4 sm:mb-0 ${
-                      concert.disabled
-                        ? "bg-gray-300 text-gray-700"
-                        : "bg-indigo-900 text-white"
-                    }`}
+                    className={`w-full sm:w-28 h-28 rounded-xl flex flex-col justify-center items-center font-semibold mb-4 sm:mb-0`}
                   >
                     <div className="text-lg">{concert.date.split(" ")[0]}</div>
                     <div className="text-sm">{concert.date.split(" ")[1]}</div>
@@ -108,16 +84,8 @@ export default function Step1({ onComplete }: { onComplete: () => void }) {
                   </div>
 
                   <div className="sm:ml-4 flex-1">
-                    <h3 className="font-semibold text-lg">{concert.artist}</h3> {/* Show artist name */}
-                    <p
-                      className={`text-sm ${
-                        concert.status === "Available"
-                          ? "text-green-600"
-                          : "text-red-500"
-                      }`}
-                    >
-                      Status: {concert.status}
-                    </p>
+                    <h3 className="font-semibold text-lg">{concert.title}</h3> {/* Show artist name */}
+                    <p className="text-sm">{concert.status}</p>
                     <p className="text-sm">🗓 {concert.time}</p>
                     <p className="text-sm">📍 {concert.location}</p>
                   </div>
@@ -136,12 +104,7 @@ export default function Step1({ onComplete }: { onComplete: () => void }) {
                         );
                         onComplete(); // lanjut ke step 2
                       }}
-                      className={`w-full sm:w-auto px-4 py-2 rounded-full text-white font-semibold ${
-                        concert.disabled
-                          ? "bg-gray-300 cursor-not-allowed"
-                          : "bg-pink-500 hover:bg-pink-600"
-                      }`}
-                      disabled={concert.disabled}
+                      className={`w-full sm:w-auto px-4 py-2 rounded-full text-white font-semibold bg-pink-500 hover:bg-pink-600`}
                     >
                       View Ticket
                     </button>
