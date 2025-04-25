@@ -82,6 +82,7 @@ export class EventController {
   }
 
   async createEventCloud(req: Request, res: Response) {
+    // console.log("Headers received:", req.headers);
     try {
       if (!req.file) throw { message: "image empty" };
       const {
