@@ -32,9 +32,48 @@ export class TicketController {
     }
   }
 
+  async getTicketByEventId(req: Request, res: Response) {
+    try {
+      const { eventId } = req.query;
+
+      if (!eventId || typeof eventId !== "string") {
+        throw res.status(400).json({ message: "Event ID is required" });
+      }
+
+      const tickets = await prisma.ticket.findMany({
+        where: { eventId },
+        include: {
+          session: {
+            select: {
+              date: true,
+              time: true,
+              location: true,
+            },
+          },
+        },
+      });
+
+      if (!tickets || tickets.length === 0) {
+        res.status(404).json({ message: "No tickets found for this event" });
+      }
+
+      res.status(200).json({
+        message: "Ticket list fetched successfully",
+        tickets,
+      });
+    } catch (error) {
+      console.error("getTicketByEventId error:", error);
+      res.status(500).json({
+        message: "Failed to fetch tickets",
+        error: (error as Error).message,
+      });
+    }
+  }
+
   async createTicket(req: Request, res: Response) {
     try {
-      const { sessionId, name, description, price, category, seatAvailable } = req.body;
+      const { sessionId, name, description, price, category, seatAvailable } =
+        req.body;
 
       if (!sessionId || !name || !price || !category || !seatAvailable) {
         throw new Error("Missing required fields");
@@ -44,7 +83,8 @@ export class TicketController {
         where: { id: sessionId },
       });
 
-      if (!session) throw res.status(404).json({ message: "Session not found" });
+      if (!session)
+        throw res.status(404).json({ message: "Session not found" });
 
       const ticket = await prisma.ticket.create({
         data: {
@@ -70,16 +110,57 @@ export class TicketController {
     }
   }
 
-  async getPurchasedTicket(req: Request, res: Response) {
+  async getPurchasedTickets(req: Request, res: Response) {
     try {
-      const userId = req.query
-
       const tickets = await prisma.purchasedTicket.findMany({
-        where: { userId: userId },
         include: {
           ticket: {
             select: {
               eventId: true,
+            },
+          },
+        },
+      });
+
+      res.status(200).json({
+        message: "Ticket list fetched successfully",
+        tickets,
+      });
+    } catch (error) {
+      console.error("getTicket error:", error);
+      res.status(500).json({ message: "Failed to fetch tickets", error });
+    }
+  }
+
+  async getUserPurchasedTickets(req: Request, res: Response) {
+    try {
+      const { userId } = req.query;
+
+      if (!userId || typeof userId !== "string") {
+        throw res.status(400).json({ message: "User ID is required" });
+      }
+
+      const tickets = await prisma.purchasedTicket.findMany({
+        where: { userId },
+        include: {
+          ticket: {
+            select: {
+              eventId: true,
+              category: true,
+              price: true
+            },
+          },
+          session: {
+            select: {
+              date: true,
+              time: true,
+              location: true,
+              event: {
+                select: {
+                  title: true,
+                  description: true,
+                },
+              },
             },
           },
         },

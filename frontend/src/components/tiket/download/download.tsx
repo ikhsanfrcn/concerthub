@@ -1,58 +1,77 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import axios from "@/lib/axios";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-interface Concert {
-  date: string;
-  location: string;
-}
-
-interface User {
-  name: string;
-  email: string;
+interface Ticket {
+  id: string;
+  transactionId: string;
+  qrCode: string | null;
+  createdAt: string;
+  ticket: {
+    eventId: string;
+    category: string;
+    price: string;
+  };
+  session: {
+    date: string;
+    time: string;
+    location: string;
+    event: {
+      title: string;
+      description: string;
+    };
+  };
 }
 
 export default function DownloadPage() {
-  const [concert, setConcert] = useState<Concert | null>(null);
-  const [category, setCategory] = useState<string>("Regular");
-  const [seatQty, setSeatQty] = useState<number>(1);
-  const [user, setUser] = useState<User | null>(null);
-  const [ticketPrice, setTicketPrice] = useState<number>(200);
+  const { data: session } = useSession();
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
   useEffect(() => {
-    const storedConcert = localStorage.getItem("selectedConcert");
-    const storedCategory = localStorage.getItem("selectedCategory");
-    const storedQty = localStorage.getItem("seatQuantity");
-    const storedUser = localStorage.getItem("userProfile");
-
-    if (storedConcert) setConcert(JSON.parse(storedConcert));
-    if (storedQty) setSeatQty(parseInt(storedQty));
-    if (storedUser) setUser(JSON.parse(storedUser));
-    if (storedCategory) {
-      setCategory(storedCategory);
-      switch (storedCategory) {
-        case "VIP": setTicketPrice(600); break;
-        case "Premium": setTicketPrice(400); break;
-        case "Regular": setTicketPrice(200); break;
-      }
+    if (session?.user?.id) {
+      fetchTickets(session.user.id);
     }
-  }, []);
 
-  const TicketCard = ({ index }: { index: number }) => (
+  }, [session]);
+
+  const fetchTickets = async (userId: string) => {
+    try {
+      const response = await axios.get(`/tickets/my-purchased?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`
+        }
+      });
+      setTickets(response.data.tickets);
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
+    }
+  };
+
+  const TicketCard = ({ ticket, index }: { ticket: Ticket; index: number }) => (
     <div className="relative w-[360px] sm:w-[460px] h-[200px] rounded-3xl bg-gradient-to-r from-pink-500 to-indigo-700 text-white overflow-hidden shadow-lg flex items-center justify-between px-6 py-4 my-4">
       <div className="flex flex-col justify-between h-full py-2">
         <div className="text-xs uppercase opacity-80">Live Music</div>
-        <h3 className="text-xl font-bold leading-5">Taylor Swift Concert</h3>
-        <p className="text-xs mt-1">{concert?.date} · 21:00</p>
-        <p className="text-xs">{concert?.location || "New York Arena"}</p>
-        <p className="text-[11px] mt-2">
-          Gate 02 | Row 23 | <strong>Category {category}</strong>
+        <h3 className="text-xl font-bold leading-5">
+          {ticket.session.event.title} Concert
+        </h3>
+        <p className="text-xs mt-1">
+          {new Date(ticket.session.date).toLocaleDateString()} · {ticket.session.time}
         </p>
-        <p className="text-sm mt-1 text-white font-semibold">$ {ticketPrice}</p>
+        <p className="text-xs">{ticket.session.location}</p>
+        <p className="text-[11px] mt-2">
+          Gate 02 | Row 23 | <strong> {ticket.ticket.category}</strong>
+        </p>
+        <p className="text-sm mt-1 text-white font-semibold">Rp. {ticket.ticket.price}</p>
       </div>
 
       <div className="flex flex-col items-center justify-center h-full">
-        <img
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${index + 1}-${user?.email}&size=100x100`}
+        <Image
+          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${index + 1}-${session?.user?.email}`}
+          width={100}
+          height={100}
           alt="QR Code"
           className="w-20 h-20 rounded-md"
         />
@@ -62,11 +81,13 @@ export default function DownloadPage() {
 
   return (
     <div className="min-h-screen px-4 py-8 bg-gray-50">
-      <h1 className="text-center text-2xl font-bold text-gray-800 mb-6">🎫 Your Concert Tickets</h1>
+      <h1 className="text-center text-2xl font-bold text-gray-800 mb-6">
+        🎫 Your Concert Tickets
+      </h1>
 
       <div className="flex flex-col items-center">
-        {Array.from({ length: seatQty }).map((_, i) => (
-          <TicketCard key={i} index={i} />
+        {tickets.map((ticket, index) => (
+          <TicketCard key={ticket.id} ticket={ticket} index={index} />
         ))}
       </div>
 

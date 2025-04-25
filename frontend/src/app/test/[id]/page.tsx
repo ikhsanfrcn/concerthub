@@ -49,11 +49,11 @@ const EventDetail = () => {
   const steps = [
     {
       title: "Step 1",
-      component: <Step1 onComplete={() => setCurrentStep(1)} />,
+      component: <Step1 eventId={id} onComplete={() => setCurrentStep(1)} />,
     },
     {
       title: "Step 2",
-      component: <Step2 onComplete={() => setCurrentStep(2)} />,
+      component: <Step2 eventId={id} onComplete={() => setCurrentStep(2)} />,
     },
     {
       title: "Step 3",
