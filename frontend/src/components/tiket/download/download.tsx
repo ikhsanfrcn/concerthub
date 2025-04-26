@@ -34,16 +34,18 @@ export default function DownloadPage() {
     if (session?.user?.id) {
       fetchTickets(session.user.id);
     }
-
   }, [session]);
 
   const fetchTickets = async (userId: string) => {
     try {
-      const response = await axios.get(`/tickets/my-purchased?userId=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`
+      const response = await axios.get(
+        `/tickets/my-purchased?userId=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
         }
-      });
+      );
       setTickets(response.data.tickets);
     } catch (error) {
       console.error("Error fetching tickets:", error);
@@ -58,18 +60,23 @@ export default function DownloadPage() {
           {ticket.session.event.title} Concert
         </h3>
         <p className="text-xs mt-1">
-          {new Date(ticket.session.date).toLocaleDateString()} · {ticket.session.time}
+          {new Date(ticket.session.date).toLocaleDateString()} ·{" "}
+          {ticket.session.time}
         </p>
         <p className="text-xs">{ticket.session.location}</p>
         <p className="text-[11px] mt-2">
           Gate 02 | Row 23 | <strong> {ticket.ticket.category}</strong>
         </p>
-        <p className="text-sm mt-1 text-white font-semibold">Rp. {ticket.ticket.price}</p>
+        <p className="text-sm mt-1 text-white font-semibold">
+          Rp. {ticket.ticket.price}
+        </p>
       </div>
 
       <div className="flex flex-col items-center justify-center h-full">
         <Image
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${index + 1}-${session?.user?.email}`}
+          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${
+            index + 1
+          }-${session?.user?.email}`}
           width={100}
           height={100}
           alt="QR Code"
