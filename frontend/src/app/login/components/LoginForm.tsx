@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 
 interface Props {
@@ -39,7 +39,10 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
     try {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
+      toast.success(data.message);
+
       action.resetForm();
+ 
 
 await signIn("credentials", {
         redirectTo: "/",
@@ -52,16 +55,30 @@ await signIn("credentials", {
       });
       // console.log(data);
       
+      
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data?.message);
+        toast.error(error.response?.data?.message || "Login failed");
         console.log(error);
+      } else {
+        toast.error("An unexpected error occurred");
+        console.error(error);
       }
     }
   };
 
   return (
     <div className={`${className}`}>
+       <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">

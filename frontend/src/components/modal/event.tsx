@@ -1,6 +1,7 @@
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function EventForm({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession();
@@ -58,18 +59,29 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
         },
       });
 
+      toast.success(res.data.message || "Event created successfully!");
+
       // Jika sukses, tutup form dan beri tahu user
       console.log("Event created:", res);
       onClose();
-      alert("Event created successfully!");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating event:", error);
-      alert("Failed to create event");
+      const msg =
+      error.response?.data?.message || "Failed to create event. Please try again.";
+    toast.error(msg);
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+       <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
       <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl text-center relative">
         <button
           onClick={onClose}

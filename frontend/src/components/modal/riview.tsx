@@ -6,6 +6,7 @@ import { Star } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ReviewForm({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession();
@@ -88,13 +89,16 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
       });
 
       if (res.status === 200) {
-        alert("Review submitted successfully!");
+        toast.success(res.data.message || "Review submitted successfully!");
+        onClose();
         onClose();
         router.refresh();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to submit review:", error);
-      alert("Failed to submit review");
+      toast.error(
+        error.response?.data?.message || "Failed to submit review"
+      );
     }
 
     console.log(newReview);
@@ -102,6 +106,15 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+       <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
       <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl text-center relative">
         <button
           onClick={onClose}
