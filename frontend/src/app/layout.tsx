@@ -1,22 +1,17 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Bonheur_Royale, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import RouteChangeHandler from "@/components/loadingpage/routechange";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const bonheur = Bonheur_Royale({
-    subsets: ["latin"],
-    weight: "400",
-    variable: "--font-bonheur"
-})
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bonheur",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,15 +20,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bonheur.variable} container mx-auto max-w-[2560px] antialiased`}
+        className={`
+          ${geistSans.variable}
+          ${geistMono.variable}
+          ${bonheur.variable}
+          container mx-auto max-w-[2560px] antialiased
+        `}
       >
-        {children}
+        {/* <-- ini Client Component */}
+        <RouteChangeHandler>{children}</RouteChangeHandler>
       </body>
     </html>
   );

@@ -74,133 +74,110 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
         pauseOnHover
       />
 
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign up to your account
-          </h2>
-        </div>
+       <div className="w-full max-w-md space-y-8">
+        <h2 className="text-2xl font-bold text-gray-900">Sign up</h2>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={RegisterSchema}
-            onSubmit={onRegister}
-          >
-            {(props: FormikProps<IRegisterForm>) => {
-              const { touched, errors, isSubmitting } = props;
-              return (
-                <Form className="space-y-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
-                      Full Name
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        name="name"
-                        type="name"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                      />
-                      {touched.name && errors.name ? (
-                        <div className="text-red-500">{errors.name}</div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
-                      Email address
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        name="email"
-                        type="email"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                      />
-                      {touched.email && errors.email ? (
-                        <div className="text-red-500">{errors.email}</div>
-                      ) : null}
-                    </div>
-                  </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RegisterSchema}
+          onSubmit={onRegister}
+        >
+          {(props: FormikProps<IRegisterForm>) => {
+            const { touched, errors, isSubmitting } = props;
+            return (
+              <Form className="space-y-6">
+                {/* Full Name */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    Full Name
+                  </label>
+                  <Field
+                    name="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  />
+                  {touched.name && errors.name && (
+                    <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                  )}
+                </div>
 
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <label
-                        htmlFor="password"
-                        className="block text-sm/6 font-medium text-gray-900"
-                      >
-                        Password
-                      </label>
-                      <div className="text-sm">
-                        <Link
-                          href="#"
-                          className="font-semibold text-indigo-600 hover:text-indigo-500"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="mt-2">
-                      <Field
-                        name="password"
-                        type="password"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                      />
-                      {touched.password && errors.password ? (
-                        <div className="text-red-500">{errors.password}</div>
-                      ) : null}
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="referralCode"
-                      className="block text-sm/6 font-medium text-gray-900"
-                    >
-                      Referral Code
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        name="referralCode"
-                        type="referralCode"
-                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                      />
-                      {touched.referralCode && errors.referralCode ? (
-                        <div className="text-red-500">
-                          {errors.referralCode}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
+                {/* Email */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    Email address
+                  </label>
+                  <Field
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  />
+                  {touched.email && errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                  )}
+                </div>
 
-                  <div>
-                    <button
-                      type="submit"
-                      className="flex w-full justify-center rounded-md bg-primary-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 hover:cursor-pointer"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Loading ..." : "Sign up"}
-                    </button>
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
+                {/* Password */}
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <Field
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  />
+                  {touched.password && errors.password && (
+                    <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                  )}
+                </div>
 
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Do you have an account?{" "}
-            <Link
-              href="/login"
-              className="font-semibold text-primary-500 hover:text-indigo-500"
-            >
-              Login
-            </Link>
-          </p>
-        </div>
+                {/* Referral Code */}
+                <div>
+                  <label htmlFor="referralCode" className="block text-sm font-medium text-gray-700">
+                    Referral Code (optional)
+                  </label>
+                  <Field
+                    name="referralCode"
+                    type="text"
+                    placeholder="Enter referral code"
+                    className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  />
+                  {touched.referralCode && errors.referralCode && (
+                    <p className="mt-1 text-sm text-red-500">{errors.referralCode}</p>
+                  )}
+                </div>
+
+                {/* Sign up button */}
+                <div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`
+                      w-full flex justify-center py-3 rounded-lg font-semibold transition
+                      ${
+                        isSubmitting
+                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          : "bg-pink-600 text-white hover:bg-pink-700"
+                      }
+                    `}
+                  >
+                    {isSubmitting ? "Loading..." : "Sign up"}
+                  </button>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
+
+        <p className="text-center text-sm text-gray-500">
+          Already have an account?{" "}
+          <Link href="/login" className="text-pink-600 font-medium hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

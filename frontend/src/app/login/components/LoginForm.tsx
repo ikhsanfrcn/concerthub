@@ -1,4 +1,5 @@
 "use client";
+
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
@@ -27,6 +28,7 @@ interface ILoginForm {
 }
 
 export const LoginForm: React.FC<Props> = ({ className }) => {
+
   const initialValues: ILoginForm = {
     email: "",
     password: "",
@@ -44,7 +46,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       action.resetForm();
  
 
-await signIn("credentials", {
+const result = await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
         name: user.name,
@@ -53,8 +55,6 @@ await signIn("credentials", {
         avatar: user.avatar || "",
         accessToken: data.access_token,
       });
-      // console.log(data);
-      
       
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -66,6 +66,7 @@ await signIn("credentials", {
       }
     }
   };
+
 
   return (
     <div className={`${className}`}>
@@ -82,7 +83,7 @@ await signIn("credentials", {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign up to your account
+            Log in
           </h2>
         </div>
 
