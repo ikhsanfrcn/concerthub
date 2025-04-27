@@ -31,7 +31,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [tickets, setTickets] = useState<any[]>([]);
 
-  // Fetch ticket info
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -46,7 +45,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     fetchTickets();
   }, [eventId]);
 
-  // Load localStorage data
   useEffect(() => {
     const storedCategory = localStorage.getItem("selectedCategory");
     const storedQty = localStorage.getItem("seatQuantity");
@@ -64,7 +62,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     }
   }, [tickets]);
 
-  // Set ticketId based on selected category
   useEffect(() => {
     if (tickets.length > 0 && category) {
       const matched = tickets.find((ticket) => ticket.category === category);
@@ -83,7 +80,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         const discountPercent = res.data.vouchers[0].discountPercent;
         setVoucher(res.data.vouchers[0]);
         setAppliedDiscount(discountPercent);
-        localStorage.setItem("giftCard", String(discountPercent));
       }
     } catch (err) {
       console.error("Error fetching voucher:", err);
@@ -101,8 +97,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         const pointList = res.data.points;
         const totalAmount = pointList.reduce((acc: number, curr: any) => acc + (curr.amount || 0), 0);
         setPoints(totalAmount);
-        setAppliedDiscount(totalAmount); // dipakai untuk perhitungan diskon nominal
-        localStorage.setItem("giftCard", String(totalAmount));
+        setAppliedDiscount(totalAmount);
       }
     } catch (err) {
       console.error("Error fetching points:", err);
@@ -120,7 +115,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
 
   if (status === "loading") return null;
 
-  // --- Perhitungan Harga ---
   const bookingFee = 0;
   const ticketTotal = (ticketPrice || 0) * (quantity || 1);
   const discountAmount =
@@ -142,13 +136,14 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     };
 
     try {
-      // const res = await axios.post("/transactions", transactionData, {
-      //   headers: { Authorization: `Bearer ${session?.accessToken}` },
-      // });
-      // if (res.status === 201) {
-      //   localStorage.setItem("transactionId", res.data.transactionId);
+      const res = await axios.post("/transactions", transactionData, {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
+      });
+      if (res.status === 201) {
+        localStorage.setItem("transactionId", res.data.invoice.externalId);
+        localStorage.setItem("invoiceUrl", res.data.invoice.invoiceUrl);
         onComplete();
-      // }
+      }
       console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);

@@ -114,6 +114,7 @@ model Transaction {
   usedPoints  Int               @default(0)
   discount    Int               @default(0)
   status      statusTransaction @default(PENDING)
+  invoiceUrl  String?
   referenceId String            @unique
   createdAt   DateTime          @default(now())
   expireAt    DateTime

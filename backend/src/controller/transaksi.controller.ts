@@ -1,18 +1,86 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
 import { v4 as uuidv4 } from "uuid";
+import xenditClient from "../helpers/xendit";
+import { CreateInvoiceRequest } from "xendit-node/invoice/models";
+import { statusTransaction } from "../../prisma/generated/prisma";
 
 export class TransactionController {
-
   async getTransactions(req: Request, res: Response) {
     try {
       const transactions = await prisma.transaction.findMany({
         where: {
-          userId: req.user?.id,  
+          userId: req.user?.id,
         },
         include: {
-          event: true,            
-          ticket: true,       
+          event: true,
+          ticket: true,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+
+      res.status(200).send({
+        message: "Data transaksi berhasil diambil",
+        transactions,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        message: "Terjadi kesalahan",
+        error: err,
+      });
+    }
+  }
+
+  async getTransactionsById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const transaction = await prisma.transaction.findUnique({
+        where: {
+          id: id,
+        },
+        include: {
+          event: true, 
+          ticket: true,
+        },
+      });
+  
+      if (!transaction) {
+         res.status(404).send({
+          message: "Transaksi tidak ditemukan",
+        });
+      }
+  
+      res.status(200).send({
+        message: "Data transaksi berhasil diambil",
+        transaction,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send({
+        message: "Terjadi kesalahan saat mengambil data transaksi",
+        error: err,
+      });
+    }
+  }
+
+  async getUserTransactions(req: Request, res: Response) {
+    try {
+      const { userId } = req.query;
+
+      if (!userId || typeof userId !== "string") {
+        throw res.status(400).json({ message: "User ID is required" });
+      }
+
+      const transactions = await prisma.transaction.findMany({
+        where: {
+          userId: userId,
+          status: "PENDING"
+        },
+        include: {
+          event: true,
+          ticket: true,
         },
         orderBy: { createdAt: "desc" },
       });
@@ -33,32 +101,54 @@ export class TransactionController {
   // Membuat transaksi baru
   async createTransaction(req: Request, res: Response) {
     try {
-      const { eventId, ticketId, quantity, totalPrice, usedPoints, discount } = req.body;
+      const { eventId, ticketId, quantity, totalPrice, usedPoints, discount } =
+        req.body;
+      const referenceId = `txn-${uuidv4()}`;
       const userId = req.user?.id;
-      const referenceId = `txn-${uuidv4()}`
 
-      if (!eventId || !quantity || !totalPrice || !userId) {
-        throw { message: "EventId, quantity, totalPrice, dan userId harus diisi" };
-      }
+      await prisma.$transaction(async (txn) => {
+        if (!eventId || !quantity || !totalPrice || !userId) {
+          throw {
+            message: "EventId, quantity, totalPrice, dan userId harus diisi",
+          };
+        }
 
-      const newTransaction = await prisma.transaction.create({
-        data: {
-          userId,
-          eventId,
-          ticketId,
-          quantity,
-          totalPrice,
-          usedPoints: usedPoints || 0,  // Defaultkan jika tidak ada
-          discount: discount || 0,      // Defaultkan jika tidak ada
-          status: "PENDING",
-          referenceId: referenceId,
-          expireAt: new Date(Date.now() + 60 * 60 * 1000)
-        },
-      });
+        const transaction = await txn.transaction.create({
+          data: {
+            userId,
+            eventId,
+            ticketId,
+            quantity,
+            totalPrice,
+            usedPoints: usedPoints || 0,
+            discount: discount || 0,
+            status: "PENDING",
+            referenceId: referenceId,
+            expireAt: new Date(Date.now() + 60 * 60 * 1000),
+          },
+        });
 
-      res.status(201).send({
-        message: "Transaksi berhasil dibuat",
-        transaction: newTransaction,
+        await txn.ticket.update({
+          data: { seatAvailable: { decrement: quantity } },
+          where: { id: ticketId },
+        });
+
+        const data: CreateInvoiceRequest = {
+          amount: totalPrice,
+          invoiceDuration: "3600",
+          externalId: transaction.id,
+          description: `Invoice order id ${transaction.id}`,
+          currency: "IDR",
+          reminderTime: 1,
+        };
+        const invoice = await xenditClient.Invoice.createInvoice({ data });
+
+        await txn.transaction.update({
+          data: { invoiceUrl: invoice.invoiceUrl },
+          where: { id: transaction.id },
+        });
+
+        res.status(201).send({ message: "Transaksi berhasil dibuat", invoice });
       });
     } catch (err) {
       console.log(err);
@@ -71,52 +161,63 @@ export class TransactionController {
 
   async updateTransaction(req: Request, res: Response) {
     try {
-      const { transactionId } = req.params;
-      const { status } = req.body; // PENDING / PAID / EXPIRED / CANCEL
-  
-      const transaction = await prisma.transaction.findUnique({
-        where: { id: transactionId },
-        include: {
-          user: true,
-          ticket: {
-            include: {
-              session: true,
+      const { status, external_id } = req.body;
+      console.log(req.body);
+
+      if (status == statusTransaction.PAID) {
+        await prisma.transaction.update({
+          data: { status: "PAID" },
+          where: { id: external_id },
+        });
+
+        const transaction = await prisma.transaction.findUnique({
+          where: { id: external_id },
+          include: {
+            ticket: {
+              include: {
+                session: true,
+              },
             },
           },
-        },
-      });
-  
-      if (!transaction) {
-        throw res.status(404).json({ message: "Transaction not found" });
-      }
-  
-      // Update status
-      const updatedTransaction = await prisma.transaction.update({
-        where: { id: transactionId },
-        data: { status },
-      });
-  
-      // If status PAID, create PurchasedTicket(s)
-      if (status === "PAID") {
-        const ticketsToCreate = Array.from({ length: transaction.quantity }, () => ({
-          transactionId: transaction.id,
-          ticketId: transaction.ticketId,
-          sessionId: transaction.ticket.sessionId,
-          userId: transaction.userId,
-        }));
-  
-        await prisma.purchasedTicket.createMany({
-          data: ticketsToCreate,
+        });
+        if (transaction) {
+          const ticketsToCreate = Array.from(
+            { length: transaction.quantity },
+            () => ({
+              transactionId: transaction.id,
+              ticketId: transaction.ticketId,
+              sessionId: transaction.ticket.sessionId,
+              userId: transaction.userId,
+            })
+          );
+
+          await prisma.purchasedTicket.createMany({
+            data: ticketsToCreate,
+          });
+        } else {
+          res.status(404).json({ message: "Transaction not found" });
+        }
+      } else if (status == statusTransaction.EXPIRED) {
+        await prisma.$transaction(async (tnx) => {
+          await tnx.transaction.update({
+            data: { status: "EXPIRED" },
+            where: { id: external_id },
+          });
+
+          const transaction = await prisma.transaction.findUnique({
+            where: { id: external_id },
+          });
+
+          await tnx.ticket.update({
+            data: { seatAvailable: { increment: transaction?.quantity } },
+            where: { id: transaction?.ticketId },
+          });
         });
       }
-  
-      res.status(200).json({
-        message: "Transaction status updated successfully",
-        transaction: updatedTransaction,
-      });
-    } catch (err) {
-      console.error("updateTransactionStatus error:", err);
-      res.status(500).json({ message: "Failed to update transaction", error: err });
+      res.status(200).json({ message: "Success" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error });
     }
   }
 }

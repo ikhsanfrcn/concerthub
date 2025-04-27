@@ -40,6 +40,7 @@
     "nodemailer": "^6.10.1",
     "prisma": "^6.6.0",
     "streamifier": "^0.1.1",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "xendit-node": "^6.3.0"
   }
 }

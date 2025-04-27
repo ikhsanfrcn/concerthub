@@ -185,6 +185,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   usedPoints: 'usedPoints',
   discount: 'discount',
   status: 'status',
+  invoiceUrl: 'invoiceUrl',
   referenceId: 'referenceId',
   createdAt: 'createdAt',
   expireAt: 'expireAt',

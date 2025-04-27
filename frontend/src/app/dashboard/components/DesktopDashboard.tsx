@@ -16,11 +16,15 @@ import { ProfileForm } from "./ProfileForm";
 import EventForm from "@/components/modal/event";
 import { IoMdAdd } from "react-icons/io";
 import { EventList } from "./EventList";
+import EventSessionCreate from "@/components/modal/eventSessionCreate";
+import TicketCreate from "@/components/modal/ticketCreate";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const { data: session, status } = useSession();
   const [showModal, setShowModal] = useState(false);
+  const [showSessionModal, setShowSessionModal] = useState(false);
+  const [showTicketModal, setShowTicketModal] = useState(false);
 
   if (status === "loading") return <p>Loading user data ...</p>;
 
@@ -91,23 +95,42 @@ export const DesktopDashboard: React.FC = () => {
                   </button>
                   <div className="pl-[10px] space-y-[18.5px]">
                     <button
+                      onClick={() => handleActiveSection("eventList")}
+                      className="w-full text-left"
+                    >
+                      <Icon
+                        Component={GrDashboard}
+                        link="#"
+                        label="Event List"
+                      />
+                    </button>
+
+                    <button
                       onClick={() => setShowModal(true)}
                       className="w-full text-left"
                     >
                       <Icon Component={IoMdAdd} label="Create Event" />
                     </button>
+
                     <button
-                    onClick={() => handleActiveSection("eventList")}
-                    className="w-full text-left"
-                  >
-                    <Icon Component={GrDashboard} link="#" label="Event List" />
-                  </button>
+                      onClick={() => setShowSessionModal(true)}
+                      className="w-full text-left"
+                    >
+                      <Icon Component={IoMdAdd} label="Create Session" />
+                    </button>
+
+                    <button
+                      onClick={() => setShowTicketModal(true)}
+                      className="w-full text-left"
+                    >
+                      <Icon Component={IoMdAdd} label="Create Ticket" />
+                    </button>
                   </div>
                 </div>
               ) : (
                 <button
-                onClick={() => handleActiveSection("registerAsOrganizer")}
-                className="w-full text-left"
+                  onClick={() => handleActiveSection("registerAsOrganizer")}
+                  className="w-full text-left"
                 >
                   <Icon Component={GrDashboard} link="#" label="Dashboard" />
                 </button>
@@ -172,6 +195,12 @@ export const DesktopDashboard: React.FC = () => {
         )}
 
         {showModal && <EventForm onClose={() => setShowModal(false)} />}
+        {showSessionModal && (
+          <EventSessionCreate onClose={() => setShowSessionModal(false)} />
+        )}
+        {showTicketModal && (
+          <TicketCreate onClose={() => setShowTicketModal(false)} />
+        )}
       </div>
     </div>
   );

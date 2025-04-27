@@ -26,6 +26,11 @@ export class TransactionRouter {
       this.auth.verifyToken,
       this.transactionController.createTransaction
     );
+
+    this.router.post('/status', this.transactionController.updateTransaction)
+    this.router.get('/mytransaction', this.auth.verifyToken, this.transactionController.getUserTransactions)
+    this.router.get('/:id', this.auth.verifyToken, this.transactionController.getTransactionsById)
+
   }
 
   getRouter(): Router {

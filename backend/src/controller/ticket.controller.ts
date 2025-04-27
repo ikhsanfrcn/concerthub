@@ -72,10 +72,10 @@ export class TicketController {
 
   async createTicket(req: Request, res: Response) {
     try {
-      const { sessionId, name, description, price, category, seatAvailable } =
+      const { sessionId, description, price, category, seatAvailable } =
         req.body;
 
-      if (!sessionId || !name || !price || !category || !seatAvailable) {
+      if (!sessionId || !price || !category || !seatAvailable) {
         throw new Error("Missing required fields");
       }
 
@@ -86,15 +86,22 @@ export class TicketController {
       if (!session)
         throw res.status(404).json({ message: "Session not found" });
 
+      const priceInt = parseInt(price, 10);
+      const seatsInt = parseInt(seatAvailable, 10);
+
+      if (isNaN(priceInt) || isNaN(seatsInt)) {
+        res.status(400).json({ message: "Invalid integer value" });
+      }
+
       const ticket = await prisma.ticket.create({
         data: {
           sessionId,
           eventId: session.eventId,
-          name,
+          name: category,
           description,
-          price,
+          price: priceInt,
           category,
-          seatAvailable,
+          seatAvailable: seatsInt,
         },
       });
 
@@ -173,6 +180,48 @@ export class TicketController {
     } catch (error) {
       console.error("getTicket error:", error);
       res.status(500).json({ message: "Failed to fetch tickets", error });
+    }
+  }
+
+  async getPurchasedTicketByTransactionId(req: Request, res: Response) {
+    
+    try {
+      const { transactionId } = req.params;
+    
+      if (!transactionId) {
+        throw res.status(400).json({ error: "transactionId is required" });
+      }
+      // Ambil tiket berdasarkan transactionId
+      const tickets = await prisma.purchasedTicket.findMany({
+        where: { transactionId },
+        include: {
+          ticket: {
+            select: {
+              eventId: true,
+              category: true,
+              price: true
+            },
+          },
+          session: {
+            select: {
+              date: true,
+              time: true,
+              location: true,
+              event: {
+                select: {
+                  title: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
+      });
+  
+      res.status(200).json({ tickets });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Failed to fetch tickets" });
     }
   }
 }

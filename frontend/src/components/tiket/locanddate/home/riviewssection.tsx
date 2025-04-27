@@ -18,7 +18,7 @@ type Review = {
 }
 
 export default function ReviewsSection() {
-  const { data: session, status } = useSession() // Access session data from next-auth
+  const { data: session, status } = useSession() 
   const [reviews, setReviews] = useState<Review[]>([])
   const [showModal, setShowModal] = useState(false)
   const [averageRating, setAverageRating] = useState(0)

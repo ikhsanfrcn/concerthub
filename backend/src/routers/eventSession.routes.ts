@@ -18,6 +18,8 @@ export class EventSessionRouter {
     this.router.get("/", this.controller.getSessions);
     this.router.post('/', this.authMiddleware.verifyToken, this.authMiddleware.verifyRole, this.controller.createSession)
     this.router.delete('/:id', this.authMiddleware.verifyToken, this.authMiddleware.verifyRole, this.controller.deleteSession)
+    this.router.get('/:id', this.controller.getSessionsByEventId)
+
   }
 
   getRouter(): Router {

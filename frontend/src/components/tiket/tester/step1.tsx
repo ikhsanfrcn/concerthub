@@ -81,7 +81,7 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
                       time: concert.time,
                     };
                     localStorage.setItem("selectedConcert", JSON.stringify(selectedConcert));
-                    onComplete(); // lanjut ke step berikutnya
+                    onComplete();
                   }}
                   className="w-full sm:w-auto px-4 py-2 rounded-full text-white font-semibold bg-pink-500 hover:bg-pink-600"
                 >

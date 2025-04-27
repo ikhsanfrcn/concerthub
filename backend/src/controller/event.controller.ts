@@ -4,20 +4,46 @@ import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class EventController {
   async getEvent(req: Request, res: Response) {
+    const { id } = req.query
     try {
       const concerts = await prisma.event.findMany({
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          location: true,
-          date: true,
-          time: true,
-          price: true,
-          seats: true,
-          category: true,
-          image: true,
-        },
+        where: id ? { id: id as string } :  undefined,
+        include: {
+          eventSessions: {}
+        }
+        // select: {
+        //   id: true,
+        //   title: true,
+        //   description: true,
+        //   location: true,
+        //   date: true,
+        //   time: true,
+        //   price: true,
+        //   seats: true,
+        //   category: true,
+        //   image: true,
+        // },
+      });
+
+      if (concerts.length === 0) {
+        res.status(400).json({ message: "No upcoming concerts found" });
+      }
+
+      res.status(200).json(concerts);
+    } catch (error) {
+      console.error("Error fetching concerts:", error);
+      res.status(500).json({ message: "Server error", error });
+    }
+  }
+
+  async getEventByOrganizer(req: Request, res: Response) {
+    const { organizerId } = req.query;
+    try {
+      const concerts = await prisma.event.findMany({
+        where: { organizerId: String(organizerId) },
+        include: {
+          eventSessions: {}
+        }
       });
 
       if (concerts.length === 0) {

@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
+// Tipe data tiket yang akan ditampilkan
 interface Ticket {
   id: string;
   transactionId: string;
@@ -28,7 +28,9 @@ interface Ticket {
 
 export default function DownloadPage() {
   const { data: session } = useSession();
-  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);  // Inisialisasi dengan array kosong
+  const [loading, setLoading] = useState(true);  // Untuk mengatur loading state
+  const [isVisible, setIsVisible] = useState(true); // Untuk memantau apakah tab sedang terlihat
 
   useEffect(() => {
     if (session?.user?.id) {
@@ -38,19 +40,47 @@ export default function DownloadPage() {
 
   const fetchTickets = async (userId: string) => {
     try {
-      const response = await axios.get(
-        `/tickets/my-purchased?userId=${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
-      );
-      setTickets(response.data.tickets);
+      // Ambil transactionId dari localStorage atau API yang sesuai
+      const transactionId = localStorage.getItem("transactionId");
+
+      if (transactionId) {
+        // Mengambil tiket berdasarkan transactionId
+        const response = await axios.get(
+          `/tickets/${transactionId}`,  // Pastikan endpoint sesuai dengan API yang benar
+          {
+            headers: {
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          }
+        );
+        setTickets(response.data.tickets || []);  // Pastikan tiket di-set dengan array kosong jika tidak ada data
+        setLoading(false);
+      } else {
+        console.error("Transaction ID not found.");
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Error fetching tickets:", error);
+      setLoading(false);
     }
   };
+
+  // Cegah otomatis print saat tab kembali terlihat
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsVisible(false); // Tab disembunyikan
+      } else {
+        setIsVisible(true); // Tab kembali terlihat
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   const TicketCard = ({ ticket, index }: { ticket: Ticket; index: number }) => (
     <div className="relative w-[360px] sm:w-[460px] h-[200px] rounded-3xl bg-gradient-to-r from-pink-500 to-indigo-700 text-white overflow-hidden shadow-lg flex items-center justify-between px-6 py-4 my-4">
@@ -74,9 +104,7 @@ export default function DownloadPage() {
 
       <div className="flex flex-col items-center justify-center h-full">
         <Image
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${
-            index + 1
-          }-${session?.user?.email}`}
+          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${index + 1}-${session?.user?.email}`}
           width={100}
           height={100}
           alt="QR Code"
@@ -86,6 +114,11 @@ export default function DownloadPage() {
     </div>
   );
 
+  // Jika masih loading, tampilkan loading spinner atau message
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
   return (
     <div className="min-h-screen px-4 py-8 bg-gray-50">
       <h1 className="text-center text-2xl font-bold text-gray-800 mb-6">
@@ -93,14 +126,26 @@ export default function DownloadPage() {
       </h1>
 
       <div className="flex flex-col items-center">
-        {tickets.map((ticket, index) => (
-          <TicketCard key={ticket.id} ticket={ticket} index={index} />
-        ))}
+        {/* Pastikan tickets ada dan memiliki panjang lebih dari 0 */}
+        {tickets.length > 0 ? (
+          tickets.map((ticket, index) => (
+            <TicketCard key={ticket.id} ticket={ticket} index={index} />
+          ))
+        ) : (
+          <div>No tickets available for this transaction.</div>  // Jika tidak ada tiket
+        )}
       </div>
 
       <div className="flex justify-center mt-6">
         <button
-          onClick={() => window.print()}
+          onClick={() => {
+            if (isVisible) {
+              console.log("Print button clicked");
+              window.print();  // Hanya dipicu ketika tombol ditekan dan tab terlihat
+            } else {
+              console.log("Tab is hidden, print won't be triggered");
+            }
+          }}
           className="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700 transition"
         >
           Print My Tickets

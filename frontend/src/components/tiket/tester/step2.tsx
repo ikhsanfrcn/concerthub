@@ -6,7 +6,7 @@ import TicketCard from "@/components/tiket/ticketcard";
 
 interface Step2Props {
   onComplete: () => void;
-  eventId: string; // << dari parent step
+  eventId: string;
 }
 
 interface Ticket {
@@ -47,7 +47,7 @@ export default function Step2({ onComplete, eventId }: Step2Props) {
     if (selectedCategory && quantity > 0) {
       localStorage.setItem("selectedCategory", selectedCategory);
       localStorage.setItem("seatQuantity", String(quantity));
-      onComplete(); // lanjut ke step 3
+      onComplete(); 
     }
   };
 
