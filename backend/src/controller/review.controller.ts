@@ -12,9 +12,10 @@ export class ReviewController {
           createdAt: true,
           user: {
             select: {
+              id: true,
               name: true,
               email: true,
-              
+              avatar: true,
             },
           },
           event: {
@@ -40,8 +41,8 @@ export class ReviewController {
   async createReview(req: Request, res: Response) {
     try {
       const { eventId, rating, purchasedTicketId, comment } = req.body;
-      const userId = req.user?.id as string; 
-     
+      const userId = req.user?.id as string;
+
       // const purchasedTicket = await prisma.purchasedTicket.findFirst({
       //   where: {
       //     userId,
@@ -52,21 +53,21 @@ export class ReviewController {
       //     },
       //   },
       // });
-      
+
       // if (!purchasedTicket) {
       //   throw new Error("You must purchase a ticket before writing a review.");
       // }
-  
+
       const existingReview = await prisma.review.findFirst({
         where: { userId, eventId },
       });
-  
+
       if (existingReview) {
         throw new Error("You have already reviewed this event.");
       }
       if (!eventId || typeof rating !== "number" || !comment) {
         throw new Error("Missing or invalid fields");
-      }      
+      }
 
       await prisma.review.create({
         data: {
@@ -86,5 +87,4 @@ export class ReviewController {
       res.status(400).send({ message: "Failed to create review", error: err });
     }
   }
-
 }
