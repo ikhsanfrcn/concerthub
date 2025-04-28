@@ -1,10 +1,10 @@
 "use client";
 import { Icon } from "@/components/atoms/icon";
 import Image from "next/image";
-import { CiSettings } from "react-icons/ci";
-import { FiHelpCircle } from "react-icons/fi";
+// import { CiSettings } from "react-icons/ci";
+// import { FiHelpCircle } from "react-icons/fi";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
-import { TbGiftCard } from "react-icons/tb";
+// import { TbGiftCard } from "react-icons/tb";
 import { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
@@ -41,7 +41,7 @@ export const DesktopDashboard: React.FC = () => {
   return (
     <div className="flex space-x-[24px]">
       {/* SIDEBAR */}
-      <aside className="rounded-2xl bg-white shadow-md min-w-[250px] min-h-[916px]">
+      <aside className="rounded-2xl bg-white shadow-md w-[360px] min-h-[916px]">
         <div className="p-[32px]">
           <Image
             src={
@@ -62,7 +62,7 @@ export const DesktopDashboard: React.FC = () => {
             <li>
               <button
                 onClick={() => handleActiveSection("profile")}
-                className="w-full text-left"
+                className="w-full text-left cursor-pointer"
               >
                 <Icon Component={RiProfileLine} label="My Profile" />
               </button>
@@ -70,20 +70,20 @@ export const DesktopDashboard: React.FC = () => {
             <li>
               <button
                 onClick={() => handleActiveSection("orderHistory")}
-                className="w-full text-left"
+                className="w-full text-left cursor-pointer"
               >
                 <Icon Component={RiOrderPlayLine} label="Order History" />
               </button>
             </li>
-            <li>
+            {/* <li>
               <Icon Component={TbGiftCard} link="#" label="Gift Card" />
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Icon Component={CiSettings} link="#" label="Settings" />
             </li>
             <li>
               <Icon Component={FiHelpCircle} link="#" label="Help" />
-            </li>
+            </li> */}
             <li>
               {session?.user.role === "ORGANIZER" ? (
                 <div className="space-y-[18.5px]">
@@ -107,21 +107,21 @@ export const DesktopDashboard: React.FC = () => {
 
                     <button
                       onClick={() => setShowModal(true)}
-                      className="w-full text-left"
+                      className="w-full text-left cursor-pointer"
                     >
                       <Icon Component={IoMdAdd} label="Create Event" />
                     </button>
 
                     <button
                       onClick={() => setShowSessionModal(true)}
-                      className="w-full text-left"
+                      className="w-full text-left cursor-pointer"
                     >
                       <Icon Component={IoMdAdd} label="Create Session" />
                     </button>
 
                     <button
                       onClick={() => setShowTicketModal(true)}
-                      className="w-full text-left"
+                      className="w-full text-left cursor-pointer"
                     >
                       <Icon Component={IoMdAdd} label="Create Ticket" />
                     </button>

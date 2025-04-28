@@ -33,18 +33,18 @@ export const Navbar: React.FC = () => {
         >
           ConcertHub
         </Link>
-        <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
+        {/* <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
           <input
             type="text"
             placeholder="Search concerts..."
             className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-500"
           />
-        </div>
+        </div> */}
         <div className="max-[1024px]:hidden flex items-center gap-x-6">
           <Icon Component={BsTelephone} link="contact" label="Contact" />
           <Icon
             Component={IoTicketOutline}
-            link="transactionticket"
+            link="tickets"
             label="Tickets"
           />
           <Icon Component={TiDocumentText} link="#" label="Blogs" />
