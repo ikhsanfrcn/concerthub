@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-// Tipe data tiket yang akan ditampilkan
 interface Ticket {
   id: string;
   transactionId: string;
@@ -28,32 +27,31 @@ interface Ticket {
 
 export default function DownloadPage() {
   const { data: session } = useSession();
-  const [tickets, setTickets] = useState<Ticket[]>([]);  // Inisialisasi dengan array kosong
-  const [loading, setLoading] = useState(true);  // Untuk mengatur loading state
-  const [isVisible, setIsVisible] = useState(true); // Untuk memantau apakah tab sedang terlihat
+  const [tickets, setTickets] = useState<Ticket[]>([]); 
+  const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (session?.user?.id) {
-      fetchTickets(session.user.id);
+      fetchTickets();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  const fetchTickets = async (userId: string) => {
+  const fetchTickets = async () => {
     try {
-      // Ambil transactionId dari localStorage atau API yang sesuai
       const transactionId = localStorage.getItem("transactionId");
 
       if (transactionId) {
-        // Mengambil tiket berdasarkan transactionId
         const response = await axios.get(
-          `/tickets/${transactionId}`,  // Pastikan endpoint sesuai dengan API yang benar
+          `/tickets/${transactionId}`, 
           {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,
             },
           }
         );
-        setTickets(response.data.tickets || []);  // Pastikan tiket di-set dengan array kosong jika tidak ada data
+        setTickets(response.data.tickets || []);
         setLoading(false);
       } else {
         console.error("Transaction ID not found.");
@@ -65,13 +63,12 @@ export default function DownloadPage() {
     }
   };
 
-  // Cegah otomatis print saat tab kembali terlihat
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        setIsVisible(false); // Tab disembunyikan
+        setIsVisible(false);
       } else {
-        setIsVisible(true); // Tab kembali terlihat
+        setIsVisible(true);
       }
     };
 
@@ -114,7 +111,6 @@ export default function DownloadPage() {
     </div>
   );
 
-  // Jika masih loading, tampilkan loading spinner atau message
   if (loading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -126,13 +122,12 @@ export default function DownloadPage() {
       </h1>
 
       <div className="flex flex-col items-center">
-        {/* Pastikan tickets ada dan memiliki panjang lebih dari 0 */}
         {tickets.length > 0 ? (
           tickets.map((ticket, index) => (
             <TicketCard key={ticket.id} ticket={ticket} index={index} />
           ))
         ) : (
-          <div>No tickets available for this transaction.</div>  // Jika tidak ada tiket
+          <div>No tickets available for this transaction.</div> 
         )}
       </div>
 
@@ -141,7 +136,7 @@ export default function DownloadPage() {
           onClick={() => {
             if (isVisible) {
               console.log("Print button clicked");
-              window.print();  // Hanya dipicu ketika tombol ditekan dan tab terlihat
+              window.print();
             } else {
               console.log("Tab is hidden, print won't be triggered");
             }

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import TicketCard from "@/components/tiket/ticketcard";
 
 interface Step2Props {
   onComplete: () => void;
-  eventId: string;
 }
 
 interface Ticket {
@@ -16,7 +15,7 @@ interface Ticket {
   description: string;
 }
 
-export default function Step2({ onComplete, eventId }: Step2Props) {
+export default function Step2({ onComplete }: Step2Props) {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
@@ -25,13 +24,24 @@ export default function Step2({ onComplete, eventId }: Step2Props) {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await axios.get(`/tickets/by-event?eventId=${eventId}`);
+        const selectedConcert = localStorage.getItem("selectedConcert");
+  
+        if (!selectedConcert) {
+          console.error("No selected concert found");
+          return;
+        }
+  
+        const parsed = JSON.parse(selectedConcert);
+        const sessionId = parsed.id;
+  
+        const res = await axios.get(`/tickets?sessionId=${sessionId}`);
         const data = res.data.tickets.map((ticket: any) => ({
           id: ticket.id,
           category: ticket.category,
           price: ticket.price,
           description: ticket.description,
         }));
+  
         setTickets(data);
       } catch (err) {
         console.error("Failed to fetch tickets:", err);
@@ -39,15 +49,15 @@ export default function Step2({ onComplete, eventId }: Step2Props) {
         setLoading(false);
       }
     };
-
+  
     fetchTickets();
-  }, [eventId]);
+  }, []);
 
   const handleContinue = () => {
     if (selectedCategory && quantity > 0) {
       localStorage.setItem("selectedCategory", selectedCategory);
       localStorage.setItem("seatQuantity", String(quantity));
-      onComplete(); 
+      onComplete();
     }
   };
 

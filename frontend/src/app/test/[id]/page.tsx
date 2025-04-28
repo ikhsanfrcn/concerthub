@@ -53,7 +53,7 @@ const EventDetail = () => {
     },
     {
       title: "Step 2",
-      component: <Step2 eventId={id} onComplete={() => setCurrentStep(2)} />,
+      component: <Step2 onComplete={() => setCurrentStep(2)} />,
     },
     {
       title: "Step 3",
@@ -75,7 +75,7 @@ const EventDetail = () => {
       <Stepper
         steps={steps}
         currentStep={currentStep}
-        onStepChange={setCurrentStep}
+        // onStepChange={setCurrentStep}
       />
       <div className="step-content mt-4">{steps[currentStep].component}</div>
     </MainTemplate>

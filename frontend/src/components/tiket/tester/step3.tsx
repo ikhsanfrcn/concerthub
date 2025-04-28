@@ -31,10 +31,45 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [tickets, setTickets] = useState<any[]>([]);
 
+  
+    const [user, setUser] = useState<any>(null);
+  
+    useEffect(() => {
+      const fetchUserProfile = async () => {
+        try {
+          const response = await axios.get("/users/profile", {
+            headers: {
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          });
+          const { data } = response;
+  
+          setUser({
+            name: data.user.name || "",
+            lastName: data.user.lastName || "",
+            email: data.user.email || "",
+            state: data.user.state || "",
+            city: data.user.city || "",
+            phoneNumber: data.user.phoneNumber || "",
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      if (session?.accessToken) {
+        fetchUserProfile();
+      }
+    }, [session?.accessToken]);
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await axios.get(`/tickets/by-event?eventId=${eventId}`);
+        const selectedConcert = localStorage.getItem("selectedConcert");
+        if (!selectedConcert) return;
+  
+        const { id: sessionId } = JSON.parse(selectedConcert);
+        const res = await axios.get(`/tickets?sessionId=${sessionId}`);
+  
         if (Array.isArray(res.data.tickets)) {
           setTickets(res.data.tickets);
         }
@@ -43,24 +78,27 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       }
     };
     fetchTickets();
-  }, [eventId]);
+  }, []);
+  
 
   useEffect(() => {
     const storedCategory = localStorage.getItem("selectedCategory");
     const storedQty = localStorage.getItem("seatQuantity");
-
+  
     if (storedQty) setQuantity(parseInt(storedQty));
     if (storedCategory) {
       setCategory(storedCategory);
-
+  
       const matchedTicket = tickets.find(ticket => ticket.category === storedCategory);
       if (matchedTicket) {
         setTicketPrice(matchedTicket.price);
+        setTicketId(matchedTicket.id);
       } else {
         setTicketPrice(0);
       }
     }
   }, [tickets]);
+  
 
   useEffect(() => {
     if (tickets.length > 0 && category) {
@@ -150,18 +188,19 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     }
   };
 
+
   return (
     <div>
-      <TicketCard />
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
+      {/* <TicketCard />   */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50">
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">1. Your Information</h2>
           {session ? (
             <div className="space-y-2 text-sm text-gray-700">
-              <p>👤 {session?.user.name || "—"}</p>
-              <p>📞 {session?.user.phoneNumber || "—"}</p>
-              <p>📍 {session?.user.state || "—"}</p>
-              <p>✉️ {session?.user.email || "—"}</p>
+              <p>👤 {user?.name || "—"}</p>
+              <p>📞 {user?.phoneNumber || "—"}</p>
+              <p>📍 {user?.state || "—"}</p>
+              <p>✉️ {user?.email || "—"}</p>
             </div>
           ) : (
             "Please log in first"
@@ -188,7 +227,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">Payment details</h2>
           <div className="text-sm text-gray-700 space-y-1">
-            <p className="flex justify-between"><span>Order number</span><span>11458523</span></p>
+            {/* <p className="flex justify-between"><span>Order number</span><span>11458523</span></p> */}
             <p className="flex justify-between"><span>Ticket</span><span>{eventTitle}, {eventDate}</span></p>
             <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
             <p className="flex justify-between"><span>x {quantity}</span><span>Rp {ticketTotal.toLocaleString("id-ID")}</span></p>

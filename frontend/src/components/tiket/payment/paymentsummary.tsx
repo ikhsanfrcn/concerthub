@@ -56,10 +56,10 @@ export default function PaymentSummary({onSubmit}: PaymentSummaryProps) {
             <span>x {details.transaction.quantity}</span>
             <span>Rp {details.transaction.ticket.price * details.transaction.quantity}</span>
           </li>
-          <li className="flex justify-between">
+          {/* <li className="flex justify-between">
             <span>Discount</span>
             <span>- Rp {details.transaction.discount.toFixed(2)}</span>
-          </li>
+          </li> */}
         </ul>
       ) : (
         <p>No transaction details available</p>
