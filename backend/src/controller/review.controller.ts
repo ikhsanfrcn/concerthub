@@ -3,8 +3,12 @@ import prisma from "../prisma";
 
 export class ReviewController {
     async getReview(req: Request, res: Response) {
+      const { eventId } = req.query
       try {
         const reviews = await prisma.review.findMany({
+          where: {
+            ...(eventId && { eventId: eventId as string }),
+          },
           select: {
             id: true,
             rating: true,
