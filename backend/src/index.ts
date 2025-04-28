@@ -10,6 +10,7 @@ import { OrganizerRouter } from "./routers/organizer.routes";
 import { TicketRouter } from "./routers/ticket.routes";
 import { EventSessionRouter } from "./routers/eventSession.routes";
 import { WebhookRouter } from "./routers/webhook.routes";
+import { ArtistRouter } from "./routers/artist.routes";
 
 
 const PORT: number = 8000;
@@ -55,6 +56,9 @@ app.use('/api/event-session', eventSessionRouter.getRouter())
 
 const webhookRouter = new WebhookRouter()
 app.use('/api/xendit', webhookRouter.getRouter())
+
+const artistRouter = new ArtistRouter();
+app.use('/api/artists', artistRouter.getRouter())
 
 
 app.listen(PORT, () => {

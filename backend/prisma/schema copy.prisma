@@ -10,16 +10,17 @@ datasource db {
 }
 
 model User {
-  id           String          @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
-  email        String          @unique
+  email        String   @unique
   password     String
-  role         Role            @default(CUSTOMER)
-  referralCode String          @unique
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  isVerify     Boolean         @default(false)
+  role         Role     @default(CUSTOMER)
+  referralCode String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  isVerify     Boolean  @default(false)
   ReferredById String?
+
   city         String?
   dob          String?
   houseNumber  String?
@@ -29,23 +30,123 @@ model User {
   zipCode      String?
   regionNumber String?
   phoneNumber  String?
-  avatar       String?         @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
-  events       Event[]         @relation("CreatedEvents")
+  avatar       String? @default("https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png")
+
+  events       Event[]           @relation("CreatedEvents")
   points       Point[]
-  referred     ReferralUsage[] @relation("ReferralsReceived")
-  referrer     ReferralUsage[] @relation("ReferralsGiven")
-  Review       Review[]
-  tickets      Transaction[]
-  Voucher      Voucher[]
+  referred     ReferralUsage[]   @relation("ReferralsReceived")
+  referrer     ReferralUsage[]   @relation("ReferralsGiven")
+  reviews      Review[]
+  transactions Transaction[]     @relation("UserTransactions")
+  vouchers     Voucher[]
+  purchased    PurchasedTicket[]
 }
 
-model Point {
-  id        String   @id @default(uuid())
-  userId    String
-  amount    Int
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
+enum Role {
+  CUSTOMER
+  ORGANIZER
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  organizerId String
+  title       String
+  description String
+  location    String
+  date        String
+  time        String
+  price       Int      @default(0)
+  seats       Int
+  category    String
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  organizer     User           @relation("CreatedEvents", fields: [organizerId], references: [id])
+  eventSessions EventSession[]
+  promotions    Promotion[]
+  reviews       Review[]
+  tickets       Ticket[]
+  transactions  Transaction[]
+}
+
+model EventSession {
+  id       String   @id @default(uuid())
+  eventId  String
+  date     DateTime
+  time     String
+  location String
+
+  tickets         Ticket[]
+  event           Event             @relation(fields: [eventId], references: [id])
+  PurchasedTicket PurchasedTicket[]
+}
+
+model Ticket {
+  id            String         @id @default(uuid())
+  sessionId     String
+  eventId       String?
+  name          String
+  description   String
+  price         Int
+  category      TicketCategory
+  seatAvailable Int
+
+  session      EventSession      @relation(fields: [sessionId], references: [id])
+  transactions Transaction[]     @relation("TicketTransaction")
+  purchased    PurchasedTicket[]
+  Event        Event?            @relation(fields: [eventId], references: [id])
+}
+
+enum TicketCategory {
+  REGULAR
+  PREMIUM
+  VIP
+}
+
+model Transaction {
+  id          String            @id @default(uuid())
+  userId      String
+  eventId     String
+  ticketId    String
+  quantity    Int
+  totalPrice  Int
+  usedPoints  Int               @default(0)
+  discount    Int               @default(0)
+  status      statusTransaction @default(PENDING)
+  invoiceUrl  String?
+  referenceId String            @unique
+  createdAt   DateTime          @default(now())
+  expireAt    DateTime
+  updatedAt   DateTime          @updatedAt
+
+  user      User              @relation("UserTransactions", fields: [userId], references: [id])
+  event     Event             @relation(fields: [eventId], references: [id])
+  ticket    Ticket            @relation("TicketTransaction", fields: [ticketId], references: [id])
+  purchased PurchasedTicket[]
+}
+
+enum statusTransaction {
+  PENDING
+  PAID
+  EXPIRED
+  CANCEL
+}
+
+model PurchasedTicket {
+  id            String   @id @default(uuid())
+  transactionId String
+  ticketId      String
+  sessionId     String
+  userId        String
+  qrCode        String?
+  createdAt     DateTime @default(now())
+
+  session     EventSession @relation(fields: [sessionId], references: [id])
+  transaction Transaction  @relation(fields: [transactionId], references: [id])
+  ticket      Ticket       @relation(fields: [ticketId], references: [id])
+  user        User         @relation(fields: [userId], references: [id])
+  Review      Review[]
 }
 
 model Promotion {
@@ -58,107 +159,63 @@ model Promotion {
   usageCount    Int           @default(0)
   expiresAt     DateTime
   createdAt     DateTime      @default(now())
-  event         Event         @relation(fields: [eventId], references: [id])
-}
 
-model Event {
-  id           String        @id @default(uuid())
-  organizerId  String
-  title        String
-  description  String
-  location     String
-  date         String
-  time         String
-  price        Int           @default(0)
-  seats        Int
-  category     String
-  image        String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  organizer    User          @relation("CreatedEvents", fields: [organizerId], references: [id])
-  promotions   Promotion[]
-  reviews      Review[]
-  ticket       Ticket[]
-  transactions Transaction[]
-}
-
-model Ticket {
-  id            String       @id @default(uuid())
-  eventId       String
-  name          String
-  price         Int
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id])
-  event         Event        @relation(fields: [eventId], references: [id])
-}
-
-model Transaction {
-  id         String            @id @default(uuid())
-  userId     String
-  eventId    String
-  ticketId   String?
-  quantity   Int
-  totalPrice Int
-  usedPoints Int               @default(0)
-  discount   Int               @default(0)
-  createdAt  DateTime          @default(now())
-  expireAt   DateTime
-  status     statusTransaction
-  updatedAt  DateTime          @updatedAt
-  event      Event             @relation(fields: [eventId], references: [id])
-  ticket     Ticket[]
-  user       User              @relation(fields: [userId], references: [id])
-}
-
-model Voucher {
-  id              String          @id @default(uuid())
-  voucherType     voucherType     @default(REFERRAL)
-  userId          String
-  discountPercent Int
-  expiresAt       DateTime
-  createdAt       DateTime        @default(now())
-  ReferralUsage   ReferralUsage[]
-  user            User            @relation(fields: [userId], references: [id])
-}
-
-model ReferralUsage {
-  id         String   @id @default(uuid())
-  referrerId String
-  referredId String
-  createdAt  DateTime @default(now())
-  voucherId  String?
-  referred   User     @relation("ReferralsReceived", fields: [referredId], references: [id])
-  referrer   User     @relation("ReferralsGiven", fields: [referrerId], references: [id])
-  Voucher    Voucher? @relation(fields: [voucherId], references: [id])
-}
-
-model Review {
-  id        String   @id @default(uuid())
-  eventId   String
-  userId    String
-  rating    Int
-  comment   String
-  createdAt DateTime @default(now())
-  event     Event    @relation(fields: [eventId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
-}
-
-enum Role {
-  CUSTOMER
-  ORGANIZER
+  event Event @relation(fields: [eventId], references: [id])
 }
 
 enum PromotionType {
   DATE_BASED
 }
 
-enum statusTransaction {
-  PENDING
-  PAID
-  EXPIRED
-  CANCEL
+model Point {
+  id        String   @id @default(uuid())
+  userId    String
+  amount    Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Voucher {
+  id              String      @id @default(uuid())
+  voucherType     voucherType @default(REFERRAL)
+  userId          String
+  discountPercent Int
+  expiresAt       DateTime
+  createdAt       DateTime    @default(now())
+
+  user          User            @relation(fields: [userId], references: [id])
+  ReferralUsage ReferralUsage[]
 }
 
 enum voucherType {
   REFERRAL
+}
+
+model ReferralUsage {
+  id           String   @id @default(uuid())
+  referrerId   String
+  referredId   String
+  voucherId    String?
+  createdAt    DateTime @default(now())
+  pointGranted Boolean  @default(false)
+
+  referred User     @relation("ReferralsReceived", fields: [referredId], references: [id])
+  referrer User     @relation("ReferralsGiven", fields: [referrerId], references: [id])
+  voucher  Voucher? @relation(fields: [voucherId], references: [id])
+}
+
+model Review {
+  id                String   @id @default(uuid())
+  eventId           String
+  userId            String
+  purchasedTicketId String
+  rating            Int
+  comment           String
+  createdAt         DateTime @default(now())
+
+  event           Event           @relation(fields: [eventId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+  purchasedTicket PurchasedTicket @relation(fields: [purchasedTicketId], references: [id])
 }

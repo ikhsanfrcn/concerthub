@@ -17,15 +17,22 @@ export default function Step5() {
         const transactionId = localStorage.getItem("transactionId");
 
         if (transactionId) {
-          const res = await axios.get(`/transactions/${transactionId}`, {
+          const res = await axios.get(`/transactions?id=${transactionId}`, {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,
             },
           });
-          setTransaction(res.data.transaction);
+
+          if (res.data.transactions && res.data.transactions.length > 0) {
+            setTransaction(res.data.transactions[0]); 
+          } else {
+            console.error("Transaction data is empty or malformed");
+          }
+
           setLoading(false);
         } else {
           console.error("No transaction ID found");
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching transaction:", error);
@@ -46,20 +53,26 @@ export default function Step5() {
 
     const intervalId = setInterval(async () => {
       try {
-        const res = await axios.get(`/transactions/${transactionId}`, {
+        const res = await axios.get(`/transactions?id=${transactionId}`, {
           headers: {
             Authorization: `Bearer ${session?.accessToken}`,
           },
         });
 
-        if (res.data.transaction.status === "PAID") {
-          setTransaction(res.data.transaction);
-          clearInterval(intervalId);
-        }
+        if (res.data.transactions && res.data.transactions.length > 0) {
+          const transaction = res.data.transactions[0]; 
 
-        if (res.data.transaction.status === "EXPIRED") {
-          setTransaction(res.data.transaction);
-          clearInterval(intervalId);
+          if (transaction.status === "PAID") {
+            setTransaction(transaction);
+            clearInterval(intervalId);
+          }
+
+          if (transaction.status === "EXPIRED") {
+            setTransaction(transaction);
+            clearInterval(intervalId);
+          }
+        } else {
+          console.error("Transaction data is empty or malformed");
         }
       } catch (error) {
         console.error("Error checking transaction status:", error);

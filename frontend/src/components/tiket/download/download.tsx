@@ -44,7 +44,7 @@ export default function DownloadPage() {
 
       if (transactionId) {
         const response = await axios.get(
-          `/tickets/${transactionId}`, 
+          `/tickets/purchased?transactionId=${transactionId}`, 
           {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,

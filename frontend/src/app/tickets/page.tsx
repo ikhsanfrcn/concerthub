@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import axios from "@/lib/axios";
 import { Card } from "@/components/molecules/home/Card";
 import { MainTemplate } from "@/template/MainTemplate";
@@ -14,13 +15,19 @@ interface Event {
   id: string;
 }
 
-
 export default function Tickets() {
   const [concerts, setConcerts] = useState<Event[]>([]);
   const [filteredConcerts, setFilteredConcerts] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const [selectedArtist, setSelectedArtist] = useState<string>("");
+
+  const searchParams = useSearchParams();
+  const artistFromUrl = searchParams.get("artist");
+  const categoryFromUrl = searchParams.get("category");
+  const locationFromUrl = searchParams.get("location");
+  const search = searchParams.get("search");
 
   useEffect(() => {
     const fetchConcerts = async () => {
@@ -39,84 +46,114 @@ export default function Tickets() {
   }, []);
 
   useEffect(() => {
+    if (artistFromUrl) {
+      setSelectedArtist(artistFromUrl);
+    }
+    if (categoryFromUrl) {
+      setSelectedCategory(categoryFromUrl);
+    }
+    if (locationFromUrl) {
+      setSelectedLocation(locationFromUrl);
+    }
+  }, [artistFromUrl, categoryFromUrl, locationFromUrl]);
+
+  useEffect(() => {
     let filtered = concerts;
 
     if (selectedCategory) {
-      filtered = filtered.filter(
-        (event) => event.category === selectedCategory
-      );
+      filtered = filtered.filter((event) => event.category === selectedCategory);
     }
+
     if (selectedLocation) {
-      filtered = filtered.filter(
-        (event) => event.location === selectedLocation
+      filtered = filtered.filter((event) => event.location === selectedLocation);
+    }
+
+    if (selectedArtist) {
+      filtered = filtered.filter((event) => event.title === selectedArtist);
+    }
+
+    if (search) {
+      filtered = filtered.filter((event) =>
+        event.title.toLowerCase().includes(search.toLowerCase()) || 
+        event.location.toLowerCase().includes(search.toLowerCase()) || 
+        event.category.toLowerCase().includes(search.toLowerCase())
       );
     }
 
     setFilteredConcerts(filtered);
-  }, [selectedCategory, selectedLocation, concerts]);
+  }, [selectedCategory, selectedLocation, selectedArtist, concerts, search]);
 
-  const categories = Array.from(
-    new Set(concerts.map((event) => event.category))
-  );
-  const locations = Array.from(
-    new Set(concerts.map((event) => event.location))
-  );
+  const categories = Array.from(new Set(concerts.map((event) => event.category)));
+  const locations = Array.from(new Set(concerts.map((event) => event.location)));
 
   return (
     <MainTemplate>
-    <section className="mx-[18px] min-[1440px]:mx-[108px] my-[48px]">
-      <div className="flex gap-4 mt-4">
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={selectedLocation}
-          onChange={(e) => setSelectedLocation(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Locations</option>
-          {locations.map((loc) => (
-            <option key={loc} value={loc}>
-              {loc}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mt-[24px]">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
-            {filteredConcerts.slice(0, 4).map((item) => (
-              <div
-                key={item.id}
-                className="flex-shrink-0 min-[768px]:w-[calc(25%-20px)]"
-              >
-                <Card
-                  image={item.image}
-                  title={item.title}
-                  location={item.location}
-                  date={item.date}
-                  time={item.time}
-                  event={item.id}
-                />
-              </div>
+      <section className="mx-[18px] min-[1440px]:mx-[108px] my-[48px]">
+        <div className="flex gap-4 mt-4">
+          {/* Category Filter */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
-          </div>
-        )}
-      </div>
-    </section>
+          </select>
+
+          {/* Location Filter */}
+          <select
+            value={selectedLocation}
+            onChange={(e) => setSelectedLocation(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value="">All Locations</option>
+            {locations.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
+
+          {/* Artist Filter */}
+          <select
+            value={selectedArtist}
+            onChange={(e) => setSelectedArtist(e.target.value)}
+            className="border p-2 rounded"
+          >
+            <option value="">All Artists</option>
+            {Array.from(new Set(concerts.map((event) => event.title))).map((artist) => (
+              <option key={artist} value={artist}>
+                {artist}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mt-[24px]">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="flex flex-wrap space-x-[24px] overflow-x-auto scrollbar-hide">
+              {filteredConcerts.map((item) => (
+                <div key={item.id} className="flex-shrink-0 min-[768px]:w-[calc(25%-25px)]">
+                  <Card
+                    image={item.image}
+                    title={item.title}
+                    location={item.location}
+                    date={item.date}
+                    time={item.time}
+                    event={item.id}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     </MainTemplate>
   );
-};
+}

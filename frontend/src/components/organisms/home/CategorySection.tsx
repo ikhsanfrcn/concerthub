@@ -53,8 +53,11 @@ export const CategorySection: React.FC<Props> = ({ className }) => {
               key={index}
               className="flex-shrink-0 min-[768px]:w-[calc(20%-20px)]"
             >
+              <Link href={`/tickets?category=${item.name}`}>
               <CategoryCard image={item.image} name={item.name} />
+              </Link>
             </div>
+
           ))}
         </div>
       </div>

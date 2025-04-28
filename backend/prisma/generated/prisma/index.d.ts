@@ -68,6 +68,11 @@ export type ReferralUsage = $Result.DefaultSelection<Prisma.$ReferralUsagePayloa
  * 
  */
 export type Review = $Result.DefaultSelection<Prisma.$ReviewPayload>
+/**
+ * Model Artist
+ * 
+ */
+export type Artist = $Result.DefaultSelection<Prisma.$ArtistPayload>
 
 /**
  * Enums
@@ -369,6 +374,16 @@ export class PrismaClient<
     * ```
     */
   get review(): Prisma.ReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.artist`: Exposes CRUD operations for the **Artist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Artists
+    * const artists = await prisma.artist.findMany()
+    * ```
+    */
+  get artist(): Prisma.ArtistDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -819,7 +834,8 @@ export namespace Prisma {
     Point: 'Point',
     Voucher: 'Voucher',
     ReferralUsage: 'ReferralUsage',
-    Review: 'Review'
+    Review: 'Review',
+    Artist: 'Artist'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -838,7 +854,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "event" | "eventSession" | "ticket" | "transaction" | "purchasedTicket" | "promotion" | "point" | "voucher" | "referralUsage" | "review"
+      modelProps: "user" | "event" | "eventSession" | "ticket" | "transaction" | "purchasedTicket" | "promotion" | "point" | "voucher" | "referralUsage" | "review" | "artist"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1656,6 +1672,80 @@ export namespace Prisma {
           }
         }
       }
+      Artist: {
+        payload: Prisma.$ArtistPayload<ExtArgs>
+        fields: Prisma.ArtistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArtistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArtistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          findFirst: {
+            args: Prisma.ArtistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArtistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          findMany: {
+            args: Prisma.ArtistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+          }
+          create: {
+            args: Prisma.ArtistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          createMany: {
+            args: Prisma.ArtistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArtistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+          }
+          delete: {
+            args: Prisma.ArtistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          update: {
+            args: Prisma.ArtistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          deleteMany: {
+            args: Prisma.ArtistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArtistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArtistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>[]
+          }
+          upsert: {
+            args: Prisma.ArtistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtistPayload>
+          }
+          aggregate: {
+            args: Prisma.ArtistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArtist>
+          }
+          groupBy: {
+            args: Prisma.ArtistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArtistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArtistCountArgs<ExtArgs>
+            result: $Utils.Optional<ArtistCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1751,6 +1841,7 @@ export namespace Prisma {
     voucher?: VoucherOmit
     referralUsage?: ReferralUsageOmit
     review?: ReviewOmit
+    artist?: ArtistOmit
   }
 
   /* Types for Logging */
@@ -10900,6 +10991,7 @@ export namespace Prisma {
     amount: number | null
     expiresAt: Date | null
     createdAt: Date | null
+    used: boolean | null
   }
 
   export type PointMaxAggregateOutputType = {
@@ -10908,6 +11000,7 @@ export namespace Prisma {
     amount: number | null
     expiresAt: Date | null
     createdAt: Date | null
+    used: boolean | null
   }
 
   export type PointCountAggregateOutputType = {
@@ -10916,6 +11009,7 @@ export namespace Prisma {
     amount: number
     expiresAt: number
     createdAt: number
+    used: number
     _all: number
   }
 
@@ -10934,6 +11028,7 @@ export namespace Prisma {
     amount?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
   }
 
   export type PointMaxAggregateInputType = {
@@ -10942,6 +11037,7 @@ export namespace Prisma {
     amount?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
   }
 
   export type PointCountAggregateInputType = {
@@ -10950,6 +11046,7 @@ export namespace Prisma {
     amount?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
     _all?: true
   }
 
@@ -11045,6 +11142,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date
     createdAt: Date
+    used: boolean
     _count: PointCountAggregateOutputType | null
     _avg: PointAvgAggregateOutputType | null
     _sum: PointSumAggregateOutputType | null
@@ -11072,6 +11170,7 @@ export namespace Prisma {
     amount?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["point"]>
 
@@ -11081,6 +11180,7 @@ export namespace Prisma {
     amount?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["point"]>
 
@@ -11090,6 +11190,7 @@ export namespace Prisma {
     amount?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["point"]>
 
@@ -11099,9 +11200,10 @@ export namespace Prisma {
     amount?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
   }
 
-  export type PointOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "expiresAt" | "createdAt", ExtArgs["result"]["point"]>
+  export type PointOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "expiresAt" | "createdAt" | "used", ExtArgs["result"]["point"]>
   export type PointInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -11123,6 +11225,7 @@ export namespace Prisma {
       amount: number
       expiresAt: Date
       createdAt: Date
+      used: boolean
     }, ExtArgs["result"]["point"]>
     composites: {}
   }
@@ -11552,6 +11655,7 @@ export namespace Prisma {
     readonly amount: FieldRef<"Point", 'Int'>
     readonly expiresAt: FieldRef<"Point", 'DateTime'>
     readonly createdAt: FieldRef<"Point", 'DateTime'>
+    readonly used: FieldRef<"Point", 'Boolean'>
   }
     
 
@@ -11993,6 +12097,7 @@ export namespace Prisma {
     discountPercent: number | null
     expiresAt: Date | null
     createdAt: Date | null
+    used: boolean | null
   }
 
   export type VoucherMaxAggregateOutputType = {
@@ -12002,6 +12107,7 @@ export namespace Prisma {
     discountPercent: number | null
     expiresAt: Date | null
     createdAt: Date | null
+    used: boolean | null
   }
 
   export type VoucherCountAggregateOutputType = {
@@ -12011,6 +12117,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: number
     createdAt: number
+    used: number
     _all: number
   }
 
@@ -12030,6 +12137,7 @@ export namespace Prisma {
     discountPercent?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
   }
 
   export type VoucherMaxAggregateInputType = {
@@ -12039,6 +12147,7 @@ export namespace Prisma {
     discountPercent?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
   }
 
   export type VoucherCountAggregateInputType = {
@@ -12048,6 +12157,7 @@ export namespace Prisma {
     discountPercent?: true
     expiresAt?: true
     createdAt?: true
+    used?: true
     _all?: true
   }
 
@@ -12144,6 +12254,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date
     createdAt: Date
+    used: boolean
     _count: VoucherCountAggregateOutputType | null
     _avg: VoucherAvgAggregateOutputType | null
     _sum: VoucherSumAggregateOutputType | null
@@ -12172,6 +12283,7 @@ export namespace Prisma {
     discountPercent?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     ReferralUsage?: boolean | Voucher$ReferralUsageArgs<ExtArgs>
     _count?: boolean | VoucherCountOutputTypeDefaultArgs<ExtArgs>
@@ -12184,6 +12296,7 @@ export namespace Prisma {
     discountPercent?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["voucher"]>
 
@@ -12194,6 +12307,7 @@ export namespace Prisma {
     discountPercent?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["voucher"]>
 
@@ -12204,9 +12318,10 @@ export namespace Prisma {
     discountPercent?: boolean
     expiresAt?: boolean
     createdAt?: boolean
+    used?: boolean
   }
 
-  export type VoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "voucherType" | "userId" | "discountPercent" | "expiresAt" | "createdAt", ExtArgs["result"]["voucher"]>
+  export type VoucherOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "voucherType" | "userId" | "discountPercent" | "expiresAt" | "createdAt" | "used", ExtArgs["result"]["voucher"]>
   export type VoucherInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     ReferralUsage?: boolean | Voucher$ReferralUsageArgs<ExtArgs>
@@ -12232,6 +12347,7 @@ export namespace Prisma {
       discountPercent: number
       expiresAt: Date
       createdAt: Date
+      used: boolean
     }, ExtArgs["result"]["voucher"]>
     composites: {}
   }
@@ -12663,6 +12779,7 @@ export namespace Prisma {
     readonly discountPercent: FieldRef<"Voucher", 'Int'>
     readonly expiresAt: FieldRef<"Voucher", 'DateTime'>
     readonly createdAt: FieldRef<"Voucher", 'DateTime'>
+    readonly used: FieldRef<"Voucher", 'Boolean'>
   }
     
 
@@ -15342,6 +15459,975 @@ export namespace Prisma {
 
 
   /**
+   * Model Artist
+   */
+
+  export type AggregateArtist = {
+    _count: ArtistCountAggregateOutputType | null
+    _min: ArtistMinAggregateOutputType | null
+    _max: ArtistMaxAggregateOutputType | null
+  }
+
+  export type ArtistMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    image: string | null
+  }
+
+  export type ArtistMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    image: string | null
+  }
+
+  export type ArtistCountAggregateOutputType = {
+    id: number
+    name: number
+    image: number
+    _all: number
+  }
+
+
+  export type ArtistMinAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+  }
+
+  export type ArtistMaxAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+  }
+
+  export type ArtistCountAggregateInputType = {
+    id?: true
+    name?: true
+    image?: true
+    _all?: true
+  }
+
+  export type ArtistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Artist to aggregate.
+     */
+    where?: ArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Artists to fetch.
+     */
+    orderBy?: ArtistOrderByWithRelationInput | ArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Artists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Artists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Artists
+    **/
+    _count?: true | ArtistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArtistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArtistMaxAggregateInputType
+  }
+
+  export type GetArtistAggregateType<T extends ArtistAggregateArgs> = {
+        [P in keyof T & keyof AggregateArtist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArtist[P]>
+      : GetScalarType<T[P], AggregateArtist[P]>
+  }
+
+
+
+
+  export type ArtistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArtistWhereInput
+    orderBy?: ArtistOrderByWithAggregationInput | ArtistOrderByWithAggregationInput[]
+    by: ArtistScalarFieldEnum[] | ArtistScalarFieldEnum
+    having?: ArtistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArtistCountAggregateInputType | true
+    _min?: ArtistMinAggregateInputType
+    _max?: ArtistMaxAggregateInputType
+  }
+
+  export type ArtistGroupByOutputType = {
+    id: string
+    name: string
+    image: string
+    _count: ArtistCountAggregateOutputType | null
+    _min: ArtistMinAggregateOutputType | null
+    _max: ArtistMaxAggregateOutputType | null
+  }
+
+  type GetArtistGroupByPayload<T extends ArtistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArtistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArtistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArtistGroupByOutputType[P]>
+            : GetScalarType<T[P], ArtistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArtistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    image?: boolean
+  }, ExtArgs["result"]["artist"]>
+
+  export type ArtistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    image?: boolean
+  }, ExtArgs["result"]["artist"]>
+
+  export type ArtistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    image?: boolean
+  }, ExtArgs["result"]["artist"]>
+
+  export type ArtistSelectScalar = {
+    id?: boolean
+    name?: boolean
+    image?: boolean
+  }
+
+  export type ArtistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "image", ExtArgs["result"]["artist"]>
+
+  export type $ArtistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Artist"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      image: string
+    }, ExtArgs["result"]["artist"]>
+    composites: {}
+  }
+
+  type ArtistGetPayload<S extends boolean | null | undefined | ArtistDefaultArgs> = $Result.GetResult<Prisma.$ArtistPayload, S>
+
+  type ArtistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArtistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArtistCountAggregateInputType | true
+    }
+
+  export interface ArtistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Artist'], meta: { name: 'Artist' } }
+    /**
+     * Find zero or one Artist that matches the filter.
+     * @param {ArtistFindUniqueArgs} args - Arguments to find a Artist
+     * @example
+     * // Get one Artist
+     * const artist = await prisma.artist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArtistFindUniqueArgs>(args: SelectSubset<T, ArtistFindUniqueArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Artist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArtistFindUniqueOrThrowArgs} args - Arguments to find a Artist
+     * @example
+     * // Get one Artist
+     * const artist = await prisma.artist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArtistFindUniqueOrThrowArgs>(args: SelectSubset<T, ArtistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Artist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistFindFirstArgs} args - Arguments to find a Artist
+     * @example
+     * // Get one Artist
+     * const artist = await prisma.artist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArtistFindFirstArgs>(args?: SelectSubset<T, ArtistFindFirstArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Artist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistFindFirstOrThrowArgs} args - Arguments to find a Artist
+     * @example
+     * // Get one Artist
+     * const artist = await prisma.artist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArtistFindFirstOrThrowArgs>(args?: SelectSubset<T, ArtistFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Artists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Artists
+     * const artists = await prisma.artist.findMany()
+     * 
+     * // Get first 10 Artists
+     * const artists = await prisma.artist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const artistWithIdOnly = await prisma.artist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArtistFindManyArgs>(args?: SelectSubset<T, ArtistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Artist.
+     * @param {ArtistCreateArgs} args - Arguments to create a Artist.
+     * @example
+     * // Create one Artist
+     * const Artist = await prisma.artist.create({
+     *   data: {
+     *     // ... data to create a Artist
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArtistCreateArgs>(args: SelectSubset<T, ArtistCreateArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Artists.
+     * @param {ArtistCreateManyArgs} args - Arguments to create many Artists.
+     * @example
+     * // Create many Artists
+     * const artist = await prisma.artist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArtistCreateManyArgs>(args?: SelectSubset<T, ArtistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Artists and returns the data saved in the database.
+     * @param {ArtistCreateManyAndReturnArgs} args - Arguments to create many Artists.
+     * @example
+     * // Create many Artists
+     * const artist = await prisma.artist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Artists and only return the `id`
+     * const artistWithIdOnly = await prisma.artist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArtistCreateManyAndReturnArgs>(args?: SelectSubset<T, ArtistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Artist.
+     * @param {ArtistDeleteArgs} args - Arguments to delete one Artist.
+     * @example
+     * // Delete one Artist
+     * const Artist = await prisma.artist.delete({
+     *   where: {
+     *     // ... filter to delete one Artist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArtistDeleteArgs>(args: SelectSubset<T, ArtistDeleteArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Artist.
+     * @param {ArtistUpdateArgs} args - Arguments to update one Artist.
+     * @example
+     * // Update one Artist
+     * const artist = await prisma.artist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArtistUpdateArgs>(args: SelectSubset<T, ArtistUpdateArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Artists.
+     * @param {ArtistDeleteManyArgs} args - Arguments to filter Artists to delete.
+     * @example
+     * // Delete a few Artists
+     * const { count } = await prisma.artist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArtistDeleteManyArgs>(args?: SelectSubset<T, ArtistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Artists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Artists
+     * const artist = await prisma.artist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArtistUpdateManyArgs>(args: SelectSubset<T, ArtistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Artists and returns the data updated in the database.
+     * @param {ArtistUpdateManyAndReturnArgs} args - Arguments to update many Artists.
+     * @example
+     * // Update many Artists
+     * const artist = await prisma.artist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Artists and only return the `id`
+     * const artistWithIdOnly = await prisma.artist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArtistUpdateManyAndReturnArgs>(args: SelectSubset<T, ArtistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Artist.
+     * @param {ArtistUpsertArgs} args - Arguments to update or create a Artist.
+     * @example
+     * // Update or create a Artist
+     * const artist = await prisma.artist.upsert({
+     *   create: {
+     *     // ... data to create a Artist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Artist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArtistUpsertArgs>(args: SelectSubset<T, ArtistUpsertArgs<ExtArgs>>): Prisma__ArtistClient<$Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Artists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistCountArgs} args - Arguments to filter Artists to count.
+     * @example
+     * // Count the number of Artists
+     * const count = await prisma.artist.count({
+     *   where: {
+     *     // ... the filter for the Artists we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArtistCountArgs>(
+      args?: Subset<T, ArtistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArtistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Artist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArtistAggregateArgs>(args: Subset<T, ArtistAggregateArgs>): Prisma.PrismaPromise<GetArtistAggregateType<T>>
+
+    /**
+     * Group by Artist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArtistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArtistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArtistGroupByArgs['orderBy'] }
+        : { orderBy?: ArtistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArtistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArtistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Artist model
+   */
+  readonly fields: ArtistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Artist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArtistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Artist model
+   */
+  interface ArtistFieldRefs {
+    readonly id: FieldRef<"Artist", 'String'>
+    readonly name: FieldRef<"Artist", 'String'>
+    readonly image: FieldRef<"Artist", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Artist findUnique
+   */
+  export type ArtistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter, which Artist to fetch.
+     */
+    where: ArtistWhereUniqueInput
+  }
+
+  /**
+   * Artist findUniqueOrThrow
+   */
+  export type ArtistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter, which Artist to fetch.
+     */
+    where: ArtistWhereUniqueInput
+  }
+
+  /**
+   * Artist findFirst
+   */
+  export type ArtistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter, which Artist to fetch.
+     */
+    where?: ArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Artists to fetch.
+     */
+    orderBy?: ArtistOrderByWithRelationInput | ArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Artists.
+     */
+    cursor?: ArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Artists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Artists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Artists.
+     */
+    distinct?: ArtistScalarFieldEnum | ArtistScalarFieldEnum[]
+  }
+
+  /**
+   * Artist findFirstOrThrow
+   */
+  export type ArtistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter, which Artist to fetch.
+     */
+    where?: ArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Artists to fetch.
+     */
+    orderBy?: ArtistOrderByWithRelationInput | ArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Artists.
+     */
+    cursor?: ArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Artists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Artists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Artists.
+     */
+    distinct?: ArtistScalarFieldEnum | ArtistScalarFieldEnum[]
+  }
+
+  /**
+   * Artist findMany
+   */
+  export type ArtistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter, which Artists to fetch.
+     */
+    where?: ArtistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Artists to fetch.
+     */
+    orderBy?: ArtistOrderByWithRelationInput | ArtistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Artists.
+     */
+    cursor?: ArtistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Artists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Artists.
+     */
+    skip?: number
+    distinct?: ArtistScalarFieldEnum | ArtistScalarFieldEnum[]
+  }
+
+  /**
+   * Artist create
+   */
+  export type ArtistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Artist.
+     */
+    data: XOR<ArtistCreateInput, ArtistUncheckedCreateInput>
+  }
+
+  /**
+   * Artist createMany
+   */
+  export type ArtistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Artists.
+     */
+    data: ArtistCreateManyInput | ArtistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Artist createManyAndReturn
+   */
+  export type ArtistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * The data used to create many Artists.
+     */
+    data: ArtistCreateManyInput | ArtistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Artist update
+   */
+  export type ArtistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Artist.
+     */
+    data: XOR<ArtistUpdateInput, ArtistUncheckedUpdateInput>
+    /**
+     * Choose, which Artist to update.
+     */
+    where: ArtistWhereUniqueInput
+  }
+
+  /**
+   * Artist updateMany
+   */
+  export type ArtistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Artists.
+     */
+    data: XOR<ArtistUpdateManyMutationInput, ArtistUncheckedUpdateManyInput>
+    /**
+     * Filter which Artists to update
+     */
+    where?: ArtistWhereInput
+    /**
+     * Limit how many Artists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Artist updateManyAndReturn
+   */
+  export type ArtistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * The data used to update Artists.
+     */
+    data: XOR<ArtistUpdateManyMutationInput, ArtistUncheckedUpdateManyInput>
+    /**
+     * Filter which Artists to update
+     */
+    where?: ArtistWhereInput
+    /**
+     * Limit how many Artists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Artist upsert
+   */
+  export type ArtistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Artist to update in case it exists.
+     */
+    where: ArtistWhereUniqueInput
+    /**
+     * In case the Artist found by the `where` argument doesn't exist, create a new Artist with this data.
+     */
+    create: XOR<ArtistCreateInput, ArtistUncheckedCreateInput>
+    /**
+     * In case the Artist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArtistUpdateInput, ArtistUncheckedUpdateInput>
+  }
+
+  /**
+   * Artist delete
+   */
+  export type ArtistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+    /**
+     * Filter which Artist to delete.
+     */
+    where: ArtistWhereUniqueInput
+  }
+
+  /**
+   * Artist deleteMany
+   */
+  export type ArtistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Artists to delete
+     */
+    where?: ArtistWhereInput
+    /**
+     * Limit how many Artists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Artist without action
+   */
+  export type ArtistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Artist
+     */
+    select?: ArtistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Artist
+     */
+    omit?: ArtistOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15478,7 +16564,8 @@ export namespace Prisma {
     userId: 'userId',
     amount: 'amount',
     expiresAt: 'expiresAt',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    used: 'used'
   };
 
   export type PointScalarFieldEnum = (typeof PointScalarFieldEnum)[keyof typeof PointScalarFieldEnum]
@@ -15490,7 +16577,8 @@ export namespace Prisma {
     userId: 'userId',
     discountPercent: 'discountPercent',
     expiresAt: 'expiresAt',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    used: 'used'
   };
 
   export type VoucherScalarFieldEnum = (typeof VoucherScalarFieldEnum)[keyof typeof VoucherScalarFieldEnum]
@@ -15519,6 +16607,15 @@ export namespace Prisma {
   };
 
   export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+  export const ArtistScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    image: 'image'
+  };
+
+  export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -16365,6 +17462,7 @@ export namespace Prisma {
     amount?: IntFilter<"Point"> | number
     expiresAt?: DateTimeFilter<"Point"> | Date | string
     createdAt?: DateTimeFilter<"Point"> | Date | string
+    used?: BoolFilter<"Point"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -16374,6 +17472,7 @@ export namespace Prisma {
     amount?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -16386,6 +17485,7 @@ export namespace Prisma {
     amount?: IntFilter<"Point"> | number
     expiresAt?: DateTimeFilter<"Point"> | Date | string
     createdAt?: DateTimeFilter<"Point"> | Date | string
+    used?: BoolFilter<"Point"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
@@ -16395,6 +17495,7 @@ export namespace Prisma {
     amount?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
     _count?: PointCountOrderByAggregateInput
     _avg?: PointAvgOrderByAggregateInput
     _max?: PointMaxOrderByAggregateInput
@@ -16411,6 +17512,7 @@ export namespace Prisma {
     amount?: IntWithAggregatesFilter<"Point"> | number
     expiresAt?: DateTimeWithAggregatesFilter<"Point"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Point"> | Date | string
+    used?: BoolWithAggregatesFilter<"Point"> | boolean
   }
 
   export type VoucherWhereInput = {
@@ -16423,6 +17525,7 @@ export namespace Prisma {
     discountPercent?: IntFilter<"Voucher"> | number
     expiresAt?: DateTimeFilter<"Voucher"> | Date | string
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
+    used?: BoolFilter<"Voucher"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     ReferralUsage?: ReferralUsageListRelationFilter
   }
@@ -16434,6 +17537,7 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
     user?: UserOrderByWithRelationInput
     ReferralUsage?: ReferralUsageOrderByRelationAggregateInput
   }
@@ -16448,6 +17552,7 @@ export namespace Prisma {
     discountPercent?: IntFilter<"Voucher"> | number
     expiresAt?: DateTimeFilter<"Voucher"> | Date | string
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
+    used?: BoolFilter<"Voucher"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     ReferralUsage?: ReferralUsageListRelationFilter
   }, "id">
@@ -16459,6 +17564,7 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
     _count?: VoucherCountOrderByAggregateInput
     _avg?: VoucherAvgOrderByAggregateInput
     _max?: VoucherMaxOrderByAggregateInput
@@ -16476,6 +17582,7 @@ export namespace Prisma {
     discountPercent?: IntWithAggregatesFilter<"Voucher"> | number
     expiresAt?: DateTimeWithAggregatesFilter<"Voucher"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Voucher"> | Date | string
+    used?: BoolWithAggregatesFilter<"Voucher"> | boolean
   }
 
   export type ReferralUsageWhereInput = {
@@ -16615,6 +17722,48 @@ export namespace Prisma {
     rating?: IntWithAggregatesFilter<"Review"> | number
     comment?: StringWithAggregatesFilter<"Review"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
+  }
+
+  export type ArtistWhereInput = {
+    AND?: ArtistWhereInput | ArtistWhereInput[]
+    OR?: ArtistWhereInput[]
+    NOT?: ArtistWhereInput | ArtistWhereInput[]
+    id?: StringFilter<"Artist"> | string
+    name?: StringFilter<"Artist"> | string
+    image?: StringFilter<"Artist"> | string
+  }
+
+  export type ArtistOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+  }
+
+  export type ArtistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ArtistWhereInput | ArtistWhereInput[]
+    OR?: ArtistWhereInput[]
+    NOT?: ArtistWhereInput | ArtistWhereInput[]
+    name?: StringFilter<"Artist"> | string
+    image?: StringFilter<"Artist"> | string
+  }, "id">
+
+  export type ArtistOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+    _count?: ArtistCountOrderByAggregateInput
+    _max?: ArtistMaxOrderByAggregateInput
+    _min?: ArtistMinOrderByAggregateInput
+  }
+
+  export type ArtistScalarWhereWithAggregatesInput = {
+    AND?: ArtistScalarWhereWithAggregatesInput | ArtistScalarWhereWithAggregatesInput[]
+    OR?: ArtistScalarWhereWithAggregatesInput[]
+    NOT?: ArtistScalarWhereWithAggregatesInput | ArtistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Artist"> | string
+    name?: StringWithAggregatesFilter<"Artist"> | string
+    image?: StringWithAggregatesFilter<"Artist"> | string
   }
 
   export type UserCreateInput = {
@@ -17365,6 +18514,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     user: UserCreateNestedOneWithoutPointsInput
   }
 
@@ -17374,6 +18524,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type PointUpdateInput = {
@@ -17381,6 +18532,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutPointsNestedInput
   }
 
@@ -17390,6 +18542,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PointCreateManyInput = {
@@ -17398,6 +18551,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type PointUpdateManyMutationInput = {
@@ -17405,6 +18559,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PointUncheckedUpdateManyInput = {
@@ -17413,6 +18568,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VoucherCreateInput = {
@@ -17421,6 +18577,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     user: UserCreateNestedOneWithoutVouchersInput
     ReferralUsage?: ReferralUsageCreateNestedManyWithoutVoucherInput
   }
@@ -17432,6 +18589,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     ReferralUsage?: ReferralUsageUncheckedCreateNestedManyWithoutVoucherInput
   }
 
@@ -17441,6 +18599,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutVouchersNestedInput
     ReferralUsage?: ReferralUsageUpdateManyWithoutVoucherNestedInput
   }
@@ -17452,6 +18611,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     ReferralUsage?: ReferralUsageUncheckedUpdateManyWithoutVoucherNestedInput
   }
 
@@ -17462,6 +18622,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type VoucherUpdateManyMutationInput = {
@@ -17470,6 +18631,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VoucherUncheckedUpdateManyInput = {
@@ -17479,6 +18641,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ReferralUsageCreateInput = {
@@ -17606,6 +18769,48 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     comment?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArtistCreateInput = {
+    id?: string
+    name: string
+    image: string
+  }
+
+  export type ArtistUncheckedCreateInput = {
+    id?: string
+    name: string
+    image: string
+  }
+
+  export type ArtistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ArtistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ArtistCreateManyInput = {
+    id?: string
+    name: string
+    image: string
+  }
+
+  export type ArtistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ArtistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -18312,6 +19517,7 @@ export namespace Prisma {
     amount?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type PointAvgOrderByAggregateInput = {
@@ -18324,6 +19530,7 @@ export namespace Prisma {
     amount?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type PointMinOrderByAggregateInput = {
@@ -18332,6 +19539,7 @@ export namespace Prisma {
     amount?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type PointSumOrderByAggregateInput = {
@@ -18352,6 +19560,7 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type VoucherAvgOrderByAggregateInput = {
@@ -18365,6 +19574,7 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type VoucherMinOrderByAggregateInput = {
@@ -18374,6 +19584,7 @@ export namespace Prisma {
     discountPercent?: SortOrder
     expiresAt?: SortOrder
     createdAt?: SortOrder
+    used?: SortOrder
   }
 
   export type VoucherSumOrderByAggregateInput = {
@@ -18463,6 +19674,24 @@ export namespace Prisma {
 
   export type ReviewSumOrderByAggregateInput = {
     rating?: SortOrder
+  }
+
+  export type ArtistCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+  }
+
+  export type ArtistMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
+  }
+
+  export type ArtistMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    image?: SortOrder
   }
 
   export type EventCreateNestedManyWithoutOrganizerInput = {
@@ -19957,6 +21186,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type PointUncheckedCreateWithoutUserInput = {
@@ -19964,6 +21194,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type PointCreateOrConnectWithoutUserInput = {
@@ -20106,6 +21337,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     ReferralUsage?: ReferralUsageCreateNestedManyWithoutVoucherInput
   }
 
@@ -20115,6 +21347,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     ReferralUsage?: ReferralUsageUncheckedCreateNestedManyWithoutVoucherInput
   }
 
@@ -20218,6 +21451,7 @@ export namespace Prisma {
     amount?: IntFilter<"Point"> | number
     expiresAt?: DateTimeFilter<"Point"> | Date | string
     createdAt?: DateTimeFilter<"Point"> | Date | string
+    used?: BoolFilter<"Point"> | boolean
   }
 
   export type ReferralUsageUpsertWithWhereUniqueWithoutReferredInput = {
@@ -20355,6 +21589,7 @@ export namespace Prisma {
     discountPercent?: IntFilter<"Voucher"> | number
     expiresAt?: DateTimeFilter<"Voucher"> | Date | string
     createdAt?: DateTimeFilter<"Voucher"> | Date | string
+    used?: BoolFilter<"Voucher"> | boolean
   }
 
   export type PurchasedTicketUpsertWithWhereUniqueWithoutUserInput = {
@@ -22522,6 +23757,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
     user: UserCreateNestedOneWithoutVouchersInput
   }
 
@@ -22532,6 +23768,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type VoucherCreateOrConnectWithoutReferralUsageInput = {
@@ -22698,6 +23935,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutVouchersNestedInput
   }
 
@@ -22708,6 +23946,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type EventCreateWithoutReviewsInput = {
@@ -23018,6 +24257,7 @@ export namespace Prisma {
     amount: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type ReferralUsageCreateManyReferredInput = {
@@ -23067,6 +24307,7 @@ export namespace Prisma {
     discountPercent: number
     expiresAt: Date | string
     createdAt?: Date | string
+    used?: boolean
   }
 
   export type PurchasedTicketCreateManyUserInput = {
@@ -23138,6 +24379,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PointUncheckedUpdateWithoutUserInput = {
@@ -23145,6 +24387,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PointUncheckedUpdateManyWithoutUserInput = {
@@ -23152,6 +24395,7 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ReferralUsageUpdateWithoutReferredInput = {
@@ -23285,6 +24529,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     ReferralUsage?: ReferralUsageUpdateManyWithoutVoucherNestedInput
   }
 
@@ -23294,6 +24539,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
     ReferralUsage?: ReferralUsageUncheckedUpdateManyWithoutVoucherNestedInput
   }
 
@@ -23303,6 +24549,7 @@ export namespace Prisma {
     discountPercent?: IntFieldUpdateOperationsInput | number
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    used?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PurchasedTicketUpdateWithoutUserInput = {

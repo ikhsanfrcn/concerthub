@@ -7,10 +7,12 @@ import { statusTransaction } from "../../prisma/generated/prisma";
 
 export class TransactionController {
   async getTransactions(req: Request, res: Response) {
+    const { userId, id } = req.query;
     try {
       const transactions = await prisma.transaction.findMany({
         where: {
-          userId: req.user?.id,
+          ...(userId && { userId: userId as string }),
+          ...(id && { id: id as string }),
         },
         include: {
           event: true,
@@ -32,40 +34,7 @@ export class TransactionController {
     }
   }
 
-  async getTransactionsById(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
-
-      const transaction = await prisma.transaction.findUnique({
-        where: {
-          id: id,
-        },
-        include: {
-          event: true, 
-          ticket: true,
-        },
-      });
-  
-      if (!transaction) {
-         res.status(404).send({
-          message: "Transaksi tidak ditemukan",
-        });
-      }
-  
-      res.status(200).send({
-        message: "Data transaksi berhasil diambil",
-        transaction,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(400).send({
-        message: "Terjadi kesalahan saat mengambil data transaksi",
-        error: err,
-      });
-    }
-  }
-
-  async getUserTransactions(req: Request, res: Response) {
+  async getUserPendingTransactions(req: Request, res: Response) {
     try {
       const { userId } = req.query;
 

@@ -24,7 +24,7 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
         if (!session?.user?.id || !id) return
 
         try {
-          const res = await axios.get(`/tickets/my-purchased?userId=${session.user.id}`, {
+          const res = await axios.get(`/tickets/purchased?userId=${session.user.id}`, {
             headers: {
               Authorization: `Bearer ${session.accessToken}`
             }

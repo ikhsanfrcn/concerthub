@@ -28,8 +28,7 @@ export class TransactionRouter {
     );
 
     this.router.post('/status', this.transactionController.updateTransaction)
-    this.router.get('/mytransaction', this.auth.verifyToken, this.transactionController.getUserTransactions)
-    this.router.get('/:id', this.auth.verifyToken, this.transactionController.getTransactionsById)
+    this.router.get('/pending', this.transactionController.getUserPendingTransactions)
 
   }
 

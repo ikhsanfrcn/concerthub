@@ -32,6 +32,12 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
     fetchSessions();
   }, [eventId]);
 
+  const isEventExpired = (date: string) => {
+    const eventDate = new Date(date);
+    const currentDate = new Date();
+    return eventDate < currentDate;
+  };
+
   return (
     <div>
       <div className="p-4 max-w-6xl mx-auto">
@@ -67,59 +73,69 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
             <p className="text-center text-gray-500">Loading concert...</p>
           ) : sessions.length == 0 ? (
             <p className="text-center text-gray-500">
-              Tidak ada konser tersedia saat ini.
+              There are no concerts available at the moment.
             </p>
           ) : (
-            sessions.map((session) => (
-              <div
-                key={session.id}
-                className="flex flex-col sm:flex-row bg-white border rounded-xl p-4 shadow-sm mb-4"
-              >
-                <div className="w-full sm:w-28 h-28 rounded-xl flex flex-col justify-center items-center font-semibold mb-4 sm:mb-0 bg-pink-100">
-                  <div className="text-lg">
-                    {new Date(session.date).getDate()}
+            sessions.map((session) => {
+              const isExpired = isEventExpired(session.date);
+              return (
+                <div
+                  key={session.id}
+                  className="flex flex-col sm:flex-row bg-white border rounded-xl p-4 shadow-sm mb-4"
+                >
+                  <div className="w-full sm:w-28 h-28 rounded-xl flex flex-col justify-center items-center font-semibold mb-4 sm:mb-0 bg-pink-100">
+                    <div className="text-lg">
+                      {new Date(session.date).getDate()}
+                    </div>
+                    <div className="text-sm">
+                      {new Date(session.date).toLocaleString("default", {
+                        month: "short",
+                      })}
+                    </div>
+                    <div className="text-sm">
+                      {new Date(session.date).getFullYear()}
+                    </div>
                   </div>
-                  <div className="text-sm">
-                    {new Date(session.date).toLocaleString("default", {
-                      month: "short",
-                    })}
-                  </div>
-                  <div className="text-sm">
-                    {new Date(session.date).getFullYear()}
-                  </div>
-                </div>
 
-                <div className="sm:ml-4 flex-1">
-                  <h3 className="font-semibold text-lg">
-                    {session.event.title}
-                  </h3>
-                  <p className="text-sm">{session.event.category}</p>
-                  <p className="text-sm">🗓 {session.time}</p>
-                  <p className="text-sm">📍 {session.location}</p>
-                </div>
+                  <div className="sm:ml-4 flex-1">
+                    <h3 className="font-semibold text-lg">
+                      {session.event.title}
+                    </h3>
+                    <p className="text-sm">{session.event.category}</p>
+                    <p className="text-sm">🗓 {session.time}</p>
+                    <p className="text-sm">📍 {session.location}</p>
+                  </div>
 
-                <div className="mt-4 sm:mt-0 sm:self-center">
-                  <button
-                    onClick={() => {
-                      const selectedConcert = {
-                        id: session.id,
-                        date: session.date,
-                        location: session.location,
-                        time: session.time,
-                      };
-                      localStorage.setItem(
-                        "selectedConcert",
-                        JSON.stringify(selectedConcert)
-                      );
-                      onComplete();
-                    }}
-                    className="w-full sm:w-auto px-4 py-2 rounded-full text-white font-semibold bg-pink-500 hover:bg-pink-600"
-                  >
-                    View Ticket
-                  </button>
+                  <div className="mt-4 sm:mt-0 sm:self-center">
+                    <button
+                      onClick={() => {
+                        if (!isExpired) {
+                          const selectedConcert = {
+                            id: session.id,
+                            date: session.date,
+                            location: session.location,
+                            time: session.time,
+                          };
+                          localStorage.setItem(
+                            "selectedConcert",
+                            JSON.stringify(selectedConcert)
+                          );
+                          onComplete();
+                        }
+                      }}
+                      className={`w-full sm:w-auto px-4 py-2 rounded-full text-white font-semibold ${
+                        isExpired
+                          ? "bg-gray-500 cursor-not-allowed"
+                          : "bg-pink-500 hover:bg-pink-600 cursor-pointer"
+                      }`}
+                      disabled={isExpired}
+                    >
+                      {isExpired ? "Expired" : "View Ticket"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>

@@ -17,7 +17,6 @@ export class EventRouter {
 
   private initializeRoutes() {
     this.router.get("/", this.eventController.getEvent);
-    this.router.get("/organizer", this.eventController.getEventByOrganizer);
     this.router.post(
       "/create/cloud",
       uploader("memoryStorage", "ch-").single("image"),
@@ -25,7 +24,6 @@ export class EventRouter {
       this.authMiddleware.verifyRole,
       this.eventController.createEventCloud
     );
-    this.router.get("/:id", this.eventController.getEventById);
   }
 
   getRouter(): Router {

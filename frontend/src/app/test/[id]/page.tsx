@@ -32,7 +32,7 @@ const EventDetail = () => {
 
     const fetchEvent = async () => {
       try {
-        const res = await axios.get(`/events/${id}`);
+        const res = await axios.get(`/events?id=${id}`);
         setEvent(res.data);
       } catch (error) {
         console.error("Failed to fetch event", error);

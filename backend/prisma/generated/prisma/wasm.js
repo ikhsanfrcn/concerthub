@@ -219,7 +219,8 @@ exports.Prisma.PointScalarFieldEnum = {
   userId: 'userId',
   amount: 'amount',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  used: 'used'
 };
 
 exports.Prisma.VoucherScalarFieldEnum = {
@@ -228,7 +229,8 @@ exports.Prisma.VoucherScalarFieldEnum = {
   userId: 'userId',
   discountPercent: 'discountPercent',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  used: 'used'
 };
 
 exports.Prisma.ReferralUsageScalarFieldEnum = {
@@ -248,6 +250,12 @@ exports.Prisma.ReviewScalarFieldEnum = {
   rating: 'rating',
   comment: 'comment',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ArtistScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.SortOrder = {
@@ -301,7 +309,8 @@ exports.Prisma.ModelName = {
   Point: 'Point',
   Voucher: 'Voucher',
   ReferralUsage: 'ReferralUsage',
-  Review: 'Review'
+  Review: 'Review',
+  Artist: 'Artist'
 };
 
 /**

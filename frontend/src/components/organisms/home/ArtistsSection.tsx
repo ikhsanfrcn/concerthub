@@ -1,39 +1,36 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArtisCard } from "@/components/molecules/home/ArtisCard";
 import Link from "next/link";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import axios from "@/lib/axios";
 
-const dataDummy = [
-    {
-        image: "/pink.png"
-    },
-    {
-        image: "/adele.png"
-    },
-    {
-        image: "/taylorswift.png"
-    },
-    {
-        image: "/harrystyle.png"
-    },
-    {
-        image: "/rihanna.png"
-    },
-    {
-        image: "/selenagomez.png"
-    },
-    {
-        image: "/drake.png"
-    }
-]
+interface Artist {
+  name: string;
+  image: string;
+}
 
 interface Props {
   className?: string;
 }
 
 export const ArtistsSection: React.FC<Props> = ({ className }) => {
+  const [artists, setArtists] = useState<Artist[]>([]); // State to store artists
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Fetch artist data from the API
+  useEffect(() => {
+    const fetchArtists = async () => {
+      try {
+        const response = await axios.get("/artists"); // Assume your API has an endpoint for artists
+        setArtists(response.data.artist); // Assuming the API returns an array of artists
+      } catch (error) {
+        console.error("Error fetching artists:", error);
+      }
+    };
+
+    fetchArtists();
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -49,7 +46,7 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
     <section className={`${className}`}>
       <div className="flex justify-between">
         <p className="text-[26px]">Artists</p>
-        <Link href={"#"} className="text-[20px]">
+        <Link href="/artists" className="text-[20px]">
           See All
         </Link>
       </div>
@@ -66,10 +63,13 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
         {/* Scrollable list */}
         <div
           ref={scrollRef}
-          className="flex justify-center flex-nowrap overflow-x-auto space-x-[24px] scrollbar-hide scroll-smooth">
-          {dataDummy.map((item, index) => (
+          className="flex justify-center flex-nowrap overflow-x-auto space-x-[24px] scrollbar-hide scroll-smooth"
+        >
+          {artists.map((artist, index) => (
             <div key={index} className="flex-shrink-0">
-              <ArtisCard image={item.image} />
+              <Link href={`/tickets?artist=${artist.name}`}>
+                <ArtisCard image={artist.image} />
+              </Link>
             </div>
           ))}
         </div>

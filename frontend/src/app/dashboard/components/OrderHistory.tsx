@@ -36,7 +36,7 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get(
-          `/tickets/my-purchased?userId=${session?.user.id}`,
+          `/tickets/purchased?userId=${session?.user.id}`,
           {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,

@@ -41,7 +41,7 @@ export const UpcomingSection: React.FC<Props> = ({ className }) => {
     <section className={`${className}`}>
       <div className="flex justify-between items-center">
         <p className="text-[26px]">Upcoming concerts</p>
-        <Link href="/events" className="text-[20px]">
+        <Link href="/tickets" className="text-[20px]">
           See All
         </Link>
       </div>
