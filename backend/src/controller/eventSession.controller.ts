@@ -57,7 +57,7 @@ export class EventSessionController {
       const session = await prisma.eventSession.create({
         data: {
           eventId,
-          date: new Date(date),
+          date,
           time,
           location,
         },

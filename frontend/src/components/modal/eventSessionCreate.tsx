@@ -22,7 +22,7 @@ export default function EventSessionCreate({ onClose }: EventSessionCreateProps)
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get(`/events/organizer?organizerId=${session?.user.id}`)
+        const res = await axios.get(`/events?organizerId=${session?.user.id}`)
         setEvents(res.data || [])
         setLoading(false)
       } catch (error) {

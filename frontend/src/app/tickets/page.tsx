@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "@/lib/axios";
 import { Card } from "@/components/molecules/home/Card";
 import { MainTemplate } from "@/template/MainTemplate";
+import { SearchBox } from "@/components/atoms/SearchBox";
 
 interface Event {
   image: string;
@@ -22,6 +23,13 @@ export default function Tickets() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedArtist, setSelectedArtist] = useState<string>("");
+  const router = useRouter();
+  
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   const searchParams = useSearchParams();
   const artistFromUrl = searchParams.get("artist");
@@ -86,9 +94,16 @@ export default function Tickets() {
   const categories = Array.from(new Set(concerts.map((event) => event.category)));
   const locations = Array.from(new Set(concerts.map((event) => event.location)));
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push(`/tickets?search=${searchTerm}`); 
+  };
+
+
   return (
     <MainTemplate>
       <section className="mx-[18px] min-[1440px]:mx-[108px] my-[48px]">
+        <div className="flex justify-between">
         <div className="flex gap-4 mt-4">
           {/* Category Filter */}
           <select
@@ -131,6 +146,13 @@ export default function Tickets() {
               </option>
             ))}
           </select>
+        </div>
+        <form onSubmit={handleSearchSubmit}> 
+                    <SearchBox
+                      value={searchTerm}
+                      onChange={handleSearchChange} 
+                    />
+                  </form>
         </div>
 
         <div className="mt-[24px]">

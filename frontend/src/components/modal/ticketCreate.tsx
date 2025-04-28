@@ -27,7 +27,7 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get(`/events/organizer?organizerId=${session?.user.id}`, {
+        const res = await axios.get(`/events?organizerId=${session?.user.id}`, {
           headers: {
             'Authorization': `Bearer ${session?.accessToken}`,
           },

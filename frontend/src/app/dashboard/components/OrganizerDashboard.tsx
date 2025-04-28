@@ -1,5 +1,7 @@
 'use client'
-import { useState } from 'react'
+import axios from '@/lib/axios'
+import { useSession } from 'next-auth/react'
+import { useState, useEffect } from 'react'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer
 } from 'recharts'
@@ -11,22 +13,43 @@ type Event = {
   attendees: number
 }
 
-const dummyEvents: Event[] = [
-  { id: '1', title: 'Taylor Swift', date: '2025-04-01', attendees: 120 },
-  { id: '2', title: 'Celine Dion', date: '2025-04-10', attendees: 80 },
-  { id: '3', title: 'Justin Bieber', date: '2025-03-15', attendees: 150 },
-  { id: '4', title: 'Adele', date: '2025-03-21', attendees: 95 },
-  { id: '5', title: 'Jenifer Lopez', date: '2025-02-05', attendees: 200 },
-]
-
 interface OrganizerProps {
   isVisible: boolean;
 }
 
-export const OrganizerDashboard: React.FC<OrganizerProps> = (isVisible) => {
+export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
+  const { data: session } = useSession()
   const [filter, setFilter] = useState<'daily' | 'monthly' | 'yearly'>('monthly')
+  const [events, setEvents] = useState<Event[]>([])
 
-  const filteredEvents = dummyEvents.filter(event => {
+  // Fetch data from API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(`/events?organizerId=${session?.user.id}`, {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`
+          }
+        })
+        // Mapping response to match Event type
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const fetchedEvents = response.data.map((event: any) => ({
+          id: event.id,
+          title: event.title,
+          date: event.date,
+          attendees: event.seats // Assuming 'seats' represents attendees
+        }))
+        setEvents(fetchedEvents)
+      } catch (error) {
+        console.error('Error fetching events:', error)
+      }
+    }
+
+    fetchEvents()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const filteredEvents = events.filter(event => {
     const eventDate = new Date(event.date)
     const now = new Date()
 

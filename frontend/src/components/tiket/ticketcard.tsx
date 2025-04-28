@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
-import { format } from "date-fns";
 
 interface ConcertData {
   id: string;
@@ -40,7 +39,7 @@ const TicketCard = () => {
           title: session.event.title,
           time: session.time,
           location: session.location,
-          date: format(new Date(session.date), "dd MMM yyyy"),
+          date: session.date
         };
 
         setConcert(concertData);

@@ -73,7 +73,7 @@ model Event {
 model EventSession {
   id       String   @id @default(uuid())
   eventId  String
-  date     DateTime
+  date     String
   time     String
   location String
 

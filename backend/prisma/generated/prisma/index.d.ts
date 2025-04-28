@@ -5085,7 +5085,7 @@ export namespace Prisma {
   export type EventSessionMinAggregateOutputType = {
     id: string | null
     eventId: string | null
-    date: Date | null
+    date: string | null
     time: string | null
     location: string | null
   }
@@ -5093,7 +5093,7 @@ export namespace Prisma {
   export type EventSessionMaxAggregateOutputType = {
     id: string | null
     eventId: string | null
-    date: Date | null
+    date: string | null
     time: string | null
     location: string | null
   }
@@ -5208,7 +5208,7 @@ export namespace Prisma {
   export type EventSessionGroupByOutputType = {
     id: string
     eventId: string
-    date: Date
+    date: string
     time: string
     location: string
     _count: EventSessionCountAggregateOutputType | null
@@ -5292,7 +5292,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       eventId: string
-      date: Date
+      date: string
       time: string
       location: string
     }, ExtArgs["result"]["eventSession"]>
@@ -5723,7 +5723,7 @@ export namespace Prisma {
   interface EventSessionFieldRefs {
     readonly id: FieldRef<"EventSession", 'String'>
     readonly eventId: FieldRef<"EventSession", 'String'>
-    readonly date: FieldRef<"EventSession", 'DateTime'>
+    readonly date: FieldRef<"EventSession", 'String'>
     readonly time: FieldRef<"EventSession", 'String'>
     readonly location: FieldRef<"EventSession", 'String'>
   }
@@ -17052,7 +17052,7 @@ export namespace Prisma {
     NOT?: EventSessionWhereInput | EventSessionWhereInput[]
     id?: StringFilter<"EventSession"> | string
     eventId?: StringFilter<"EventSession"> | string
-    date?: DateTimeFilter<"EventSession"> | Date | string
+    date?: StringFilter<"EventSession"> | string
     time?: StringFilter<"EventSession"> | string
     location?: StringFilter<"EventSession"> | string
     tickets?: TicketListRelationFilter
@@ -17077,7 +17077,7 @@ export namespace Prisma {
     OR?: EventSessionWhereInput[]
     NOT?: EventSessionWhereInput | EventSessionWhereInput[]
     eventId?: StringFilter<"EventSession"> | string
-    date?: DateTimeFilter<"EventSession"> | Date | string
+    date?: StringFilter<"EventSession"> | string
     time?: StringFilter<"EventSession"> | string
     location?: StringFilter<"EventSession"> | string
     tickets?: TicketListRelationFilter
@@ -17102,7 +17102,7 @@ export namespace Prisma {
     NOT?: EventSessionScalarWhereWithAggregatesInput | EventSessionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"EventSession"> | string
     eventId?: StringWithAggregatesFilter<"EventSession"> | string
-    date?: DateTimeWithAggregatesFilter<"EventSession"> | Date | string
+    date?: StringWithAggregatesFilter<"EventSession"> | string
     time?: StringWithAggregatesFilter<"EventSession"> | string
     location?: StringWithAggregatesFilter<"EventSession"> | string
   }
@@ -18092,7 +18092,7 @@ export namespace Prisma {
 
   export type EventSessionCreateInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketCreateNestedManyWithoutSessionInput
@@ -18103,7 +18103,7 @@ export namespace Prisma {
   export type EventSessionUncheckedCreateInput = {
     id?: string
     eventId: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketUncheckedCreateNestedManyWithoutSessionInput
@@ -18112,7 +18112,7 @@ export namespace Prisma {
 
   export type EventSessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUpdateManyWithoutSessionNestedInput
@@ -18123,7 +18123,7 @@ export namespace Prisma {
   export type EventSessionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutSessionNestedInput
@@ -18133,14 +18133,14 @@ export namespace Prisma {
   export type EventSessionCreateManyInput = {
     id?: string
     eventId: string
-    date: Date | string
+    date: string
     time: string
     location: string
   }
 
   export type EventSessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
@@ -18148,7 +18148,7 @@ export namespace Prisma {
   export type EventSessionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
@@ -21688,7 +21688,7 @@ export namespace Prisma {
 
   export type EventSessionCreateWithoutEventInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketCreateNestedManyWithoutSessionInput
@@ -21697,7 +21697,7 @@ export namespace Prisma {
 
   export type EventSessionUncheckedCreateWithoutEventInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketUncheckedCreateNestedManyWithoutSessionInput
@@ -21945,7 +21945,7 @@ export namespace Prisma {
     NOT?: EventSessionScalarWhereInput | EventSessionScalarWhereInput[]
     id?: StringFilter<"EventSession"> | string
     eventId?: StringFilter<"EventSession"> | string
-    date?: DateTimeFilter<"EventSession"> | Date | string
+    date?: StringFilter<"EventSession"> | string
     time?: StringFilter<"EventSession"> | string
     location?: StringFilter<"EventSession"> | string
   }
@@ -22237,7 +22237,7 @@ export namespace Prisma {
 
   export type EventSessionCreateWithoutTicketsInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
     event: EventCreateNestedOneWithoutEventSessionsInput
@@ -22247,7 +22247,7 @@ export namespace Prisma {
   export type EventSessionUncheckedCreateWithoutTicketsInput = {
     id?: string
     eventId: string
-    date: Date | string
+    date: string
     time: string
     location: string
     PurchasedTicket?: PurchasedTicketUncheckedCreateNestedManyWithoutSessionInput
@@ -22390,7 +22390,7 @@ export namespace Prisma {
 
   export type EventSessionUpdateWithoutTicketsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     event?: EventUpdateOneRequiredWithoutEventSessionsNestedInput
@@ -22400,7 +22400,7 @@ export namespace Prisma {
   export type EventSessionUncheckedUpdateWithoutTicketsInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     PurchasedTicket?: PurchasedTicketUncheckedUpdateManyWithoutSessionNestedInput
@@ -22833,7 +22833,7 @@ export namespace Prisma {
 
   export type EventSessionCreateWithoutPurchasedTicketInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketCreateNestedManyWithoutSessionInput
@@ -22843,7 +22843,7 @@ export namespace Prisma {
   export type EventSessionUncheckedCreateWithoutPurchasedTicketInput = {
     id?: string
     eventId: string
-    date: Date | string
+    date: string
     time: string
     location: string
     tickets?: TicketUncheckedCreateNestedManyWithoutSessionInput
@@ -23028,7 +23028,7 @@ export namespace Prisma {
 
   export type EventSessionUpdateWithoutPurchasedTicketInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUpdateManyWithoutSessionNestedInput
@@ -23038,7 +23038,7 @@ export namespace Prisma {
   export type EventSessionUncheckedUpdateWithoutPurchasedTicketInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutSessionNestedInput
@@ -24583,7 +24583,7 @@ export namespace Prisma {
 
   export type EventSessionCreateManyEventInput = {
     id?: string
-    date: Date | string
+    date: string
     time: string
     location: string
   }
@@ -24636,7 +24636,7 @@ export namespace Prisma {
 
   export type EventSessionUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUpdateManyWithoutSessionNestedInput
@@ -24645,7 +24645,7 @@ export namespace Prisma {
 
   export type EventSessionUncheckedUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     tickets?: TicketUncheckedUpdateManyWithoutSessionNestedInput
@@ -24654,7 +24654,7 @@ export namespace Prisma {
 
   export type EventSessionUncheckedUpdateManyWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: StringFieldUpdateOperationsInput | string
     time?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
   }
