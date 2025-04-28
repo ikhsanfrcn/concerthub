@@ -9,6 +9,7 @@ import Step4 from "@/components/tiket/tester/step4";
 import Step5 from "@/components/tiket/tester/step5";
 import { MainTemplate } from "@/template/MainTemplate";
 import Stepper from "@/components/tiket/tester/stepper";
+import { LoadingPage } from "@/components/loadingpage/loading";
 
 interface Event {
   image: string;
@@ -43,40 +44,48 @@ const EventDetail = () => {
     fetchEvent();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingPage />;
   if (!event) return <p>Event not found!</p>;
 
   const steps = [
     {
-      title: "Step 1",
+      title: "Concert detail",
       component: <Step1 eventId={id} onComplete={() => setCurrentStep(1)} />,
     },
     {
-      title: "Step 2",
+      title: "Tickets",
       component: <Step2 onComplete={() => setCurrentStep(2)} />,
     },
     {
-      title: "Step 3",
-      component: <Step3 eventId={id} eventTitle={event.title}
-      eventDate={event.date} onComplete={() => setCurrentStep(3)} />,
+      title: "Payment details",
+      component: (
+        <Step3
+          eventId={id}
+          eventTitle={event.title}
+          eventDate={event.date}
+          onComplete={() => setCurrentStep(3)}
+        />
+      ),
     },
     {
-      title: "Step 4",
+      title: "Review",
       component: <Step4 onComplete={() => setCurrentStep(4)} />,
     },
     {
-      title: "Step 5",
+      title: "Finish",
       component: <Step5 />,
     },
   ];
 
   return (
     <MainTemplate>
-      <Stepper
-        steps={steps}
-        currentStep={currentStep}
-        // onStepChange={setCurrentStep}
-      />
+      <div style={{ display: currentStep === 0 ? 'none' : 'flex' }}>
+        <Stepper
+          steps={steps}
+          currentStep={currentStep}
+          // onStepChange={setCurrentStep}
+        />
+      </div>
       <div className="step-content mt-4">{steps[currentStep].component}</div>
     </MainTemplate>
   );

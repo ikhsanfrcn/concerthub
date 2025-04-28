@@ -7,6 +7,7 @@ import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import TicketCard from "@/components/tiket/ticketcard";
+import { toast, ToastContainer } from "react-toastify";
 
 interface Step3Props {
   eventId: string;
@@ -122,6 +123,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     } catch (err) {
       console.error("Error fetching voucher:", err);
       setAppliedDiscount(0);
+      toast.error("No vouchers available");
     }
   };
 
@@ -140,6 +142,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     } catch (err) {
       console.error("Error fetching points:", err);
       setAppliedDiscount(0);
+      toast.error("No points available");
     }
   };
 
@@ -148,6 +151,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       if (selectedDiscountType === "voucher") fetchUserVoucher();
       else if (selectedDiscountType === "points") fetchUserPoints();
       else setAppliedDiscount(0);
+      toast.info("Discount cleared");
     }
   }, [session, selectedDiscountType]);
 
@@ -185,14 +189,24 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
+      toast.error("Transaction Failed!"); 
     }
   };
 
 
   return (
     <div>
-      {/* <TicketCard />   */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50">
+      <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
+      <TicketCard />
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold mb-4">1. Your Information</h2>
           {session ? (

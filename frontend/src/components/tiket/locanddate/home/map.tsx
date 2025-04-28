@@ -1,6 +1,7 @@
 'use client'
 
 import { MapPin } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Mapconcert() {
   const address = '1 MetLife Stadium Dr, East Rutherford, NJ 07073, USA'
@@ -24,14 +25,14 @@ export default function Mapconcert() {
           loading="lazy"
         ></iframe>
 
-        <a
+        <Link
           href={googleMapLink}
           target="_blank"
           rel="noopener noreferrer"
           className="absolute top-4 left-4 bg-pink-600 hover:bg-pink-700 text-white text-sm px-4 py-2 rounded-full shadow"
         >
           go to google map
-        </a>
+        </Link>
       </div>
     </div>
   )

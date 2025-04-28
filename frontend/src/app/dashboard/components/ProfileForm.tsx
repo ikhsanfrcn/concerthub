@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "@/lib/axios";
+import { toast, ToastContainer } from "react-toastify";
 
 interface ProfileFormProps {
   isVisible: boolean;
@@ -52,12 +53,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
         });
 
         if (response.status === 201) {
-          alert("Profile update successfully!");
+          toast.success(
+            response.data.message || "Profile updated successfully!"
+          );
         } else {
-          alert("Failed to update profile");
+          toast.error("Failed to update profile");
         }
-      } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
         console.log(error);
+        const msg =
+          error.response?.data?.message || "Failed to update profile";
+        toast.error(msg);
       }
     },
     enableReinitialize: true,
@@ -113,127 +120,128 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
   if (status === "loading") return <p className="mt-4">Loading user data...</p>;
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="min-[768px]:flex flex-wrap min-[768px]:space-x-[24px] mt-4 space-y-4"
-    >
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="First name"
-          name="name"
-          value={formik.values.name}
-          error={formik.touched.name && formik.errors.name}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Last name"
-          name="lastName"
-          value={formik.values.lastName}
-          error={formik.touched.lastName && formik.errors.lastName}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Email"
-          name="email"
-          value={formik.values.email}
-          error={formik.touched.email && formik.errors.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Zip code"
-          name="zipCode"
-          value={formik.values.zipCode}
-          error={formik.touched.zipCode && formik.errors.zipCode}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="State"
-          name="state"
-          value={formik.values.state}
-          error={formik.touched.state && formik.errors.state}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="City"
-          name="city"
-          value={formik.values.city}
-          error={formik.touched.city && formik.errors.city}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Street"
-          name="street"
-          value={formik.values.street}
-          error={formik.touched.street && formik.errors.street}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="House number"
-          name="houseNumber"
-          value={formik.values.houseNumber}
-          error={formik.touched.houseNumber && formik.errors.houseNumber}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Phone Number"
-          name="phoneNumber"
-          value={formik.values.phoneNumber}
-          error={formik.touched.phoneNumber && formik.errors.phoneNumber}
-          onChange={(e) => {
-            const cleanedValue = e.target.value.replace(/[^0-9]/g, "");
-            formik.setFieldValue("phoneNumber", cleanedValue);
-          }}
-          onBlur={formik.handleBlur}
-        />
-      </div>
-      <div className="min-[768px]:w-[calc(50%-24px)]">
-        <InputField
-          label="Date of birth"
-          name="dob"
-          value={formik.values.dob}
-          error={formik.touched.dob && formik.errors.dob}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        />
-      </div>
+    
+    <>
+    <ToastContainer
+      theme="colored"
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar
+      newestOnTop
+      closeOnClick
+      pauseOnHover />
+      
+      <form
+        onSubmit={formik.handleSubmit}
+        className="min-[768px]:flex flex-wrap min-[768px]:space-x-[24px] mt-4 space-y-4"
+      >
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="First name"
+            name="name"
+            value={formik.values.name}
+            error={formik.touched.name && formik.errors.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Last name"
+            name="lastName"
+            value={formik.values.lastName}
+            error={formik.touched.lastName && formik.errors.lastName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Email"
+            name="email"
+            value={formik.values.email}
+            error={formik.touched.email && formik.errors.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Zip code"
+            name="zipCode"
+            value={formik.values.zipCode}
+            error={formik.touched.zipCode && formik.errors.zipCode}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="State"
+            name="state"
+            value={formik.values.state}
+            error={formik.touched.state && formik.errors.state}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="City"
+            name="city"
+            value={formik.values.city}
+            error={formik.touched.city && formik.errors.city}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Street"
+            name="street"
+            value={formik.values.street}
+            error={formik.touched.street && formik.errors.street}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="House number"
+            name="houseNumber"
+            value={formik.values.houseNumber}
+            error={formik.touched.houseNumber && formik.errors.houseNumber}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Phone Number"
+            name="phoneNumber"
+            value={formik.values.phoneNumber}
+            error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+            onChange={(e) => {
+              const cleanedValue = e.target.value.replace(/[^0-9]/g, "");
+              formik.setFieldValue("phoneNumber", cleanedValue);
+            } }
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Date of birth"
+            name="dob"
+            value={formik.values.dob}
+            error={formik.touched.dob && formik.errors.dob}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
 
-      <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">
-        <p>
-          Referral Code : <span>{formik.values.referralCode}</span>
-        </p>
-        <button
-          type="submit"
-          className="bg-primary-500 text-white px-4 py-2 rounded-2xl"
-          disabled={formik.isSubmitting}
-        >
-          {formik.isSubmitting ? "Loading..." : "Save Changes"}
-        </button>
-      </div>
-    </form>
+        <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">
+          <p>
+            Referral Code : <span>{formik.values.referralCode}</span>
+          </p>
+          <button
+            type="submit"
+            className="bg-primary-500 text-white px-4 py-2 rounded-2xl"
+            disabled={formik.isSubmitting}
+          >
+            {formik.isSubmitting ? "Loading..." : "Save Changes"}
+          </button>
+        </div>
+      </form></>
   );
 };
 

@@ -1,55 +1,68 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { Star } from 'lucide-react'
-
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import ReviewForm from '@/components/modal/riview'
-import axios from '@/lib/axios'
+"use client";
+import { useEffect, useState } from "react";
+import { Star } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import ReviewForm from "@/components/modal/riview";
+import axios from "@/lib/axios";
 
 type Review = {
-  name: string
-  avatar: string
-  date: string
-  comment: string
-  rating: number
-}
+  name: string;
+  avatar: string;
+  date: string;
+  comment: string;
+  rating: number;
+};
 
 export default function ReviewsSection() {
-  const { data: session, status } = useSession() 
-  const [reviews, setReviews] = useState<Review[]>([])
-  const [showModal, setShowModal] = useState(false)
-  const [averageRating, setAverageRating] = useState(0)
-  const router = useRouter()
+  const params = useParams();
+  const id = params?.id as string;
+  const { data: session, status } = useSession();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [averageRating, setAverageRating] = useState(0);
+  const router = useRouter();
 
-  
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get('/reviews') 
+        const res = await axios.get(`/reviews?eventId=${id}`);
         if (res.status === 200) {
-          const fetchedReviews = res.data.reviews
-          setReviews(fetchedReviews)
+          const fetchedReviews = res.data.reviews;
+          setReviews(fetchedReviews);
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const mappedReviews = fetchedReviews.map((r: any) => ({
+            name: r.user.name,
+            avatar: r.user.avatar,
+            date: r.createdAt,
+            comment: r.comment,
+            rating: r.rating,
+          }));
 
-          const totalRating = fetchedReviews.reduce((acc: number, review: Review) => acc + review.rating, 0)
-          setAverageRating(totalRating / (fetchedReviews.length || 1))
+          setReviews(mappedReviews);
+
+          const totalRating = fetchedReviews.reduce(
+            (acc: number, review: Review) => acc + review.rating,
+            0
+          );
+          setAverageRating(totalRating / (fetchedReviews.length || 1));
         }
       } catch (error) {
-        console.error('Error fetching reviews:', error)
+        console.error("Error fetching reviews:", error);
       }
-    }
+    };
 
-    fetchReviews()
-  }, [router])
+    fetchReviews();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
-  const handleNewReview = (newReview: Review) => {
-    setReviews([newReview, ...reviews]) // Add new review to the top
-  }
+  // const handleNewReview = (newReview: Review) => {
+  //   setReviews([newReview, ...reviews]); // Add new review to the top
+  // };
 
-  if (status === 'loading') return null
+  if (status === "loading") return null;
 
   return (
     <section className="py-10 max-w-4xl mx-auto relative">
@@ -64,7 +77,7 @@ export default function ReviewsSection() {
               <Star
                 key={i}
                 size={16}
-                fill={i < Math.round(averageRating) ? '#ec4899' : 'none'}
+                fill={i < Math.round(averageRating) ? "#ec4899" : "none"}
                 stroke="#ec4899"
               />
             ))}
@@ -78,7 +91,9 @@ export default function ReviewsSection() {
               ✏️ Write your review
             </button>
           ) : (
-            <p className="text-sm text-gray-500 mt-1">Login to write your review.</p>
+            <p className="text-sm text-gray-500 mt-1">
+              Login to write your review.
+            </p>
           )}
         </div>
 
@@ -92,35 +107,49 @@ export default function ReviewsSection() {
       </div>
 
       {/* REVIEWS */}
-      {reviews.map((r, i) => (
-        <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
-          <div className="flex items-center mb-2">
-            <Image src={session ? session.user?.avatar || '' : ''} width={40} height={40} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
-            <div>
-              <p className="font-semibold text-sm">{session?.user.name}</p>
-             <p className="text-xs text-gray-400">{session?.user.email}</p>
+      {reviews.length === 0 ? (
+        <p className="text-center text-gray-500 text-sm mt-6">
+          No reviews yet.
+        </p>
+      ) : (
+        <>
+          {reviews.map((r, i) => (
+            <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
+              <div className="flex items-center mb-2">
+                <Image
+                  src={r.avatar || "/default-avatar.png"}
+                  width={40}
+                  height={40}
+                  alt="avatar"
+                  className="w-10 h-10 rounded-full mr-3 object-cover"
+                />
+                <div>
+                  <p className="font-semibold text-sm">{r.name}</p>
+                  <p className="text-xs text-gray-400">{r.date}</p>
+                </div>
+              </div>
+              <div className="flex mb-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={16}
+                    fill={i < r.rating ? "#facc15" : "none"}
+                    stroke="#facc15"
+                  />
+                ))}
+              </div>
+              <p className="text-gray-700 text-sm">{r.comment}</p>
             </div>
-          </div>
-          <div className="flex mb-1">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={16}
-                fill={i < r.rating ? '#facc15' : 'none'}
-                stroke="#facc15"
-              />
-            ))}
-          </div>
-          <p className="text-gray-700 text-sm">{r.comment}</p>
-        </div>
-      ))}
+          ))}
 
-      <div className="text-center mt-4 text-sm text-gray-500 cursor-pointer">
-        See more ⌄
-      </div>
+          <div className="text-center mt-4 text-sm text-gray-500 cursor-pointer">
+            See more
+          </div>
+        </>
+      )}
 
       {/* MODAL */}
       {showModal && <ReviewForm onClose={() => setShowModal(false)} />}
     </section>
-  )
+  );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bonheur_Royale, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+// import RouteChangeHandler from "@/components/loadingpage/routechange";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 const bonheur = Bonheur_Royale({
-    subsets: ["latin"],
-    weight: "400",
-    variable: "--font-bonheur"
-})
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bonheur",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,7 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bonheur.variable} container mx-auto max-w-[2560px] antialiased`}
       >
-        {children}
+        {/* <RouteChangeHandler> */}
+          {children}
+        {/* </RouteChangeHandler> */}
       </body>
     </html>
   );

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -48,6 +47,7 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
       }
 
       fetchPurchasedTicket()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session?.user?.id, id])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
