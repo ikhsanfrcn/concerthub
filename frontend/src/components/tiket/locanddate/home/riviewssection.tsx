@@ -33,6 +33,16 @@ export default function ReviewsSection() {
           const fetchedReviews = res.data.reviews
           setReviews(fetchedReviews)
 
+          const mappedReviews = fetchedReviews.map((r: any) => ({
+            name: r.user.name,
+            avatar: r.user.avatar,
+            date: r.createdAt,
+            comment: r.comment,
+            rating: r.rating,
+          }));
+  
+          setReviews(mappedReviews);
+
 
           const totalRating = fetchedReviews.reduce((acc: number, review: Review) => acc + review.rating, 0)
           setAverageRating(totalRating / (fetchedReviews.length || 1))
@@ -95,10 +105,16 @@ export default function ReviewsSection() {
       {reviews.map((r, i) => (
         <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
           <div className="flex items-center mb-2">
-            <Image src={session ? session.user?.avatar || '' : ''} width={40} height={40} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
+          <Image
+              src={r.avatar || '/default-avatar.png'}
+              width={40}
+              height={40}
+              alt="avatar"
+              className="w-10 h-10 rounded-full mr-3 object-cover"
+            />
             <div>
-              <p className="font-semibold text-sm">{session?.user.name}</p>
-             <p className="text-xs text-gray-400">{session?.user.email}</p>
+              <p className="font-semibold text-sm">{r.name}</p>
+             <p className="text-xs text-gray-400">{r.date}</p>
             </div>
           </div>
           <div className="flex mb-1">
