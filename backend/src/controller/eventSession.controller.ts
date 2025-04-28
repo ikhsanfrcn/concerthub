@@ -4,10 +4,13 @@ import prisma from "../prisma";
 export class EventSessionController {
   async getSessions(req: Request, res: Response) {
     try {
-      const { eventId } = req.query;
+      const { eventId, id } = req.query;
 
       const sessions = await prisma.eventSession.findMany({
-        where: eventId ? { eventId: eventId as string } : undefined,
+        where: {
+          ...(eventId && { eventId: eventId as string }),
+          ...(id && { id: id as string }),
+        },
         include: {
           event: {
             select: {
