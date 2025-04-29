@@ -17,13 +17,12 @@ export class EventSessionController {
               title: true,
               category: true,
               image: true,
-              location: true,
             },
           },
           tickets: true,
         },
         orderBy: {
-          date: "asc",
+          date: "desc",
         },
       });
 

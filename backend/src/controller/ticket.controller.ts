@@ -100,12 +100,7 @@ export class TicketController {
               date: true,
               time: true,
               location: true,
-              event: {
-                select: {
-                  title: true,
-                  description: true,
-                },
-              },
+              event: true,
             },
           },
         },

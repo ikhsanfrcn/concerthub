@@ -33,10 +33,6 @@ export class EventController {
       if (!req.file) throw { message: "image empty" };
       const {
         title,
-        description,
-        location,
-        date,
-        time,
         price,
         seats,
         category,
@@ -55,12 +51,7 @@ export class EventController {
         data: {
           organizerId: req.user?.id!,
           title,
-          description,
-          location,
-          date,
-          time,
           price: priceInt,
-          seats: seatsInt,
           category,
           image: secure_url,
         },

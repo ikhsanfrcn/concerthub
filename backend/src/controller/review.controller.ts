@@ -25,7 +25,7 @@ export class ReviewController {
             event: {
               select: {
                 title: true,
-                date: true,
+                eventSessions: true
               },
             },
           },
