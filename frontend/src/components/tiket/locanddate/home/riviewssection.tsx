@@ -1,11 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Star } from "lucide-react";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
-import ReviewForm from "@/components/modal/riview";
-import axios from "@/lib/axios";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { Star } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+import ReviewForm from '@/components/modal/riview';
+import axios from '@/lib/axios';
 
 type Review = {
   name: string;
@@ -20,8 +21,10 @@ export default function ReviewsSection() {
   const id = params?.id as string;
   const { data: session, status } = useSession();
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [sortedReviews, setSortedReviews] = useState<Review[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [averageRating, setAverageRating] = useState(0);
+  const [sortOption, setSortOption] = useState('latest');
   const router = useRouter();
 
   useEffect(() => {
@@ -30,9 +33,6 @@ export default function ReviewsSection() {
         const res = await axios.get(`/reviews?eventId=${id}`);
         if (res.status === 200) {
           const fetchedReviews = res.data.reviews;
-          setReviews(fetchedReviews);
-
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedReviews = fetchedReviews.map((r: any) => ({
             name: r.user.name,
             avatar: r.user.avatar,
@@ -42,30 +42,40 @@ export default function ReviewsSection() {
           }));
 
           setReviews(mappedReviews);
+          setSortedReviews(mappedReviews);
 
-          const totalRating = fetchedReviews.reduce(
+          const totalRating = mappedReviews.reduce(
             (acc: number, review: Review) => acc + review.rating,
             0
           );
-          setAverageRating(totalRating / (fetchedReviews.length || 1));
+          setAverageRating(totalRating / (mappedReviews.length || 1));
         }
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error('Error fetching reviews:', error);
       }
     };
 
     fetchReviews();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
-  // const handleNewReview = (newReview: Review) => {
-  //   setReviews([newReview, ...reviews]); // Add new review to the top
-  // };
+  useEffect(() => {
+    let sorted = [...reviews];
+    if (sortOption === 'latest') {
+      sorted = sorted.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (sortOption === 'oldest') {
+      sorted = sorted.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+    }
+    setSortedReviews(sorted);
+  }, [sortOption, reviews]);
 
-  if (status === "loading") return null;
+  if (status === 'loading') return null;
 
   return (
-    <section className="py-10 max-w-4xl mx-auto relative">
+    <section className="py-10 px-4 max-w-6xl mx-auto relative">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-xl font-bold text-blue-800">
@@ -77,7 +87,7 @@ export default function ReviewsSection() {
               <Star
                 key={i}
                 size={16}
-                fill={i < Math.round(averageRating) ? "#ec4899" : "none"}
+                fill={i < Math.round(averageRating) ? '#ec4899' : 'none'}
                 stroke="#ec4899"
               />
             ))}
@@ -98,26 +108,29 @@ export default function ReviewsSection() {
         </div>
 
         <div className="relative">
-          <select className="border rounded-full px-4 py-2 text-sm text-gray-700">
-            <option>Sort Comments By</option>
-            <option>Latest</option>
-            <option>Oldest</option>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="border rounded-full px-4 py-2 text-sm text-gray-700"
+          >
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
           </select>
         </div>
       </div>
 
       {/* REVIEWS */}
-      {reviews.length === 0 ? (
+      {sortedReviews.length === 0 ? (
         <p className="text-center text-gray-500 text-sm mt-6">
           No reviews yet.
         </p>
       ) : (
         <>
-          {reviews.map((r, i) => (
+          {sortedReviews.map((r, i) => (
             <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
               <div className="flex items-center mb-2">
                 <Image
-                  src={r.avatar || "/default-avatar.png"}
+                  src={r.avatar || '/default-avatar.png'}
                   width={40}
                   height={40}
                   alt="avatar"
@@ -125,15 +138,15 @@ export default function ReviewsSection() {
                 />
                 <div>
                   <p className="font-semibold text-sm">{r.name}</p>
-                  <p className="text-xs text-gray-400">{r.date}</p>
+                  <p className="text-xs text-gray-400">{new Date(r.date).toLocaleDateString()}</p>
                 </div>
               </div>
               <div className="flex mb-1">
-                {[...Array(5)].map((_, i) => (
+                {[...Array(5)].map((_, idx) => (
                   <Star
-                    key={i}
+                    key={idx}
                     size={16}
-                    fill={i < r.rating ? "#facc15" : "none"}
+                    fill={idx < r.rating ? '#facc15' : 'none'}
                     stroke="#facc15"
                   />
                 ))}
@@ -148,7 +161,6 @@ export default function ReviewsSection() {
         </>
       )}
 
-      {/* MODAL */}
       {showModal && <ReviewForm onClose={() => setShowModal(false)} />}
     </section>
   );
