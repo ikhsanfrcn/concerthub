@@ -4,6 +4,12 @@ import { Card } from "../../molecules/home/Card";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 
+interface EventSession {
+  date: string;
+  time: string;
+  location: string;
+}
+
 interface Event {
   image: string;
   title: string;
@@ -12,6 +18,8 @@ interface Event {
   date: string;
   time: string;
   id: string;
+  attendees: number;
+  eventSessions: EventSession[];
 }
 
 interface Props {
@@ -26,7 +34,22 @@ export const PopularSection: React.FC<Props> = ({ className }) => {
     const fetchConcerts = async () => {
       try {
         const res = await axios.get("/events");
-        setConcerts(res.data);
+
+        // Sort by attendees descending
+        const sorted = res.data
+          .sort((a: Event, b: Event) => b.attendees - a.attendees)
+          .map((event: Event) => {
+            // Ambil session pertama jika ada
+            const firstSession = event.eventSessions[0];
+            return {
+              ...event,
+              date: firstSession?.date || "No events yet",
+              time: firstSession?.time || "",
+              location: firstSession?.location || "-",
+            };
+          });
+
+        setConcerts(sorted);
       } catch (error) {
         console.error("Failed to fetch concerts", error);
       } finally {
@@ -36,6 +59,7 @@ export const PopularSection: React.FC<Props> = ({ className }) => {
 
     fetchConcerts();
   }, []);
+
   return (
     <section className={`${className}`}>
       <div className="flex justify-between">

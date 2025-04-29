@@ -17,6 +17,7 @@ export class EventRouter {
 
   private initializeRoutes() {
     this.router.get("/", this.eventController.getEvent);
+    this.router.get("/categories", this.eventController.getCategories);
     this.router.post(
       "/create/cloud",
       uploader("memoryStorage", "ch-").single("image"),

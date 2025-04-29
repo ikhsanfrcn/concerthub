@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
 import { cloudinaryUpload } from "../helpers/cloudinary";
+import { EventCategory } from "../../prisma/generated/prisma";
 
 export class EventController {
   async getEvent(req: Request, res: Response) {
@@ -24,6 +25,16 @@ export class EventController {
     } catch (error) {
       console.error("Error fetching concerts:", error);
       res.status(500).json({ message: "Server error", error });
+    }
+  }
+
+  async getCategories(req: Request, res: Response) {
+    try {
+      const categories = Object.keys(EventCategory);
+      res.status(200).json(categories);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      res.status(500).json({ message: "Failed to load categories" });
     }
   }
 

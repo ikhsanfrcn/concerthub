@@ -133,60 +133,83 @@ export class TransactionController {
       const { status, external_id } = req.body;
       console.log(req.body);
 
-      if (status == statusTransaction.PAID) {
-        await prisma.transaction.update({
-          data: { status: "PAID" },
-          where: { id: external_id },
-        });
-
-        const transaction = await prisma.transaction.findUnique({
-          where: { id: external_id },
-          include: {
-            ticket: {
-              include: {
-                session: true,
-              },
-            },
-          },
-        });
-        if (transaction) {
-          const ticketsToCreate = Array.from(
-            { length: transaction.quantity },
-            () => ({
-              transactionId: transaction.id,
-              ticketId: transaction.ticketId,
-              sessionId: transaction.ticket.sessionId,
-              userId: transaction.userId,
-            })
-          );
-
-          await prisma.purchasedTicket.createMany({
-            data: ticketsToCreate,
-          });
-        } else {
-          res.status(404).json({ message: "Transaction not found" });
-        }
-      } else if (status == statusTransaction.EXPIRED) {
-        await prisma.$transaction(async (tnx) => {
-          await tnx.transaction.update({
-            data: { status: "EXPIRED" },
+      if (!status || !external_id) {
+        res.status(400).send({ message: "Status dan external_id wajib diisi" });
+      } else {
+        if (status === statusTransaction.PAID) {
+          await prisma.transaction.update({
+            data: { status: "PAID" },
             where: { id: external_id },
           });
 
           const transaction = await prisma.transaction.findUnique({
             where: { id: external_id },
+            include: {
+              ticket: {
+                include: {
+                  session: true,
+                },
+              },
+            },
           });
 
-          await tnx.ticket.update({
-            data: { seatAvailable: { increment: transaction?.quantity } },
-            where: { id: transaction?.ticketId },
+          if (transaction) {
+            if (transaction.voucherId) {
+              await prisma.voucher.update({
+                where: { id: transaction.voucherId },
+                data: { used: true },
+              });
+            }
+
+            if (transaction.pointId) {
+              await prisma.point.update({
+                where: { id: transaction.pointId },
+                data: { used: true },
+              });
+            }
+
+            const ticketsToCreate = Array.from(
+              { length: transaction.quantity },
+              () => ({
+                transactionId: transaction.id,
+                ticketId: transaction.ticketId,
+                sessionId: transaction.ticket.sessionId,
+                userId: transaction.userId,
+              })
+            );
+
+            await prisma.purchasedTicket.createMany({
+              data: ticketsToCreate,
+            });
+          } else {
+            res.status(404).json({ message: "Transaction not found" });
+          }
+        } else if (status === statusTransaction.EXPIRED) {
+          await prisma.$transaction(async (tnx) => {
+            await tnx.transaction.update({
+              data: { status: "EXPIRED" },
+              where: { id: external_id },
+            });
+
+            const transaction = await tnx.transaction.findUnique({
+              where: { id: external_id },
+            });
+
+            if (transaction) {
+              await tnx.ticket.update({
+                data: { seatAvailable: { increment: transaction.quantity } },
+                where: { id: transaction.ticketId },
+              });
+            }
           });
-        });
+        }
+
+        res.status(200).json({ message: "Success" });
       }
-      res.status(200).json({ message: "Success" });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error });
-    }
-  }
+      res.status(500).json({ error });
+    }
+  }
+
 }

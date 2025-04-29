@@ -1,26 +1,37 @@
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function EventForm({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession();
+  
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
-    location: "",
-    date: "",
-    time: "",
-    price: 0,
-    seats: 0,
     category: "",
-    image: null as File | null,
+    image: null as File | null
   });
+
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get("/events/categories");
+        setCategories(res.data);
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,19 +43,11 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Membuat FormData baru untuk mengirim data dalam format multipart/form-data
     const form = new FormData();
     form.append("title", formData.title);
-    form.append("description", formData.description);
-    form.append("location", formData.location);
-    form.append("date", formData.date);
-    form.append("time", formData.time);
-    form.append("price", formData.price.toString());
-    form.append("seats", formData.seats.toString());
     form.append("category", formData.category);
     if (formData.image) form.append("image", formData.image);
 
-    // Menambahkan organizerId ke FormData
     if (session?.user.id) {
       form.append("organizerId", session.user.id);
     }
@@ -55,26 +58,26 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
       const res = await axios.post("/events/create/cloud", form, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data", // Tidak perlu JSON.stringify karena kita menggunakan FormData
+          "Content-Type": "multipart/form-data",
         },
       });
 
       toast.success(res.data.message || "Event created successfully!");
-
-      // Jika sukses, tutup form dan beri tahu user
       console.log("Event created:", res);
       onClose();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error creating event:", error);
       const msg =
-      error.response?.data?.message || "Failed to create event. Please try again.";
-    toast.error(msg);
+        error.response?.data?.message ||
+        "Failed to create event. Please try again.";
+      toast.error(msg);
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-       <ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar
@@ -99,61 +102,20 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
-          <textarea
-            name="description"
-            placeholder="Event Description"
-            rows={4}
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="text"
-            name="location"
-            placeholder="Event Location"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="date"
-            name="date"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="time"
-            name="time"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Event Price"
-            required
-            min="0"
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="number"
-            name="seats"
-            placeholder="Seats Available"
-            required
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
-          <input
-            type="text"
+          <select
             name="category"
-            placeholder="Event Category"
             required
-            onChange={handleChange}
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          />
+          >
+            <option value="">Select Category</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat.charAt(0) + cat.slice(1).toLowerCase()}
+              </option>
+            ))}
+          </select>
           <input
             type="file"
             name="image"
