@@ -70,55 +70,57 @@ export class TransactionController {
   // Membuat transaksi baru
   async createTransaction(req: Request, res: Response) {
     try {
-      const { eventId, ticketId, quantity, totalPrice, usedPoints, discount } =
-        req.body;
+      const { eventId, ticketId, quantity, totalPrice, usedPoints, discount, voucherId, pointId } = req.body;
       const referenceId = `txn-${uuidv4()}`;
       const userId = req.user?.id;
 
-      await prisma.$transaction(async (txn) => {
-        if (!eventId || !quantity || !totalPrice || !userId) {
-          throw {
-            message: "EventId, quantity, totalPrice, dan userId harus diisi",
+      if (!eventId || !quantity || !totalPrice || !userId) {
+        res.status(400).send({
+          message: "EventId, quantity, totalPrice, dan userId harus diisi",
+        });
+      } else {
+        await prisma.$transaction(async (txn) => {
+          const transaction = await txn.transaction.create({
+            data: {
+              userId,
+              eventId,
+              ticketId,
+              quantity,
+              totalPrice,
+              usedPoints: usedPoints || 0,
+              discount: discount || 0,
+              voucherId: voucherId || null,
+              pointId: pointId || null,
+              status: "PENDING",
+              referenceId: referenceId,
+              expireAt: new Date(Date.now() + 60 * 60 * 1000), // expire 1 jam
+            },
+          });
+
+          await txn.ticket.update({
+            data: { seatAvailable: { decrement: quantity } },
+            where: { id: ticketId },
+          });
+
+          const data: CreateInvoiceRequest = {
+            amount: totalPrice,
+            invoiceDuration: "3600",
+            externalId: transaction.id,
+            description: `Invoice order id ${transaction.id}`,
+            currency: "IDR",
+            reminderTime: 1,
           };
-        }
 
-        const transaction = await txn.transaction.create({
-          data: {
-            userId,
-            eventId,
-            ticketId,
-            quantity,
-            totalPrice,
-            usedPoints: usedPoints || 0,
-            discount: discount || 0,
-            status: "PENDING",
-            referenceId: referenceId,
-            expireAt: new Date(Date.now() + 60 * 60 * 1000),
-          },
+          const invoice = await xenditClient.Invoice.createInvoice({ data });
+
+          await txn.transaction.update({
+            data: { invoiceUrl: invoice.invoiceUrl },
+            where: { id: transaction.id },
+          });
+
+          res.status(201).send({ message: "Transaksi berhasil dibuat", invoice });
         });
-
-        await txn.ticket.update({
-          data: { seatAvailable: { decrement: quantity } },
-          where: { id: ticketId },
-        });
-
-        const data: CreateInvoiceRequest = {
-          amount: totalPrice,
-          invoiceDuration: "3600",
-          externalId: transaction.id,
-          description: `Invoice order id ${transaction.id}`,
-          currency: "IDR",
-          reminderTime: 1,
-        };
-        const invoice = await xenditClient.Invoice.createInvoice({ data });
-
-        await txn.transaction.update({
-          data: { invoiceUrl: invoice.invoiceUrl },
-          where: { id: transaction.id },
-        });
-
-        res.status(201).send({ message: "Transaksi berhasil dibuat", invoice });
-      });
+      }
     } catch (err) {
       console.log(err);
       res.status(400).send({

@@ -27,9 +27,11 @@ export class TransactionRouter {
       this.transactionController.createTransaction
     );
 
-    this.router.post('/status', this.transactionController.updateTransaction)
-    this.router.get('/pending', this.transactionController.getUserPendingTransactions)
-
+    this.router.post("/status", this.transactionController.updateTransaction);
+    this.router.get(
+      "/pending",
+      this.transactionController.getUserPendingTransactions
+    );
   }
 
   getRouter(): Router {
