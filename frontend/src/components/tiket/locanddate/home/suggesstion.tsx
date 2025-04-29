@@ -29,16 +29,17 @@ const suggestionsData = [
 
 export default function Suggestion() {
     return (
-        <div className="mx-[18px] min-[1440px]:mx-[108px] my-[48px]">
-            <div className="flex justify-between">
-                <p className="text-[26px] font-bold">Suggestions for you</p>
-                <p className="text-[16px] text-[#A0AEC0]">See all</p>
+        <div className="px-4 max-w-6xl mx-auto my-12"> {/* <- Sama kayak MapConcert tadi */}
+            <div className="flex justify-between items-center mb-6">
+                <p className="text-2xl font-bold">Suggestions for you</p>
+                <p className="text-base text-gray-400 cursor-pointer hover:underline">See all</p>
             </div>
-            <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
+
+            <div className="flex flex-nowrap space-x-6 overflow-x-auto scrollbar-hide">
                 {suggestionsData.map((suggestion, index) => (
                     <div
                         key={index}
-                        className="flex-shrink-0 min-[768px]:w-[calc(25%-20px)] w-[300px] rounded-lg shadow-md overflow-hidden"
+                        className="flex-shrink-0 w-[300px] rounded-lg shadow-md overflow-hidden bg-white"
                     >
                         <img
                             src={suggestion.imageUrl}
