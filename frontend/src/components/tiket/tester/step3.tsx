@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import axios from "@/lib/axios";
@@ -24,54 +21,40 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   const [quantity, setQuantity] = useState<number>(1);
   const [deliveryMethod, setDeliveryMethod] = useState<string>("E-ticket");
 
-  const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
   const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none");
-  const [voucher, setVoucher] = useState<any>(null);
-  const [points, setPoints] = useState<number>(0);
-  const [pointsId, setPointsId] = useState<string[]>([]);
+  const [voucherList, setVoucherList] = useState<any[]>([]);
+  const [pointList, setPointList] = useState<any[]>([]);
+
+  const [selectedVoucher, setSelectedVoucher] = useState<any>(null);
+  const [selectedPoint, setSelectedPoint] = useState<any>(null);
+  
+  const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
 
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [tickets, setTickets] = useState<any[]>([]);
+  const [user, setUser] = useState<any>(null);
 
-  
-    const [user, setUser] = useState<any>(null);
-  
-    useEffect(() => {
-      const fetchUserProfile = async () => {
-        try {
-          const response = await axios.get("/users/profile", {
-            headers: {
-              Authorization: `Bearer ${session?.accessToken}`,
-            },
-          });
-          const { data } = response;
-  
-          setUser({
-            name: data.user.name || "",
-            lastName: data.user.lastName || "",
-            email: data.user.email || "",
-            state: data.user.state || "",
-            city: data.user.city || "",
-            phoneNumber: data.user.phoneNumber || "",
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      if (session?.accessToken) {
-        fetchUserProfile();
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("/users/profile", {
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
+        });
+        setUser(response.data.user);
+      } catch (error) {
+        console.log(error);
       }
-    }, [session?.accessToken]);
+    };
+    if (session?.accessToken) fetchUserProfile();
+  }, [session?.accessToken]);
 
   useEffect(() => {
     const fetchTickets = async () => {
       try {
         const selectedConcert = localStorage.getItem("selectedConcert");
         if (!selectedConcert) return;
-  
         const { id: sessionId } = JSON.parse(selectedConcert);
         const res = await axios.get(`/tickets?sessionId=${sessionId}`);
-  
         if (Array.isArray(res.data.tickets)) {
           setTickets(res.data.tickets);
         }
@@ -81,50 +64,41 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
     };
     fetchTickets();
   }, []);
-  
 
   useEffect(() => {
-    const storedCategory = localStorage.getItem("selectedCategory");
-    const storedQty = localStorage.getItem("seatQuantity");
-  
-    if (storedQty) setQuantity(parseInt(storedQty));
-    if (storedCategory) {
-      setCategory(storedCategory);
-  
-      const matchedTicket = tickets.find(ticket => ticket.category === storedCategory);
-      if (matchedTicket) {
-        setTicketPrice(matchedTicket.price);
-        setTicketId(matchedTicket.id);
-      } else {
-        setTicketPrice(0);
+    if (tickets.length > 0) {
+      const storedCategory = localStorage.getItem("selectedCategory");
+      const storedQty = localStorage.getItem("seatQuantity");
+
+      if (storedCategory) {
+        setCategory(storedCategory);
+        const matched = tickets.find((ticket) => ticket.category === storedCategory);
+        if (matched) {
+          setTicketPrice(matched.price);
+          setTicketId(matched.id);
+        }
       }
+      if (storedQty) setQuantity(parseInt(storedQty));
     }
   }, [tickets]);
-  
 
   useEffect(() => {
-    if (tickets.length > 0 && category) {
-      const matched = tickets.find((ticket) => ticket.category === category);
-      if (matched) {
-        setTicketId(matched.id);
-      }
+    if (session?.accessToken) {
+      fetchUserVoucher();
+      fetchUserPoints();
     }
-  }, [tickets, category]);
+  }, [session?.accessToken]);
 
   const fetchUserVoucher = async () => {
     try {
       const res = await axios.get("/voucher/vouchers", {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
       });
-      if (res.status === 200 && res.data.vouchers.length > 0) {
-        const discountPercent = res.data.vouchers[0].discountPercent;
-        setVoucher(res.data.vouchers[0]);
-        setAppliedDiscount(discountPercent);
+      if (res.status === 200) {
+        setVoucherList(res.data.vouchers || []);
       }
     } catch (err) {
-      console.error("Error fetching voucher:", err);
-      setAppliedDiscount(0);
-      toast.error("No vouchers available");
+      console.error("Error fetching vouchers:", err);
     }
   };
 
@@ -133,43 +107,43 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       const res = await axios.get("/voucher/points", {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
       });
-  
-      if (res.status === 200 && Array.isArray(res.data.points)) {
-        const pointList = res.data.points;
-        console.log(pointList);
-        const totalAmount = pointList.reduce((acc: number, curr: any) => acc + (curr.amount || 0), 0);
-        setPointsId(pointList.map((p: any) => p.id));
-        setPoints(totalAmount);
-        setAppliedDiscount(totalAmount);
+      if (res.status === 200) {
+        setPointList(res.data.points || []);
       }
     } catch (err) {
       console.error("Error fetching points:", err);
-      setAppliedDiscount(0);
-      toast.error("No points available");
     }
   };
 
-  useEffect(() => {
-    if (session?.user) {
-      if (selectedDiscountType === "voucher") fetchUserVoucher();
-      else if (selectedDiscountType === "points") fetchUserPoints();
-      else setAppliedDiscount(0);
-      toast.info("Discount cleared");
-    }
-  }, [session, selectedDiscountType]);
+  const handleVoucherSelect = (voucher: any) => {
+    setSelectedVoucher(voucher);
+    setSelectedPoint(null);
+    setSelectedDiscountType("voucher");
+    setAppliedDiscount(voucher.discountPercent);
+  };
 
-  if (status === "loading") return null;
+  const handlePointSelect = (point: any) => {
+    setSelectedPoint(point);
+    setSelectedVoucher(null);
+    setSelectedDiscountType("points");
+    setAppliedDiscount(point.amount);
+  };
 
-  const bookingFee = 0;
-  const ticketTotal = (ticketPrice || 0) * (quantity || 1);
-  const discountAmount =
-    selectedDiscountType === "voucher"
-      ? ticketTotal * (appliedDiscount / 100)
-      : selectedDiscountType === "points"
-      ? appliedDiscount
-      : 0;
+  const handleNoDiscount = () => {
+    setSelectedDiscountType("none");
+    setSelectedVoucher(null);
+    setSelectedPoint(null);
+    setAppliedDiscount(0);
+    toast.info("Discount cleared");
+  };
 
-  const total = ticketTotal + bookingFee - discountAmount;
+  const ticketTotal = ticketPrice * quantity;
+  const discountAmount = selectedDiscountType === "voucher"
+    ? ticketTotal * (appliedDiscount / 100)
+    : selectedDiscountType === "points"
+    ? appliedDiscount
+    : 0;
+  const total = ticketTotal - discountAmount;
 
   const handleSubmit = async () => {
     const transactionData = {
@@ -179,7 +153,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       quantity,
       totalPrice: total,
     };
-
     try {
       const res = await axios.post("/transactions", transactionData, {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
@@ -189,97 +162,83 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         localStorage.setItem("invoiceUrl", res.data.invoice.invoiceUrl);
         onComplete();
       }
-      console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
-      toast.error("Transaction Failed!"); 
+      toast.error("Transaction Failed!");
     }
   };
-  console.log(pointsId);
 
+  if (status === "loading") return null;
 
   return (
     <div>
-      <ToastContainer
-        theme="colored"
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
+      <ToastContainer theme="colored" position="top-right" autoClose={3000} hideProgressBar />
       <TicketCard />
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-lg font-semibold mb-4">1. Your Information</h2>
-          {session ? (
-            <div className="space-y-2 text-sm text-gray-700">
-              <p>👤 {user?.name || "—"}</p>
-              <p>📞 {user?.phoneNumber || "—"}</p>
-              <p>📍 {user?.state || "—"}</p>
-              <p>✉️ {user?.email || "—"}</p>
-            </div>
-          ) : (
-            "Please log in first"
-          )}
-
-          <h2 className="text-lg font-semibold mt-6 mb-4">2. How do you want your tickets?</h2>
-          <div className="flex gap-4 mb-3">
-            {["E-ticket", "Paper ticket"].map(method => (
-              <button
-                key={method}
-                className={`border px-4 py-2 rounded-full text-sm ${deliveryMethod === method ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-                onClick={() => setDeliveryMethod(method)}
-              >
-                {method}
-              </button>
-            ))}
+        
+        {/* LEFT */}
+        <div className="bg-white p-6 rounded-xl shadow-md space-y-6">
+          <h2 className="text-lg font-semibold">1. Your Information</h2>
+          <div className="text-sm space-y-2">
+            <p>👤 {user?.name}</p>
+            <p>📞 {user?.phoneNumber}</p>
+            <p>📍 {user?.state}</p>
+            <p>✉️ {user?.email}</p>
           </div>
 
-          {ticketId && (
-            <p className="mt-4 text-xs text-gray-500">🎟 Ticket ID: {ticketId}</p>
-          )}
+          <h2 className="text-lg font-semibold">Available Vouchers</h2>
+          <div className="space-y-2">
+            <button onClick={handleNoDiscount} className={`border p-2 w-full rounded ${selectedDiscountType === "none" ? "bg-gray-200" : ""}`}>
+              No Discount
+            </button>
+
+            {voucherList.length > 0 ? voucherList.map((v) => (
+              <button
+                key={v.id}
+                onClick={() => handleVoucherSelect(v)}
+                className={`border p-2 w-full text-left rounded ${selectedVoucher?.id === v.id ? "bg-green-100" : ""}`}
+              >
+                🎟 {v.code} - {v.discountPercent}% OFF
+              </button>
+            )) : <p className="text-sm text-gray-400">No vouchers available</p>}
+          </div>
+
+          <h2 className="text-lg font-semibold">Available Points</h2>
+          <div className="space-y-2">
+            {pointList.length > 0 ? pointList.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => handlePointSelect(p)}
+                className={`border p-2 w-full text-left rounded ${selectedPoint?.id === p.id ? "bg-blue-100" : ""}`}
+              >
+                ⭐ {p.description || "Point"} - Rp {p.amount.toLocaleString('id-ID')}
+              </button>
+            )) : <p className="text-sm text-gray-400">No points available</p>}
+          </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-lg font-semibold mb-4">Payment details</h2>
-          <div className="text-sm text-gray-700 space-y-1">
-            {/* <p className="flex justify-between"><span>Order number</span><span>11458523</span></p> */}
+        {/* RIGHT */}
+        <div className="bg-white p-6 rounded-xl shadow-md space-y-6">
+          <h2 className="text-lg font-semibold">Payment Details</h2>
+          <div className="text-sm space-y-2">
             <p className="flex justify-between"><span>Ticket</span><span>{eventTitle}, {eventDate}</span></p>
             <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
-            <p className="flex justify-between"><span>x {quantity}</span><span>Rp {ticketTotal.toLocaleString("id-ID")}</span></p>
-            <p className="flex justify-between"><span>Booking fee</span><span>Rp {bookingFee.toFixed(2)}</span></p>
-
-            <div className="flex gap-4 my-2">
-              {["voucher", "points", "none"].map(type => (
-                <button
-                  key={type}
-                  className={`border px-4 py-2 rounded-full text-sm ${selectedDiscountType === type ? "bg-gray-200 border-gray-500" : "border-gray-400 hover:bg-gray-100"}`}
-                  onClick={() => setSelectedDiscountType(type as any)}
-                >
-                  {type === "none" ? "No Discount" : `Use ${type.charAt(0).toUpperCase() + type.slice(1)}`}
-                </button>
-              ))}
-            </div>
-
-            <p className="flex justify-between text-gray-500 mt-2">
-              <span>Discount</span>
-              <span>- Rp {discountAmount.toLocaleString("id-ID")}</span>
-            </p>
+            <p className="flex justify-between"><span>Quantity</span><span>x {quantity}</span></p>
+            <p className="flex justify-between"><span>Total Ticket</span><span>Rp {ticketTotal.toLocaleString('id-ID')}</span></p>
+            <p className="flex justify-between text-gray-500"><span>Discount</span><span>- Rp {discountAmount.toLocaleString('id-ID')}</span></p>
           </div>
 
-          <div className="border-t mt-4 pt-4">
-            <p className="flex justify-between text-xl font-semibold text-pink-600">
+          <div className="border-t pt-4">
+            <p className="flex justify-between text-xl font-bold text-pink-600">
               <span>Final price</span>
-              <span>Rp {Number(total.toFixed(2)).toLocaleString("id-ID")}</span>
+              <span>Rp {Number(total.toFixed(2)).toLocaleString('id-ID')}</span>
             </p>
           </div>
 
           <button
-            className="mt-6 w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 rounded-full"
+            className="mt-6 w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-full"
             onClick={handleSubmit}
-            disabled={!ticketId || !session}
+            disabled={!ticketId}
           >
             Submit & Pay
           </button>

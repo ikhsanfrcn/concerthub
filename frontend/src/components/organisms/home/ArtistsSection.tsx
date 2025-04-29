@@ -46,7 +46,7 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
     <section className={`${className}`}>
       <div className="flex justify-between">
         <p className="text-[26px]">Artists</p>
-        <Link href="/artists" className="text-[20px]">
+        <Link href="/tickets" className="text-[20px]">
           See All
         </Link>
       </div>
@@ -67,7 +67,7 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
         >
           {artists.map((artist, index) => (
             <div key={index} className="flex-shrink-0">
-              <Link href={`/tickets?artist=${artist.name}`}>
+              <Link href={`/tickets?search=${artist.name}`}>
                 <ArtisCard image={artist.image} />
               </Link>
             </div>

@@ -19,8 +19,9 @@ interface Event {
   image: string;
   title: string;
   id: string;
-  category: string;  // Added category
+  category: string;
   eventSessions: EventSession[];
+  attendees: number;
 }
 
 interface UpdatedEvent extends Event {
@@ -36,7 +37,7 @@ export default function Tickets() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [selectedArtist, setSelectedArtist] = useState<string>("");
-  const [selectedSort, setSelectedSort] = useState<string>("closest"); // Default sort closest
+  const [selectedSort, setSelectedSort] = useState<string>("popular");
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
@@ -45,90 +46,25 @@ export default function Tickets() {
     const fetchConcerts = async () => {
       try {
         const res = await axios.get("/events");
-
         const currentDate = new Date();
 
-        // Filter events that have upcoming sessions
-        const upcomingConcerts = res.data.filter((event: Event) => {
-          const validSessions = event.eventSessions.filter(session => {
-            return new Date(session.date) >= currentDate;
-          });
-
-          return validSessions.length > 0;
-        });
-
-        // Sort events based on the first session date and time
-        const sortedConcerts = upcomingConcerts.sort((a: Event, b: Event) => {
-          const sortedA = a.eventSessions
+        const updatedConcerts: UpdatedEvent[] = res.data.map((event: Event) => {
+          const validSessions = event.eventSessions
             .filter(session => new Date(session.date) >= currentDate)
-            .sort((sessionA, sessionB) => {
-              const sessionDateA = new Date(sessionA.date).getTime();
-              const sessionDateB = new Date(sessionB.date).getTime();
-
-              if (sessionDateA === sessionDateB) {
-                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
-                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
-                return sessionTimeA - sessionTimeB;
-              }
-
-              return sessionDateA - sessionDateB;
+            .sort((a, b) => {
+              const dateA = new Date(`${a.date}T${a.time}`).getTime();
+              const dateB = new Date(`${b.date}T${b.time}`).getTime();
+              return dateA - dateB;
             });
 
-          const firstSessionA = sortedA[0];
-          const sortedB = b.eventSessions
-            .filter(session => new Date(session.date) >= currentDate)
-            .sort((sessionA, sessionB) => {
-              const sessionDateA = new Date(sessionA.date).getTime();
-              const sessionDateB = new Date(sessionB.date).getTime();
+          const closestSession = validSessions[0];
 
-              if (sessionDateA === sessionDateB) {
-                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
-                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
-                return sessionTimeA - sessionTimeB;
-              }
-
-              return sessionDateA - sessionDateB;
-            });
-
-          const firstSessionB = sortedB[0];
-
-          const dateA = new Date(firstSessionA.date).getTime();
-          const dateB = new Date(firstSessionB.date).getTime();
-          if (dateA === dateB) {
-            const timeA = new Date(`${firstSessionA.date}T${firstSessionA.time}`).getTime();
-            const timeB = new Date(`${firstSessionB.date}T${firstSessionB.time}`).getTime();
-            return timeA - timeB;
-          }
-
-          return dateA - dateB;
-        });
-
-        const updatedConcerts: UpdatedEvent[] = sortedConcerts.map((event: Event) => {
-          const closestSession = event.eventSessions
-            .filter(session => new Date(session.date) >= currentDate)
-            .sort((sessionA, sessionB) => {
-              const sessionDateA = new Date(sessionA.date).getTime();
-              const sessionDateB = new Date(sessionB.date).getTime();
-
-              if (sessionDateA === sessionDateB) {
-                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
-                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
-                return sessionTimeA - sessionTimeB;
-              }
-
-              return sessionDateA - sessionDateB;
-            })[0];
-
-          if (closestSession) {
-            return {
-              ...event,
-              date: closestSession.date,
-              time: closestSession.time,
-              location: closestSession.location,
-            };
-          }
-
-          return event;
+          return {
+            ...event,
+            date: closestSession?.date ?? "No events yet",
+            time: closestSession?.time ?? "",
+            location: closestSession?.location ?? "-",
+          };
         });
 
         setConcerts(updatedConcerts);
@@ -145,46 +81,38 @@ export default function Tickets() {
   useEffect(() => {
     let filtered = concerts;
 
-    // Filter based on category, location, and artist
     if (selectedCategory) {
-      filtered = filtered.filter(
-        (event) => event.category === selectedCategory
-      );
+      filtered = filtered.filter(event => event.category === selectedCategory);
     }
 
     if (selectedLocation) {
-      filtered = filtered.filter(
-        (event) => event.location === selectedLocation
-      );
+      filtered = filtered.filter(event => event.location === selectedLocation);
     }
 
     if (selectedArtist) {
-      filtered = filtered.filter((event) => event.title === selectedArtist);
+      filtered = filtered.filter(event => event.title === selectedArtist);
     }
 
     if (search) {
-      filtered = filtered.filter((event) =>
+      filtered = filtered.filter(event =>
         event.title.toLowerCase().includes(search.toLowerCase()) ||
         event.location.toLowerCase().includes(search.toLowerCase()) ||
         event.category.toLowerCase().includes(search.toLowerCase())
       );
     }
 
-    // Sorting based on selected sort type
     if (selectedSort === "closest") {
-      filtered = filtered.sort((a, b) => {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        if (dateA === dateB) {
-          const timeA = new Date(`${a.date}T${a.time}`).getTime();
-          const timeB = new Date(`${b.date}T${b.time}`).getTime();
-          return timeA - timeB;
-        }
-        return dateA - dateB;
-      });
-    } else if (selectedSort === "none") {
-      // No sorting needed, just show all events (including past ones)
-      filtered = filtered;
+      filtered = filtered
+        .filter(event => event.date !== "No events yet")
+        .sort((a, b) => {
+          const dateA = new Date(`${a.date}T${a.time}`).getTime();
+          const dateB = new Date(`${b.date}T${b.time}`).getTime();
+          return dateA - dateB;
+        });
+    }
+
+    if (selectedSort === "popular") {
+      filtered = filtered.sort((a, b) => b.attendees - a.attendees);
     }
 
     setFilteredConcerts(filtered);
@@ -195,7 +123,6 @@ export default function Tickets() {
       <section className="mx-[18px] min-[1440px]:mx-[108px] my-[48px]">
         <div className="flex justify-between">
           <div className="flex gap-4 mt-4">
-            {/* Filter Section */}
             <FilterSection
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
@@ -207,12 +134,17 @@ export default function Tickets() {
             />
           </div>
           <form onSubmit={() => router.push(`/tickets?search=${search}`)}>
-            <SearchBox value={search || ""} onChange={(e) => router.push(`/tickets?search=${e.target.value}`)} />
+            <SearchBox
+              value={search || ""}
+              onChange={(e) => router.push(`/tickets?search=${e.target.value}`)}
+            />
           </form>
         </div>
 
-        {/* Sorting Section */}
-        <SortingSection selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
+        <SortingSection
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
+        />
 
         <div className="mt-[24px]">
           {loading ? (

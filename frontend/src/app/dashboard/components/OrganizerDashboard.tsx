@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import axios from '@/lib/axios'
 import { useSession } from 'next-auth/react'
@@ -9,7 +10,7 @@ import {
 type Event = {
   id: string
   title: string
-  date: string
+  date: string | null // null jika tidak ada sesi
   attendees: number
 }
 
@@ -22,7 +23,6 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
   const [filter, setFilter] = useState<'daily' | 'monthly' | 'yearly'>('monthly')
   const [events, setEvents] = useState<Event[]>([])
 
-  // Fetch data from API
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -31,14 +31,21 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
             Authorization: `Bearer ${session?.accessToken}`
           }
         })
-        // Mapping response to match Event type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const fetchedEvents = response.data.map((event: any) => ({
-          id: event.id,
-          title: event.title,
-          date: event.date,
-          attendees: event.seats // Assuming 'seats' represents attendees
-        }))
+
+        const fetchedEvents = response.data.map((event: any) => {
+          const sessionDates = event.eventSessions?.map((s: any) => new Date(s.date))
+          const earliestDate = sessionDates?.length
+            ? new Date(Math.min(...sessionDates.map((d: { getTime: () => any }) => d.getTime())))
+            : null
+
+          return {
+            id: event.id,
+            title: event.title,
+            date: earliestDate ? earliestDate.toISOString() : null,
+            attendees: event.attendees
+          }
+        })
+
         setEvents(fetchedEvents)
       } catch (error) {
         console.error('Error fetching events:', error)
@@ -46,10 +53,10 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
     }
 
     fetchEvents()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [session])
 
   const filteredEvents = events.filter(event => {
+    if (!event.date) return false
     const eventDate = new Date(event.date)
     const now = new Date()
 
@@ -84,8 +91,7 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
         <select
           className="border p-2 rounded"
           value={filter}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onChange={e => setFilter(e.target.value as any)}
+          onChange={e => setFilter(e.target.value as 'daily' | 'monthly' | 'yearly')}
         >
           <option value="daily">Per Day</option>
           <option value="monthly">Per Month</option>
@@ -102,7 +108,7 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
             <li key={event.id} className="py-2">
               <div className="font-medium">{event.title}</div>
               <div className="text-sm text-gray-500">
-                {new Date(event.date).toLocaleDateString()} | Attendees: {event.attendees}
+                {event.date ? new Date(event.date).toLocaleDateString() : 'No session date'} | Attendees: {event.attendees}
               </div>
             </li>
           ))}

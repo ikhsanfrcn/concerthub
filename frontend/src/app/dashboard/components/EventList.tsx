@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { DashboardEventCard } from "./DashboardEventCard"; // Pastikan pathnya sesuai dengan lokasi file
+import { EventCard } from "./EventCard"; // Pastikan pathnya sesuai dengan lokasi file
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 
@@ -54,7 +54,7 @@ export const EventList: React.FC<Props> = ({ isVisible }) => {
       ) : (
         <div className="space-y-4">
           {events.map((event) => (
-            <DashboardEventCard
+            <EventCard
               key={event.id}
               event={event}
               onDelete={handleDeleteEvent}
