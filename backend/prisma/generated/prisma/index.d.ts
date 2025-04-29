@@ -86,6 +86,17 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const EventCategory: {
+  POP: 'POP',
+  FOLK: 'FOLK',
+  JAZZ: 'JAZZ',
+  CLASSIC: 'CLASSIC',
+  ROCK: 'ROCK'
+};
+
+export type EventCategory = (typeof EventCategory)[keyof typeof EventCategory]
+
+
 export const TicketCategory: {
   REGULAR: 'REGULAR',
   PREMIUM: 'PREMIUM',
@@ -123,6 +134,10 @@ export type voucherType = (typeof voucherType)[keyof typeof voucherType]
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type EventCategory = $Enums.EventCategory
+
+export const EventCategory: typeof $Enums.EventCategory
 
 export type TicketCategory = $Enums.TicketCategory
 
@@ -3744,120 +3759,96 @@ export namespace Prisma {
 
   export type EventAvgAggregateOutputType = {
     price: number | null
-    seats: number | null
+    attendees: number | null
   }
 
   export type EventSumAggregateOutputType = {
     price: number | null
-    seats: number | null
+    attendees: number | null
   }
 
   export type EventMinAggregateOutputType = {
     id: string | null
     organizerId: string | null
     title: string | null
-    description: string | null
-    location: string | null
-    date: string | null
-    time: string | null
     price: number | null
-    seats: number | null
-    category: string | null
+    category: $Enums.EventCategory | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    attendees: number | null
   }
 
   export type EventMaxAggregateOutputType = {
     id: string | null
     organizerId: string | null
     title: string | null
-    description: string | null
-    location: string | null
-    date: string | null
-    time: string | null
     price: number | null
-    seats: number | null
-    category: string | null
+    category: $Enums.EventCategory | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    attendees: number | null
   }
 
   export type EventCountAggregateOutputType = {
     id: number
     organizerId: number
     title: number
-    description: number
-    location: number
-    date: number
-    time: number
     price: number
-    seats: number
     category: number
     image: number
     createdAt: number
     updatedAt: number
+    attendees: number
     _all: number
   }
 
 
   export type EventAvgAggregateInputType = {
     price?: true
-    seats?: true
+    attendees?: true
   }
 
   export type EventSumAggregateInputType = {
     price?: true
-    seats?: true
+    attendees?: true
   }
 
   export type EventMinAggregateInputType = {
     id?: true
     organizerId?: true
     title?: true
-    description?: true
-    location?: true
-    date?: true
-    time?: true
     price?: true
-    seats?: true
     category?: true
     image?: true
     createdAt?: true
     updatedAt?: true
+    attendees?: true
   }
 
   export type EventMaxAggregateInputType = {
     id?: true
     organizerId?: true
     title?: true
-    description?: true
-    location?: true
-    date?: true
-    time?: true
     price?: true
-    seats?: true
     category?: true
     image?: true
     createdAt?: true
     updatedAt?: true
+    attendees?: true
   }
 
   export type EventCountAggregateInputType = {
     id?: true
     organizerId?: true
     title?: true
-    description?: true
-    location?: true
-    date?: true
-    time?: true
     price?: true
-    seats?: true
     category?: true
     image?: true
     createdAt?: true
     updatedAt?: true
+    attendees?: true
     _all?: true
   }
 
@@ -3951,16 +3942,12 @@ export namespace Prisma {
     id: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price: number
-    seats: number
-    category: string
+    category: $Enums.EventCategory
     image: string
     createdAt: Date
     updatedAt: Date
+    attendees: number
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
     _sum: EventSumAggregateOutputType | null
@@ -3986,16 +3973,12 @@ export namespace Prisma {
     id?: boolean
     organizerId?: boolean
     title?: boolean
-    description?: boolean
-    location?: boolean
-    date?: boolean
-    time?: boolean
     price?: boolean
-    seats?: boolean
     category?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attendees?: boolean
     organizer?: boolean | UserDefaultArgs<ExtArgs>
     eventSessions?: boolean | Event$eventSessionsArgs<ExtArgs>
     promotions?: boolean | Event$promotionsArgs<ExtArgs>
@@ -4009,16 +3992,12 @@ export namespace Prisma {
     id?: boolean
     organizerId?: boolean
     title?: boolean
-    description?: boolean
-    location?: boolean
-    date?: boolean
-    time?: boolean
     price?: boolean
-    seats?: boolean
     category?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attendees?: boolean
     organizer?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -4026,16 +4005,12 @@ export namespace Prisma {
     id?: boolean
     organizerId?: boolean
     title?: boolean
-    description?: boolean
-    location?: boolean
-    date?: boolean
-    time?: boolean
     price?: boolean
-    seats?: boolean
     category?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attendees?: boolean
     organizer?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -4043,19 +4018,15 @@ export namespace Prisma {
     id?: boolean
     organizerId?: boolean
     title?: boolean
-    description?: boolean
-    location?: boolean
-    date?: boolean
-    time?: boolean
     price?: boolean
-    seats?: boolean
     category?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    attendees?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizerId" | "title" | "description" | "location" | "date" | "time" | "price" | "seats" | "category" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "organizerId" | "title" | "price" | "category" | "image" | "createdAt" | "updatedAt" | "attendees", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | UserDefaultArgs<ExtArgs>
     eventSessions?: boolean | Event$eventSessionsArgs<ExtArgs>
@@ -4086,16 +4057,12 @@ export namespace Prisma {
       id: string
       organizerId: string
       title: string
-      description: string
-      location: string
-      date: string
-      time: string
       price: number
-      seats: number
-      category: string
+      category: $Enums.EventCategory
       image: string
       createdAt: Date
       updatedAt: Date
+      attendees: number
     }, ExtArgs["result"]["event"]>
     composites: {}
   }
@@ -4528,16 +4495,12 @@ export namespace Prisma {
     readonly id: FieldRef<"Event", 'String'>
     readonly organizerId: FieldRef<"Event", 'String'>
     readonly title: FieldRef<"Event", 'String'>
-    readonly description: FieldRef<"Event", 'String'>
-    readonly location: FieldRef<"Event", 'String'>
-    readonly date: FieldRef<"Event", 'String'>
-    readonly time: FieldRef<"Event", 'String'>
     readonly price: FieldRef<"Event", 'Int'>
-    readonly seats: FieldRef<"Event", 'Int'>
-    readonly category: FieldRef<"Event", 'String'>
+    readonly category: FieldRef<"Event", 'EventCategory'>
     readonly image: FieldRef<"Event", 'String'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
     readonly updatedAt: FieldRef<"Event", 'DateTime'>
+    readonly attendees: FieldRef<"Event", 'Int'>
   }
     
 
@@ -16471,16 +16434,12 @@ export namespace Prisma {
     id: 'id',
     organizerId: 'organizerId',
     title: 'title',
-    description: 'description',
-    location: 'location',
-    date: 'date',
-    time: 'time',
     price: 'price',
-    seats: 'seats',
     category: 'category',
     image: 'image',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    attendees: 'attendees'
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -16707,6 +16666,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventCategory'
+   */
+  export type EnumEventCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'EventCategory[]'
+   */
+  export type ListEnumEventCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventCategory[]'>
     
 
 
@@ -16941,16 +16914,12 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     organizerId?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
-    description?: StringFilter<"Event"> | string
-    location?: StringFilter<"Event"> | string
-    date?: StringFilter<"Event"> | string
-    time?: StringFilter<"Event"> | string
     price?: IntFilter<"Event"> | number
-    seats?: IntFilter<"Event"> | number
-    category?: StringFilter<"Event"> | string
+    category?: EnumEventCategoryFilter<"Event"> | $Enums.EventCategory
     image?: StringFilter<"Event"> | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntFilter<"Event"> | number
     organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
     eventSessions?: EventSessionListRelationFilter
     promotions?: PromotionListRelationFilter
@@ -16963,16 +16932,12 @@ export namespace Prisma {
     id?: SortOrder
     organizerId?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    location?: SortOrder
-    date?: SortOrder
-    time?: SortOrder
     price?: SortOrder
-    seats?: SortOrder
     category?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attendees?: SortOrder
     organizer?: UserOrderByWithRelationInput
     eventSessions?: EventSessionOrderByRelationAggregateInput
     promotions?: PromotionOrderByRelationAggregateInput
@@ -16988,16 +16953,12 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     organizerId?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
-    description?: StringFilter<"Event"> | string
-    location?: StringFilter<"Event"> | string
-    date?: StringFilter<"Event"> | string
-    time?: StringFilter<"Event"> | string
     price?: IntFilter<"Event"> | number
-    seats?: IntFilter<"Event"> | number
-    category?: StringFilter<"Event"> | string
+    category?: EnumEventCategoryFilter<"Event"> | $Enums.EventCategory
     image?: StringFilter<"Event"> | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntFilter<"Event"> | number
     organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
     eventSessions?: EventSessionListRelationFilter
     promotions?: PromotionListRelationFilter
@@ -17010,16 +16971,12 @@ export namespace Prisma {
     id?: SortOrder
     organizerId?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    location?: SortOrder
-    date?: SortOrder
-    time?: SortOrder
     price?: SortOrder
-    seats?: SortOrder
     category?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attendees?: SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
@@ -17034,16 +16991,12 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Event"> | string
     organizerId?: StringWithAggregatesFilter<"Event"> | string
     title?: StringWithAggregatesFilter<"Event"> | string
-    description?: StringWithAggregatesFilter<"Event"> | string
-    location?: StringWithAggregatesFilter<"Event"> | string
-    date?: StringWithAggregatesFilter<"Event"> | string
-    time?: StringWithAggregatesFilter<"Event"> | string
     price?: IntWithAggregatesFilter<"Event"> | number
-    seats?: IntWithAggregatesFilter<"Event"> | number
-    category?: StringWithAggregatesFilter<"Event"> | string
+    category?: EnumEventCategoryWithAggregatesFilter<"Event"> | $Enums.EventCategory
     image?: StringWithAggregatesFilter<"Event"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    attendees?: IntWithAggregatesFilter<"Event"> | number
   }
 
   export type EventSessionWhereInput = {
@@ -17962,16 +17915,12 @@ export namespace Prisma {
   export type EventCreateInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
@@ -17984,16 +17933,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
@@ -18004,16 +17949,12 @@ export namespace Prisma {
   export type EventUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
@@ -18026,16 +17967,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
@@ -18047,47 +17984,35 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
   }
 
   export type EventUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
   }
 
   export type EventUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
   }
 
   export type EventSessionCreateInput = {
@@ -19089,6 +19014,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type EnumEventCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventCategory | EnumEventCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventCategoryFilter<$PrismaModel> | $Enums.EventCategory
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -19128,58 +19060,46 @@ export namespace Prisma {
     id?: SortOrder
     organizerId?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    location?: SortOrder
-    date?: SortOrder
-    time?: SortOrder
     price?: SortOrder
-    seats?: SortOrder
     category?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attendees?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     price?: SortOrder
-    seats?: SortOrder
+    attendees?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
     id?: SortOrder
     organizerId?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    location?: SortOrder
-    date?: SortOrder
-    time?: SortOrder
     price?: SortOrder
-    seats?: SortOrder
     category?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attendees?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
     id?: SortOrder
     organizerId?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    location?: SortOrder
-    date?: SortOrder
-    time?: SortOrder
     price?: SortOrder
-    seats?: SortOrder
     category?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    attendees?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
     price?: SortOrder
-    seats?: SortOrder
+    attendees?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19196,6 +19116,16 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumEventCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventCategory | EnumEventCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventCategoryWithAggregatesFilter<$PrismaModel> | $Enums.EventCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventCategoryFilter<$PrismaModel>
+    _max?: NestedEnumEventCategoryFilter<$PrismaModel>
   }
 
   export type EventScalarRelationFilter = {
@@ -20134,6 +20064,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumEventCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.EventCategory
+  }
+
   export type UserUpdateOneRequiredWithoutEventsNestedInput = {
     create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
     connectOrCreate?: UserCreateOrConnectWithoutEventsInput
@@ -21009,6 +20943,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumEventCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventCategory | EnumEventCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventCategoryFilter<$PrismaModel> | $Enums.EventCategory
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21034,6 +20975,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumEventCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.EventCategory | EnumEventCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EventCategory[] | ListEnumEventCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumEventCategoryWithAggregatesFilter<$PrismaModel> | $Enums.EventCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumEventCategoryFilter<$PrismaModel>
+    _max?: NestedEnumEventCategoryFilter<$PrismaModel>
   }
 
   export type NestedEnumTicketCategoryFilter<$PrismaModel = never> = {
@@ -21134,16 +21085,12 @@ export namespace Prisma {
   export type EventCreateWithoutOrganizerInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
     reviews?: ReviewCreateNestedManyWithoutEventInput
@@ -21154,16 +21101,12 @@ export namespace Prisma {
   export type EventUncheckedCreateWithoutOrganizerInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
@@ -21414,16 +21357,12 @@ export namespace Prisma {
     id?: StringFilter<"Event"> | string
     organizerId?: StringFilter<"Event"> | string
     title?: StringFilter<"Event"> | string
-    description?: StringFilter<"Event"> | string
-    location?: StringFilter<"Event"> | string
-    date?: StringFilter<"Event"> | string
-    time?: StringFilter<"Event"> | string
     price?: IntFilter<"Event"> | number
-    seats?: IntFilter<"Event"> | number
-    category?: StringFilter<"Event"> | string
+    category?: EnumEventCategoryFilter<"Event"> | $Enums.EventCategory
     image?: StringFilter<"Event"> | string
     createdAt?: DateTimeFilter<"Event"> | Date | string
     updatedAt?: DateTimeFilter<"Event"> | Date | string
+    attendees?: IntFilter<"Event"> | number
   }
 
   export type PointUpsertWithWhereUniqueWithoutUserInput = {
@@ -22080,16 +22019,12 @@ export namespace Prisma {
   export type EventCreateWithoutEventSessionsInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
     reviews?: ReviewCreateNestedManyWithoutEventInput
@@ -22101,16 +22036,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     tickets?: TicketUncheckedCreateNestedManyWithoutEventInput
@@ -22182,16 +22113,12 @@ export namespace Prisma {
   export type EventUpdateWithoutEventSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
     reviews?: ReviewUpdateManyWithoutEventNestedInput
@@ -22203,16 +22130,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutEventNestedInput
@@ -22335,16 +22258,12 @@ export namespace Prisma {
   export type EventCreateWithoutTicketsInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
@@ -22356,16 +22275,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
@@ -22452,16 +22367,12 @@ export namespace Prisma {
   export type EventUpdateWithoutTicketsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
@@ -22473,16 +22384,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
@@ -22557,16 +22464,12 @@ export namespace Prisma {
   export type EventCreateWithoutTransactionsInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
@@ -22578,16 +22481,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
@@ -22743,16 +22642,12 @@ export namespace Prisma {
   export type EventUpdateWithoutTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
@@ -22764,16 +22659,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
@@ -23214,16 +23105,12 @@ export namespace Prisma {
   export type EventCreateWithoutPromotionsInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     reviews?: ReviewCreateNestedManyWithoutEventInput
@@ -23235,16 +23122,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutEventInput
     tickets?: TicketUncheckedCreateNestedManyWithoutEventInput
@@ -23270,16 +23153,12 @@ export namespace Prisma {
   export type EventUpdateWithoutPromotionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     reviews?: ReviewUpdateManyWithoutEventNestedInput
@@ -23291,16 +23170,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutEventNestedInput
@@ -23952,16 +23827,12 @@ export namespace Prisma {
   export type EventCreateWithoutReviewsInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     organizer: UserCreateNestedOneWithoutEventsInput
     eventSessions?: EventSessionCreateNestedManyWithoutEventInput
     promotions?: PromotionCreateNestedManyWithoutEventInput
@@ -23973,16 +23844,12 @@ export namespace Prisma {
     id?: string
     organizerId: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
     eventSessions?: EventSessionUncheckedCreateNestedManyWithoutEventInput
     promotions?: PromotionUncheckedCreateNestedManyWithoutEventInput
     tickets?: TicketUncheckedCreateNestedManyWithoutEventInput
@@ -24098,16 +23965,12 @@ export namespace Prisma {
   export type EventUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     organizer?: UserUpdateOneRequiredWithoutEventsNestedInput
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
@@ -24119,16 +23982,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     organizerId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     tickets?: TicketUncheckedUpdateManyWithoutEventNestedInput
@@ -24240,16 +24099,12 @@ export namespace Prisma {
   export type EventCreateManyOrganizerInput = {
     id?: string
     title: string
-    description: string
-    location: string
-    date: string
-    time: string
     price?: number
-    seats: number
-    category: string
+    category?: $Enums.EventCategory
     image: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    attendees?: number
   }
 
   export type PointCreateManyUserInput = {
@@ -24322,16 +24177,12 @@ export namespace Prisma {
   export type EventUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUpdateManyWithoutEventNestedInput
     promotions?: PromotionUpdateManyWithoutEventNestedInput
     reviews?: ReviewUpdateManyWithoutEventNestedInput
@@ -24342,16 +24193,12 @@ export namespace Prisma {
   export type EventUncheckedUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
     eventSessions?: EventSessionUncheckedUpdateManyWithoutEventNestedInput
     promotions?: PromotionUncheckedUpdateManyWithoutEventNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutEventNestedInput
@@ -24362,16 +24209,12 @@ export namespace Prisma {
   export type EventUncheckedUpdateManyWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    date?: StringFieldUpdateOperationsInput | string
-    time?: StringFieldUpdateOperationsInput | string
     price?: IntFieldUpdateOperationsInput | number
-    seats?: IntFieldUpdateOperationsInput | number
-    category?: StringFieldUpdateOperationsInput | string
+    category?: EnumEventCategoryFieldUpdateOperationsInput | $Enums.EventCategory
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    attendees?: IntFieldUpdateOperationsInput | number
   }
 
   export type PointUpdateWithoutUserInput = {

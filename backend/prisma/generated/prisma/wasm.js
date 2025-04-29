@@ -144,16 +144,12 @@ exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   organizerId: 'organizerId',
   title: 'title',
-  description: 'description',
-  location: 'location',
-  date: 'date',
-  time: 'time',
   price: 'price',
-  seats: 'seats',
   category: 'category',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  attendees: 'attendees'
 };
 
 exports.Prisma.EventSessionScalarFieldEnum = {
@@ -275,6 +271,14 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   CUSTOMER: 'CUSTOMER',
   ORGANIZER: 'ORGANIZER'
+};
+
+exports.EventCategory = exports.$Enums.EventCategory = {
+  POP: 'POP',
+  FOLK: 'FOLK',
+  JAZZ: 'JAZZ',
+  CLASSIC: 'CLASSIC',
+  ROCK: 'ROCK'
 };
 
 exports.TicketCategory = exports.$Enums.TicketCategory = {

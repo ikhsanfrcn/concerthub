@@ -73,7 +73,7 @@ model Event {
 model EventSession {
   id       String   @id @default(uuid())
   eventId  String
-  date     DateTime
+  date     String
   time     String
   location String
 
@@ -173,6 +173,7 @@ model Point {
   amount    Int
   expiresAt DateTime
   createdAt DateTime @default(now())
+  used      Boolean  @default(false)
 
   user User @relation(fields: [userId], references: [id])
 }
@@ -184,6 +185,7 @@ model Voucher {
   discountPercent Int
   expiresAt       DateTime
   createdAt       DateTime    @default(now())
+  used            Boolean     @default(false)
 
   user          User            @relation(fields: [userId], references: [id])
   ReferralUsage ReferralUsage[]
@@ -218,4 +220,10 @@ model Review {
   event           Event           @relation(fields: [eventId], references: [id])
   user            User            @relation(fields: [userId], references: [id])
   purchasedTicket PurchasedTicket @relation(fields: [purchasedTicketId], references: [id])
+}
+
+model Artist {
+  id    String @id @default(uuid())
+  name  String
+  image String
 }

@@ -147,11 +147,15 @@ export default function Tickets() {
 
     // Filter based on category, location, and artist
     if (selectedCategory) {
-      filtered = filtered.filter((event) => event.category === selectedCategory);
+      filtered = filtered.filter(
+        (event) => event.category === selectedCategory
+      );
     }
 
     if (selectedLocation) {
-      filtered = filtered.filter((event) => event.location === selectedLocation);
+      filtered = filtered.filter(
+        (event) => event.location === selectedLocation
+      );
     }
 
     if (selectedArtist) {
