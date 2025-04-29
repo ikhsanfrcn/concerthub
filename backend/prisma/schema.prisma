@@ -117,8 +117,8 @@ model Transaction {
   totalPrice  Int
   usedPoints  Int               @default(0)
   discount    Int               @default(0)
-  voucherId   String
-  pointId     String
+  voucherId   String?
+  pointId     String?
   status      statusTransaction @default(PENDING)
   invoiceUrl  String?
   referenceId String            @unique
@@ -130,7 +130,7 @@ model Transaction {
   event     Event             @relation(fields: [eventId], references: [id])
   ticket    Ticket            @relation("TicketTransaction", fields: [ticketId], references: [id])
   voucher   Voucher?          @relation(fields: [voucherId], references: [id])
-  point     Point             @relation(fields: [pointId], references: [id])
+  point     Point?            @relation(fields: [pointId], references: [id])
   purchased PurchasedTicket[]
 }
 
