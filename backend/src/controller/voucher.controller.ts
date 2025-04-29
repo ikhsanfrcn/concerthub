@@ -24,13 +24,6 @@ export class VoucherController {
         },
       });
 
-      if (vouchers.length === 0) {
-         res.status(404).send({
-          message: "No vouchers found for this user",
-        });
-      }
-
-      
       res.status(200).send({
         message: "Vouchers retrieved successfully",
         vouchers,
@@ -60,13 +53,6 @@ export class VoucherController {
         },
       });
 
-      if (points.length === 0) {
-         res.status(400).send({
-          message: "No points found for this user",
-        });
-      }
-
-    
       res.status(200).send({
         message: "Points retrieved successfully",
         points,

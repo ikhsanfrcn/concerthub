@@ -49,7 +49,7 @@ export default function PaymentSummary({ onSubmit }: PaymentSummaryProps) {
     return <p>No transaction details available</p>;
   }
 
-  const transaction = details.transactions[0]; // Ambil transaksi pertama dari array transaksi
+  const transaction = details.transactions[0];
   const ticket = transaction.ticket;
   const quantity = transaction.quantity;
   const totalPrice = transaction.totalPrice;

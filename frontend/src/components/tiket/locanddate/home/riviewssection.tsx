@@ -33,6 +33,7 @@ export default function ReviewsSection() {
         const res = await axios.get(`/reviews?eventId=${id}`);
         if (res.status === 200) {
           const fetchedReviews = res.data.reviews;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedReviews = fetchedReviews.map((r: any) => ({
             name: r.user.name,
             avatar: r.user.avatar,

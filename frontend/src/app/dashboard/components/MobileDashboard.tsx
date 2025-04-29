@@ -5,9 +5,9 @@ import Image from "next/image";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
 import { ProfileForm } from "./ProfileForm";
-import { TbGiftCard } from "react-icons/tb";
-import { CiSettings } from "react-icons/ci";
-import { FiHelpCircle } from "react-icons/fi";
+// import { TbGiftCard } from "react-icons/tb";
+// import { CiSettings } from "react-icons/ci";
+// import { FiHelpCircle } from "react-icons/fi";
 import { signOut, useSession } from "next-auth/react";
 import { OrderHistory } from "./OrderHistory";
 import { OrganizerDashboard } from "./OrganizerDashboard";
@@ -43,7 +43,7 @@ export const MobileDashboard: React.FC = () => {
           alt="User"
           className="rounded-full"
         />
-        <p className="mt-2 text-sm text-neutral-700">{`${user?.name} ${user?.lastName}`}</p>
+        <p className="mt-2 text-sm text-neutral-700">{`${user?.name}`}</p>
       </div>
 
       {/* Menu */}
@@ -138,10 +138,9 @@ export const MobileDashboard: React.FC = () => {
   );
 };
 
-// Data menu selain "My Profile"
 const menuItems = [
-  // { label: "Order History", icon: RiOrderPlayLine },
-  { label: "Gift Card", icon: TbGiftCard },
-  { label: "Settings", icon: CiSettings },
-  { label: "Help", icon: FiHelpCircle },
+  { label: "Order History", icon: RiOrderPlayLine },
+  // { label: "Gift Card", icon: TbGiftCard },
+  // { label: "Settings", icon: CiSettings },
+  // { label: "Help", icon: FiHelpCircle },
 ];

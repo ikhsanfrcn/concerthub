@@ -70,19 +70,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
     enableReinitialize: true,
   });
 
-  // Populate form dari session user
   useEffect(() => {
-    // const name = session.user.name;
-    // const lastName = session.user.lastName;
-    // const email = session.user.email;
-    // const zipCode = session.user.zipCode;
-    // const state = session.user.state;
-    // const city = session.user.city;
-    // const street = session.user.street;
-    // const houseNumber = session.user.houseNumber;
-    // const dob = session.user.dob;
-    // const phoneNumber = session.user.phoneNumber;
-    // console.log(session.user.referralCode);
 
     const fetchUserProfile = async () => {
       try {

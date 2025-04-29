@@ -7450,7 +7450,6 @@ export namespace Prisma {
     pointId: string | null
     status: $Enums.statusTransaction | null
     invoiceUrl: string | null
-    referenceId: string | null
     createdAt: Date | null
     expireAt: Date | null
     updatedAt: Date | null
@@ -7469,7 +7468,6 @@ export namespace Prisma {
     pointId: string | null
     status: $Enums.statusTransaction | null
     invoiceUrl: string | null
-    referenceId: string | null
     createdAt: Date | null
     expireAt: Date | null
     updatedAt: Date | null
@@ -7488,7 +7486,6 @@ export namespace Prisma {
     pointId: number
     status: number
     invoiceUrl: number
-    referenceId: number
     createdAt: number
     expireAt: number
     updatedAt: number
@@ -7523,7 +7520,6 @@ export namespace Prisma {
     pointId?: true
     status?: true
     invoiceUrl?: true
-    referenceId?: true
     createdAt?: true
     expireAt?: true
     updatedAt?: true
@@ -7542,7 +7538,6 @@ export namespace Prisma {
     pointId?: true
     status?: true
     invoiceUrl?: true
-    referenceId?: true
     createdAt?: true
     expireAt?: true
     updatedAt?: true
@@ -7561,7 +7556,6 @@ export namespace Prisma {
     pointId?: true
     status?: true
     invoiceUrl?: true
-    referenceId?: true
     createdAt?: true
     expireAt?: true
     updatedAt?: true
@@ -7667,7 +7661,6 @@ export namespace Prisma {
     pointId: string | null
     status: $Enums.statusTransaction
     invoiceUrl: string | null
-    referenceId: string
     createdAt: Date
     expireAt: Date
     updatedAt: Date
@@ -7705,7 +7698,6 @@ export namespace Prisma {
     pointId?: boolean
     status?: boolean
     invoiceUrl?: boolean
-    referenceId?: boolean
     createdAt?: boolean
     expireAt?: boolean
     updatedAt?: boolean
@@ -7731,7 +7723,6 @@ export namespace Prisma {
     pointId?: boolean
     status?: boolean
     invoiceUrl?: boolean
-    referenceId?: boolean
     createdAt?: boolean
     expireAt?: boolean
     updatedAt?: boolean
@@ -7755,7 +7746,6 @@ export namespace Prisma {
     pointId?: boolean
     status?: boolean
     invoiceUrl?: boolean
-    referenceId?: boolean
     createdAt?: boolean
     expireAt?: boolean
     updatedAt?: boolean
@@ -7779,13 +7769,12 @@ export namespace Prisma {
     pointId?: boolean
     status?: boolean
     invoiceUrl?: boolean
-    referenceId?: boolean
     createdAt?: boolean
     expireAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "ticketId" | "quantity" | "totalPrice" | "usedPoints" | "discount" | "voucherId" | "pointId" | "status" | "invoiceUrl" | "referenceId" | "createdAt" | "expireAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "ticketId" | "quantity" | "totalPrice" | "usedPoints" | "discount" | "voucherId" | "pointId" | "status" | "invoiceUrl" | "createdAt" | "expireAt" | "updatedAt", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventDefaultArgs<ExtArgs>
@@ -7833,7 +7822,6 @@ export namespace Prisma {
       pointId: string | null
       status: $Enums.statusTransaction
       invoiceUrl: string | null
-      referenceId: string
       createdAt: Date
       expireAt: Date
       updatedAt: Date
@@ -8278,7 +8266,6 @@ export namespace Prisma {
     readonly pointId: FieldRef<"Transaction", 'String'>
     readonly status: FieldRef<"Transaction", 'statusTransaction'>
     readonly invoiceUrl: FieldRef<"Transaction", 'String'>
-    readonly referenceId: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly expireAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
@@ -16661,7 +16648,6 @@ export namespace Prisma {
     pointId: 'pointId',
     status: 'status',
     invoiceUrl: 'invoiceUrl',
-    referenceId: 'referenceId',
     createdAt: 'createdAt',
     expireAt: 'expireAt',
     updatedAt: 'updatedAt'
@@ -17337,7 +17323,6 @@ export namespace Prisma {
     pointId?: StringNullableFilter<"Transaction"> | string | null
     status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
-    referenceId?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     expireAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -17362,7 +17347,6 @@ export namespace Prisma {
     pointId?: SortOrderInput | SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
-    referenceId?: SortOrder
     createdAt?: SortOrder
     expireAt?: SortOrder
     updatedAt?: SortOrder
@@ -17376,7 +17360,6 @@ export namespace Prisma {
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    referenceId?: string
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
@@ -17400,7 +17383,7 @@ export namespace Prisma {
     voucher?: XOR<VoucherNullableScalarRelationFilter, VoucherWhereInput> | null
     point?: XOR<PointNullableScalarRelationFilter, PointWhereInput> | null
     purchased?: PurchasedTicketListRelationFilter
-  }, "id" | "referenceId">
+  }, "id">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -17415,7 +17398,6 @@ export namespace Prisma {
     pointId?: SortOrderInput | SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrderInput | SortOrder
-    referenceId?: SortOrder
     createdAt?: SortOrder
     expireAt?: SortOrder
     updatedAt?: SortOrder
@@ -17442,7 +17424,6 @@ export namespace Prisma {
     pointId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     status?: EnumstatusTransactionWithAggregatesFilter<"Transaction"> | $Enums.statusTransaction
     invoiceUrl?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
-    referenceId?: StringWithAggregatesFilter<"Transaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     expireAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -18371,7 +18352,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -18396,7 +18376,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -18411,7 +18390,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18436,7 +18414,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18456,7 +18433,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -18470,7 +18446,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18489,7 +18464,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19484,7 +19458,6 @@ export namespace Prisma {
     pointId?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
-    referenceId?: SortOrder
     createdAt?: SortOrder
     expireAt?: SortOrder
     updatedAt?: SortOrder
@@ -19510,7 +19483,6 @@ export namespace Prisma {
     pointId?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
-    referenceId?: SortOrder
     createdAt?: SortOrder
     expireAt?: SortOrder
     updatedAt?: SortOrder
@@ -19529,7 +19501,6 @@ export namespace Prisma {
     pointId?: SortOrder
     status?: SortOrder
     invoiceUrl?: SortOrder
-    referenceId?: SortOrder
     createdAt?: SortOrder
     expireAt?: SortOrder
     updatedAt?: SortOrder
@@ -21589,7 +21560,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -21612,7 +21582,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -21855,7 +21824,6 @@ export namespace Prisma {
     pointId?: StringNullableFilter<"Transaction"> | string | null
     status?: EnumstatusTransactionFilter<"Transaction"> | $Enums.statusTransaction
     invoiceUrl?: StringNullableFilter<"Transaction"> | string | null
-    referenceId?: StringFilter<"Transaction"> | string
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     expireAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
@@ -22114,7 +22082,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -22137,7 +22104,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -22552,7 +22518,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -22575,7 +22540,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23232,7 +23196,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23256,7 +23219,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23437,7 +23399,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23461,7 +23422,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23742,7 +23702,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23765,7 +23724,6 @@ export namespace Prisma {
     voucherId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23968,7 +23926,6 @@ export namespace Prisma {
     discount?: number
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -23991,7 +23948,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -24771,7 +24727,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -24947,7 +24902,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24970,7 +24924,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24989,7 +24942,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25104,7 +25056,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -25237,7 +25188,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25260,7 +25210,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25279,7 +25228,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25379,7 +25327,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -25402,7 +25349,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25425,7 +25371,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25444,7 +25389,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25565,7 +25509,6 @@ export namespace Prisma {
     voucherId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -25579,7 +25522,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25602,7 +25544,6 @@ export namespace Prisma {
     voucherId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25621,7 +25562,6 @@ export namespace Prisma {
     voucherId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25647,7 +25587,6 @@ export namespace Prisma {
     pointId?: string | null
     status?: $Enums.statusTransaction
     invoiceUrl?: string | null
-    referenceId: string
     createdAt?: Date | string
     expireAt: Date | string
     updatedAt?: Date | string
@@ -25685,7 +25624,6 @@ export namespace Prisma {
     discount?: IntFieldUpdateOperationsInput | number
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25708,7 +25646,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25727,7 +25664,6 @@ export namespace Prisma {
     pointId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusTransactionFieldUpdateOperationsInput | $Enums.statusTransaction
     invoiceUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    referenceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expireAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

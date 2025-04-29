@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { EventCard } from "./EventCard"; // Pastikan pathnya sesuai dengan lokasi file
+import { EventCard } from "./EventCard";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 
@@ -9,13 +9,12 @@ interface Props {
 
 export const EventList: React.FC<Props> = ({ isVisible }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [events, setEvents] = useState<any[]>([]); // Awalnya kosong, karena kita akan ambil dari API
+  const [events, setEvents] = useState<any[]>([]);
   const { data: session } = useSession();
 
   useEffect(() => {
     const fetchEventList = async () => {
       try {
-        // Ambil data dari API
         const response = await axios.get("/organizer/myevents", {
           headers: {
             Authorization: `Bearer ${session?.accessToken}`,
@@ -24,9 +23,8 @@ export const EventList: React.FC<Props> = ({ isVisible }) => {
 
         const { data } = response;
 
-        // Cek apakah respons memiliki properti 'vouchers' dan itu adalah array
-        if (data.vouchers && Array.isArray(data.vouchers)) {
-          setEvents(data.vouchers); // Set data 'vouchers' ke state events
+        if (data.events && Array.isArray(data.events)) {
+          setEvents(data.events);
         } else {
           console.error("Data tidak sesuai format: ", data);
         }
@@ -38,10 +36,10 @@ export const EventList: React.FC<Props> = ({ isVisible }) => {
     if (session?.accessToken) {
       fetchEventList();
     }
-  }, [session?.accessToken]); // Mengambil data setiap kali session berubah
+  }, [session?.accessToken]); 
 
   const handleDeleteEvent = (eventId: string) => {
-    setEvents(events.filter((event) => event.id !== eventId)); // Menghapus event dari state
+    setEvents(events.filter((event) => event.id !== eventId));
   };
 
   if (!isVisible) return null;

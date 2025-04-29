@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
+import Skeleton from "../atoms/sekeletonLoading";
 
 interface ConcertData {
   id: string;
@@ -53,7 +54,7 @@ const TicketCard = () => {
     fetchTickets();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Skeleton />
   if (!concert) return <p>No concert data available.</p>;
 
   return (

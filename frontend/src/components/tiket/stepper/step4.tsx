@@ -8,24 +8,23 @@ export default function Step4({ onComplete }: { onComplete: () => void }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
 
-  // Ambil URL pembayaran dari localStorage saat komponen pertama kali dimuat
   useEffect(() => {
     const url = localStorage.getItem("invoiceUrl");
     setPaymentUrl(url);
-  }, []); // Hanya dijalankan sekali saat komponen pertama kali dimuat
+  }, []);
 
   const handleSubmit = () => {
-    setIsModalOpen(true); // Membuka modal saat submit
+    setIsModalOpen(true);
   };
   
   const closeModal = () => {
-    setIsModalOpen(false); // Menutup modal
+    setIsModalOpen(false);
     onComplete();
   };
 
   const openPaymentLink = () => {
     if (paymentUrl) {
-      window.open(paymentUrl, "_blank"); // Membuka link pembayaran di jendela baru
+      window.open(paymentUrl, "_blank");
     }
   };
 
@@ -33,8 +32,6 @@ export default function Step4({ onComplete }: { onComplete: () => void }) {
     <div className="p-4 max-w-4xl mx-auto">
       <PaymentForm />
       <PaymentSummary onSubmit={handleSubmit} />
-
-      {/* Menggunakan komponen modal */}
       <PaymentModal
         isOpen={isModalOpen}
         paymentUrl={paymentUrl}

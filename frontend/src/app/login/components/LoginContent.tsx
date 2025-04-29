@@ -1,5 +1,3 @@
-// components/LoginContent.tsx
-
 import React from "react";
 
 export const Sidebar: React.FC = () => {

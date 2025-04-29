@@ -8,7 +8,7 @@ export default function Mapconcert() {
   const googleMapLink = `https://www.google.com/maps?q=${encodeURIComponent(address)}`
 
   return (
-    <div className="px-4 max-w-6xl mx-auto mt-10"> {/* <-- Sesuaikan max-w nya kayak parent */}
+    <div className="px-4 max-w-6xl mx-auto mt-10">
       <div className="flex items-start gap-2 mb-4">
         <MapPin className="text-pink-600 mt-1" />
         <p className="text-sm sm:text-base text-gray-700">

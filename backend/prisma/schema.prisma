@@ -109,22 +109,21 @@ enum TicketCategory {
 }
 
 model Transaction {
-  id          String            @id @default(uuid())
-  userId      String
-  eventId     String
-  ticketId    String
-  quantity    Int
-  totalPrice  Int
-  usedPoints  Int               @default(0)
-  discount    Int               @default(0)
-  voucherId   String?
-  pointId     String?
-  status      statusTransaction @default(PENDING)
-  invoiceUrl  String?
-  referenceId String            @unique
-  createdAt   DateTime          @default(now())
-  expireAt    DateTime
-  updatedAt   DateTime          @updatedAt
+  id         String            @id @default(uuid())
+  userId     String
+  eventId    String
+  ticketId   String
+  quantity   Int
+  totalPrice Int
+  usedPoints Int               @default(0)
+  discount   Int               @default(0)
+  voucherId  String?
+  pointId    String?
+  status     statusTransaction @default(PENDING)
+  invoiceUrl String?
+  createdAt  DateTime          @default(now())
+  expireAt   DateTime
+  updatedAt  DateTime          @updatedAt
 
   user      User              @relation("UserTransactions", fields: [userId], references: [id])
   event     Event             @relation(fields: [eventId], references: [id])

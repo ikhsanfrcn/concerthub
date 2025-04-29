@@ -1,4 +1,3 @@
-// components/tiket/tester/stepper.tsx
 "use client";
 import { JSX } from "react";
 

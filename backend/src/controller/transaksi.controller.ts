@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
-import { v4 as uuidv4 } from "uuid";
 import xenditClient from "../helpers/xendit";
 import { CreateInvoiceRequest } from "xendit-node/invoice/models";
 import { statusTransaction } from "../../prisma/generated/prisma";
@@ -67,11 +66,9 @@ export class TransactionController {
     }
   }
 
-  // Membuat transaksi baru
   async createTransaction(req: Request, res: Response) {
     try {
       const { eventId, ticketId, quantity, totalPrice, usedPoints, discount, voucherId, pointId } = req.body;
-      const referenceId = `txn-${uuidv4()}`;
       const userId = req.user?.id;
 
       if (!eventId || !quantity || !totalPrice || !userId) {
@@ -92,7 +89,6 @@ export class TransactionController {
               voucherId: voucherId || null,
               pointId: pointId || null,
               status: "PENDING",
-              referenceId: referenceId,
               expireAt: new Date(Date.now() + 60 * 60 * 1000), // expire 1 jam
             },
           });

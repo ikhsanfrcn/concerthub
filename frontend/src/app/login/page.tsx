@@ -1,5 +1,3 @@
-// pages/login.tsx
-
 import { Sidebar } from "./components/LoginContent";
 import { LoginForm } from "./components/LoginForm";
 

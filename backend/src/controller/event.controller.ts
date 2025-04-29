@@ -17,10 +17,6 @@ export class EventController {
         }
       });
 
-      if (concerts.length === 0) {
-        res.status(400).json({ message: "No upcoming concerts found" });
-      }
-
       res.status(200).json(concerts);
     } catch (error) {
       console.error("Error fetching concerts:", error);

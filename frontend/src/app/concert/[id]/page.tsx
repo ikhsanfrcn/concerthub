@@ -2,14 +2,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "@/lib/axios";
-import Step1 from "@/components/tiket/tester/step1";
-import Step2 from "@/components/tiket/tester/step2";
-import Step3 from "@/components/tiket/tester/step3";
-import Step4 from "@/components/tiket/tester/step4";
-import Step5 from "@/components/tiket/tester/step5";
+import Step1 from "@/components/tiket/stepper/step1";
+import Step2 from "@/components/tiket/stepper/step2";
+import Step3 from "@/components/tiket/stepper/step3";
+// import Step4 from "@/components/tiket/tester/step4";
+import Step5 from "@/components/tiket/stepper/step5";
 import { MainTemplate } from "@/template/MainTemplate";
-import Stepper from "@/components/tiket/tester/stepper";
-import { LoadingPage } from "@/components/loadingpage/loading";
+import Stepper from "@/components/tiket/stepper/stepper";
+import Skeleton from "@/components/atoms/sekeletonLoading";
 
 interface Event {
   image: string;
@@ -44,7 +44,7 @@ const EventDetail = () => {
     fetchEvent();
   }, [id]);
 
-  if (loading) return <LoadingPage />;
+  if (loading) return <Skeleton />;
   if (!event) return <p>Event not found!</p>;
 
   const steps = [
@@ -57,7 +57,7 @@ const EventDetail = () => {
       component: <Step2 onComplete={() => setCurrentStep(2)} />,
     },
     {
-      title: "Payment details",
+      title: "Review",
       component: (
         <Step3
           eventId={id}
@@ -67,10 +67,10 @@ const EventDetail = () => {
         />
       ),
     },
-    {
-      title: "Review",
-      component: <Step4 onComplete={() => setCurrentStep(4)} />,
-    },
+    // {
+    //   title: "Review",
+    //   component: <Step4 onComplete={() => setCurrentStep(4)} />,
+    // },
     {
       title: "Finish",
       component: <Step5 />,

@@ -7,6 +7,7 @@ import { MainTemplate } from "@/template/MainTemplate";
 import { SearchBox } from "@/components/atoms/SearchBox";
 import { FilterSection } from "./_components/filterSection";
 import { SortingSection } from "./_components/sortingSection";
+import Skeleton from "@/components/atoms/sekeletonLoading";
 
 interface EventSession {
   id: string;
@@ -148,7 +149,16 @@ export default function Tickets() {
 
         <div className="mt-[24px]">
           {loading ? (
-            <p>Loading...</p>
+             <div className="flex flex-wrap space-x-[24px] overflow-x-auto scrollbar-hide">
+             {[...Array(8)].map((_, index) => (
+               <div key={index} className="flex-shrink-0 space-y-5 min-[768px]:w-[calc(25%-25px)]">
+                 <Skeleton width="w-full" height="h-48" />
+                 <Skeleton width="w-20" height="h-6" />
+                 <Skeleton width="w-32" height="h-5" />
+                 <Skeleton width="w-24" height="h-5" />
+               </div>
+             ))}
+           </div>
           ) : (
             <div className="flex flex-wrap space-x-[24px] overflow-x-auto scrollbar-hide">
               {filteredConcerts.length > 0 ? (

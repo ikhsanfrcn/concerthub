@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
 import axios from '@/lib/axios'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
@@ -10,7 +9,7 @@ import {
 type Event = {
   id: string
   title: string
-  date: string | null // null jika tidak ada sesi
+  date: string | null
   attendees: number
 }
 
@@ -32,23 +31,29 @@ export const OrganizerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
           }
         })
 
-        const fetchedEvents = response.data.map((event: any) => {
-          const sessionDates = event.eventSessions?.map((s: any) => new Date(s.date))
-          const earliestDate = sessionDates?.length
-            ? new Date(Math.min(...sessionDates.map((d: { getTime: () => any }) => d.getTime())))
-            : null
+        if (Array.isArray(response.data)) {
+          const fetchedEvents = response.data.map((event: any) => {
+            const sessionDates = event.eventSessions?.map((s: any) => new Date(s.date))
+            const earliestDate = sessionDates?.length
+              ? new Date(Math.min(...sessionDates.map((d: { getTime: () => any }) => d.getTime())))
+              : null
 
-          return {
-            id: event.id,
-            title: event.title,
-            date: earliestDate ? earliestDate.toISOString() : null,
-            attendees: event.attendees
-          }
-        })
+            return {
+              id: event.id,
+              title: event.title,
+              date: earliestDate ? earliestDate.toISOString() : null,
+              attendees: event.attendees
+            }
+          })
 
-        setEvents(fetchedEvents)
+          setEvents(fetchedEvents)
+        } else {
+          console.error('Expected response.data to be an array, but received:', response.data)
+          setEvents([]) 
+        }
       } catch (error) {
         console.error('Error fetching events:', error)
+        setEvents([]) 
       }
     }
 

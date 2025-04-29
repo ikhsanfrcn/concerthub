@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { OrderHistoryCard } from "./OrderHistoryCard";
 import { useSession } from "next-auth/react";
 import axios from "@/lib/axios";
+import Skeleton from "@/components/atoms/sekeletonLoading";
 
 interface OrderHistoryProps {
   isVisible: boolean;
@@ -31,7 +32,6 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Jangan masukkan isVisible ke dalam useEffect
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -56,23 +56,40 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
     };
 
     fetchTickets();
-  }, []);
+  }, [session]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (
+    <div className="space-y-4">
+      <div>
+        <p className="text-[20px] text-secondary-800">Active concerts</p>
+        <div className="mt-[16px] space-y-4">
+          <Skeleton width="w-full" height="h-20" circle={false} />
+          <Skeleton width="w-full" height="h-20" circle={false} />
+        </div>
+      </div>
+      
+      <div className="mt-[48px]">
+        <p className="text-[20px] text-secondary-800">Past concerts</p>
+        <div className="mt-[16px] space-y-4">
+          <Skeleton width="w-full" height="h-20" circle={false} />
+          <Skeleton width="w-full" height="h-20" circle={false} />
+        </div>
+      </div>
+    </div>
+  );
 
   const currentDate = new Date();
 
   const activeConcerts = tickets.filter((ticket) => {
     const concertDate = new Date(ticket.session.date);
-    return concertDate >= currentDate; // Concert yang belum lewat
+    return concertDate >= currentDate;
   });
 
   const pastConcerts = tickets.filter((ticket) => {
     const concertDate = new Date(ticket.session.date);
-    return concertDate < currentDate; // Concert yang sudah lewat
+    return concertDate < currentDate;
   });
 
-  // Hanya tampilkan komponen jika isVisible bernilai true
   if (!isVisible) return null;
 
   return (

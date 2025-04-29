@@ -1,4 +1,3 @@
-// app/selamat/page.tsx
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -26,7 +25,7 @@ export default function SuccessPage() {
             Back to Homepage
           </button>
           <button
-            onClick={() => router.push("/unduh")}
+            onClick={() => router.push("/download")}
             className="w-full sm:w-auto bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700 transition"
           >
             Download Your Tickets

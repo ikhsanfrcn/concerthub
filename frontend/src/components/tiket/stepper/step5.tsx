@@ -77,7 +77,7 @@ export default function Step5() {
       } catch (error) {
         console.error("Error checking transaction status:", error);
       }
-    }, 30000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [session?.accessToken]);

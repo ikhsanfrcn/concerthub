@@ -1,4 +1,3 @@
-// components/RegisterContent.tsx
 import React from "react";
 
 export const RegisterContent: React.FC = () => {

@@ -28,7 +28,6 @@ interface ILoginForm {
 }
 
 export const LoginForm: React.FC<Props> = ({ className }) => {
-
   const initialValues: ILoginForm = {
     email: "",
     password: "",
@@ -44,9 +43,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
       toast.success(data.message);
 
       action.resetForm();
- 
-
-const result = await signIn("credentials", {
+      await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
         name: user.name,
@@ -55,7 +52,6 @@ const result = await signIn("credentials", {
         avatar: user.avatar || "",
         accessToken: data.access_token,
       });
-      
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "Login failed");
@@ -67,10 +63,9 @@ const result = await signIn("credentials", {
     }
   };
 
-
   return (
     <div className={`${className}`}>
-       <ToastContainer
+      <ToastContainer
         theme="colored"
         position="top-right"
         autoClose={3000}
@@ -83,7 +78,7 @@ const result = await signIn("credentials", {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Log in
+            Sign in to your account
           </h2>
         </div>
 

@@ -1,6 +1,3 @@
-// pages/register.tsx
-"use client";
-
 import { RegisterContent } from "./components/RegisterContent";
 import { RegisterForm } from "./components/RegisterForm";
 

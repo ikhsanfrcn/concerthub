@@ -15,7 +15,7 @@ interface Event {
 
 interface EventCardProps {
   event: Event;
-  onDelete: (eventId: string) => void; // Callback untuk menghapus acara
+  onDelete: (eventId: string) => void;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({ event, onDelete }) => {
@@ -26,9 +26,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onDelete }) => {
   };
 
   const handleDelete = () => {
-    // Menangani penghapusan acara
     onDelete(event.id);
-    setIsDropdownOpen(false); // Menutup dropdown setelah menghapus
+    setIsDropdownOpen(false); 
   };
 
   return (
