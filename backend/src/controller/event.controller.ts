@@ -33,25 +33,16 @@ export class EventController {
       if (!req.file) throw { message: "image empty" };
       const {
         title,
-        price,
-        seats,
         category,
       } = req.body;
 
       const { secure_url } = await cloudinaryUpload(req.file, "ConcertHub");
 
-      const priceInt = parseInt(price, 10);
-      const seatsInt = parseInt(seats, 10);
-
-      if (isNaN(priceInt) || isNaN(seatsInt)) {
-        res.status(400).json({ message: "Invalid integer value" });
-      }
 
       await prisma.event.create({
         data: {
           organizerId: req.user?.id!,
           title,
-          price: priceInt,
           category,
           image: secure_url,
         },

@@ -51,7 +51,7 @@ model Event {
   id          String        @id @default(uuid())
   organizerId String
   title       String
-  price       Int           @default(0)
+  totalIncome Int           @default(0)
   category    EventCategory @default(POP)
   image       String
   createdAt   DateTime      @default(now())
@@ -117,6 +117,8 @@ model Transaction {
   totalPrice  Int
   usedPoints  Int               @default(0)
   discount    Int               @default(0)
+  voucherId   String?
+  pointId     String?
   status      statusTransaction @default(PENDING)
   invoiceUrl  String?
   referenceId String            @unique
@@ -127,6 +129,8 @@ model Transaction {
   user      User              @relation("UserTransactions", fields: [userId], references: [id])
   event     Event             @relation(fields: [eventId], references: [id])
   ticket    Ticket            @relation("TicketTransaction", fields: [ticketId], references: [id])
+  voucher   Voucher?          @relation(fields: [voucherId], references: [id])
+  point     Point?            @relation(fields: [pointId], references: [id])
   purchased PurchasedTicket[]
 }
 
@@ -179,7 +183,8 @@ model Point {
   createdAt DateTime @default(now())
   used      Boolean  @default(false)
 
-  user User @relation(fields: [userId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  Transaction Transaction[]
 }
 
 model Voucher {
@@ -193,6 +198,7 @@ model Voucher {
 
   user          User            @relation(fields: [userId], references: [id])
   ReferralUsage ReferralUsage[]
+  Transaction   Transaction[]
 }
 
 enum voucherType {

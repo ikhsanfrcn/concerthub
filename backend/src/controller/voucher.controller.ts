@@ -17,6 +17,7 @@ export class VoucherController {
       const vouchers = await prisma.voucher.findMany({
         where: {
           userId: userId,
+          used: false
         },
         include: {
           ReferralUsage: true, 
@@ -55,6 +56,7 @@ export class VoucherController {
       const points = await prisma.point.findMany({
         where: {
           userId: userId,
+          used: false
         },
       });
 

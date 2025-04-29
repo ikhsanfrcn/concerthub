@@ -28,6 +28,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none");
   const [voucher, setVoucher] = useState<any>(null);
   const [points, setPoints] = useState<number>(0);
+  const [pointsId, setPointsId] = useState<string[]>([]);
 
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [tickets, setTickets] = useState<any[]>([]);
@@ -135,7 +136,9 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   
       if (res.status === 200 && Array.isArray(res.data.points)) {
         const pointList = res.data.points;
+        console.log(pointList);
         const totalAmount = pointList.reduce((acc: number, curr: any) => acc + (curr.amount || 0), 0);
+        setPointsId(pointList.map((p: any) => p.id));
         setPoints(totalAmount);
         setAppliedDiscount(totalAmount);
       }
@@ -192,6 +195,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       toast.error("Transaction Failed!"); 
     }
   };
+  console.log(pointsId);
 
 
   return (
