@@ -1,5 +1,3 @@
-import { ToastContainer } from "react-toastify";
-
 interface EmailVerificationModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -13,14 +11,6 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
       <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl text-center relative">
         <button
           onClick={onClose}

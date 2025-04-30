@@ -7,8 +7,9 @@ import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import TicketCard from "@/components/tiket/ticketcard";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import PaymentModal from "@/components/modal/paymentModal";
+import { Toastify } from "@/components/atoms/toastify";
 
 interface Step3Props {
   eventId: string;
@@ -231,15 +232,7 @@ export default function Step3({
 
   return (
     <div>
-      <ToastContainer
-        theme="colored"
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
+      <Toastify />
       <TicketCard />
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
         <div className="bg-white p-6 rounded-xl shadow-md">

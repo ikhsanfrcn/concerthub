@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "@/lib/axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { Toastify } from "@/components/atoms/toastify";
 
 interface ProfileFormProps {
   isVisible: boolean;
@@ -110,14 +111,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
   return (
     
     <>
-    <ToastContainer
-      theme="colored"
-      position="top-right"
-      autoClose={3000}
-      hideProgressBar
-      newestOnTop
-      closeOnClick
-      pauseOnHover />
+    <Toastify />
       
       <form
         onSubmit={formik.handleSubmit}

@@ -1,7 +1,8 @@
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { Toastify } from "../atoms/toastify";
 
 export default function EventForm({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession();
@@ -77,14 +78,7 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
+      <Toastify />
       <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl text-center relative">
         <button
           onClick={onClose}
