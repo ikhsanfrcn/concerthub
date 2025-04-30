@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
               required
               placeholder="Enter your email"
               autoComplete="email"
-              className="flex-auto rounded-md bg-white/5 md:px-[14px] py-[8px] text-[16px] text-white placeholder:pl-3 placeholder:text-gray-500 outline outline-1 outline-white/10 focus:outline-2 focus:outline-offset-[-2px] focus:outline-indigo-500"
+              className="flex-auto rounded-md bg-white/5 md:px-[14px] py-[8px] text-[16px] text-white placeholder:pl-3 placeholder:text-gray-500 outline-1 outline-white/10 focus:outline-2 focus:outline-offset-[-2px] focus:outline-indigo-500"
             />
             <button
               type="submit"
