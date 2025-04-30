@@ -14,8 +14,6 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
   const [formData, setFormData] = useState({
     eventId: '',
     sessionId: '',
-    // name: '',
-    description: '',
     price: '',
     seatAvailable: '',
     category: 'REGULAR'
@@ -63,7 +61,7 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.eventId || !formData.sessionId || !formData.description || !formData.price || !formData.seatAvailable) {
+    if (!formData.eventId || !formData.sessionId || !formData.price || !formData.seatAvailable) {
       alert('Please fill in all required fields')
       return
     }
@@ -71,8 +69,6 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
     const newTicket = {
       sessionId: formData.sessionId,
       eventId: formData.eventId,
-      // name: formData.name,
-      description: formData.description,
       price: formData.price,
       seatAvailable: formData.seatAvailable,
       category: formData.category
@@ -160,32 +156,6 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
                   <option disabled>No event sessions available</option>
                 )}
               </select>
-            </div>
-
-            {/* Ticket Name */}
-            {/* <div>
-              <label className="block text-sm font-medium">Ticket Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                required
-              />
-            </div> */}
-
-            {/* Ticket Description */}
-            <div>
-              <label className="block text-sm font-medium">Ticket Description</label>
-              <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-                required
-              />
             </div>
 
             {/* Price */}

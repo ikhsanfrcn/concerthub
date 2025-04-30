@@ -1,4 +1,5 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
@@ -7,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import TicketCard from "@/components/tiket/ticketcard";
 import VoucherModal from "@/components/modal/voucher";
 import PointsModal from "@/components/modal/points";
-
+import PaymentModal from "@/components/modal/paymentModal";
 
 interface Step3Props {
   eventId: string;
@@ -16,26 +17,28 @@ interface Step3Props {
   onComplete: () => void;
 }
 
-export default function Step3({ eventId, eventTitle, eventDate, onComplete }: Step3Props) {
+export default function Step3({
+  eventId,
+  eventTitle,
+  eventDate,
+  onComplete,
+}: Step3Props) {
   const { data: session, status } = useSession();
 
   const [category, setCategory] = useState<string | null>(null);
   const [ticketPrice, setTicketPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const [deliveryMethod, setDeliveryMethod] = useState<string>("E-ticket");
 
   const [voucherList, setVoucherList] = useState<any[]>([]);
   const [pointList, setPointList] = useState<any[]>([]);
 
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null);
   const [selectedPoint, setSelectedPoint] = useState<any>(null);
-  const [selectedDiscountType, setSelectedDiscountType] = useState<"voucher" | "points" | "none">("none");
-  const [appliedDiscount, setAppliedDiscount] = useState<number>(0);
-
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [tickets, setTickets] = useState<any[]>([]);
   const [user, setUser] = useState<any>(null);
-
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showVoucherModal, setShowVoucherModal] = useState(false);
   const [showPointsModal, setShowPointsModal] = useState(false);
 
@@ -45,6 +48,7 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       fetchUserVoucher();
       fetchUserPoints();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.accessToken]);
 
   const fetchUserProfile = async () => {
@@ -104,7 +108,9 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
 
       if (storedCategory) {
         setCategory(storedCategory);
-        const matched = tickets.find(ticket => ticket.category === storedCategory);
+        const matched = tickets.find(
+          (ticket) => ticket.category === storedCategory
+        );
         if (matched) {
           setTicketPrice(matched.price);
           setTicketId(matched.id);
@@ -115,12 +121,12 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
   }, [tickets]);
 
   const ticketTotal = ticketPrice * quantity;
-  const discountAmount = selectedDiscountType === "voucher"
-    ? ticketTotal * (appliedDiscount / 100)
-    : selectedDiscountType === "points"
-    ? appliedDiscount
+  const voucherDiscount = selectedVoucher
+    ? ticketTotal * (selectedVoucher.discountPercent / 100)
     : 0;
-  const total = ticketTotal - discountAmount;
+  const pointDiscount = selectedPoint ? selectedPoint.amount : 0;
+  const totalDiscount = voucherDiscount + pointDiscount;
+  const total = ticketTotal - totalDiscount;
 
   const handleSubmit = async () => {
     const transactionData = {
@@ -128,36 +134,51 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
       eventId,
       ticketId,
       quantity,
-      selectedPoint,
-      selectedVoucher,
+      pointId: selectedPoint?.id || null,
+      voucherId: selectedVoucher?.id || null,
       totalPrice: total,
     };
     try {
-      // const res = await axios.post("/transactions", transactionData, {
-      //   headers: { Authorization: `Bearer ${session?.accessToken}` },
-      // });
-      // if (res.status === 201) {
-      //   localStorage.setItem("transactionId", res.data.invoice.externalId);
-      //   localStorage.setItem("invoiceUrl", res.data.invoice.invoiceUrl);
-      //   onComplete();
-      // }
+      const res = await axios.post("/transactions", transactionData, {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
+      });
+      if (res.status === 201) {
+        localStorage.setItem("transactionId", res.data.invoice.externalId);
+        localStorage.setItem("invoiceUrl", res.data.invoice.invoiceUrl);
+        const url = localStorage.getItem("invoiceUrl");
+        setPaymentUrl(url);
+        setIsModalOpen(true);
+      }
       console.log(transactionData);
-      
     } catch (error) {
       console.error("Error submitting transaction:", error);
       toast.error("Transaction Failed!");
     }
   };
-  
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    onComplete();
+  };
+
+  const openPaymentLink = () => {
+    if (paymentUrl) {
+      window.open(paymentUrl, "_blank");
+    }
+  };
 
   if (status === "loading") return null;
 
   return (
     <div>
-      <ToastContainer theme="colored" position="top-right" autoClose={3000} hideProgressBar />
+      <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+      />
       <TicketCard />
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 min-h-screen">
-        
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50">
         {/* LEFT */}
         <div className="bg-white p-6 rounded-xl shadow-md space-y-6">
           <h2 className="text-lg font-semibold">1. Your Information</h2>
@@ -175,14 +196,20 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
               onClick={() => setShowVoucherModal(true)}
               className="w-full p-2 border rounded bg-gray-50 text-left"
             >
-              % Pilih Voucher {selectedVoucher ? `(Dipilih: ${selectedVoucher.code})` : ""}
+              % Pilih Voucher{" "}
+              {selectedVoucher
+                ? `(Dipilih: ${selectedVoucher.voucherType})`
+                : ""}
             </button>
 
             <button
               onClick={() => setShowPointsModal(true)}
               className="w-full p-2 border rounded bg-gray-50 text-left"
             >
-              ⭐ Pilih Points {selectedPoint ? `(Dipilih: ${selectedPoint.description || "Point"})` : ""}
+              ⭐ Pilih Points{" "}
+              {selectedPoint
+                ? `(Dipilih: ${selectedPoint.amount || "Point"})`
+                : ""}
             </button>
           </div>
         </div>
@@ -191,17 +218,42 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         <div className="bg-white p-6 rounded-xl shadow-md space-y-6">
           <h2 className="text-lg font-semibold">Payment Details</h2>
           <div className="text-sm space-y-2">
-            <p className="flex justify-between"><span>Ticket</span><span>{eventTitle}, {eventDate}</span></p>
-            <p className="flex justify-between"><span>Category</span><span>{category}</span></p>
-            <p className="flex justify-between"><span>Quantity</span><span>x {quantity}</span></p>
-            <p className="flex justify-between"><span>Total Ticket</span><span>Rp {ticketTotal.toLocaleString('id-ID')}</span></p>
-            <p className="flex justify-between text-gray-500"><span>Discount</span><span>- Rp {discountAmount.toLocaleString('id-ID')}</span></p>
+            <p className="flex justify-between">
+              <span>Ticket</span>
+              <span>
+                {eventTitle}, {eventDate}
+              </span>
+            </p>
+            <p className="flex justify-between">
+              <span>Category</span>
+              <span>{category}</span>
+            </p>
+            <p className="flex justify-between">
+              <span>Quantity</span>
+              <span>x {quantity}</span>
+            </p>
+            <p className="flex justify-between">
+              <span>Total Ticket</span>
+              <span>Rp {ticketTotal.toLocaleString("id-ID")}</span>
+            </p>
+            {selectedVoucher && (
+              <p className="flex justify-between text-gray-500">
+                <span>Voucher Discount</span>
+                <span>- Rp {voucherDiscount.toLocaleString("id-ID")}</span>
+              </p>
+            )}
+            {selectedPoint && (
+              <p className="flex justify-between text-gray-500">
+                <span>Point Discount</span>
+                <span>- Rp {pointDiscount.toLocaleString("id-ID")}</span>
+              </p>
+            )}
           </div>
 
           <div className="border-t pt-4">
             <p className="flex justify-between text-xl font-bold text-pink-600">
               <span>Final price</span>
-              <span>Rp {Number(total.toFixed(2)).toLocaleString('id-ID')}</span>
+              <span>Rp {Number(total.toFixed(2)).toLocaleString("id-ID")}</span>
             </p>
           </div>
 
@@ -222,9 +274,6 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         voucherList={voucherList}
         onSelect={(voucher) => {
           setSelectedVoucher(voucher);
-          setSelectedPoint(null);
-          setSelectedDiscountType(voucher ? "voucher" : "none");
-          setAppliedDiscount(voucher ? voucher.discountPercent : 0);
         }}
       />
 
@@ -234,10 +283,14 @@ export default function Step3({ eventId, eventTitle, eventDate, onComplete }: St
         pointList={pointList}
         onSelect={(point) => {
           setSelectedPoint(point);
-          setSelectedVoucher(null);
-          setSelectedDiscountType(point ? "points" : "none");
-          setAppliedDiscount(point ? point.amount : 0);
         }}
+      />
+
+      <PaymentModal
+        isOpen={isModalOpen}
+        paymentUrl={paymentUrl}
+        onClose={closeModal}
+        onOpenPaymentLink={openPaymentLink}
       />
     </div>
   );
