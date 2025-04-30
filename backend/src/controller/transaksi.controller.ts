@@ -44,7 +44,7 @@ export class TransactionController {
       const transactions = await prisma.transaction.findMany({
         where: {
           userId: userId,
-          status: "PENDING"
+          status: "PENDING",
         },
         include: {
           event: true,
@@ -68,7 +68,8 @@ export class TransactionController {
 
   async createTransaction(req: Request, res: Response) {
     try {
-      const { eventId, ticketId, quantity, totalPrice, usedPoints, discount, voucherId, pointId } = req.body;
+      const { eventId, ticketId, quantity, totalPrice, voucherId, pointId } =
+        req.body;
       const userId = req.user?.id;
 
       if (!eventId || !quantity || !totalPrice || !userId) {
@@ -84,10 +85,8 @@ export class TransactionController {
               ticketId,
               quantity,
               totalPrice,
-              usedPoints: usedPoints || 0,
-              discount: discount || 0,
-              voucherId: voucherId || null,
-              pointId: pointId || null,
+              voucherId,
+              pointId,
               status: "PENDING",
               expireAt: new Date(Date.now() + 60 * 60 * 1000), // expire 1 jam
             },
@@ -98,9 +97,23 @@ export class TransactionController {
             where: { id: ticketId },
           });
 
+          if (voucherId) {
+            await txn.voucher.update({
+              data: { used: true },
+              where: { id: voucherId },
+            });
+          }
+
+          if (pointId) {
+            await txn.point.update({
+              data: { used: true },
+              where: { id: pointId },
+            });
+          }
+
           const data: CreateInvoiceRequest = {
             amount: totalPrice,
-            invoiceDuration: "3600",
+            invoiceDuration: "5",
             externalId: transaction.id,
             description: `Invoice order id ${transaction.id}`,
             currency: "IDR",
@@ -114,7 +127,9 @@ export class TransactionController {
             where: { id: transaction.id },
           });
 
-          res.status(201).send({ message: "Transaksi berhasil dibuat", invoice });
+          res
+            .status(201)
+            .send({ message: "Transaksi berhasil dibuat", invoice });
         });
       }
     } catch (err) {
@@ -148,23 +163,23 @@ export class TransactionController {
                   session: true,
                 },
               },
+              event: true,
+              voucher: true,
+              point: true,
             },
           });
 
           if (transaction) {
-            if (transaction.voucherId) {
-              await prisma.voucher.update({
-                where: { id: transaction.voucherId },
-                data: { used: true },
-              });
-            }
 
-            if (transaction.pointId) {
-              await prisma.point.update({
-                where: { id: transaction.pointId },
-                data: { used: true },
-              });
-            }
+            await prisma.event.update({
+              data: { attendees: { increment: transaction.quantity }},
+              where: { id: transaction.eventId }
+            })
+
+            await prisma.event.update({
+              data: { totalIncome: { increment: transaction.totalPrice }},
+              where: { id: transaction.eventId }
+            })
 
             const ticketsToCreate = Array.from(
               { length: transaction.quantity },
@@ -194,6 +209,20 @@ export class TransactionController {
             });
 
             if (transaction) {
+              if (transaction.voucherId) {
+                await prisma.voucher.update({
+                  where: { id: transaction.voucherId },
+                  data: { used: false },
+                });
+              }
+
+              if (transaction.pointId) {
+                await prisma.point.update({
+                  where: { id: transaction.pointId },
+                  data: { used: false },
+                });
+              }
+
               await tnx.ticket.update({
                 data: { seatAvailable: { increment: transaction.quantity } },
                 where: { id: transaction.ticketId },
@@ -206,8 +235,7 @@ export class TransactionController {
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error });
-    }
-  }
-
+      res.status(500).json({ error });
+    }
+  }
 }

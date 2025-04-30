@@ -34,7 +34,7 @@ export class TicketController {
 
   async createTicket(req: Request, res: Response) {
     try {
-      const { sessionId, description, price, category, seatAvailable } =
+      const { sessionId, price, category, seatAvailable } =
         req.body;
 
       if (!sessionId || !price || !category || !seatAvailable) {
@@ -59,8 +59,6 @@ export class TicketController {
         data: {
           sessionId,
           eventId: session.eventId,
-          name: category,
-          description,
           price: priceInt,
           category,
           seatAvailable: seatsInt,

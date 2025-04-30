@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "@/lib/axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { Toastify } from "@/components/atoms/toastify";
 
 interface ProfileFormProps {
   isVisible: boolean;
@@ -110,14 +111,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
   return (
     
     <>
-    <ToastContainer
-      theme="colored"
-      position="top-right"
-      autoClose={3000}
-      hideProgressBar
-      newestOnTop
-      closeOnClick
-      pauseOnHover />
+    <Toastify />
       
       <form
         onSubmit={formik.handleSubmit}
@@ -208,13 +202,17 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
             onBlur={formik.handleBlur} />
         </div>
         <div className="min-[768px]:w-[calc(50%-24px)]">
-          <InputField
-            label="Date of birth"
-            name="dob"
-            value={formik.values.dob}
-            error={formik.touched.dob && formik.errors.dob}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur} />
+        <div>
+    <label className="text-sm mb-1 block">Date of Birth</label>
+    <input
+      type="date"
+      name="dob"
+      value={formik.values.dob}
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      className={`w-full p-2 border rounded`}
+    />
+  </div>
         </div>
 
         <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">

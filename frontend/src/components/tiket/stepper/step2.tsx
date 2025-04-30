@@ -13,7 +13,6 @@ interface Ticket {
   id: string;
   category: string;
   price: number;
-  description: string;
 }
 
 export default function Step2({ onComplete }: Step2Props) {
@@ -38,7 +37,6 @@ export default function Step2({ onComplete }: Step2Props) {
           id: ticket.id,
           category: ticket.category,
           price: ticket.price,
-          description: ticket.description,
         }));
 
         setTickets(data);
@@ -116,8 +114,6 @@ export default function Step2({ onComplete }: Step2Props) {
                     >
                       {ticket.category}
                     </h3>
-
-                    <p className="text-sm text-gray-600 mb-4">{ticket.description}</p>
 
                     <p className="text-lg font-semibold mb-6">
                       Rp {ticket.price.toLocaleString("id-ID")}

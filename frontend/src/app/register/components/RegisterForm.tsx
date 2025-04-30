@@ -1,4 +1,5 @@
 "use client";
+import { Toastify } from "@/components/atoms/toastify";
 import { EmailVerificationModal } from "@/components/modal/emailVerification";
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
@@ -6,7 +7,7 @@ import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 
 interface Props {
@@ -73,15 +74,7 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={`${className}`}>
-      <ToastContainer
-        theme="colored"
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
+      <Toastify />
       <EmailVerificationModal
         isOpen={isModalOpen}
         onClose={() => handleCloseModal()}

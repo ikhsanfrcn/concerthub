@@ -72,6 +72,9 @@ export class ReviewController {
       if (!eventId || typeof rating !== "number" || !comment) {
         throw new Error("Missing or invalid fields");
       }      
+      if (!purchasedTicketId) {
+        res.status(400).send({ message:'No tickets'})
+      }
 
       await prisma.review.create({
         data: {
@@ -88,7 +91,7 @@ export class ReviewController {
       });
     } catch (err) {
       console.log("createReview error:", err);
-      res.status(400).send({ message: "Failed to create review", error: err });
+      res.status(500).send({ message: "Failed to create review", error: err });
     }
   }
 
