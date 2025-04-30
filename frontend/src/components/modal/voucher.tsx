@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface VoucherModalProps {
   open: boolean;
@@ -10,7 +10,12 @@ interface VoucherModalProps {
   onSelect: (voucher: any) => void;
 }
 
-const VoucherModal: React.FC<VoucherModalProps> = ({ open, onClose, voucherList, onSelect }) => {
+const VoucherModal: React.FC<VoucherModalProps> = ({
+  open,
+  onClose,
+  voucherList,
+  onSelect,
+}) => {
   if (!open) return null;
 
   return (
@@ -32,7 +37,9 @@ const VoucherModal: React.FC<VoucherModalProps> = ({ open, onClose, voucherList,
             >
               <div>
                 <p className="font-semibold">{voucher.code}</p>
-                <p className="text-sm text-gray-600">{voucher.discountPercent}% OFF</p>
+                <p className="text-sm text-gray-600">
+                  {voucher.discountPercent}% OFF
+                </p>
               </div>
               <button
                 onClick={() => {
@@ -46,7 +53,9 @@ const VoucherModal: React.FC<VoucherModalProps> = ({ open, onClose, voucherList,
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-400">Tidak ada voucher tersedia</p>
+          <p className="text-center text-gray-400">
+            Tidak ada voucher tersedia
+          </p>
         )}
 
         <button

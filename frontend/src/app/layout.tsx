@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Bonheur_Royale, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// import RouteChangeHandler from "@/components/loadingpage/routechange";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bonheur.variable} container mx-auto max-w-[2560px] antialiased`}
       >
-        {/* <RouteChangeHandler> */}
-          {children}
-        {/* </RouteChangeHandler> */}
+        {children}
       </body>
     </html>
   );

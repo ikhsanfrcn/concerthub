@@ -31,7 +31,9 @@ export const Icon: React.FC<IconProps> = ({
     );
   }
   return (
-    <div className={`flex items-center space-x-[8px] text-[24px] text-neutral-300 ${className}`}>
+    <div
+      className={`flex items-center space-x-[8px] text-[24px] text-neutral-300 ${className}`}
+    >
       <Component className={className} />
       <p className="text-[20px] text-neutral-800">{label}</p>
     </div>

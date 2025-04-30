@@ -17,14 +17,13 @@ export const CustomerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
     setError(null);
 
     const accessToken = session?.accessToken;
-    console.log("Access Token:", accessToken);
 
     if (!accessToken) {
       console.error("No access token.");
       return;
     }
     try {
-      const response = await axios.post(
+      await axios.post(
         "/auth/register/organizer",
         {},
         {
@@ -34,7 +33,6 @@ export const CustomerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
         }
       );
 
-      console.log("Registrasion Success:", response.data);
       setClicked(true);
     } catch (error) {
       console.error("Error:", error);
@@ -47,8 +45,16 @@ export const CustomerDashboard: React.FC<OrganizerProps> = ({ isVisible }) => {
 
   return (
     <div>
-      <button onClick={handleRegister} disabled={loading || clicked} className="hover:text-blue-600 cursor-pointer">
-        {loading ? "loading..." : clicked ? "Please check your email" : "REGISTER AS AN ORGANIZER"}
+      <button
+        onClick={handleRegister}
+        disabled={loading || clicked}
+        className="hover:text-blue-600 cursor-pointer"
+      >
+        {loading
+          ? "loading..."
+          : clicked
+          ? "Please check your email"
+          : "REGISTER AS AN ORGANIZER"}
       </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}

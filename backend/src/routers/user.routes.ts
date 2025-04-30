@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { UserController } from "../controller/user.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import { uploader } from "../helpers/uploader";
 
 export class UserRouter {
   private router: Router;
@@ -17,7 +18,7 @@ export class UserRouter {
   private initializeRoutes() {
     this.router.get("/profile", this.authMiddleware.verifyToken, this.userController.getProfile);
     this.router.patch('/profile-update', this.authMiddleware.verifyToken, this.userController.updateProfile)
-
+    this.router.patch('/avatar-update', uploader("memoryStorage", "av-").single("avatar"), this.authMiddleware.verifyToken, this.userController.updateAvatar)
   }
 
   getRouter(): Router {

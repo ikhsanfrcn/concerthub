@@ -6,11 +6,11 @@ import { Toastify } from "../atoms/toastify";
 
 export default function EventForm({ onClose }: { onClose: () => void }) {
   const { data: session } = useSession();
-  
+
   const [formData, setFormData] = useState({
     title: "",
     category: "",
-    image: null as File | null
+    image: null as File | null,
   });
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -64,9 +64,8 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
       });
 
       toast.success(res.data.message || "Event created successfully!");
-      console.log("Event created:", res);
       onClose();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error creating event:", error);
       const msg =
@@ -100,7 +99,9 @@ export default function EventForm({ onClose }: { onClose: () => void }) {
             name="category"
             required
             value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
             <option value="">Select Category</option>

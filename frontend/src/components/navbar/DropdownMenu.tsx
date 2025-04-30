@@ -1,15 +1,14 @@
-'use client'
+"use client";
 import { useState } from "react";
 
-const DropdownMenu = () => {
+export const DropdownMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("En");
 
-interface Language {
+  interface Language {
     code: string;
     name: string;
-}
-
+  }
 
   const languages = [
     { code: "En", name: "En" },
@@ -78,5 +77,3 @@ interface Language {
     </div>
   );
 };
-
-export default DropdownMenu;

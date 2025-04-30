@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import { TransactionController } from "../controller/transaksi.controller";
+import { TransactionController } from "../controller/transaction.controller";
 
 export class TransactionRouter {
   private router: Router;

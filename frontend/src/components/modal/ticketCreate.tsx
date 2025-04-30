@@ -1,69 +1,74 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import axios from '@/lib/axios'
-import { useSession } from 'next-auth/react'
+import { useState, useEffect } from "react";
+import axios from "@/lib/axios";
+import { useSession } from "next-auth/react";
 
 interface TicketCreateProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export default function TicketCreate({ onClose }: TicketCreateProps) {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
-    eventId: '',
-    sessionId: '',
-    price: '',
-    seatAvailable: '',
-    category: 'REGULAR'
-  })
-  const [events, setEvents] = useState<any[]>([])
-  const [eventSessions, setEventSessions] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+    eventId: "",
+    sessionId: "",
+    price: "",
+    seatAvailable: "",
+    category: "REGULAR",
+  });
+  const [events, setEvents] = useState<any[]>([]);
+  const [eventSessions, setEventSessions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const res = await axios.get(`/events?organizerId=${session?.user.id}`, {
           headers: {
-            'Authorization': `Bearer ${session?.accessToken}`,
+            Authorization: `Bearer ${session?.accessToken}`,
           },
-        })
-        setEvents(res.data || [])
-        setLoading(false)
+        });
+        setEvents(res.data || []);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching events:', error)
-        setLoading(false)
+        console.error("Error fetching events:", error);
+        setLoading(false);
       }
-    }
+    };
 
-    fetchEvents()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session?.accessToken])
+    fetchEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.accessToken]);
 
   useEffect(() => {
-    const selectedEvent = events.find(event => event.id === formData.eventId)
+    const selectedEvent = events.find((event) => event.id === formData.eventId);
     if (selectedEvent) {
-      setEventSessions(selectedEvent.eventSessions)
+      setEventSessions(selectedEvent.eventSessions);
     }
-  }, [formData.eventId, events])
+  }, [formData.eventId, events]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!formData.eventId || !formData.sessionId || !formData.price || !formData.seatAvailable) {
-      alert('Please fill in all required fields')
-      return
+    if (
+      !formData.eventId ||
+      !formData.sessionId ||
+      !formData.price ||
+      !formData.seatAvailable
+    ) {
+      alert("Please fill in all required fields");
+      return;
     }
 
     const newTicket = {
@@ -71,31 +76,30 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
       eventId: formData.eventId,
       price: formData.price,
       seatAvailable: formData.seatAvailable,
-      category: formData.category
-    }
+      category: formData.category,
+    };
 
     try {
-      setLoading(true)
-      const res = await axios.post('/tickets', newTicket, {
+      setLoading(true);
+      const res = await axios.post("/tickets", newTicket, {
         headers: {
-          'Authorization': `Bearer ${session?.accessToken}`,
+          Authorization: `Bearer ${session?.accessToken}`,
         },
-      })
+      });
 
       if (res.status === 201) {
-        alert('Ticket created successfully!')
-        onClose()
+        alert("Ticket created successfully!");
+        onClose();
       } else {
-        alert('Failed to create ticket')
+        alert("Failed to create ticket");
       }
-      
     } catch (error) {
-      console.error('Error:', error)
-      alert('Failed to create ticket')
+      console.error("Error:", error);
+      alert("Failed to create ticket");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -149,7 +153,8 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
                 {eventSessions.length > 0 ? (
                   eventSessions.map((session) => (
                     <option key={session.id} value={session.id}>
-                      {new Date(session.date).toLocaleDateString()} {session.time} - {session.location}
+                      {new Date(session.date).toLocaleDateString()}{" "}
+                      {session.time} - {session.location}
                     </option>
                   ))
                 ) : (
@@ -173,7 +178,9 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
 
             {/* Seat Available */}
             <div>
-              <label className="block text-sm font-medium">Seat Available</label>
+              <label className="block text-sm font-medium">
+                Seat Available
+              </label>
               <input
                 type="number"
                 name="seatAvailable"
@@ -186,7 +193,9 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
 
             {/* Ticket Category */}
             <div>
-              <label className="block text-sm font-medium">Ticket Category</label>
+              <label className="block text-sm font-medium">
+                Ticket Category
+              </label>
               <select
                 name="category"
                 value={formData.category}
@@ -210,5 +219,5 @@ export default function TicketCreate({ onClose }: TicketCreateProps) {
         )}
       </div>
     </div>
-  )
+  );
 }

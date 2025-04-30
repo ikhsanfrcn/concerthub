@@ -1,11 +1,11 @@
 "use client";
 import { Icon } from "@/components/atoms/icon";
 import Image from "next/image";
-// import { CiSettings } from "react-icons/ci";
-// import { FiHelpCircle } from "react-icons/fi";
+import { CiSettings } from "react-icons/ci";
+import { FiHelpCircle } from "react-icons/fi";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
-// import { TbGiftCard } from "react-icons/tb";
-import { useState } from "react";
+import { TbGiftCard } from "react-icons/tb";
+import { useEffect, useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
 import { OrderHistory } from "./OrderHistory";
@@ -18,6 +18,9 @@ import { IoMdAdd } from "react-icons/io";
 import { EventList } from "./EventList";
 import EventSessionCreate from "@/components/modal/eventSessionCreate";
 import TicketCreate from "@/components/modal/ticketCreate";
+import axios from "@/lib/axios";
+import UpdateaAvatarModal from "@/components/modal/updateAvatarModal";
+import { useRouter } from "next/navigation";
 
 export const DesktopDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -25,6 +28,38 @@ export const DesktopDashboard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [showSessionModal, setShowSessionModal] = useState(false);
   const [showTicketModal, setShowTicketModal] = useState(false);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const [profile, setProfile] = useState<{
+    name: string;
+    lastName: string;
+    avatar: string;
+  }>();
+  const router = useRouter()
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const res = await axios.get("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        });
+
+        const { data } = res;
+
+        setProfile({
+          name: data.user.name,
+          lastName: data.user.lastName,
+          avatar: data.user.avatar,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (session?.accessToken) {
+      fetchUserProfile();
+    }
+  }, [session?.accessToken]);
 
   if (status === "loading") return <p>Loading user data ...</p>;
 
@@ -38,23 +73,30 @@ export const DesktopDashboard: React.FC = () => {
     signOut();
   };
 
+  const handleUpdateAvatarOnClose = () => {
+    setShowAvatarModal(false);
+    router.refresh()
+  }
+
   return (
     <div className="flex space-x-[24px]">
       {/* SIDEBAR */}
       <aside className="rounded-2xl bg-white shadow-md w-[360px] min-h-[916px]">
         <div className="p-[32px]">
-          <Image
-            src={
-              session?.user.avatar ||
-              "https://randomuser.me/api/portraits/men/1.jpg"
-            }
-            width={0}
-            height={0}
-            sizes="100"
-            alt=""
-            className="w-[48px] h-[48px] rounded-full"
-          />
-          <p className="mt-[16px] font-semibold">{`${user?.name}`}</p>
+          <button onClick={() => setShowAvatarModal(true)} className="cursor-pointer">
+            <Image
+              src={
+                profile?.avatar ||
+                "https://randomuser.me/api/portraits/men/1.jpg"
+              }
+              width={0}
+              height={0}
+              sizes="100"
+              alt=""
+              className="w-[48px] h-[48px] md:w-[72px] md:h-[72px] rounded-full"
+            />
+          </button>
+          <p className="mt-[16px] font-semibold">{`${profile?.name} ${profile?.lastName}`}</p>
         </div>
         <hr className="h-px bg-gray-200 border-0" />
         <div className="flex flex-col justify-between h-[calc(100%-170px)] mt-[16px] p-[32px]">
@@ -75,15 +117,15 @@ export const DesktopDashboard: React.FC = () => {
                 <Icon Component={RiOrderPlayLine} label="Order History" />
               </button>
             </li>
-            {/* <li>
+            <li>
               <Icon Component={TbGiftCard} link="#" label="Gift Card" />
-            </li> */}
-            {/* <li>
+            </li>
+            <li>
               <Icon Component={CiSettings} link="#" label="Settings" />
             </li>
             <li>
               <Icon Component={FiHelpCircle} link="#" label="Help" />
-            </li> */}
+            </li>
             <li>
               {session?.user.role === "ORGANIZER" ? (
                 <div className="space-y-[18.5px]">
@@ -200,6 +242,9 @@ export const DesktopDashboard: React.FC = () => {
         )}
         {showTicketModal && (
           <TicketCreate onClose={() => setShowTicketModal(false)} />
+        )}
+        {showAvatarModal && (
+          <UpdateaAvatarModal onClose={() => handleUpdateAvatarOnClose()} />
         )}
       </div>
     </div>

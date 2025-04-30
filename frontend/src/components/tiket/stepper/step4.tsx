@@ -16,7 +16,7 @@ export default function Step4({ onComplete }: { onComplete: () => void }) {
   const handleSubmit = () => {
     setIsModalOpen(true);
   };
-  
+
   const closeModal = () => {
     setIsModalOpen(false);
     onComplete();

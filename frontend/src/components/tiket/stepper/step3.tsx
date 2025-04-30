@@ -48,7 +48,7 @@ export default function Step3({
       fetchUserVoucher();
       fetchUserPoints();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.accessToken]);
 
   const fetchUserProfile = async () => {
@@ -149,7 +149,6 @@ export default function Step3({
         setPaymentUrl(url);
         setIsModalOpen(true);
       }
-      console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
       toast.error("Transaction Failed!");

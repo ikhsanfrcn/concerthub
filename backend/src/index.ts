@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { AuthRouter } from "./routers/auth.routes";
 import { ReviewRouter } from "./routers/review.routes";
-import { TransactionRouter } from "./routers/transaksi.routes";
+import { TransactionRouter } from "./routers/transaction.routes";
 import { VoucherRouter } from "./routers/voucher.routes";
 import { UserRouter } from "./routers/user.routes";
 import { EventRouter } from "./routers/event.routes";

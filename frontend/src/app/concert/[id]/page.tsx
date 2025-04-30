@@ -83,7 +83,6 @@ const EventDetail = () => {
         <Stepper
           steps={steps}
           currentStep={currentStep}
-          // onStepChange={setCurrentStep}
         />
       </div>
       <div className="step-content mt-4">{steps[currentStep].component}</div>

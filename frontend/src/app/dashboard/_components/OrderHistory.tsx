@@ -96,7 +96,7 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
     <div className="mt-[48px]">
       <div>
         <p className="text-[20px] text-secondary-800">Active concerts</p>
-        <div className="mt-[16px]">
+        <div className="mt-[16px] space-y-[5px]">
           {activeConcerts.map((item) => (
             <OrderHistoryCard
               key={item.id}
@@ -112,7 +112,7 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
 
       <div className="mt-[48px]">
         <p className="text-[20px] text-secondary-800">Past concerts</p>
-        <div className="mt-[16px]">
+        <div className="mt-[16px] space-y-[5px]">
           {pastConcerts.map((item) => (
             <OrderHistoryCard
               key={item.id}

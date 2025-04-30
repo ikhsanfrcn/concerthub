@@ -62,7 +62,9 @@ export default function Step2({ onComplete }: Step2Props) {
     <div>
       <TicketCard />
       <div className="max-w-6xl mx-auto p-6">
-        <h2 className="text-3xl font-bold mb-8 text-center">Select Ticket Category</h2>
+        <h2 className="text-3xl font-bold mb-8 text-center">
+          Select Ticket Category
+        </h2>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Seat Map */}
@@ -126,7 +128,9 @@ export default function Step2({ onComplete }: Step2Props) {
                           : "bg-blue-600 text-white hover:bg-blue-700"
                       }`}
                     >
-                      {selectedCategory === ticket.category ? "Selected" : "Select"}
+                      {selectedCategory === ticket.category
+                        ? "Selected"
+                        : "Select"}
                     </button>
                   </motion.div>
                 ))}

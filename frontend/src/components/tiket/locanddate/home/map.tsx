@@ -1,11 +1,13 @@
-'use client'
+"use client";
 
-import { MapPin } from 'lucide-react'
-import Link from 'next/link'
+import { MapPin } from "lucide-react";
+import Link from "next/link";
 
 export default function Mapconcert() {
-  const address = '1 MetLife Stadium Dr, East Rutherford, NJ 07073, USA'
-  const googleMapLink = `https://www.google.com/maps?q=${encodeURIComponent(address)}`
+  const address = "1 MetLife Stadium Dr, East Rutherford, NJ 07073, USA";
+  const googleMapLink = `https://www.google.com/maps?q=${encodeURIComponent(
+    address
+  )}`;
 
   return (
     <div className="px-4 max-w-6xl mx-auto mt-10">
@@ -35,5 +37,5 @@ export default function Mapconcert() {
         </Link>
       </div>
     </div>
-  )
+  );
 }

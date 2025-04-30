@@ -15,7 +15,6 @@ export default function VerifyCustomerPage({ token }: { token: string }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
       setMsg(data.message);
       setIsSuccess(true);
     } catch (error) {

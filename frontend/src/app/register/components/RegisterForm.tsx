@@ -55,7 +55,6 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
       action.resetForm();
       
       setIsModalOpen(true);
-      console.log(data);
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data?.message || "Registration failed");

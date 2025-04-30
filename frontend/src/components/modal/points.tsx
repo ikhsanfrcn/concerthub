@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface PointsModalProps {
   open: boolean;
@@ -10,7 +10,12 @@ interface PointsModalProps {
   onSelect: (point: any) => void;
 }
 
-const PointsModal: React.FC<PointsModalProps> = ({ open, onClose, pointList, onSelect }) => {
+const PointsModal: React.FC<PointsModalProps> = ({
+  open,
+  onClose,
+  pointList,
+  onSelect,
+}) => {
   if (!open) return null;
 
   return (
@@ -32,7 +37,9 @@ const PointsModal: React.FC<PointsModalProps> = ({ open, onClose, pointList, onS
             >
               <div>
                 <p className="font-semibold">{point.description || "Point"}</p>
-                <p className="text-sm text-gray-600">Rp {point.amount.toLocaleString('id-ID')}</p>
+                <p className="text-sm text-gray-600">
+                  Rp {point.amount.toLocaleString("id-ID")}
+                </p>
               </div>
               <button
                 onClick={() => {

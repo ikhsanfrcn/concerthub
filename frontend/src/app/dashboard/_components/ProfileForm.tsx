@@ -43,7 +43,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
         .required("Phone number is required"),
     }),
     onSubmit: async (values) => {
-      console.log("add to backend:", values);
       const token = session?.accessToken;
       try {
         const response = await axios.patch("/users/profile-update", values, {

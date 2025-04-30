@@ -25,7 +25,6 @@ export default function PaymentSummary({ onSubmit }: PaymentSummaryProps) {
             },
           });
           const data = res.data;
-          console.log(data);
           setDetails(data);
         } else {
           console.error("No transaction ID found");
@@ -44,7 +43,6 @@ export default function PaymentSummary({ onSubmit }: PaymentSummaryProps) {
 
   if (loading) return <div>Loading...</div>;
 
-  // Pastikan data transaksi ada sebelum mengaksesnya
   if (!details || !details.transactions || details.transactions.length === 0) {
     return <p>No transaction details available</p>;
   }

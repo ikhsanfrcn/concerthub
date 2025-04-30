@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SuccessPage from "@/components/tiket/download/selamat";
+import SuccessPage from "@/components/tiket/download/congrats";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import PaymentModal from "@/components/modal/paymentModal";
@@ -24,7 +24,7 @@ export default function Step5() {
           });
 
           if (res.data.transactions && res.data.transactions.length > 0) {
-            setTransaction(res.data.transactions[0]); 
+            setTransaction(res.data.transactions[0]);
           } else {
             console.error("Transaction data is empty or malformed");
           }
@@ -60,7 +60,7 @@ export default function Step5() {
         });
 
         if (res.data.transactions && res.data.transactions.length > 0) {
-          const transaction = res.data.transactions[0]; 
+          const transaction = res.data.transactions[0];
 
           if (transaction.status === "PAID") {
             setTransaction(transaction);

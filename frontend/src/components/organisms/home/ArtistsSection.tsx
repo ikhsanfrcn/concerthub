@@ -16,14 +16,14 @@ interface Props {
 }
 
 export const ArtistsSection: React.FC<Props> = ({ className }) => {
-  const [artists, setArtists] = useState<Artist[]>([]); 
-  const [loading, setLoading] = useState(true); 
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [loading, setLoading] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await axios.get("/artists"); 
+        const response = await axios.get("/artists");
         setArtists(response.data.artist);
       } catch (error) {
         console.error("Error fetching artists:", error);
@@ -68,10 +68,14 @@ export const ArtistsSection: React.FC<Props> = ({ className }) => {
           ref={scrollRef}
           className="flex justify-center flex-nowrap overflow-x-auto space-x-[24px] scrollbar-hide scroll-smooth"
         >
-          {loading ? 
-              [...Array(5)].map((_, index) => (
+          {loading
+            ? [...Array(5)].map((_, index) => (
                 <div key={index} className="flex-shrink-0">
-                  <Skeleton width="w-[184px]" height="h-[184px]" circle={true} />
+                  <Skeleton
+                    width="w-[184px]"
+                    height="h-[184px]"
+                    circle={true}
+                  />
                 </div>
               ))
             : artists.map((artist, index) => (

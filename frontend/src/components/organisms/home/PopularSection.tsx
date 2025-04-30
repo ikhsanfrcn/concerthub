@@ -81,7 +81,7 @@ export const PopularSection: React.FC<Props> = ({ className }) => {
           ))}
         </div>
         ) : (
-          <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
+          <div className="flex flex-nowrap space-x-[24px] max-[768px]:overflow-x-auto scrollbar-hide">
             {concerts.slice(0, 4).map((item) => (
               <div
                 key={item.id}

@@ -21,7 +21,6 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
       try {
         const res = await axios.get(`/event-session?eventId=${eventId}`);
         setSessions(res.data.sessions || []);
-        // console.log("Sessions:", res.data.sessions);
       } catch (error) {
         console.error("Failed to fetch sessions", error);
       } finally {
@@ -56,9 +55,7 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
                     <h2 className="text-2xl md:text-3xl font-semibold">
                       {sessions[0].event.title}
                     </h2>
-                    <p className="text-base md:text-lg">
-                      Concerts
-                    </p>
+                    <p className="text-base md:text-lg">Concerts</p>
                   </div>
                   <div className="text-xs md:text-sm self-end">
                     🎵 {sessions[0].event.category}
@@ -139,7 +136,6 @@ export default function Step1({ eventId, onComplete }: Step1Props) {
           )}
         </div>
       </div>
-
       <Mapconcert />
       <ReviewsSection />
       <Suggestion />

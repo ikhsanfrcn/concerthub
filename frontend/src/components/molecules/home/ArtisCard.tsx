@@ -13,7 +13,7 @@ export const ArtisCard: React.FC<ArtisProps> = ({ image }) => {
         height={0}
         sizes="100"
         alt=""
-        className="w-[119px] h-[119px] md:w-[184px] md:h-[184px] rounded-full"
+        className="w-[119px] h-[119px] md:w-[184px] md:h-[184px] rounded-full hover:shadow-md"
       />
     </>
   );

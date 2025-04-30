@@ -44,14 +44,6 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onDelete }) => {
           <p>{event.organizerName}</p>
         </div>
         <p className="hidden min-[768px]:block">{event.title}</p>
-        {/* <div className="flex items-center space-x-[3.8px]">
-        <FaCalendar />
-        <p className="text-neutral-600">{event.date} at {event.time}</p>
-      </div>
-      <div className="hidden min-[768px]:flex items-center space-x-[3.8px]">
-        <FaLocationPinLock />
-        <p className="text-neutral-600">{event.location}</p>
-      </div> */}
         <div className="hidden min-[768px]:flex items-center space-x-[3.8px]">
           <BiMoney />
           <p className="text-neutral-600">Rp. {event.totalIncome}</p>

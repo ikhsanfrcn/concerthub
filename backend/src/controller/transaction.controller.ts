@@ -113,7 +113,7 @@ export class TransactionController {
 
           const data: CreateInvoiceRequest = {
             amount: totalPrice,
-            invoiceDuration: "5",
+            invoiceDuration: "3600",
             externalId: transaction.id,
             description: `Invoice order id ${transaction.id}`,
             currency: "IDR",
@@ -144,7 +144,6 @@ export class TransactionController {
   async updateTransaction(req: Request, res: Response) {
     try {
       const { status, external_id } = req.body;
-      console.log(req.body);
 
       if (!status || !external_id) {
         res.status(400).send({ message: "Status dan external_id wajib diisi" });
@@ -170,16 +169,15 @@ export class TransactionController {
           });
 
           if (transaction) {
+            await prisma.event.update({
+              data: { attendees: { increment: transaction.quantity } },
+              where: { id: transaction.eventId },
+            });
 
             await prisma.event.update({
-              data: { attendees: { increment: transaction.quantity }},
-              where: { id: transaction.eventId }
-            })
-
-            await prisma.event.update({
-              data: { totalIncome: { increment: transaction.totalPrice }},
-              where: { id: transaction.eventId }
-            })
+              data: { totalIncome: { increment: transaction.totalPrice } },
+              where: { id: transaction.eventId },
+            });
 
             const ticketsToCreate = Array.from(
               { length: transaction.quantity },

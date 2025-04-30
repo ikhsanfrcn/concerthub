@@ -1,7 +1,7 @@
-import { DesktopDashboard } from "./components/DesktopDashboard";
+import { DesktopDashboard } from "./_components/DesktopDashboard";
 import { SessionProvider } from "next-auth/react";
 import { Navbar } from "@/components/navbar/Navbar";
-import { MobileDashboard } from "./components/MobileDashboard";
+import { MobileDashboard } from "./_components/MobileDashboard";
 
 export default function Dashboard() {
   return (

@@ -1,9 +1,9 @@
 'use client'
 import { useState } from "react";
-import { SearchBox } from "@/components/atoms/SearchBox";
 import { HeroContent } from "@/components/molecules/home/HeroContent";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SearchBox } from "@/components/atoms/SearchBox";
 
 export const HeroSection: React.FC = () => {
   const router = useRouter();
@@ -31,7 +31,7 @@ export const HeroSection: React.FC = () => {
       <div className="relative z-[0] mt-[48px] bg-neutral-700 h-[256px]">
         <div className="flex flex-col pl-[108px] pt-[32px] space-y-[16px] text-white">
           <p className="text-[20px] text-neutral-200">Find your favorite concert</p>
-          <form onSubmit={handleSearchSubmit}> 
+          <form onSubmit={handleSearchSubmit} className="max-w-md"> 
             <SearchBox
               value={searchTerm}
               onChange={handleSearchChange} 

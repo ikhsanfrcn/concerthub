@@ -61,17 +61,20 @@ export default function Suggestion() {
       </div>
 
       <div className="flex flex-nowrap space-x-6 overflow-x-auto scrollbar-hide">
-      {loading ? (
+        {loading ? (
           <div className="flex space-x-6 overflow-x-auto">
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className="flex-shrink-0 space-y-5 min-[768px]:w-[calc(25%-20px)]">
-              <Skeleton width="w-full" height="h-48" />
-              <Skeleton width="w-20" height="h-6" />
-              <Skeleton width="w-32" height="h-5" />
-              <Skeleton width="w-24" height="h-5" />
-            </div>
-          ))}
-        </div>
+            {[...Array(4)].map((_, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 space-y-5 min-[768px]:w-[calc(25%-20px)]"
+              >
+                <Skeleton width="w-full" height="h-48" />
+                <Skeleton width="w-20" height="h-6" />
+                <Skeleton width="w-32" height="h-5" />
+                <Skeleton width="w-24" height="h-5" />
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
             {concerts.slice(0, 4).map((item) => (

@@ -100,7 +100,6 @@ export default function ReviewsSection() {
 
         if (matchedTicket) {
           setPurchasedTicketId(matchedTicket.id);
-          console.log(matchedTicket.session.date);
 
           const eventDate = new Date(matchedTicket.session.date);
           const now = new Date();
@@ -120,7 +119,7 @@ export default function ReviewsSection() {
       }
     };
     fetchPurchasedTicket();
-  },[session?.user.id, id]);
+  }, [session?.user.id, id]);
 
   if (status === "loading") return null;
 

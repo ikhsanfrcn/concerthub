@@ -1,35 +1,39 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Star } from 'lucide-react'
+import { useState } from "react";
+import { Star } from "lucide-react";
 
 export default function ReviewForm() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    review: '',
+    firstName: "",
+    lastName: "",
+    review: "",
     rating: 0,
-  })
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleRating = (rate: number) => {
-    setFormData({ ...formData, rating: rate })
-  }
+    setFormData({ ...formData, rating: rate });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Submitted review:', formData)
-    
-  }
+    e.preventDefault();
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl text-center">
-        <h2 className="text-2xl font-semibold mb-4">Leave a Review for Concert Hub</h2>
-        <p className="mb-4 text-gray-600">How would you rate for ConcertHub ?</p>
+        <h2 className="text-2xl font-semibold mb-4">
+          Leave a Review for Concert Hub
+        </h2>
+        <p className="mb-4 text-gray-600">
+          How would you rate for ConcertHub ?
+        </p>
 
         {/* Rating */}
         <div className="flex justify-center mb-6">
@@ -37,7 +41,9 @@ export default function ReviewForm() {
             <button key={i} onClick={() => handleRating(i)} className="mx-1">
               <Star
                 className={`w-6 h-6 ${
-                  formData.rating >= i ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+                  formData.rating >= i
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
                 }`}
               />
             </button>
@@ -80,9 +86,10 @@ export default function ReviewForm() {
         </form>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          All reviews on ConcertHub are verified within 48 hours before posting to ensure authenticity and accuracy.
+          All reviews on ConcertHub are verified within 48 hours before posting
+          to ensure authenticity and accuracy.
         </p>
       </div>
     </div>
-  )
+  );
 }

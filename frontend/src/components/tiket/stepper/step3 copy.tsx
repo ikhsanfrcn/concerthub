@@ -148,7 +148,6 @@ export default function Step3({
 
       if (res.status === 200 && Array.isArray(res.data.points)) {
         const pointList = res.data.points;
-        console.log(pointList);
         const totalAmount = pointList.reduce(
           (acc: number, curr: any) => acc + (curr.amount || 0),
           0
@@ -211,22 +210,20 @@ export default function Step3({
         setPaymentUrl(url);
         setIsModalOpen(true);
       }
-      console.log(transactionData);
     } catch (error) {
       console.error("Error submitting transaction:", error);
       toast.error("Transaction Failed!");
     }
   };
-  console.log(pointsId);
 
   const closeModal = () => {
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
     onComplete();
   };
 
   const openPaymentLink = () => {
     if (paymentUrl) {
-      window.open(paymentUrl, "_blank"); 
+      window.open(paymentUrl, "_blank");
     }
   };
 

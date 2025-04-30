@@ -10,12 +10,15 @@ export default function VerifyOrganizerPage({ token }: { token: string }) {
   const onVerify = async () => {
     try {
       setMsg("Waiting ...");
-      const { data } = await axios.patch("/auth/verify/organizer", {}, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(data);
+      const { data } = await axios.patch(
+        "/auth/verify/organizer",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setMsg(data.message);
       setIsSuccess(true);
     } catch (error) {
@@ -27,7 +30,7 @@ export default function VerifyOrganizerPage({ token }: { token: string }) {
 
   useEffect(() => {
     onVerify();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

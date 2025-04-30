@@ -46,21 +46,6 @@ export class ReviewController {
     try {
       const { eventId, rating, purchasedTicketId, comment } = req.body;
       const userId = req.user?.id as string; 
-     
-      // const purchasedTicket = await prisma.purchasedTicket.findFirst({
-      //   where: {
-      //     userId,
-      //     ticket: {
-      //       session: {
-      //         id: eventId ,
-      //       },
-      //     },
-      //   },
-      // });
-      
-      // if (!purchasedTicket) {
-      //   throw new Error("You must purchase a ticket before writing a review.");
-      // }
   
       const existingReview = await prisma.review.findFirst({
         where: { userId, eventId },

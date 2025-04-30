@@ -1,54 +1,61 @@
-'use client'
-import { useState, useEffect } from 'react'
-import axios from '@/lib/axios'
-import { useSession } from 'next-auth/react'
+"use client";
+import { useState, useEffect } from "react";
+import axios from "@/lib/axios";
+import { useSession } from "next-auth/react";
 
 interface EventSessionCreateProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
-export default function EventSessionCreate({ onClose }: EventSessionCreateProps) {
-  const { data: session } = useSession()
+export default function EventSessionCreate({
+  onClose,
+}: EventSessionCreateProps) {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
-    eventId: '',
-    date: '',
-    time: '',
-    location: '',
-  })
+    eventId: "",
+    date: "",
+    time: "",
+    location: "",
+  });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [events, setEvents] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await axios.get(`/events?organizerId=${session?.user.id}`)
-        setEvents(res.data || [])
-        setLoading(false)
+        const res = await axios.get(`/events?organizerId=${session?.user.id}`);
+        setEvents(res.data || []);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching events:', error)
-        setLoading(false)
+        console.error("Error fetching events:", error);
+        setLoading(false);
       }
-    }
+    };
 
-    fetchEvents()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    fetchEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!formData.eventId || !formData.date || !formData.time || !formData.location) {
-      alert('Please fill in all required fields')
-      return
+    if (
+      !formData.eventId ||
+      !formData.date ||
+      !formData.time ||
+      !formData.location
+    ) {
+      alert("Please fill in all required fields");
+      return;
     }
 
     const newSession = {
@@ -56,27 +63,26 @@ export default function EventSessionCreate({ onClose }: EventSessionCreateProps)
       date: formData.date,
       time: formData.time,
       location: formData.location,
-    }
+    };
 
     try {
-      const res = await axios.post('/event-session', newSession, {
+      const res = await axios.post("/event-session", newSession, {
         headers: {
-          'Authorization': `Bearer ${session?.accessToken}`,
+          Authorization: `Bearer ${session?.accessToken}`,
         },
-      })
+      });
 
       if (res.status === 201) {
-        alert('Event session created successfully!')
-        onClose()
+        alert("Event session created successfully!");
+        onClose();
       } else {
-        alert('Failed to create event session')
+        alert("Failed to create event session");
       }
-      
     } catch (error) {
-      console.error('Error:', error)
-      alert('Failed to create event session')
+      console.error("Error:", error);
+      alert("Failed to create event session");
     }
-  }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -162,5 +168,5 @@ export default function EventSessionCreate({ onClose }: EventSessionCreateProps)
         )}
       </div>
     </div>
-  )
+  );
 }

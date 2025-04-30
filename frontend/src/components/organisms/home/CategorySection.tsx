@@ -18,11 +18,11 @@ const dataDummy = [
     name: "Pop",
   },
   {
-    image: "/zachbryan.png",
+    image: "/jazz.webp",
     name: "Jazz",
   },
   {
-    image: "/zachbryan.png",
+    image: "/rock.jpeg",
     name: "Rock",
   },
   {
@@ -57,7 +57,7 @@ export const CategorySection: React.FC<Props> = ({ className }) => {
       </div>
 
       <div className="mt-[24px]">
-        <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
+        <div className="flex flex-nowrap space-x-[24px] max-[768px]:overflow-x-auto scrollbar-hide">
           {loading ? (
             [...Array(5)].map((_, index) => (
               <div

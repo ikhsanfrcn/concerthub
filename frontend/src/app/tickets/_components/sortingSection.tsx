@@ -13,7 +13,7 @@ export const SortingSection: React.FC<SortingSectionProps> = ({
     <select
       value={selectedSort}
       onChange={(e) => setSelectedSort(e.target.value)}
-      className="border p-2 rounded mt-4"
+      className="border p-2 rounded"
     >
       <option value="closest">Date: Closest</option>
       <option value="popular">Most Popular</option>
