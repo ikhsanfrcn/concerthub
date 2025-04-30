@@ -90,8 +90,6 @@ model Ticket {
   id            String         @id @default(uuid())
   sessionId     String
   eventId       String?
-  name          String
-  description   String
   price         Int
   category      TicketCategory
   seatAvailable Int
@@ -115,8 +113,6 @@ model Transaction {
   ticketId   String
   quantity   Int
   totalPrice Int
-  usedPoints Int               @default(0)
-  discount   Int               @default(0)
   voucherId  String?
   pointId    String?
   status     statusTransaction @default(PENDING)
@@ -146,7 +142,6 @@ model PurchasedTicket {
   ticketId      String
   sessionId     String
   userId        String
-  qrCode        String?
   createdAt     DateTime @default(now())
 
   session     EventSession @relation(fields: [sessionId], references: [id])
@@ -210,7 +205,6 @@ model ReferralUsage {
   referredId   String
   voucherId    String?
   createdAt    DateTime @default(now())
-  pointGranted Boolean  @default(false)
 
   referred User     @relation("ReferralsReceived", fields: [referredId], references: [id])
   referrer User     @relation("ReferralsGiven", fields: [referrerId], references: [id])

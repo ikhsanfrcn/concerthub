@@ -164,8 +164,6 @@ exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   sessionId: 'sessionId',
   eventId: 'eventId',
-  name: 'name',
-  description: 'description',
   price: 'price',
   category: 'category',
   seatAvailable: 'seatAvailable'
@@ -178,8 +176,6 @@ exports.Prisma.TransactionScalarFieldEnum = {
   ticketId: 'ticketId',
   quantity: 'quantity',
   totalPrice: 'totalPrice',
-  usedPoints: 'usedPoints',
-  discount: 'discount',
   voucherId: 'voucherId',
   pointId: 'pointId',
   status: 'status',
@@ -195,7 +191,6 @@ exports.Prisma.PurchasedTicketScalarFieldEnum = {
   ticketId: 'ticketId',
   sessionId: 'sessionId',
   userId: 'userId',
-  qrCode: 'qrCode',
   createdAt: 'createdAt'
 };
 
@@ -235,8 +230,7 @@ exports.Prisma.ReferralUsageScalarFieldEnum = {
   referrerId: 'referrerId',
   referredId: 'referredId',
   voucherId: 'voucherId',
-  createdAt: 'createdAt',
-  pointGranted: 'pointGranted'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
