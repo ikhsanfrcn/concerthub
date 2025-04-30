@@ -25,7 +25,7 @@ export const Card: React.FC<ICard> = ({
         height={290}
         src={image}
         alt="Sunset in the mountains"
-        className="w-[242px] md:w-full h-[calc(50%-10px)] min-[1440px]:h-[calc(70%-20px)] shadow-2xl rounded-xl object-cover"
+        className="w-[242px] md:w-full h-[calc(50%-10px)] min-[1440px]:h-[calc(70%-20px)] shadow-md rounded-xl object-cover"
       />
       <div className="pb-[10px] space-y-[8px] flex flex-col items-center">
         <div className="font-bold text-xl">{title}</div>
