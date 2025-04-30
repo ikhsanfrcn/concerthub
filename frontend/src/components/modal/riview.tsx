@@ -89,7 +89,7 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
       alert('Failed to submit review')
     }
 
-    console.log(newReview)
+    // console.log(newReview)
   }
 
   return (

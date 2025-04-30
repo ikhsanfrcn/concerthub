@@ -1,11 +1,12 @@
 "use client";
 
+import { Toastify } from "@/components/atoms/toastify";
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 
 interface Props {
@@ -65,15 +66,7 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={`${className}`}>
-      <ToastContainer
-        theme="colored"
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-      />
+      <Toastify />
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
