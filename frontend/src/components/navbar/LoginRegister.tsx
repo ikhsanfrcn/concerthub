@@ -91,7 +91,7 @@ const LoginRegister: React.FC = () => {
             onClick={toggleDropdown}
           >
             <Image
-              src={profile?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
+              src={profile?.avatar || "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png"}
               alt=""
               width={50}
               height={50}

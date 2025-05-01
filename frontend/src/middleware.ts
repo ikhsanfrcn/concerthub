@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
   if (data && req.nextUrl.pathname.startsWith('/login')) {
      return NextResponse.redirect(new URL("/", req.url));
   }
-  if (data && req.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!data && req.nextUrl.pathname.startsWith('/dashboard')) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 

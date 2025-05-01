@@ -87,7 +87,7 @@ export const DesktopDashboard: React.FC = () => {
             <Image
               src={
                 profile?.avatar ||
-                "https://randomuser.me/api/portraits/men/1.jpg"
+                "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.pngg"
               }
               width={0}
               height={0}
