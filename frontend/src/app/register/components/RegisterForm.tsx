@@ -1,9 +1,12 @@
 "use client";
+import { Toastify } from "@/components/atoms/toastify";
+import { EmailVerificationModal } from "@/components/modal/emailVerification";
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 
@@ -32,6 +35,8 @@ interface IRegisterForm {
 
 export const RegisterForm: React.FC<Props> = ({ className }) => {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const initialValues: IRegisterForm = {
     name: "",
     email: "",
@@ -45,23 +50,38 @@ export const RegisterForm: React.FC<Props> = ({ className }) => {
   ) => {
     try {
       const { data } = await axios.post("/auth/register", value);
+      toast.success(data.message);
+
       action.resetForm();
-      router.push("/login");
-      console.log(data);
+      
+      setIsModalOpen(true);
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data?.message);
+        toast.error(error.response?.data?.message || "Registration failed");
         console.log(error);
+      } else {
+        toast.error("An unexpected error occurred");
+        console.error(error);
       }
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    router.push("/login");
+  }
+
   return (
     <div className={`${className}`}>
+      <Toastify />
+      <EmailVerificationModal
+        isOpen={isModalOpen}
+        onClose={() => handleCloseModal()}
+      />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign up to your account
+            Sign up your account
           </h2>
         </div>
 

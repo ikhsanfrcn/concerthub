@@ -1,0 +1,264 @@
+"use client";
+import React, { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "@/lib/axios";
+import { toast } from "react-toastify";
+import { Toastify } from "@/components/atoms/toastify";
+
+interface ProfileFormProps {
+  isVisible: boolean;
+}
+
+export const ProfileForm: React.FC<ProfileFormProps> = ({ isVisible }) => {
+  const { data: session, status } = useSession();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      lastName: "",
+      email: "",
+      zipCode: "",
+      state: "",
+      city: "",
+      street: "",
+      houseNumber: "",
+      dob: "",
+      phoneNumber: "",
+      referralCode: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Required"),
+      lastName: Yup.string(),
+      email: Yup.string().email("Invalid email format").required("Required"),
+      zipCode: Yup.string().required("Required"),
+      state: Yup.string().required("Required"),
+      city: Yup.string().required("Required"),
+      street: Yup.string().required("Required"),
+      houseNumber: Yup.string().required("Required"),
+      dob: Yup.string().required("Required"),
+      phoneNumber: Yup.string()
+        .matches(/^\d+$/, "Phone number must contain only numbers")
+        .required("Phone number is required"),
+    }),
+    onSubmit: async (values) => {
+      const token = session?.accessToken;
+      try {
+        const response = await axios.patch("/users/profile-update", values, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.status === 201) {
+          toast.success(
+            response.data.message || "Profile updated successfully!"
+          );
+        } else {
+          toast.error("Failed to update profile");
+        }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.log(error);
+        const msg =
+          error.response?.data?.message || "Failed to update profile";
+        toast.error(msg);
+      }
+    },
+    enableReinitialize: true,
+  });
+
+  useEffect(() => {
+
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        });
+        const { data } = response;
+
+        formik.setValues({
+          name: data.user.name || "",
+          lastName: data.user.lastName || "",
+          email: data.user.email || "",
+          zipCode: data.user.zipCode || "",
+          state: data.user.state || "",
+          city: data.user.city || "",
+          street: data.user.street || "",
+          houseNumber: data.user.houseNumber || "",
+          dob: data.user.dob || "",
+          phoneNumber: data.user.phoneNumber || "",
+          referralCode: data.user.referralCode || "",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (session?.accessToken) {
+      fetchUserProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.accessToken]);
+
+  if (!isVisible) return null;
+  if (status === "loading") return <p className="mt-4">Loading user data...</p>;
+
+  return (
+    
+    <>
+    <Toastify />
+      
+      <form
+        onSubmit={formik.handleSubmit}
+        className="min-[768px]:flex flex-wrap min-[768px]:space-x-[24px] mt-4 space-y-4"
+      >
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="First name"
+            name="name"
+            value={formik.values.name}
+            error={formik.touched.name && formik.errors.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Last name"
+            name="lastName"
+            value={formik.values.lastName}
+            error={formik.touched.lastName && formik.errors.lastName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Email"
+            name="email"
+            value={formik.values.email}
+            error={formik.touched.email && formik.errors.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Zip code"
+            name="zipCode"
+            value={formik.values.zipCode}
+            error={formik.touched.zipCode && formik.errors.zipCode}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="State"
+            name="state"
+            value={formik.values.state}
+            error={formik.touched.state && formik.errors.state}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="City"
+            name="city"
+            value={formik.values.city}
+            error={formik.touched.city && formik.errors.city}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Street"
+            name="street"
+            value={formik.values.street}
+            error={formik.touched.street && formik.errors.street}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="House number"
+            name="houseNumber"
+            value={formik.values.houseNumber}
+            error={formik.touched.houseNumber && formik.errors.houseNumber}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+          <InputField
+            label="Phone Number"
+            name="phoneNumber"
+            value={formik.values.phoneNumber}
+            error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+            onChange={(e) => {
+              const cleanedValue = e.target.value.replace(/[^0-9]/g, "");
+              formik.setFieldValue("phoneNumber", cleanedValue);
+            } }
+            onBlur={formik.handleBlur} />
+        </div>
+        <div className="min-[768px]:w-[calc(50%-24px)]">
+        <div>
+    <label className="text-sm mb-1 block">Date of Birth</label>
+    <input
+      type="date"
+      name="dob"
+      value={formik.values.dob}
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      className={`w-full p-2 border rounded`}
+    />
+  </div>
+        </div>
+
+        <div className="min-[768px]:w-full flex justify-between items-center mb-[32px] min-[768px]:mb-0">
+          <p>
+            Referral Code : <span>{formik.values.referralCode}</span>
+          </p>
+          <button
+            type="submit"
+            className="bg-primary-500 text-white px-4 py-2 rounded-2xl"
+            disabled={formik.isSubmitting}
+          >
+            {formik.isSubmitting ? "Loading..." : "Save Changes"}
+          </button>
+        </div>
+      </form></>
+  );
+};
+
+interface InputFieldProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: string | false;
+}
+
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  onBlur,
+  error,
+}) => (
+  <div>
+    <label className="text-sm mb-1 block">{label}</label>
+    <input
+      type="text"
+      name={name}
+      value={value}
+      onChange={onChange}
+      onBlur={onBlur}
+      className={`w-full p-2 border rounded ${
+        error ? "border-red-500" : "border-gray-300"
+      }`}
+    />
+    {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+  </div>
+);

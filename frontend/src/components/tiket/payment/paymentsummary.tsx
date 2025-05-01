@@ -8,7 +8,7 @@ interface PaymentSummaryProps {
   onSubmit: () => void;
 }
 
-export default function PaymentSummary({onSubmit}: PaymentSummaryProps) {
+export default function PaymentSummary({ onSubmit }: PaymentSummaryProps) {
   const { data: session } = useSession();
   const [details, setDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function PaymentSummary({onSubmit}: PaymentSummaryProps) {
         const transactionId = localStorage.getItem("transactionId");
 
         if (transactionId) {
-          const res = await axios.get(`/transactions/${transactionId}`, {
+          const res = await axios.get(`/transactions?id=${transactionId}`, {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,
             },
@@ -41,33 +41,38 @@ export default function PaymentSummary({onSubmit}: PaymentSummaryProps) {
     }
   }, [session?.user?.id]);
 
-  if (loading) return <div>Loading...</div>; 
+  if (loading) return <div>Loading...</div>;
+
+  if (!details || !details.transactions || details.transactions.length === 0) {
+    return <p>No transaction details available</p>;
+  }
+
+  const transaction = details.transactions[0];
+  const ticket = transaction.ticket;
+  const quantity = transaction.quantity;
+  const totalPrice = transaction.totalPrice;
 
   return (
     <div className="bg-white rounded-xl p-6 shadow text-sm">
       <h3 className="font-semibold text-base mb-4">Payment details</h3>
-      {details ? (
+      {ticket ? (
         <ul className="space-y-1 text-sm text-gray-700">
           <li className="flex justify-between">
             <span>Ticket:</span>
-            <span>Rp. {details.transaction.ticket.price}</span>
+            <span>Rp. {ticket.price}</span>
           </li>
           <li className="flex justify-between">
-            <span>x {details.transaction.quantity}</span>
-            <span>Rp {details.transaction.ticket.price * details.transaction.quantity}</span>
+            <span>x {quantity}</span>
+            <span>Rp {ticket.price * quantity}</span>
           </li>
-          {/* <li className="flex justify-between">
-            <span>Discount</span>
-            <span>- Rp {details.transaction.discount.toFixed(2)}</span>
-          </li> */}
         </ul>
       ) : (
-        <p>No transaction details available</p>
+        <p>No ticket information available</p>
       )}
       <div className="border-t mt-4 pt-4">
         <div className="flex justify-between font-semibold text-base text-pink-600">
           <span>Total</span>
-          <span>Rp {details.transaction.totalPrice.toFixed(2)}</span>
+          <span>Rp {totalPrice.toFixed(2)}</span>
         </div>
         <button
           className="mt-6 w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 rounded-full"

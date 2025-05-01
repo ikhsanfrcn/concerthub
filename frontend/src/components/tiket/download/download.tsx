@@ -27,7 +27,7 @@ interface Ticket {
 
 export default function DownloadPage() {
   const { data: session } = useSession();
-  const [tickets, setTickets] = useState<Ticket[]>([]); 
+  const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -35,7 +35,7 @@ export default function DownloadPage() {
     if (session?.user?.id) {
       fetchTickets();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   const fetchTickets = async () => {
@@ -44,7 +44,7 @@ export default function DownloadPage() {
 
       if (transactionId) {
         const response = await axios.get(
-          `/tickets/${transactionId}`, 
+          `/tickets/purchased?transactionId=${transactionId}`,
           {
             headers: {
               Authorization: `Bearer ${session?.accessToken}`,
@@ -101,7 +101,9 @@ export default function DownloadPage() {
 
       <div className="flex flex-col items-center justify-center h-full">
         <Image
-          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${index + 1}-${session?.user?.email}`}
+          src={`https://api.qrserver.com/v1/create-qr-code/?data=TICKET-${
+            index + 1
+          }-${session?.user?.email}`}
           width={100}
           height={100}
           alt="QR Code"
@@ -127,7 +129,7 @@ export default function DownloadPage() {
             <TicketCard key={ticket.id} ticket={ticket} index={index} />
           ))
         ) : (
-          <div>No tickets available for this transaction.</div> 
+          <div>No tickets available for this transaction.</div>
         )}
       </div>
 
@@ -135,10 +137,7 @@ export default function DownloadPage() {
         <button
           onClick={() => {
             if (isVisible) {
-              console.log("Print button clicked");
               window.print();
-            } else {
-              console.log("Tab is hidden, print won't be triggered");
             }
           }}
           className="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700 transition"

@@ -1,4 +1,6 @@
 "use client";
+
+import { Toastify } from "@/components/atoms/toastify";
 import axios from "@/lib/axios";
 import { AxiosError } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
@@ -39,9 +41,10 @@ export const LoginForm: React.FC<Props> = ({ className }) => {
     try {
       const { data } = await axios.post("/auth/login", value);
       const user = data.data;
-      action.resetForm();
+      toast.success(data.message);
 
-await signIn("credentials", {
+      action.resetForm();
+      await signIn("credentials", {
         redirectTo: "/",
         id: user.id,
         name: user.name,
@@ -50,22 +53,25 @@ await signIn("credentials", {
         avatar: user.avatar || "",
         accessToken: data.access_token,
       });
-      // console.log(data);
-      
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data?.message);
+        toast.error(error.response?.data?.message || "Login failed");
         console.log(error);
+      } else {
+        toast.error("An unexpected error occurred");
+        console.error(error);
       }
     }
   };
 
   return (
     <div className={`${className}`}>
+      <Toastify />
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign up to your account
+            Sign in to your account
           </h2>
         </div>
 

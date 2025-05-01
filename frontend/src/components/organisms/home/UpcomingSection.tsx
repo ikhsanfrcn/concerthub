@@ -3,14 +3,24 @@ import Link from "next/link";
 import { Card } from "../../molecules/home/Card";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
+import Skeleton from "@/components/atoms/sekeletonLoading";
 
 interface Event {
   image: string;
   title: string;
-  location: string;
+  id: string;
+  eventSessions: Array<{
+    id: string;
+    date: string;
+    time: string;
+    location: string;
+  }>;
+}
+
+interface UpdatedEvent extends Event {
   date: string;
   time: string;
-  id: string
+  location: string;
 }
 
 interface Props {
@@ -18,14 +28,98 @@ interface Props {
 }
 
 export const UpcomingSection: React.FC<Props> = ({ className }) => {
-  const [concerts, setConcerts] = useState<Event[]>([]);
+  const [concerts, setConcerts] = useState<UpdatedEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchConcerts = async () => {
       try {
         const res = await axios.get("/events");
-        setConcerts(res.data);
+
+        const currentDate = new Date();
+
+        const upcomingConcerts = res.data.filter((event: Event) => {
+          const validSessions = event.eventSessions.filter(session => {
+            return new Date(session.date) >= currentDate; 
+          });
+
+          return validSessions.length > 0;
+        });
+
+        const sortedConcerts = upcomingConcerts.sort((a: Event, b: Event) => {
+          const sortedA = a.eventSessions
+            .filter(session => new Date(session.date) >= currentDate) 
+            .sort((sessionA, sessionB) => {
+              const sessionDateA = new Date(sessionA.date).getTime();
+              const sessionDateB = new Date(sessionB.date).getTime();
+
+              if (sessionDateA === sessionDateB) {
+                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
+                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
+                return sessionTimeA - sessionTimeB;
+              }
+
+              return sessionDateA - sessionDateB;
+            });
+
+          const firstSessionA = sortedA[0]; 
+          const sortedB = b.eventSessions
+            .filter(session => new Date(session.date) >= currentDate) 
+            .sort((sessionA, sessionB) => {
+              const sessionDateA = new Date(sessionA.date).getTime();
+              const sessionDateB = new Date(sessionB.date).getTime();
+
+              if (sessionDateA === sessionDateB) {
+                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
+                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
+                return sessionTimeA - sessionTimeB;
+              }
+
+              return sessionDateA - sessionDateB;
+            });
+
+          const firstSessionB = sortedB[0];
+
+          const dateA = new Date(firstSessionA.date).getTime();
+          const dateB = new Date(firstSessionB.date).getTime();
+          if (dateA === dateB) {
+            const timeA = new Date(`${firstSessionA.date}T${firstSessionA.time}`).getTime();
+            const timeB = new Date(`${firstSessionB.date}T${firstSessionB.time}`).getTime();
+            return timeA - timeB;
+          }
+
+          return dateA - dateB;
+        });
+
+        const updatedConcerts: UpdatedEvent[] = sortedConcerts.map((event: Event) => {
+          const closestSession = event.eventSessions
+            .filter(session => new Date(session.date) >= currentDate)
+            .sort((sessionA, sessionB) => {
+              const sessionDateA = new Date(sessionA.date).getTime();
+              const sessionDateB = new Date(sessionB.date).getTime();
+
+              if (sessionDateA === sessionDateB) {
+                const sessionTimeA = new Date(`${sessionA.date}T${sessionA.time}`).getTime();
+                const sessionTimeB = new Date(`${sessionB.date}T${sessionB.time}`).getTime();
+                return sessionTimeA - sessionTimeB;
+              }
+
+              return sessionDateA - sessionDateB;
+            })[0];
+
+          if (closestSession) {
+            return {
+              ...event,
+              date: closestSession.date,
+              time: closestSession.time,
+              location: closestSession.location,
+            };
+          }
+
+          return event;
+        });
+
+        setConcerts(updatedConcerts);
       } catch (error) {
         console.error("Failed to fetch concerts", error);
       } finally {
@@ -38,21 +132,30 @@ export const UpcomingSection: React.FC<Props> = ({ className }) => {
 
   return (
     <section className={`${className}`}>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <p className="text-[26px]">Upcoming concerts</p>
-        <Link href={"#"} className="text-[20px]">
+        <Link href="/tickets" className="text-[20px]">
           See All
         </Link>
       </div>
 
       <div className="mt-[24px]">
         {loading ? (
-          <p>Loading...</p>
+          <div className="flex space-x-6 overflow-x-auto">
+          {[...Array(4)].map((_, index) => (
+            <div key={index} className="flex-shrink-0 space-y-5 min-[768px]:w-[calc(25%-20px)]">
+              <Skeleton width="w-full" height="h-48" />
+              <Skeleton width="w-20" height="h-6" />
+              <Skeleton width="w-32" height="h-5" />
+              <Skeleton width="w-24" height="h-5" />
+            </div>
+          ))}
+        </div>
         ) : (
-          <div className="flex flex-nowrap space-x-[24px] overflow-x-auto scrollbar-hide">
-            {concerts.slice(0, 4).map((item, index) => (
+          <div className="flex flex-nowrap space-x-[24px] max-[768px]:overflow-x-auto scrollbar-hide">
+            {concerts.slice(0, 4).map((item) => (
               <div
-                key={index}
+                key={item.id}
                 className="flex-shrink-0 min-[768px]:w-[calc(25%-20px)]"
               >
                 <Card

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
+import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class UserController {
   async getProfile(req: Request, res: Response) {
@@ -83,4 +84,32 @@ export class UserController {
       console.log(error);
     }
   }
+
+  async updateAvatar(req: Request, res: Response) {
+    try {
+      if (!req.file) throw { message: "No image uploaded." };
+  
+      const { secure_url } = await cloudinaryUpload(req.file, "ConcertHub");
+  
+      if (!req.user?.id) {
+        throw res.status(401).json({ message: "Unauthorized" });
+      }
+  
+      await prisma.user.update({
+        where: { id: req.user.id },
+        data: {
+          avatar: secure_url,
+        },
+      });
+  
+      res.status(200).json({ message: "Profile photo updated successfully", avatar: secure_url });
+    } catch (error) {
+      console.error("Update profile error:", error);
+      res.status(400).json({
+        message: "Failed to update profile photo",
+        error
+      });
+    }
+  }
+  
 }

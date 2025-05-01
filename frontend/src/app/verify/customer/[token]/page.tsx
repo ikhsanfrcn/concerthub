@@ -1,5 +1,4 @@
-import VerifyCustomerPage from "./components/Verify";
-
+import VerifyCustomerPage from "./_components/Verify";
 
 export default async function Page({
   params,
@@ -7,8 +6,6 @@ export default async function Page({
   params: Promise<{ token: string }>;
 }) {
   const token = (await params).token;
-  console.log(token);
-  
 
   return (
     <div>

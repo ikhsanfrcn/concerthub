@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
-import { format } from "date-fns";
+import Skeleton from "../atoms/sekeletonLoading";
 
 interface ConcertData {
   id: string;
@@ -40,7 +40,7 @@ const TicketCard = () => {
           title: session.event.title,
           time: session.time,
           location: session.location,
-          date: format(new Date(session.date), "dd MMM yyyy"),
+          date: session.date,
         };
 
         setConcert(concertData);
@@ -54,19 +54,27 @@ const TicketCard = () => {
     fetchTickets();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Skeleton />;
   if (!concert) return <p>No concert data available.</p>;
 
   return (
-    <div className="flex max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-6">
-      <div className="flex flex-col items-center justify-center bg-indigo-700 text-white px-12 py-4">
-        <div className="text-lg font-bold">{concert.date}</div>
-      </div>
+    <div className="flex max-w-3xl mx-auto mt-6 relative">
+      <div className="absolute top-1/2 -left-3 w-6 h-6 bg-white rounded-full border border-gray-300 transform -translate-y-1/2 z-10"></div>
+      <div className="absolute top-1/2 -right-3 w-6 h-6 bg-white rounded-full border border-gray-300 transform -translate-y-1/2 z-10"></div>
 
-      <div className="relative flex-1 p-4">
-        <h3 className="text-lg font-semibold">{concert.title}</h3>
-        <p className="text-sm text-gray-600">🕘 {concert.time}</p>
-        <p className="text-sm text-gray-600">📍 {concert.location}</p>
+      <div className="flex w-full bg-white rounded-xl shadow-lg overflow-hidden hover:scale-[1.02] transition-transform duration-300 border-2 border-dashed border-gray-300">
+        {/* Date Section */}
+        <div className="flex flex-col items-center justify-center bg-indigo-700 text-white px-10 py-6">
+          <div className="text-2xl font-bold">{concert.date}</div>
+          <div className="text-sm mt-2">{concert.category || "Concert"}</div>
+        </div>
+
+        {/* Ticket Content */}
+        <div className="flex-1 p-6 bg-gradient-to-r from-white to-gray-100">
+          <h3 className="text-2xl font-bold mb-2">{concert.title}</h3>
+          <p className="text-md text-gray-600 mb-1">🕘 {concert.time}</p>
+          <p className="text-md text-gray-600">📍 {concert.location}</p>
+        </div>
       </div>
     </div>
   );

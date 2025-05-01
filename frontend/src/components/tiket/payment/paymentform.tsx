@@ -40,13 +40,9 @@ export default function PaymentForm() {
 
   return (
     <div className="bg-white rounded-xl p-6 shadow text-sm space-y-6">
-      {/* USER INFO */}
       <div>
         <h2 className="text-base font-semibold text-primary-600 flex items-center justify-between">
           1. Review your Information
-          {/* <span className="text-xs text-blue-500 underline cursor-pointer">
-            ✎ Edit
-          </span> */}
         </h2>
         <ul className="mt-3 space-y-1 text-gray-700">
           <li>👤 {`${user?.name} ${user?.lastName}`}</li>

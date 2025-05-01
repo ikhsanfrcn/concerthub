@@ -1,15 +1,14 @@
-'use client'
+"use client";
 import { useState } from "react";
 
-const DropdownMenu = () => {
+export const DropdownMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("En");
 
-interface Language {
+  interface Language {
     code: string;
     name: string;
-}
-
+  }
 
   const languages = [
     { code: "En", name: "En" },
@@ -56,7 +55,7 @@ interface Language {
 
       {isOpen && (
         <div
-          className="absolute origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="absolute z-[3] origin-top-right right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -66,7 +65,7 @@ interface Language {
               <button
                 key={language.code}
                 onClick={() => handleSelectLanguage(language)}
-                className="text-gray-700 block w-full px-4 py-2 text-sm text-left z-20"
+                className="text-gray-700 block w-full px-4 py-2 text-sm text-left"
                 role="menuitem"
               >
                 {language.name}
@@ -78,5 +77,3 @@ interface Language {
     </div>
   );
 };
-
-export default DropdownMenu;

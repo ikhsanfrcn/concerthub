@@ -1,10 +1,11 @@
-// import SuccessPage from "@/components/tiket/download/selamat";
-// import { MainTemplate } from "@/template/MainTemplate";
+import DownloadPage from "@/components/tiket/download/download";
 
-// export default function TicketPage() {
-//   return (
-//     <MainTemplate>
-//       <SuccessPage />
-//     </MainTemplate>
-//   );
-// }
+import { MainTemplate } from "@/template/MainTemplate";
+
+export default function TicketPage() {
+  return (
+    <MainTemplate>
+      <DownloadPage />
+    </MainTemplate>
+  );
+}

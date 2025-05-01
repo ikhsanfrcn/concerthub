@@ -1,9 +1,10 @@
 "use client";
 
+import axios from "@/lib/axios";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrDashboard } from "react-icons/gr";
 import { IoPersonOutline } from "react-icons/io5";
 
@@ -46,8 +47,32 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
 const LoginRegister: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [profile, setProfile] = useState<{
+    name: string,
+    avatar: string
+  }>()
 
-  const user = session?.user;
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const res = await axios.get('/users/profile', {
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`
+          }
+        })
+        const { data } = res
+
+        setProfile({
+          name: data.user.name,
+          avatar: data.user.avatar
+        })
+      } catch (error) {
+        console.log(error); 
+      }
+    }
+
+      fetchUserProfile()
+  }, [session])
 
   if (status === "loading") return null;
 
@@ -66,16 +91,16 @@ const LoginRegister: React.FC = () => {
             onClick={toggleDropdown}
           >
             <Image
-              src={session.user.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
+              src={profile?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
               alt=""
               width={50}
               height={50}
               className="w-12 h-12 rounded-full"
             />
-            <p className="flex items-center ml-[10px]">{user?.name}</p>
+            <p className="flex items-center ml-[10px]">{profile?.name}</p>
           </button>
           {isOpen && (
-            <div className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="origin-top-right absolute z-[3] right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
               <DropdownItem
                 href="/dashboard"
                 icon={GrDashboard}

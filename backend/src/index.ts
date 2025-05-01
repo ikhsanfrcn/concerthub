@@ -2,14 +2,14 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { AuthRouter } from "./routers/auth.routes";
 import { ReviewRouter } from "./routers/review.routes";
-import { TransactionRouter } from "./routers/transaksi.routes";
+import { TransactionRouter } from "./routers/transaction.routes";
 import { VoucherRouter } from "./routers/voucher.routes";
 import { UserRouter } from "./routers/user.routes";
 import { EventRouter } from "./routers/event.routes";
 import { OrganizerRouter } from "./routers/organizer.routes";
 import { TicketRouter } from "./routers/ticket.routes";
 import { EventSessionRouter } from "./routers/eventSession.routes";
-import { WebhookRouter } from "./routers/webhook.routes";
+import { ArtistRouter } from "./routers/artist.routes";
 
 
 const PORT: number = 8000;
@@ -53,8 +53,8 @@ app.use('/api/tickets', ticketRouter.getRouter())
 const eventSessionRouter = new EventSessionRouter()
 app.use('/api/event-session', eventSessionRouter.getRouter())
 
-const webhookRouter = new WebhookRouter()
-app.use('/api/xendit', webhookRouter.getRouter())
+const artistRouter = new ArtistRouter();
+app.use('/api/artists', artistRouter.getRouter())
 
 
 app.listen(PORT, () => {

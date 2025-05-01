@@ -24,12 +24,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
             src={paymentUrl}
             width="100%"
             height="500px"
-            frameBorder="0"
             title="Payment Page"
             className="mb-4 rounded"
           ></iframe>
         ) : (
-          <p>The payment URL is not available. Make sure the URL has been saved correctly.</p>
+          <p>
+            The payment URL is not available. Make sure the URL has been saved
+            correctly.
+          </p>
         )}
 
         <div className="flex justify-between">

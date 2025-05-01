@@ -17,19 +17,16 @@ export class VoucherController {
       const vouchers = await prisma.voucher.findMany({
         where: {
           userId: userId,
+          used: false,
+          expiresAt: {
+            gt: new Date()
+          }
         },
         include: {
           ReferralUsage: true, 
         },
       });
 
-      if (vouchers.length === 0) {
-         res.status(404).send({
-          message: "No vouchers found for this user",
-        });
-      }
-
-      
       res.status(200).send({
         message: "Vouchers retrieved successfully",
         vouchers,
@@ -55,16 +52,13 @@ export class VoucherController {
       const points = await prisma.point.findMany({
         where: {
           userId: userId,
+          used: false,
+          expiresAt: {
+            gt: new Date()
+          }
         },
       });
 
-      if (points.length === 0) {
-         res.status(400).send({
-          message: "No points found for this user",
-        });
-      }
-
-    
       res.status(200).send({
         message: "Points retrieved successfully",
         points,

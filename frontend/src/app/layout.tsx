@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 const bonheur = Bonheur_Royale({
-    subsets: ["latin"],
-    weight: "400",
-    variable: "--font-bonheur"
-})
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bonheur",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

@@ -48,19 +48,15 @@ enum Role {
 }
 
 model Event {
-  id          String   @id @default(uuid())
+  id          String        @id @default(uuid())
   organizerId String
   title       String
-  description String
-  location    String
-  date        String
-  time        String
-  price       Int      @default(0)
-  seats       Int
-  category    String
+  totalIncome Int           @default(0)
+  category    EventCategory @default(POP)
   image       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  attendees   Int           @default(0)
 
   organizer     User           @relation("CreatedEvents", fields: [organizerId], references: [id])
   eventSessions EventSession[]
@@ -70,10 +66,18 @@ model Event {
   transactions  Transaction[]
 }
 
+enum EventCategory {
+  POP
+  FOLK
+  JAZZ
+  CLASSIC
+  ROCK
+}
+
 model EventSession {
-  id       String   @id @default(uuid())
+  id       String @id @default(uuid())
   eventId  String
-  date     DateTime
+  date     String
   time     String
   location String
 
@@ -86,8 +90,6 @@ model Ticket {
   id            String         @id @default(uuid())
   sessionId     String
   eventId       String?
-  name          String
-  description   String
   price         Int
   category      TicketCategory
   seatAvailable Int
@@ -105,24 +107,25 @@ enum TicketCategory {
 }
 
 model Transaction {
-  id          String            @id @default(uuid())
-  userId      String
-  eventId     String
-  ticketId    String
-  quantity    Int
-  totalPrice  Int
-  usedPoints  Int               @default(0)
-  discount    Int               @default(0)
-  status      statusTransaction @default(PENDING)
-  invoiceUrl  String?
-  referenceId String            @unique
-  createdAt   DateTime          @default(now())
-  expireAt    DateTime
-  updatedAt   DateTime          @updatedAt
+  id         String            @id @default(uuid())
+  userId     String
+  eventId    String
+  ticketId   String
+  quantity   Int
+  totalPrice Int
+  voucherId  String?
+  pointId    String?
+  status     statusTransaction @default(PENDING)
+  invoiceUrl String?
+  createdAt  DateTime          @default(now())
+  expireAt   DateTime
+  updatedAt  DateTime          @updatedAt
 
   user      User              @relation("UserTransactions", fields: [userId], references: [id])
   event     Event             @relation(fields: [eventId], references: [id])
   ticket    Ticket            @relation("TicketTransaction", fields: [ticketId], references: [id])
+  voucher   Voucher?          @relation(fields: [voucherId], references: [id])
+  point     Point?            @relation(fields: [pointId], references: [id])
   purchased PurchasedTicket[]
 }
 
@@ -139,7 +142,6 @@ model PurchasedTicket {
   ticketId      String
   sessionId     String
   userId        String
-  qrCode        String?
   createdAt     DateTime @default(now())
 
   session     EventSession @relation(fields: [sessionId], references: [id])
@@ -173,8 +175,10 @@ model Point {
   amount    Int
   expiresAt DateTime
   createdAt DateTime @default(now())
+  used      Boolean  @default(false)
 
-  user User @relation(fields: [userId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  Transaction Transaction[]
 }
 
 model Voucher {
@@ -184,9 +188,11 @@ model Voucher {
   discountPercent Int
   expiresAt       DateTime
   createdAt       DateTime    @default(now())
+  used            Boolean     @default(false)
 
   user          User            @relation(fields: [userId], references: [id])
   ReferralUsage ReferralUsage[]
+  Transaction   Transaction[]
 }
 
 enum voucherType {
@@ -199,7 +205,6 @@ model ReferralUsage {
   referredId   String
   voucherId    String?
   createdAt    DateTime @default(now())
-  pointGranted Boolean  @default(false)
 
   referred User     @relation("ReferralsReceived", fields: [referredId], references: [id])
   referrer User     @relation("ReferralsGiven", fields: [referrerId], references: [id])
@@ -218,4 +223,10 @@ model Review {
   event           Event           @relation(fields: [eventId], references: [id])
   user            User            @relation(fields: [userId], references: [id])
   purchasedTicket PurchasedTicket @relation(fields: [purchasedTicketId], references: [id])
+}
+
+model Artist {
+  id    String @id @default(uuid())
+  name  String
+  image String
 }

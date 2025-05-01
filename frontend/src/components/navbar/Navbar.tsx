@@ -9,19 +9,32 @@ import {
 } from "react-icons/io5";
 import { TiDocumentText } from "react-icons/ti";
 import { Icon } from "../atoms/icon";
-import DropdownMenu from "./DropdownMenu";
+import { DropdownMenu } from "./DropdownMenu";
 import Link from "next/link";
 import LoginRegister from "./LoginRegister";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+import { SearchBox } from "../atoms/SearchBox";
 
 export const Navbar: React.FC = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const pathname = usePathname()
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push(`/tickets?search=${searchTerm}`);
   };
 
   return (
@@ -33,20 +46,16 @@ export const Navbar: React.FC = () => {
         >
           ConcertHub
         </Link>
-        <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
-          <input
-            type="text"
-            placeholder="Search concerts..."
-            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-500"
-          />
-        </div>
+        {pathname !== "/tickets" && (
+          <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
+            <form onSubmit={handleSearchSubmit} className="w-full">
+              <SearchBox value={searchTerm} onChange={handleSearchChange} />
+            </form>
+          </div>
+        )}
         <div className="max-[1024px]:hidden flex items-center gap-x-6">
           <Icon Component={BsTelephone} link="contact" label="Contact" />
-          <Icon
-            Component={IoTicketOutline}
-            link="transactionticket"
-            label="Tickets"
-          />
+          <Icon Component={IoTicketOutline} link="tickets" label="Tickets" />
           <Icon Component={TiDocumentText} link="#" label="Blogs" />
           <DropdownMenu />
           <LoginRegister />
@@ -71,20 +80,24 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* mobile searchbar */}
+      {pathname !== '/tickets' && (
       <div className="min-[600px]:hidden p-[16px] pb-2">
-        <input
-          type="text"
-          placeholder="Search concerts..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary-500"
-        />
+        <form onSubmit={handleSearchSubmit}>
+          <SearchBox value={searchTerm} onChange={handleSearchChange} />
+        </form>
       </div>
+      )}
 
       {/* mobile menu */}
       {isMobileMenuOpen && (
         <div className="min-[1024px]:hidden px-6 pb-4 space-y-4">
           <div className="flex flex-col gap-y-4">
             <Icon Component={BsTelephone} link="#" label="Contact" />
-            <Icon Component={IoTicketOutline} link="transactionticket" label="Tickets" />
+            <Icon
+              Component={IoTicketOutline}
+              link="transactionticket"
+              label="Tickets"
+            />
             <Icon Component={TiDocumentText} link="#" label="Blogs" />
             <DropdownMenu />
             <Link

@@ -13,22 +13,15 @@ export class OrganizerController {
           }
     
           
-          const vouchers = await prisma.event.findMany({
+          const events = await prisma.event.findMany({
             where: {
               organizerId: userId,
             },
           });
-    
-          if (vouchers.length === 0) {
-             res.status(404).send({
-              message: "No vouchers found for this user",
-            });
-          }
-    
-          
+
           res.status(200).send({
-            message: "Vouchers retrieved successfully",
-            vouchers,
+            message: "Event retrieved successfully",
+            events,
           });
         } catch (err) {
           console.error(err);

@@ -3,24 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
-  // console.log(token);
 
   if (!token && req.nextUrl.pathname === "/dashboard") {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // if (!token) {
-  //   if (req.nextUrl.pathname == "/dashboard") {
-  //     return NextResponse.redirect(new URL("/login", req.url));
-  //   }
-  //   return NextResponse.next();
-  // }
+  if (token?.exp) {
+    const expiryDate = new Date(token.exp * 1000);
+    const now = new Date();
 
-  // const userRole = token.role;
-
-  // if (req.nextUrl.pathname == "/dashboard" && userRole !== "ORGANIZER") {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+    if (expiryDate < now) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+  }
 
   return NextResponse.next();
 }

@@ -17,13 +17,12 @@ export class EventSessionController {
               title: true,
               category: true,
               image: true,
-              location: true,
             },
           },
           tickets: true,
         },
         orderBy: {
-          date: "asc",
+          date: "desc",
         },
       });
 
@@ -34,32 +33,6 @@ export class EventSessionController {
     } catch (error) {
       console.error("getSessions error:", error);
       res.status(500).json({ message: "Failed to fetch sessions", error });
-    }
-  }
-
-  async getSessionsByEventId(req: Request, res: Response) {
-    try {
-      const { eventId } = req.params;
-  
-      if (!eventId) {
-        throw new Error("Missing eventId");
-      }
-  
-      const sessions = await prisma.eventSession.findMany({
-        where: { eventId },
-        orderBy: {
-          date: 'asc',
-        },
-      });
-  
-      if (sessions.length === 0) {
-        res.status(404).json({ message: "No sessions found for this event" });
-      }
-  
-      res.status(200).json(sessions);
-    } catch (error: any) {
-      console.error("getSessionsByEventId error:", error);
-      res.status(400).json({ message: error.message ?? "Failed to fetch sessions" });
     }
   }
   
@@ -83,7 +56,7 @@ export class EventSessionController {
       const session = await prisma.eventSession.create({
         data: {
           eventId,
-          date: new Date(date),
+          date,
           time,
           location,
         },

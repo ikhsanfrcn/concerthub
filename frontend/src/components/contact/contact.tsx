@@ -1,4 +1,5 @@
 import { ChevronDown, Mail, MessageCircle, Phone } from "lucide-react";
+import Link from "next/link";
 
 export default function CustomerService() {
  
@@ -21,7 +22,7 @@ export default function CustomerService() {
               <ChevronDown className="w-4 h-4 text-[#999] group-open:rotate-180 transition-transform" />
             </summary>
             <p className="text-sm text-[#666] mt-2">
-              We offer product and body measurements on each of our product pages, just click on "Size Guide" to find your best fit. Measuring guides are included.
+              {`We offer product and body measurements on each of our product pages, just click on "Size Guide" to find your best fit. Measuring guides are included.`}
             </p>
           </details>
 
@@ -64,13 +65,13 @@ export default function CustomerService() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Email */}
-        <a
+        <Link
           href="mailto:support@example.com"
           className="flex flex-col items-center justify-center p-4 border border-[#E5E5E5] rounded-lg hover:shadow-md hover:bg-[#F9F9FF] transition"
         >
           <Mail className="w-6 h-6 text-[#6A5BFF] mb-2" />
           <p className="text-sm font-medium">Send Us an Email</p>
-        </a>
+        </Link>
 
         {/* Live Chat */}
         <button
@@ -82,13 +83,13 @@ export default function CustomerService() {
         </button>
 
         {/* Call */}
-        <a
+        <Link
           href="tel:+1234567890"
           className="flex flex-col items-center justify-center p-4 border border-[#E5E5E5] rounded-lg hover:shadow-md hover:bg-[#F9F9FF] transition"
         >
           <Phone className="w-6 h-6 text-[#6A5BFF] mb-2" />
           <p className="text-sm font-medium">Call Us</p>
-        </a>
+        </Link>
       </div>
     </div>
   );
