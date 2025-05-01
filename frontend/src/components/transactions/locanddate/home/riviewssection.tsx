@@ -185,7 +185,7 @@ export default function ReviewsSection() {
             <div key={i} className="bg-white p-4 rounded-lg shadow mb-3">
               <div className="flex items-center mb-2">
                 <Image
-                  src={r.avatar || "/default-avatar.png"}
+                  src={r.avatar || "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png"}
                   width={40}
                   height={40}
                   alt="avatar"

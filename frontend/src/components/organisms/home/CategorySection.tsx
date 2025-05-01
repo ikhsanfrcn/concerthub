@@ -25,14 +25,6 @@ const dataDummy = [
     image: "/rock.jpeg",
     name: "Rock",
   },
-  {
-    image: "/zachbryan.png",
-    name: "Metal",
-  },
-  {
-    image: "/zachbryan.png",
-    name: "Pop Punk",
-  },
 ];
 
 interface Props {

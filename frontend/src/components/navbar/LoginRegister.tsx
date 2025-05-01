@@ -62,6 +62,9 @@ const LoginRegister: React.FC = () => {
         })
         const { data } = res
 
+        console.log(session?.accessToken);
+        
+
         setProfile({
           name: data.user.name,
           avatar: data.user.avatar
