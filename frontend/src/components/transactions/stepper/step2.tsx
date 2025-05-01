@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "@/lib/axios";
-import TicketCard from "@/components/tiket/ticketcard";
+import TicketCard from "@/components/transactions/ticketcard";
 
 interface Step2Props {
   onComplete: () => void;

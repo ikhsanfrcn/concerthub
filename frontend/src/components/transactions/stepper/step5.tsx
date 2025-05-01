@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SuccessPage from "@/components/tiket/download/congrats";
+import SuccessPage from "@/components/transactions/download/congrats";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import PaymentModal from "@/components/modal/paymentModal";

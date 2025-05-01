@@ -5,7 +5,7 @@ import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import TicketCard from "@/components/tiket/ticketcard";
+import TicketCard from "@/components/transactions/ticketcard";
 import VoucherModal from "@/components/modal/voucher";
 import PointsModal from "@/components/modal/points";
 import PaymentModal from "@/components/modal/paymentModal";

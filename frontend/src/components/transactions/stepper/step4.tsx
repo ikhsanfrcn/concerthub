@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import PaymentForm from "@/components/tiket/payment/paymentform";
-import PaymentSummary from "@/components/tiket/payment/paymentsummary";
+import PaymentForm from "@/components/transactions/payment/paymentform";
+import PaymentSummary from "@/components/transactions/payment/paymentsummary";
 import PaymentModal from "@/components/modal/paymentModal";
 
 export default function Step4({ onComplete }: { onComplete: () => void }) {
