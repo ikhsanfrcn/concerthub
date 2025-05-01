@@ -74,9 +74,10 @@ export const Navbar: React.FC = () => {
               "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png"
             }
             alt=""
-            width={50}
-            height={50}
-            className="w-12 h-12 rounded-full"
+            width={0}
+            height={0}
+            sizes="100"
+            className="w-[24px] h-[24px] rounded-full"
           />
           <button onClick={toggleMenu}>
             {isMobileMenuOpen ? <IoClose size={28} /> : <IoMenu size={28} />}

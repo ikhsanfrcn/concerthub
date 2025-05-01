@@ -41,6 +41,7 @@ export default function Step3({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showVoucherModal, setShowVoucherModal] = useState(false);
   const [showPointsModal, setShowPointsModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (session?.accessToken) {
@@ -129,6 +130,10 @@ export default function Step3({
   const total = ticketTotal - totalDiscount;
 
   const handleSubmit = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
     const transactionData = {
       userId: session?.user.id,
       eventId,
@@ -260,12 +265,18 @@ export default function Step3({
             className={`mt-6 w-full ${
               session
                 ? "bg-pink-500 hover:bg-pink-600"
+                : isSubmitting
+                ? "bg-pink-400 cursor-wait"
                 : "bg-gray-400 cursor-not-allowed"
             } text-white py-2 rounded-full`}
             onClick={handleSubmit}
             disabled={!session || !ticketId}
           >
-            {session ? "Submit & Pay" : "Please login first"}
+            {isSubmitting
+              ? "Processing..."
+              : session
+              ? "Submit & Pay"
+              : "Please login first"}{" "}
           </button>
         </div>
       </div>

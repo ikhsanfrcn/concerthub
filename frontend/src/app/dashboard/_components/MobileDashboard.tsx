@@ -139,7 +139,6 @@ export const MobileDashboard: React.FC = () => {
 };
 
 const menuItems = [
-  { label: "Order History", icon: RiOrderPlayLine },
   { label: "Gift Card", icon: TbGiftCard },
   { label: "Settings", icon: CiSettings },
   { label: "Help", icon: FiHelpCircle },

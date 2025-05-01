@@ -8,7 +8,7 @@ export default function Register() {
       <div className="absolute inset-0">
         <div
           className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/loginimage.png')" }}
+          style={{ backgroundImage: "url('/concert.png')" }}
         />
         <div className="absolute inset-0 bg-black bg-opacity-50" />
       </div>

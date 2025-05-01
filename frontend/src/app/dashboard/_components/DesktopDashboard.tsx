@@ -34,7 +34,7 @@ export const DesktopDashboard: React.FC = () => {
     lastName: string;
     avatar: string;
   }>();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -75,15 +75,18 @@ export const DesktopDashboard: React.FC = () => {
 
   const handleUpdateAvatarOnClose = () => {
     setShowAvatarModal(false);
-    router.refresh()
-  }
+    router.refresh();
+  };
 
   return (
     <div className="flex space-x-[24px]">
       {/* SIDEBAR */}
       <aside className="rounded-2xl bg-white shadow-md w-[360px] min-h-[916px]">
         <div className="p-[32px]">
-          <button onClick={() => setShowAvatarModal(true)} className="cursor-pointer">
+          <button
+            onClick={() => setShowAvatarModal(true)}
+            className="cursor-pointer"
+          >
             <Image
               src={
                 profile?.avatar ||
@@ -96,7 +99,9 @@ export const DesktopDashboard: React.FC = () => {
               className="w-[48px] h-[48px] md:w-[72px] md:h-[72px] rounded-full"
             />
           </button>
-          <p className="mt-[16px] font-semibold">{`${profile?.name} ${profile?.lastName}`}</p>
+          <p className="mt-[16px] font-semibold">
+            {profile?.name} {profile?.lastName ? profile.lastName : ""}
+          </p>
         </div>
         <hr className="h-px bg-gray-200 border-0" />
         <div className="flex flex-col justify-between h-[calc(100%-170px)] mt-[16px] p-[32px]">
