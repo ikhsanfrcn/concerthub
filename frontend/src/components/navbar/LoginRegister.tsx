@@ -62,14 +62,12 @@ const LoginRegister: React.FC = () => {
         });
         const { data } = res;
 
-        console.log(session?.accessToken);
-
         setProfile({
           name: data.user.name,
           avatar: data.user.avatar,
         });
       } catch (error) {
-        console.log({ message: "tolol:", error });
+        console.log({ error });
       }
     };
 
