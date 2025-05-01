@@ -5,10 +5,10 @@ import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import TicketCard from "@/components/transactions/ticketcard";
 import VoucherModal from "@/components/modal/voucher";
 import PointsModal from "@/components/modal/points";
 import PaymentModal from "@/components/modal/paymentModal";
+import TicketCard from "../ticketcard";
 
 interface Step3Props {
   eventId: string;
@@ -257,11 +257,15 @@ export default function Step3({
           </div>
 
           <button
-            className="mt-6 w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-full"
+            className={`mt-6 w-full ${
+              session
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "bg-gray-400 cursor-not-allowed"
+            } text-white py-2 rounded-full`}
             onClick={handleSubmit}
-            disabled={!ticketId}
+            disabled={!session || !ticketId}
           >
-            Submit & Pay
+            {session ? "Submit & Pay" : "Please login first"}
           </button>
         </div>
       </div>

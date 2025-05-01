@@ -6,7 +6,9 @@ export class AuthMiddleware {
   verifyToken(req: Request, res: Response, next: NextFunction) {
     try {
       const token = req.header("Authorization")?.replace("Bearer ", "");
-      if (!token) throw { message: "unauthorized" };
+      if (!token) {
+        throw res.status(403).json({ message: "unauthorized" });
+      }
       const verifyUser = verify(token, process.env.JWT_SECRET!);
 
       req.user = verifyUser as UserPayload;
@@ -19,7 +21,9 @@ export class AuthMiddleware {
 
   verifyRole(req: Request, res: Response, next: NextFunction) {
     try {
-      if (req.user?.role !== "ORGANIZER") throw { message: "Organizer only" };
+      if (req.user?.role !== "ORGANIZER") {
+        res.status(403).json({ message: "Organizer only" });
+      }
       next();
     } catch (error) {
       console.log(error);

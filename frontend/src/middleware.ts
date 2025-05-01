@@ -8,14 +8,5 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  if (token?.exp) {
-    const expiryDate = new Date(token.exp * 1000);
-    const now = new Date();
-
-    if (expiryDate < now) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-  }
-
   return NextResponse.next();
 }

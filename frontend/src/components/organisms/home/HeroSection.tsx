@@ -66,7 +66,7 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
       <Image
-        src={"/banner.png"}
+        src={"https://res.cloudinary.com/dorrg2uue/image/upload/v1746094132/banner_db0pip.png"}
         width={624}
         height={705}
         alt=""
