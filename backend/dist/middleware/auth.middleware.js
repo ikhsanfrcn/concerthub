@@ -7,8 +7,9 @@ class AuthMiddleware {
         var _a;
         try {
             const token = (_a = req.header("Authorization")) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
-            if (!token)
-                throw { message: "unauthorized" };
+            if (!token) {
+                throw res.status(403).json({ message: "unauthorized" });
+            }
             const verifyUser = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
             req.user = verifyUser;
             next();
@@ -21,8 +22,9 @@ class AuthMiddleware {
     verifyRole(req, res, next) {
         var _a;
         try {
-            if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "ORGANIZER")
-                throw { message: "Organizer only" };
+            if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "ORGANIZER") {
+                res.status(403).json({ message: "Organizer only" });
+            }
             next();
         }
         catch (error) {
