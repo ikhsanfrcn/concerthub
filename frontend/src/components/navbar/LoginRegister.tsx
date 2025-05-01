@@ -48,34 +48,33 @@ const LoginRegister: React.FC = () => {
   const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [profile, setProfile] = useState<{
-    name: string,
-    avatar: string
-  }>()
+    name: string;
+    avatar: string;
+  }>();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await axios.get('/users/profile', {
+        const res = await axios.get("/users/profile", {
           headers: {
-            Authorization: `Bearer ${session?.accessToken}`
-          }
-        })
-        const { data } = res
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        });
+        const { data } = res;
 
         console.log(session?.accessToken);
-        
 
         setProfile({
           name: data.user.name,
-          avatar: data.user.avatar
-        })
+          avatar: data.user.avatar,
+        });
       } catch (error) {
-        console.log(error); 
+        console.log({ message: "tolol:", error });
       }
-    }
+    };
 
-      fetchUserProfile()
-  }, [session])
+    fetchUserProfile();
+  }, [session]);
 
   if (status === "loading") return null;
 
@@ -94,7 +93,10 @@ const LoginRegister: React.FC = () => {
             onClick={toggleDropdown}
           >
             <Image
-              src={profile?.avatar || "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png"}
+              src={
+                profile?.avatar ||
+                "https://res.cloudinary.com/dbq88i6pk/image/upload/v1744257650/profile-default-icon-512x511-v4sw4m29_cyf3m5.png"
+              }
               alt=""
               width={50}
               height={50}
