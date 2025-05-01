@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "@/lib/axios";
-<<<<<<< HEAD
 import Step1 from "@/components/transactions/stepper/step1";
 import Step2 from "@/components/transactions/stepper/step2";
 import Step3 from "@/components/transactions/stepper/step3";
@@ -10,15 +9,6 @@ import Step3 from "@/components/transactions/stepper/step3";
 import Step5 from "@/components/transactions/stepper/step5";
 import { MainTemplate } from "@/template/MainTemplate";
 import Stepper from "@/components/transactions/stepper/stepper";
-=======
-import Step1 from "@/components/tiket/stepper/step1";
-import Step2 from "@/components/tiket/stepper/step2";
-import Step3 from "@/components/tiket/stepper/step3";
-// import Step4 from "@/components/tiket/tester/step4";
-import Step5 from "@/components/tiket/stepper/step5";
-import { MainTemplate } from "@/template/MainTemplate";
-import Stepper from "@/components/tiket/stepper/stepper";
->>>>>>> main
 import Skeleton from "@/components/atoms/sekeletonLoading";
 
 interface Event {
