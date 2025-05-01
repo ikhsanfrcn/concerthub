@@ -26,7 +26,7 @@ export class ArtistController {
             name
           } = req.body;
     
-          const { secure_url } = await cloudinaryUpload(req.file, "ConcertHub");
+          const { secure_url } = await cloudinaryUpload(req.file, "ConcertHubs");
     
           await prisma.artist.create({
             data: {

@@ -13,16 +13,17 @@ import { DropdownMenu } from "./DropdownMenu";
 import Link from "next/link";
 import LoginRegister from "./LoginRegister";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { SearchBox } from "../atoms/SearchBox";
+import { GrDashboard } from "react-icons/gr";
 
 export const Navbar: React.FC = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -37,6 +38,10 @@ export const Navbar: React.FC = () => {
     router.push(`/tickets?search=${searchTerm}`);
   };
 
+  const handleLogout = () => {
+    signOut();
+  };
+
   return (
     <nav className="">
       <div className="flex justify-between items-center max-[1288px]:px-[16px] py-[10.5px] px-[108px]">
@@ -44,7 +49,7 @@ export const Navbar: React.FC = () => {
           href={"/"}
           className="font-bonheur text-primary-500 text-3xl md:text-[48px]"
         >
-          ConcertHub
+          Concerthubs
         </Link>
         {pathname !== "/tickets" && (
           <div className="hidden min-[600px]:flex flex-1 justify-center mx-8">
@@ -80,33 +85,48 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* mobile searchbar */}
-      {pathname !== '/tickets' && (
-      <div className="min-[600px]:hidden p-[16px] pb-2">
-        <form onSubmit={handleSearchSubmit}>
-          <SearchBox value={searchTerm} onChange={handleSearchChange} />
-        </form>
-      </div>
+      {pathname !== "/tickets" && (
+        <div className="min-[600px]:hidden p-[16px] pb-2">
+          <form onSubmit={handleSearchSubmit}>
+            <SearchBox value={searchTerm} onChange={handleSearchChange} />
+          </form>
+        </div>
       )}
 
       {/* mobile menu */}
       {isMobileMenuOpen && (
         <div className="min-[1024px]:hidden px-6 pb-4 space-y-4">
           <div className="flex flex-col gap-y-4">
-            <Icon Component={BsTelephone} link="#" label="Contact" />
+            <Icon Component={BsTelephone} link="/contact" label="Contact" />
             <Icon
               Component={IoTicketOutline}
-              link="transactionticket"
+              link="tickets"
               label="Tickets"
             />
             <Icon Component={TiDocumentText} link="#" label="Blogs" />
             <DropdownMenu />
-            <Link
-              href={"/login"}
-              className="flex w-full justify-center px-4 py-3 bg-secondary-500 rounded-2xl text-white items-center space-x-2"
-            >
-              <IoPersonOutline className="text-[24px]" />
-              <span className="text-[20px]">Login</span>
-            </Link>
+            {session ? (
+              <div className="flex space-x-[10px]">
+                <Link
+                  href={"/dashboard"}
+                  className="flex w-full justify-center px-4 py-3 bg-neutral-500 rounded-2xl text-white items-center space-x-2"
+                >
+                  <GrDashboard className="text-[24px]" />
+                  <span className="text-[20px]">Dashboard</span>
+                </Link>
+                <button onClick={handleLogout} className="bg-red-500 w-full rounded-2xl text-white">
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <Link
+                href={"/login"}
+                className="flex w-full justify-center px-4 py-3 bg-secondary-500 rounded-2xl text-white items-center space-x-2"
+              >
+                <IoPersonOutline className="text-[24px]" />
+                <span className="text-[20px]">Login</span>
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -4,6 +4,7 @@ import { cloudinaryUpload } from "../helpers/cloudinary";
 
 export class UserController {
   async getProfile(req: Request, res: Response) {
+    console.log("Auth Header:", req.headers.authorization);
     try {
       const userId = req.user?.id;
       const user = await prisma.user.findUnique({
@@ -89,7 +90,7 @@ export class UserController {
     try {
       if (!req.file) throw { message: "No image uploaded." };
   
-      const { secure_url } = await cloudinaryUpload(req.file, "ConcertHub");
+      const { secure_url } = await cloudinaryUpload(req.file, "ConcertHubs");
   
       if (!req.user?.id) {
         throw res.status(401).json({ message: "Unauthorized" });

@@ -111,7 +111,7 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
         <h2 className="text-2xl font-semibold mb-4">
           Leave a Review for Concert Hub
         </h2>
-        <p className="mb-4 text-gray-600">How would you rate ConcertHub?</p>
+        <p className="mb-4 text-gray-600">How would you rate Concerthubs?</p>
 
         {/* Rating */}
         <div className="flex justify-center mb-6">
@@ -148,7 +148,7 @@ export default function ReviewForm({ onClose }: { onClose: () => void }) {
         </form>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          All reviews on ConcertHub are verified within 48 hours before posting
+          All reviews on Concerthubs are verified within 48 hours before posting
           to ensure authenticity and accuracy.
         </p>
       </div>

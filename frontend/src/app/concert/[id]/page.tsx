@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const event = res.data[0];
 
   return {
-    title: `${event.title} - Concerthub`,
+    title: `${event.title} - Concerthubs`,
     description: `${event.title} will take place on ${event.date} at ${event.location}. Secure your tickets now!`,
     openGraph: {
-      title: `${event.title} - Concerthub`,
+      title: `${event.title} - Concerthubs`,
       description: `${event.title} on ${event.date}, at ${event.location}.`,
       images: [
         {

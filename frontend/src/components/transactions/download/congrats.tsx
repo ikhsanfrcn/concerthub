@@ -17,7 +17,7 @@ export default function SuccessPage() {
         <p className="text-sm text-green-500 mb-6">
           Your tickets are in your mailbox
           <br />
-          <span className="text-green-600 font-medium">cs@concerthub.com</span>
+          <span className="text-green-600 font-medium">cs@concerthubs.com</span>
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">

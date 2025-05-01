@@ -55,7 +55,7 @@ class EventController {
                 if (!req.file)
                     throw { message: "image empty" };
                 const { title, category, } = req.body;
-                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHub");
+                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHubs");
                 yield prisma_1.default.event.create({
                     data: {
                         organizerId: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id,

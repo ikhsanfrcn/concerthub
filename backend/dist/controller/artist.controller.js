@@ -38,7 +38,7 @@ class ArtistController {
                 if (!req.file)
                     throw { message: "image empty" };
                 const { name } = req.body;
-                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHub");
+                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHubs");
                 yield prisma_1.default.artist.create({
                     data: {
                         name,

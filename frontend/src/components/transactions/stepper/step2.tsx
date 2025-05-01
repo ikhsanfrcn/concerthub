@@ -18,7 +18,7 @@ interface Ticket {
 export default function Step2({ onComplete }: Step2Props) {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState<string | number>(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function Step2({ onComplete }: Step2Props) {
   }, []);
 
   const handleContinue = () => {
-    if (selectedCategory && quantity > 0) {
+    if (selectedCategory && Number(quantity) > 0) {
       localStorage.setItem("selectedCategory", selectedCategory);
       localStorage.setItem("seatQuantity", String(quantity));
       onComplete();
@@ -146,9 +146,26 @@ export default function Step2({ onComplete }: Step2Props) {
                   min={1}
                   max={10}
                   value={quantity}
-                  onChange={(e) =>
-                    setQuantity(Math.max(1, parseInt(e.target.value) || 1))
-                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    // Izinkan input kosong untuk sementara
+                    if (val === "") {
+                      setQuantity("");
+                    } else {
+                      const num = parseInt(val);
+                      if (!isNaN(num)) {
+                        setQuantity(num);
+                      }
+                    }
+                  }}
+                  onBlur={() => {
+                    // Validasi saat user keluar dari input
+                    if (quantity === "" || Number(quantity) < 1) {
+                      setQuantity(1);
+                    } else if (Number(quantity) > 10) {
+                      setQuantity(10);
+                    }
+                  }}
                   className="w-20 border border-gray-300 rounded-lg px-2 py-1 text-sm"
                 />
               </div>

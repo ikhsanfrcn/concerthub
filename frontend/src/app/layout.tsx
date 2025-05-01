@@ -19,21 +19,21 @@ const bonheur = Bonheur_Royale({
 });
 
 export const metadata: Metadata = {
-  title: "Concerthub - Book Concerts Easily",
-  description: "Discover and book your favorite concerts with ease. Concerthub offers a seamless platform to explore upcoming events, buy tickets, and connect with the music you love.",
-  keywords: ["concert", "ticket booking", "live music", "events", "music app", "Concerthub", "buy concert tickets"],
-  authors: [{ name: "Concerthub Team", url: "https://concerthubs.vercel.app" }],
+  title: "Concerthubs - Book Concerts Easily",
+  description: "Discover and book your favorite concerts with ease. Concerthubs offers a seamless platform to explore upcoming events, buy tickets, and connect with the music you love.",
+  keywords: ["concert", "ticket booking", "live music", "events", "music app", "Concerthubs", "buy concert tickets"],
+  authors: [{ name: "Concerthubs Team", url: "https://concerthubs.vercel.app" }],
   openGraph: {
-    title: "Concerthub - Book Concerts Easily",
+    title: "Concerthubs - Book Concerts Easily",
     description: "Your go-to platform for booking live music events. Find concerts, reserve your tickets, and never miss a show.",
     url: "https://concerthubs.vercel.app",
-    siteName: "Concerthub",
+    siteName: "Concerthubs",
     images: [
       {
         url: "https://res.cloudinary.com/dorrg2uue/image/upload/v1746094132/banner_db0pip.png",
         width: 1200,
         height: 630,
-        alt: "Concerthub concert booking app",
+        alt: "Concerthubs concert booking app",
       },
     ],
     locale: "en_US",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Concerthub - Book Concerts Easily",
+    title: "Concerthubs - Book Concerts Easily",
     description: "Easily discover and book tickets to your favorite live concerts.",
     images: ["https://res.cloudinary.com/dorrg2uue/image/upload/v1746094132/banner_db0pip.png"],
   },

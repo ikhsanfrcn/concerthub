@@ -161,11 +161,11 @@ export default function TicketClient() {
 
       <div className="mt-[24px]">
         {loading ? (
-          <div className="flex flex-wrap gap-[24px]">
-            {[...Array(8)].map((_, index) => (
+          <div className="flex justify-center flex-wrap gap-[24px]">
+            {[...Array(4)].map((_, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 space-y-5 min-[768px]:w-[calc(25%-25px)]"
+                className="flex-shrink-0 min-[768px]:w-[calc(25%-25px)]"
               >
                 <Skeleton width="w-full" height="h-48" />
                 <Skeleton width="w-20" height="h-6" />
@@ -175,7 +175,7 @@ export default function TicketClient() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-wrap gap-[24px]">
+          <div className="flex justify-center flex-wrap gap-[24px]">
             {filteredConcerts.length > 0 ? (
               filteredConcerts.map((item) => (
                 <div

@@ -32,7 +32,7 @@ export default function ReviewForm() {
           Leave a Review for Concert Hub
         </h2>
         <p className="mb-4 text-gray-600">
-          How would you rate for ConcertHub ?
+          How would you rate for Concerthubs ?
         </p>
 
         {/* Rating */}
@@ -86,7 +86,7 @@ export default function ReviewForm() {
         </form>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          All reviews on ConcertHub are verified within 48 hours before posting
+          All reviews on Concerthubs are verified within 48 hours before posting
           to ensure authenticity and accuracy.
         </p>
       </div>

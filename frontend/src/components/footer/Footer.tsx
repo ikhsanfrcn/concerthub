@@ -141,7 +141,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
       <p className="mt-[40px] md:mt-[45px] text-white text-center">
-        © ConcertHub All Rights Reserved
+        © Concerthubs All Rights Reserved
       </p>
     </footer>
   );

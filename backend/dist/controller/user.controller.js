@@ -95,7 +95,7 @@ class UserController {
             try {
                 if (!req.file)
                     throw { message: "No image uploaded." };
-                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHub");
+                const { secure_url } = yield (0, cloudinary_1.cloudinaryUpload)(req.file, "ConcertHubs");
                 if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.id)) {
                     throw res.status(401).json({ message: "Unauthorized" });
                 }
