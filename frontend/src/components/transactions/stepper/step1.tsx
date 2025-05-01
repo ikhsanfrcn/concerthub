@@ -2,9 +2,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Mapconcert from "@/components/tiket/locanddate/home/map";
-import ReviewsSection from "@/components/tiket/locanddate/home/riviewssection";
-import Suggestion from "@/components/tiket/locanddate/home/suggesstion";
+import Mapconcert from "@/components/transactions/locanddate/home/map";
+import ReviewsSection from "@/components/transactions/locanddate/home/riviewssection";
+import Suggestion from "@/components/transactions/locanddate/home/suggesstion";
 import axios from "@/lib/axios";
 
 interface Step1Props {
