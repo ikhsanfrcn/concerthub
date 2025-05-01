@@ -73,7 +73,9 @@ const LoginRegister: React.FC = () => {
       }
     };
 
-    fetchUserProfile();
+    if (session?.accessToken) {
+      fetchUserProfile();
+    }
   }, [session?.accessToken]);
 
   if (status === "loading") return null;
