@@ -11,6 +11,7 @@ interface OrderHistoryCardProps {
   concertDate: string;
   location: string;
   price: number;
+  image: string;
 }
 
 export const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
@@ -19,6 +20,7 @@ export const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
   concertDate,
   location,
   price,
+  image,
 }) => {
   const formattedDate = new Date(concertDate).toLocaleDateString();
 
@@ -26,7 +28,7 @@ export const OrderHistoryCard: React.FC<OrderHistoryCardProps> = ({
     <div className="flex items-center py-[9px] px-[8px] justify-between border border-neutral-400 rounded-2xl">
       <div className="flex items-center space-x-[8px]">
         <Image
-          src={"/justinbieber.png"}
+          src={image}
           width={0}
           height={0}
           sizes="100"

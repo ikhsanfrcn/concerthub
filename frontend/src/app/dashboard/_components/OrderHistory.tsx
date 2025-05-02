@@ -23,6 +23,7 @@ interface Ticket {
     event: {
       title: string;
       description: string;
+      image: string;
     };
   };
 }
@@ -44,6 +45,9 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
           }
         );
         const data = response.data;
+
+        console.log(data);
+        
 
         if (data.tickets) {
           setTickets(data.tickets);
@@ -100,6 +104,7 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
           {activeConcerts.map((item) => (
             <OrderHistoryCard
               key={item.id}
+              image={item.session.event.image}
               ticketId={item.id}
               eventTitle={item.session.event.title}
               concertDate={item.session.date}
@@ -116,6 +121,7 @@ export const OrderHistory: React.FC<OrderHistoryProps> = ({ isVisible }) => {
           {pastConcerts.map((item) => (
             <OrderHistoryCard
               key={item.id}
+              image={item.session.event.image}
               ticketId={item.id}
               eventTitle={item.session.event.title}
               concertDate={item.session.date}
