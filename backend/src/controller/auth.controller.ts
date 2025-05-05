@@ -83,8 +83,20 @@ export class AuthController {
       if (!userId) {
         res.status(401).json({ message: "Unauthorized" });
       }
+      
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      if (user.isVerify) {
+        return res.status(409).json({ message: "User already verified" });
+      }
 
-      const user = await prisma.user.update({
+      await prisma.user.update({
         data: { isVerify: true },
         where: { id: userId },
       });
@@ -192,6 +204,14 @@ export class AuthController {
 
   async verifyOrganizer(req: Request, res: Response) {
     try {
+      const user = await prisma.user.findUnique({
+        where: { id: req.user?.id },
+      });
+
+      if (user?.role === "ORGANIZER") {
+        res.status(409).json({ message: "Already registered as an Organizer"})
+      }
+
       await prisma.user.update({
         data: { role: "ORGANIZER" },
         where: { id: req.user?.id },

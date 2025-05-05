@@ -5,9 +5,9 @@ import Image from "next/image";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
 import { ProfileForm } from "./ProfileForm";
-import { TbGiftCard } from "react-icons/tb";
-import { CiSettings } from "react-icons/ci";
-import { FiHelpCircle } from "react-icons/fi";
+// import { TbGiftCard } from "react-icons/tb";
+// import { CiSettings } from "react-icons/ci";
+// import { FiHelpCircle } from "react-icons/fi";
 import { signOut, useSession } from "next-auth/react";
 import { OrderHistory } from "./OrderHistory";
 import { OrganizerDashboard } from "./OrganizerDashboard";
@@ -89,7 +89,7 @@ export const MobileDashboard: React.FC = () => {
             )}
           </li>
 
-          {menuItems.map((item, idx) => (
+          {/* {menuItems.map((item, idx) => (
             <li
               key={idx}
               className="border-b border-neutral-300 flex justify-between items-center py-1"
@@ -100,7 +100,7 @@ export const MobileDashboard: React.FC = () => {
                 className="text-lg text-neutral-300"
               />
             </li>
-          ))}
+          ))} */}
           {session?.user.role === "ORGANIZER" ? (
             <li className="border-b border-neutral-300">
               <button
@@ -138,8 +138,8 @@ export const MobileDashboard: React.FC = () => {
   );
 };
 
-const menuItems = [
-  { label: "Gift Card", icon: TbGiftCard },
-  { label: "Settings", icon: CiSettings },
-  { label: "Help", icon: FiHelpCircle },
-];
+// const menuItems = [
+//   { label: "Gift Card", icon: TbGiftCard },
+//   { label: "Settings", icon: CiSettings },
+//   { label: "Help", icon: FiHelpCircle },
+// ];

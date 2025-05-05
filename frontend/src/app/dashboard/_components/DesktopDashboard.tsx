@@ -1,10 +1,10 @@
 "use client";
 import { Icon } from "@/components/atoms/icon";
 import Image from "next/image";
-import { CiSettings } from "react-icons/ci";
-import { FiHelpCircle } from "react-icons/fi";
+// import { CiSettings } from "react-icons/ci";
+// import { FiHelpCircle } from "react-icons/fi";
 import { RiOrderPlayLine, RiProfileLine } from "react-icons/ri";
-import { TbGiftCard } from "react-icons/tb";
+// import { TbGiftCard } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
@@ -122,7 +122,7 @@ export const DesktopDashboard: React.FC = () => {
                 <Icon Component={RiOrderPlayLine} label="Order History" />
               </button>
             </li>
-            <li>
+            {/* <li>
               <Icon Component={TbGiftCard} link="#" label="Gift Card" />
             </li>
             <li>
@@ -130,7 +130,7 @@ export const DesktopDashboard: React.FC = () => {
             </li>
             <li>
               <Icon Component={FiHelpCircle} link="#" label="Help" />
-            </li>
+            </li> */}
             <li>
               {session?.user.role === "ORGANIZER" ? (
                 <div className="space-y-[18.5px]">
