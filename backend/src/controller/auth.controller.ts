@@ -89,11 +89,11 @@ export class AuthController {
       });
   
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        throw res.status(404).json({ message: "User not found" });
       }
   
       if (user.isVerify) {
-        return res.status(409).json({ message: "User already verified" });
+         res.status(409).json({ message: "User already verified" });
       }
 
       await prisma.user.update({
